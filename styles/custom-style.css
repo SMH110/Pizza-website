@@ -1,0 +1,40 @@
+.img-bg{
+    background-image: url('../images/jump.jpg');
+    background-repeat: no-repeat;
+    background-position: center right;
+    min-height: 300px;
+}
+
+
+.img-bg h1{
+    color: #feebd3;
+    text-align: right;
+}
+
+.header nav{
+    float:  right;
+}
+.nav-right{
+    float:  left;
+}
+.nav-right ul{
+    list-style: none;
+  
+}
+
+
+.nav-right li{
+    float: right;
+    margin-right: 20px;
+}
+
+
+.caption select{
+    margin : 12px 0;
+}
+
+.caption .price {
+    font-weight: bold;
+}
+
+
