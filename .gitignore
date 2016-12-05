@@ -196,3 +196,5 @@ FakesAssemblies/
 *.opt
 # Photoshop files
 *.psd
+# bmpr files
+*.bmpr
