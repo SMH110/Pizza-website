@@ -9,21 +9,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var platform_browser_1 = require('@angular/platform-browser');
-var app_component_1 = require('./app.component');
-var header_component_1 = require('./header.component');
-var AppModule = (function () {
-    function AppModule() {
+var Header = (function () {
+    function Header() {
     }
-    AppModule = __decorate([
-        core_1.NgModule({
-            imports: [platform_browser_1.BrowserModule],
-            declarations: [app_component_1.AppComponent, header_component_1.Header],
-            bootstrap: [app_component_1.AppComponent]
+    Header.prototype.ngOnInit = function () {
+    };
+    Header = __decorate([
+        core_1.Component({
+            moduleId: module.id,
+            selector: 'my-header',
+            templateUrl: "./header.component.html",
         }), 
         __metadata('design:paramtypes', [])
-    ], AppModule);
-    return AppModule;
+    ], Header);
+    return Header;
 }());
-exports.AppModule = AppModule;
-//# sourceMappingURL=app.module.js.map
+exports.Header = Header;
+//# sourceMappingURL=header.component.js.map
