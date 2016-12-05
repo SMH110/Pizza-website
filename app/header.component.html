@@ -14,9 +14,10 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Pizza <span class="sr-only">(current)</span></a></li>
-                <li><a href="#">Sides</a></li>
-                <li><a href="#">Drinks</a></li>
+                <li><a [routerLink]="['/pizza']">Pizza <span class="sr-only">(current)</span></a></li>
+                <li><a [routerLink]="['/sides']">Sides</a></li>
+                <li><a [routerLink]="['/drinks']">Drinks</a></li>
+                <li><a [routerLink]="['/about-us']">About Us</a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
@@ -33,6 +34,11 @@
             </ul>
         </div>
         <!-- /.navbar-collapse -->
+
     </div>
     <!-- /.container-fluid -->
-</nav>  
+</nav>
+<div class="container">
+    <div class="jumbotron">
+    </div>
+</div>

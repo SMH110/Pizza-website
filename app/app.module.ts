@@ -1,12 +1,31 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { Header } from './header.component';
+import { HeaderComponent } from './header.component';
+import { PizzaComponent } from './pizza.component';
+import { SidesComponent } from './sides.component';
+import { DrinksComponent } from './drinks.component';
+import { AboutUsComponent } from './about-us.component';
 
 @NgModule({
-  imports: [BrowserModule],
-  declarations: [AppComponent, Header],
+  imports: [BrowserModule, RouterModule.forRoot([
+    { path: 'pizza', component: PizzaComponent },
+    { path: 'sides', component: SidesComponent },
+    { path: 'drinks', component: DrinksComponent },
+    { path: 'about-us', component: AboutUsComponent },
+    { path: '', redirectTo: 'pizza', pathMatch: 'full' }
+
+  ])],
+  declarations: [
+    AppComponent,
+    HeaderComponent,
+    PizzaComponent,
+    SidesComponent,
+    DrinksComponent,
+    AboutUsComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

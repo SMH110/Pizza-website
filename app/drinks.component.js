@@ -9,20 +9,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var HeaderComponent = (function () {
-    function HeaderComponent() {
+var DrinksComponent = (function () {
+    function DrinksComponent() {
     }
-    HeaderComponent.prototype.ngOnInit = function () {
+    DrinksComponent.prototype.ngOnInit = function () {
     };
-    HeaderComponent = __decorate([
+    DrinksComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
-            selector: 'my-header',
-            templateUrl: "./header.component.html",
+            selector: 'my-pizza',
+            templateUrl: "./drinks.component.html",
         }), 
         __metadata('design:paramtypes', [])
-    ], HeaderComponent);
-    return HeaderComponent;
+    ], DrinksComponent);
+    return DrinksComponent;
 }());
-exports.HeaderComponent = HeaderComponent;
-//# sourceMappingURL=header.component.js.map
+exports.DrinksComponent = DrinksComponent;
+//# sourceMappingURL=drinks.component.js.map

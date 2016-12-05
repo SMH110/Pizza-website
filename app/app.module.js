@@ -10,15 +10,33 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var platform_browser_1 = require('@angular/platform-browser');
+var router_1 = require('@angular/router');
 var app_component_1 = require('./app.component');
 var header_component_1 = require('./header.component');
+var pizza_component_1 = require('./pizza.component');
+var sides_component_1 = require('./sides.component');
+var drinks_component_1 = require('./drinks.component');
+var about_us_component_1 = require('./about-us.component');
 var AppModule = (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         core_1.NgModule({
-            imports: [platform_browser_1.BrowserModule],
-            declarations: [app_component_1.AppComponent, header_component_1.Header],
+            imports: [platform_browser_1.BrowserModule, router_1.RouterModule.forRoot([
+                    { path: 'pizza', component: pizza_component_1.PizzaComponent },
+                    { path: 'sides', component: sides_component_1.SidesComponent },
+                    { path: 'drinks', component: drinks_component_1.DrinksComponent },
+                    { path: 'about-us', component: about_us_component_1.AboutUsComponent },
+                    { path: '', redirectTo: 'pizza', pathMatch: 'full' }
+                ])],
+            declarations: [
+                app_component_1.AppComponent,
+                header_component_1.HeaderComponent,
+                pizza_component_1.PizzaComponent,
+                sides_component_1.SidesComponent,
+                drinks_component_1.DrinksComponent,
+                about_us_component_1.AboutUsComponent
+            ],
             bootstrap: [app_component_1.AppComponent]
         }), 
         __metadata('design:paramtypes', [])
