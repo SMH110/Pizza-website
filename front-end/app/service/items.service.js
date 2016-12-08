@@ -20,6 +20,14 @@ var ItemService = (function () {
         return this.http.get('http://localhost:3000/api/pizzas')
             .map(function (res) { return res.json(); });
     };
+    ItemService.prototype.getSides = function () {
+        return this.http.get('http://localhost:3000/api/sides')
+            .map(function (res) { return res.json(); });
+    };
+    ItemService.prototype.getDrinks = function () {
+        return this.http.get('http://localhost:3000/api/drinks')
+            .map(function (res) { return res.json(); });
+    };
     ItemService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [http_1.Http])

@@ -9,18 +9,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var items_service_1 = require('./service/items.service');
 var DrinksComponent = (function () {
-    function DrinksComponent() {
+    function DrinksComponent(itemService) {
+        this.itemService = itemService;
     }
     DrinksComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.itemService.getDrinks()
+            .subscribe(function (drinks) { return _this.drinks = drinks; });
     };
     DrinksComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
-            selector: 'my-pizza',
             templateUrl: "./drinks.component.html",
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [items_service_1.ItemService])
     ], DrinksComponent);
     return DrinksComponent;
 }());

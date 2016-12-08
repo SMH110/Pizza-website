@@ -13,4 +13,15 @@ export class ItemService {
         return this.http.get('http://localhost:3000/api/pizzas')
             .map(res => res.json());
     }
+
+    getSides() {
+        return this.http.get('http://localhost:3000/api/sides')
+            .map(res => res.json());
+    }
+
+    getDrinks() {
+        return this.http.get('http://localhost:3000/api/drinks')
+            .map(res => res.json());
+    }
+
 }

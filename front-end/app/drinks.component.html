@@ -1,11 +1,15 @@
 <my-header></my-header>
 <div class="container">
     <div class="row">
-
-        <ul>
-            <li>Drink Bottle</li>
-            <li>Drink Can</li>
-        </ul>
-
+        <div class="col-sm-12 col-md-4" *ngFor='let drink of drinks'>
+            <div class="thumbnail">
+                <img src="/images/drinks/{{drink.imageName}}" alt="...">
+                <div class="caption">
+                    <h3>{{drink.name}}</h3>
+                    <p>${{drink.price}}</p>
+                    <p><a href="#" class="btn btn-primary" role="button">Add to Basket</a> </p>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
