@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
+import { HttpModule } from '@angular/http';
+import { FormsModule } from '@angular/forms'
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header.component';
@@ -10,7 +12,7 @@ import { DrinksComponent } from './drinks.component';
 import { AboutUsComponent } from './about-us.component';
 
 @NgModule({
-  imports: [BrowserModule, RouterModule.forRoot([
+  imports: [BrowserModule, HttpModule, FormsModule, RouterModule.forRoot([
     { path: 'pizza', component: PizzaComponent },
     { path: 'sides', component: SidesComponent },
     { path: 'drinks', component: DrinksComponent },

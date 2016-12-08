@@ -1,10 +1,10 @@
-.jumbotron   {
+.jumbotron {
     background: url('../images/hero.jpg') no-repeat center right;
     background-size: cover;
     min-height: 360px;
-  
 }
 
-.jumbotron h1{
+.jumbotron h1 {
     color: #fff;
 }
+

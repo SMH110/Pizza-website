@@ -11,6 +11,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var platform_browser_1 = require('@angular/platform-browser');
 var router_1 = require('@angular/router');
+var http_1 = require('@angular/http');
+var forms_1 = require('@angular/forms');
 var app_component_1 = require('./app.component');
 var header_component_1 = require('./header.component');
 var pizza_component_1 = require('./pizza.component');
@@ -22,7 +24,7 @@ var AppModule = (function () {
     }
     AppModule = __decorate([
         core_1.NgModule({
-            imports: [platform_browser_1.BrowserModule, router_1.RouterModule.forRoot([
+            imports: [platform_browser_1.BrowserModule, http_1.HttpModule, forms_1.FormsModule, router_1.RouterModule.forRoot([
                     { path: 'pizza', component: pizza_component_1.PizzaComponent },
                     { path: 'sides', component: sides_component_1.SidesComponent },
                     { path: 'drinks', component: drinks_component_1.DrinksComponent },

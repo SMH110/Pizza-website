@@ -9,22 +9,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var items_service_1 = require('./service/items.service');
-var AppComponent = (function () {
-    function AppComponent() {
+var http_1 = require('@angular/http');
+require('rxjs/add/operator/map');
+var ItemService = (function () {
+    function ItemService(http) {
+        this.http = http;
+        console.log('items Service initialized');
     }
-    AppComponent.prototype.ngOnInit = function () {
+    ItemService.prototype.getPizzas = function () {
+        return this.http.get('http://localhost:3000/api/pizzas')
+            .map(function (res) { return res.json(); });
     };
-    AppComponent = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            selector: 'my-app',
-            templateUrl: "./app.component.html",
-            providers: [items_service_1.ItemService]
-        }), 
-        __metadata('design:paramtypes', [])
-    ], AppComponent);
-    return AppComponent;
+    ItemService = __decorate([
+        core_1.Injectable(), 
+        __metadata('design:paramtypes', [http_1.Http])
+    ], ItemService);
+    return ItemService;
 }());
-exports.AppComponent = AppComponent;
-//# sourceMappingURL=app.component.js.map
+exports.ItemService = ItemService;
+//# sourceMappingURL=items.service.js.map
