@@ -17,13 +17,17 @@ export class BasketComponent implements OnInit {
     totalPrice: number
     items: any[] = [];
     constructor(private basket: BasketService) {
-        this.totalQuantity = this.basket.totalQuantity
+
     }
     ngOnInit(): void {
         this.items = this.basket.generateArray();
         this.totalPrice = Math.round(this.basket.totalPrice * 100) / 100;
+        this.totalQuantity = this.basket.totalQuantity
     }
 
+    buttonState(quantity: number): boolean {
+        return quantity < 2
+    }
     increaseItem(item: any): void {
         let storedItem = this.basket.items[item._id]
         if (!storedItem) {
@@ -34,12 +38,21 @@ export class BasketComponent implements OnInit {
         storedItem.price = storedItem.item.price * storedItem.qty;
         this.basket.totalPrice += storedItem.item.price;
         this.basket.totalQuantity++;
-        this.totalQuantity = this.basket.totalQuantity
+        this.totalQuantity = this.basket.totalQuantity;
         this.totalPrice = Math.round(this.basket.totalPrice * 100) / 100;
-        saveBasket(this.basket)
-
-
-        console.log(this.basket);
-        console.log("------------> items   ", JSON.stringify(this.basket.items, null, 2));
+        saveBasket(this.basket);
     }
+
+    decreaseItem(item: any) {
+        let storedItem = this.basket.items[item._id]
+        if (!storedItem) return;
+        storedItem.qty--;
+        storedItem.price = storedItem.item.price * storedItem.qty;
+        this.basket.totalPrice -= storedItem.item.price;
+        this.basket.totalQuantity--;
+        this.totalQuantity = this.basket.totalQuantity;
+        this.totalPrice = Math.round(this.basket.totalPrice * 100) / 100;
+        saveBasket(this.basket);
+    }
+
 }

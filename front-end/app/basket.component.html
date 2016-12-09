@@ -1,7 +1,7 @@
 <my-header [totalQuantity]="totalQuantity"></my-header>
 <div class="container">
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
             <h2>Basket</h2>
             <hr>
             <ul class="list-group">
@@ -11,7 +11,7 @@
                     <h4> {{item.item.name}}</h4>
                     <p>${{item.price}}</p>
                     <button class="btn btn-primary" (click)='increaseItem(item.item)'><span class="glyphicon glyphicon-plus"></span></button>
-                    <button class="btn btn-warning"><span class="glyphicon glyphicon-minus"></span></button>
+                    <button class="btn btn-warning" [disabled]="buttonState(item.qty)" (click)='decreaseItem(item.item)'><span class="glyphicon glyphicon-minus"></span></button>
                     <button class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button>
                 </li>
             </ul>
