@@ -21,7 +21,7 @@ export class BasketComponent implements OnInit {
     }
     ngOnInit(): void {
         this.items = this.basket.generateArray();
-        this.totalPrice = this.basket.totalPrice;
+        this.totalPrice = Math.round(this.basket.totalPrice * 100) / 100;
     }
 
     increaseItem(item: any): void {
@@ -35,6 +35,7 @@ export class BasketComponent implements OnInit {
         this.basket.totalPrice += storedItem.item.price;
         this.basket.totalQuantity++;
         this.totalQuantity = this.basket.totalQuantity
+        this.totalPrice = Math.round(this.basket.totalPrice * 100) / 100;
         saveBasket(this.basket)
 
 

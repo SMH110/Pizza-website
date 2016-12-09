@@ -19,7 +19,7 @@ var BasketComponent = (function () {
     }
     BasketComponent.prototype.ngOnInit = function () {
         this.items = this.basket.generateArray();
-        this.totalPrice = this.basket.totalPrice;
+        this.totalPrice = Math.round(this.basket.totalPrice * 100) / 100;
     };
     BasketComponent.prototype.increaseItem = function (item) {
         var storedItem = this.basket.items[item._id];
@@ -32,6 +32,7 @@ var BasketComponent = (function () {
         this.basket.totalPrice += storedItem.item.price;
         this.basket.totalQuantity++;
         this.totalQuantity = this.basket.totalQuantity;
+        this.totalPrice = Math.round(this.basket.totalPrice * 100) / 100;
         utils_1.saveBasket(this.basket);
         console.log(this.basket);
         console.log("------------> items   ", JSON.stringify(this.basket.items, null, 2));
