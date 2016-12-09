@@ -10,7 +10,7 @@
                     <span class="badge">{{item.qty}}</span>
                     <h4> {{item.item.name}}</h4>
                     <p>${{item.price}}</p>
-                    <button class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span></button>
+                    <button class="btn btn-primary" (click)='increaseItem(item.item)'><span class="glyphicon glyphicon-plus"></span></button>
                     <button class="btn btn-warning"><span class="glyphicon glyphicon-minus"></span></button>
                     <button class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button>
                 </li>
