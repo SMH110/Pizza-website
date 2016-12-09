@@ -25,6 +25,7 @@ export class PizzaComponent implements OnInit {
         this.itemService.getPizzas()
             .subscribe(pizzas => this.pizzas = pizzas);
     }
+
 }
 
 

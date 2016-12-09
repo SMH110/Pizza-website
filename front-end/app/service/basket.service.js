@@ -9,24 +9,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var HeaderComponent = (function () {
-    function HeaderComponent() {
+var utils_1 = require('../utils');
+var BasketService = (function () {
+    function BasketService() {
+        this.items = JSON.parse(utils_1.storedItems || '{}');
+        this.totalQuantity = JSON.parse(utils_1.storedQuantity || '0');
+        this.totalPrice = JSON.parse(utils_1.storedTotalPrice || '0');
     }
-    HeaderComponent.prototype.ngOnInit = function () {
+    BasketService.prototype.generateArray = function () {
+        var items = [];
+        for (var item in this.items) {
+            items.push(this.items[item]);
+        }
+        return items;
     };
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Number)
-    ], HeaderComponent.prototype, "totalQuantity", void 0);
-    HeaderComponent = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            selector: 'my-header',
-            templateUrl: "./header.component.html",
-        }), 
+    BasketService = __decorate([
+        core_1.Injectable(), 
         __metadata('design:paramtypes', [])
-    ], HeaderComponent);
-    return HeaderComponent;
+    ], BasketService);
+    return BasketService;
 }());
-exports.HeaderComponent = HeaderComponent;
-//# sourceMappingURL=header.component.js.map
+exports.BasketService = BasketService;
+//# sourceMappingURL=basket.service.js.map

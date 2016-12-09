@@ -1,24 +1,30 @@
 import { Component, OnInit } from '@angular/core';
 
-import { ItemService } from './service/items.service';
 import { BasketService } from './service/basket.service';
 import { saveBasket } from './utils';
+
 @Component({
     moduleId: module.id,
-    templateUrl: `./sides.component.html`,
+    templateUrl: `./basket.component.html`,
+    styles: [`
+            img{
+                max-height: 150px;
+            }
+    `]
 })
-export class SidesComponent implements OnInit {
-    sides: Side[];
+export class BasketComponent implements OnInit {
     totalQuantity: number;
-    constructor(private ItemService: ItemService, private basket: BasketService) {
+    totalPrice: number
+    items: any[] = [];
+    constructor(private basket: BasketService) {
         this.totalQuantity = this.basket.totalQuantity
     }
-
     ngOnInit(): void {
-        this.ItemService.getSides()
-            .subscribe(sides => this.sides = sides);
+        this.items = this.basket.generateArray();
+        this.totalPrice = this.basket.totalPrice;
     }
-    addToBasket(item: any): void {
+
+    increaseItem(item: any): void {
         let storedItem = this.basket.items[item._id]
         if (!storedItem) {
             storedItem = { item: item, qty: 0, price: 0 };
@@ -36,12 +42,3 @@ export class SidesComponent implements OnInit {
         console.log("------------> items   ", JSON.stringify(this.basket.items, null, 2));
     }
 }
-
-
-interface Side {
-    name: string,
-    price: number,
-    imageName: string
-}
-
-

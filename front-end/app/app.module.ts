@@ -10,6 +10,7 @@ import { PizzaComponent } from './pizza.component';
 import { SidesComponent } from './sides.component';
 import { DrinksComponent } from './drinks.component';
 import { AboutUsComponent } from './about-us.component';
+import { BasketComponent } from './basket.component';
 
 @NgModule({
   imports: [BrowserModule, HttpModule, FormsModule, RouterModule.forRoot([
@@ -17,6 +18,7 @@ import { AboutUsComponent } from './about-us.component';
     { path: 'sides', component: SidesComponent },
     { path: 'drinks', component: DrinksComponent },
     { path: 'about-us', component: AboutUsComponent },
+    { path: 'basket', component: BasketComponent },
     { path: '', redirectTo: 'pizza', pathMatch: 'full' }
 
   ])],
@@ -26,7 +28,8 @@ import { AboutUsComponent } from './about-us.component';
     PizzaComponent,
     SidesComponent,
     DrinksComponent,
-    AboutUsComponent
+    AboutUsComponent,
+    BasketComponent
   ],
   bootstrap: [AppComponent]
 })

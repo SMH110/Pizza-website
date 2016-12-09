@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var items_service_1 = require('./service/items.service');
+var basket_service_1 = require('./service/basket.service');
 var AppComponent = (function () {
     function AppComponent() {
     }
@@ -20,7 +21,7 @@ var AppComponent = (function () {
             moduleId: module.id,
             selector: 'my-app',
             templateUrl: "./app.component.html",
-            providers: [items_service_1.ItemService]
+            providers: [items_service_1.ItemService, basket_service_1.BasketService]
         }), 
         __metadata('design:paramtypes', [])
     ], AppComponent);

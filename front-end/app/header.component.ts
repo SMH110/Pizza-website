@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+
 
 @Component({
     moduleId: module.id,
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: `./header.component.html`,
 })
 export class HeaderComponent implements OnInit {
+    @Input() totalQuantity: number;
     constructor() {
 
     }

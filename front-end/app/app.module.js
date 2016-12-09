@@ -19,6 +19,7 @@ var pizza_component_1 = require('./pizza.component');
 var sides_component_1 = require('./sides.component');
 var drinks_component_1 = require('./drinks.component');
 var about_us_component_1 = require('./about-us.component');
+var basket_component_1 = require('./basket.component');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -29,6 +30,7 @@ var AppModule = (function () {
                     { path: 'sides', component: sides_component_1.SidesComponent },
                     { path: 'drinks', component: drinks_component_1.DrinksComponent },
                     { path: 'about-us', component: about_us_component_1.AboutUsComponent },
+                    { path: 'basket', component: basket_component_1.BasketComponent },
                     { path: '', redirectTo: 'pizza', pathMatch: 'full' }
                 ])],
             declarations: [
@@ -37,7 +39,8 @@ var AppModule = (function () {
                 pizza_component_1.PizzaComponent,
                 sides_component_1.SidesComponent,
                 drinks_component_1.DrinksComponent,
-                about_us_component_1.AboutUsComponent
+                about_us_component_1.AboutUsComponent,
+                basket_component_1.BasketComponent
             ],
             bootstrap: [app_component_1.AppComponent]
         }), 

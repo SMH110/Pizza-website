@@ -14,7 +14,6 @@ require('rxjs/add/operator/map');
 var ItemService = (function () {
     function ItemService(http) {
         this.http = http;
-        console.log('items Service initialized');
     }
     ItemService.prototype.getPizzas = function () {
         return this.http.get('http://localhost:3000/api/pizzas')

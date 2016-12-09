@@ -6,7 +6,6 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class ItemService {
     constructor(private http: Http) {
-        console.log('items Service initialized');
     }
 
     getPizzas() {

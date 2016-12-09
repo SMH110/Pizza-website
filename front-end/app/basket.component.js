@@ -9,21 +9,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var items_service_1 = require('./service/items.service');
 var basket_service_1 = require('./service/basket.service');
 var utils_1 = require('./utils');
-var SidesComponent = (function () {
-    function SidesComponent(ItemService, basket) {
-        this.ItemService = ItemService;
+var BasketComponent = (function () {
+    function BasketComponent(basket) {
         this.basket = basket;
+        this.items = [];
         this.totalQuantity = this.basket.totalQuantity;
     }
-    SidesComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.ItemService.getSides()
-            .subscribe(function (sides) { return _this.sides = sides; });
+    BasketComponent.prototype.ngOnInit = function () {
+        this.items = this.basket.generateArray();
+        this.totalPrice = this.basket.totalPrice;
     };
-    SidesComponent.prototype.addToBasket = function (item) {
+    BasketComponent.prototype.increaseItem = function (item) {
         var storedItem = this.basket.items[item._id];
         if (!storedItem) {
             storedItem = { item: item, qty: 0, price: 0 };
@@ -38,14 +36,15 @@ var SidesComponent = (function () {
         console.log(this.basket);
         console.log("------------> items   ", JSON.stringify(this.basket.items, null, 2));
     };
-    SidesComponent = __decorate([
+    BasketComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
-            templateUrl: "./sides.component.html",
+            templateUrl: "./basket.component.html",
+            styles: ["\n            img{\n                max-height: 150px;\n            }\n    "]
         }), 
-        __metadata('design:paramtypes', [items_service_1.ItemService, basket_service_1.BasketService])
-    ], SidesComponent);
-    return SidesComponent;
+        __metadata('design:paramtypes', [basket_service_1.BasketService])
+    ], BasketComponent);
+    return BasketComponent;
 }());
-exports.SidesComponent = SidesComponent;
-//# sourceMappingURL=sides.component.js.map
+exports.BasketComponent = BasketComponent;
+//# sourceMappingURL=basket.component.js.map
