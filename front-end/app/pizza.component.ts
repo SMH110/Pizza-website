@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { ItemService } from './service/items.service';
+import { BasketService } from './service/basket.service';
 
 @Component({
     moduleId: module.id,
@@ -18,12 +19,14 @@ select {
 export class PizzaComponent implements OnInit {
     pizzas: PizzaItem[];
     selectedSize: string = "large";
-    constructor(private itemService: ItemService) {
+    totalQuantity: number;
+    constructor(private itemService: ItemService, private basket: BasketService) {
 
     }
     ngOnInit(): void {
         this.itemService.getPizzas()
             .subscribe(pizzas => this.pizzas = pizzas);
+        this.totalQuantity = this.basket.totalQuantity;
     }
 
 }

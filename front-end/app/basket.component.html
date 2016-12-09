@@ -9,7 +9,7 @@
                     <img src="{{item.item.imageName}}" class="img-responsive" alt="">
                     <span class="badge">{{item.qty}}</span>
                     <h4> {{item.item.name}}</h4>
-                    <p>${{item.price}}</p>
+                    <p>${{item.price | number:'1.2-2'}}</p>
                     <button class="btn btn-primary" (click)='increaseItem(item.item)'><span class="glyphicon glyphicon-plus"></span></button>
                     <button class="btn btn-warning" [disabled]="buttonState(item.qty)" (click)='decreaseItem(item.item)'><span class="glyphicon glyphicon-minus"></span></button>
                     <button class="btn btn-danger" (click)="removeItem(item)"><span class="glyphicon glyphicon-remove"></span></button>
@@ -17,7 +17,8 @@
             </ul>
             <hr>
             <button class="btn btn-danger" *ngIf='items.length > 1' (click)="removeAll()">Clear Basket</button>
-            <h2>Total: $ {{totalPrice}}</h2>
+            <h2 *ngIf='items.length > 0'>Total: $ {{totalPrice}}</h2>
+            <h2 class="text-danger" *ngIf='items.length < 1'>No Item in the Basket</h2>
         </div>
     </div>
 </div>

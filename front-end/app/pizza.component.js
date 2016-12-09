@@ -10,15 +10,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var items_service_1 = require('./service/items.service');
+var basket_service_1 = require('./service/basket.service');
 var PizzaComponent = (function () {
-    function PizzaComponent(itemService) {
+    function PizzaComponent(itemService, basket) {
         this.itemService = itemService;
+        this.basket = basket;
         this.selectedSize = "large";
     }
     PizzaComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.itemService.getPizzas()
             .subscribe(function (pizzas) { return _this.pizzas = pizzas; });
+        this.totalQuantity = this.basket.totalQuantity;
     };
     PizzaComponent = __decorate([
         core_1.Component({
@@ -27,7 +30,7 @@ var PizzaComponent = (function () {
             templateUrl: "./pizza.component.html",
             styles: ["\n   .thumbnail img {\n    max-height: 160px;\n}\nselect {\n    margin-bottom: 15px;\n}\n"]
         }), 
-        __metadata('design:paramtypes', [items_service_1.ItemService])
+        __metadata('design:paramtypes', [items_service_1.ItemService, basket_service_1.BasketService])
     ], PizzaComponent);
     return PizzaComponent;
 }());

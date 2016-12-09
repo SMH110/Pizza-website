@@ -9,10 +9,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var basket_service_1 = require('./service/basket.service');
 var AboutUsComponent = (function () {
-    function AboutUsComponent() {
+    function AboutUsComponent(basket) {
+        this.basket = basket;
     }
     AboutUsComponent.prototype.ngOnInit = function () {
+        this.totalQuantity = this.basket.totalQuantity;
     };
     AboutUsComponent = __decorate([
         core_1.Component({
@@ -20,7 +23,7 @@ var AboutUsComponent = (function () {
             selector: 'my-pizza',
             templateUrl: "./about-us.component.html",
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [basket_service_1.BasketService])
     ], AboutUsComponent);
     return AboutUsComponent;
 }());
