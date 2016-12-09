@@ -11,12 +11,13 @@ export class SidesComponent implements OnInit {
     sides: Side[];
     totalQuantity: number;
     constructor(private ItemService: ItemService, private basket: BasketService) {
-        this.totalQuantity = this.basket.totalQuantity
+       
     }
 
     ngOnInit(): void {
         this.ItemService.getSides()
             .subscribe(sides => this.sides = sides);
+             this.totalQuantity = this.basket.totalQuantity
     }
     addToBasket(item: any): void {
         let storedItem = this.basket.items[item._id]

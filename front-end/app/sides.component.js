@@ -16,12 +16,12 @@ var SidesComponent = (function () {
     function SidesComponent(ItemService, basket) {
         this.ItemService = ItemService;
         this.basket = basket;
-        this.totalQuantity = this.basket.totalQuantity;
     }
     SidesComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.ItemService.getSides()
             .subscribe(function (sides) { return _this.sides = sides; });
+        this.totalQuantity = this.basket.totalQuantity;
     };
     SidesComponent.prototype.addToBasket = function (item) {
         var storedItem = this.basket.items[item._id];
