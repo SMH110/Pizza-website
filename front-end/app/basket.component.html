@@ -16,6 +16,7 @@
                 </li>
             </ul>
             <hr>
+            <button class="btn btn-danger" *ngIf='items.length > 1' (click)="removeAll()">Clear Basket</button>
             <h2>Total: $ {{totalPrice}}</h2>
         </div>
     </div>

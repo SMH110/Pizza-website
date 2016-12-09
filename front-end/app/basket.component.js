@@ -59,6 +59,15 @@ var BasketComponent = (function () {
         this.items = this.basket.generateArray();
         utils_1.saveBasket(this.basket);
     };
+    BasketComponent.prototype.removeAll = function () {
+        this.basket.items = {};
+        this.basket.totalPrice = 0;
+        this.basket.totalQuantity = 0;
+        this.totalPrice = Math.round(this.basket.totalPrice * 100) / 100;
+        this.totalQuantity = this.basket.totalQuantity;
+        this.items = this.basket.generateArray();
+        utils_1.saveBasket(this.basket);
+    };
     BasketComponent = __decorate([
         core_1.Component({
             moduleId: module.id,

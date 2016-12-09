@@ -64,4 +64,14 @@ export class BasketComponent implements OnInit {
         this.items = this.basket.generateArray();
         saveBasket(this.basket);
     }
+
+    removeAll(): void {
+        this.basket.items = {};
+        this.basket.totalPrice = 0;
+        this.basket.totalQuantity = 0;
+        this.totalPrice = Math.round(this.basket.totalPrice * 100) / 100;
+        this.totalQuantity = this.basket.totalQuantity;
+        this.items = this.basket.generateArray();
+        saveBasket(this.basket);
+    }
 }
