@@ -35,8 +35,6 @@ var SidesComponent = (function () {
         this.basket.totalQuantity++;
         this.totalQuantity = this.basket.totalQuantity;
         utils_1.saveBasket(this.basket);
-        console.log(this.basket);
-        console.log("------------> items   ", JSON.stringify(this.basket.items, null, 2));
     };
     SidesComponent = __decorate([
         core_1.Component({

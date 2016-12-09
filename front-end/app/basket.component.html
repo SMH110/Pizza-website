@@ -12,7 +12,7 @@
                     <p>${{item.price}}</p>
                     <button class="btn btn-primary" (click)='increaseItem(item.item)'><span class="glyphicon glyphicon-plus"></span></button>
                     <button class="btn btn-warning" [disabled]="buttonState(item.qty)" (click)='decreaseItem(item.item)'><span class="glyphicon glyphicon-minus"></span></button>
-                    <button class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button>
+                    <button class="btn btn-danger" (click)="removeItem(item)"><span class="glyphicon glyphicon-remove"></span></button>
                 </li>
             </ul>
             <hr>

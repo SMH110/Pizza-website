@@ -50,6 +50,15 @@ var BasketComponent = (function () {
         this.totalPrice = Math.round(this.basket.totalPrice * 100) / 100;
         utils_1.saveBasket(this.basket);
     };
+    BasketComponent.prototype.removeItem = function (item) {
+        this.basket.totalPrice -= item.price;
+        this.totalPrice = Math.round(this.basket.totalPrice * 100) / 100;
+        this.basket.totalQuantity -= item.qty;
+        this.totalQuantity = this.basket.totalQuantity;
+        delete this.basket.items[item.item._id];
+        this.items = this.basket.generateArray();
+        utils_1.saveBasket(this.basket);
+    };
     BasketComponent = __decorate([
         core_1.Component({
             moduleId: module.id,

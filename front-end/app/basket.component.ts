@@ -55,4 +55,13 @@ export class BasketComponent implements OnInit {
         saveBasket(this.basket);
     }
 
+    removeItem(item: any): void {
+        this.basket.totalPrice -= item.price
+        this.totalPrice = Math.round(this.basket.totalPrice * 100) / 100;
+        this.basket.totalQuantity -= item.qty
+        this.totalQuantity = this.basket.totalQuantity;
+        delete this.basket.items[item.item._id];
+        this.items = this.basket.generateArray();
+        saveBasket(this.basket);
+    }
 }

@@ -30,10 +30,6 @@ export class SidesComponent implements OnInit {
         this.basket.totalQuantity++;
         this.totalQuantity = this.basket.totalQuantity
         saveBasket(this.basket)
-
-
-        console.log(this.basket);
-        console.log("------------> items   ", JSON.stringify(this.basket.items, null, 2));
     }
 }
 
