@@ -9,7 +9,7 @@
                     <p>{{pizza.description}}</p>
 
                     <label for="sizes">Size:</label>
-                    <select class="form-control" id="sizes" [(ngModel)]="selectedSize">
+                    <select class="form-control" id="sizes" [(ngModel)]="pizza.selectedSize">
                         <option *ngFor='let size of pizza.subType' value="{{size}}" >{{size}}</option>
                     </select>
                     <p>${{selectedSize === "large" ? pizza.price[0] : selectedSize === "medium" ? pizza.price[1] : pizza.price[2] }}</p>

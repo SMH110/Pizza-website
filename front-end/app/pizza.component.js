@@ -20,7 +20,10 @@ var PizzaComponent = (function () {
     PizzaComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.itemService.getPizzas()
-            .subscribe(function (pizzas) { return _this.pizzas = pizzas; });
+            .subscribe(function (x) {
+            _this.pizzas = x;
+            _this.pizzas.forEach(function (x) { return x.selectedSize = 'large'; });
+        });
         this.totalQuantity = this.basket.totalQuantity;
     };
     PizzaComponent = __decorate([

@@ -25,7 +25,11 @@ export class PizzaComponent implements OnInit {
     }
     ngOnInit(): void {
         this.itemService.getPizzas()
-            .subscribe(pizzas => this.pizzas = pizzas);
+            .subscribe(x => {
+                this.pizzas = x;
+                this.pizzas.forEach(x => x.selectedSize = 'large');
+            });
+
         this.totalQuantity = this.basket.totalQuantity;
     }
 
@@ -33,9 +37,10 @@ export class PizzaComponent implements OnInit {
 
 
 interface PizzaItem {
-    name: string,
-    description: string,
-    price: number[],
-    subType: string[],
-    imageName: string
+    name: string;
+    description: string;
+    price: number[];
+    subType: string[];
+    imageName: string;
+    selectedSize: string;
 }

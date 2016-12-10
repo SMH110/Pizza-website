@@ -198,3 +198,4 @@ FakesAssemblies/
 *.psd
 # bmpr files
 *.bmpr
+*.map
