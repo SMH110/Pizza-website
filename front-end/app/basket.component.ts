@@ -29,10 +29,10 @@ export class BasketComponent implements OnInit {
         return quantity < 2
     }
     increaseItem(item: any): void {
-        let storedItem = this.basket.items[item._id]
+        let storedItem = this.basket.items[item.size_id || item._id]
         if (!storedItem) {
             storedItem = { item: item, qty: 0, price: 0 };
-            this.basket.items[item._id] = storedItem;
+            this.basket.items[item.size_id || item._id] = storedItem;
         }
         storedItem.qty++;
         storedItem.price = storedItem.item.price * storedItem.qty;
@@ -44,7 +44,7 @@ export class BasketComponent implements OnInit {
     }
 
     decreaseItem(item: any) {
-        let storedItem = this.basket.items[item._id]
+        let storedItem = this.basket.items[item.size_id || item._id]
         if (!storedItem) return;
         storedItem.qty--;
         storedItem.price = storedItem.item.price * storedItem.qty;
@@ -60,7 +60,7 @@ export class BasketComponent implements OnInit {
         this.totalPrice = Math.round(this.basket.totalPrice * 100) / 100;
         this.basket.totalQuantity -= item.qty
         this.totalQuantity = this.basket.totalQuantity;
-        delete this.basket.items[item.item._id];
+        delete this.basket.items[item.item.size_id || item.item._id];
         this.items = this.basket.generateArray();
         saveBasket(this.basket);
     }

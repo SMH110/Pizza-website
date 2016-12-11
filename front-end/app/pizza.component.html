@@ -12,8 +12,8 @@
                     <select class="form-control" id="sizes" [(ngModel)]="pizza.selectedSize">
                         <option *ngFor='let size of pizza.subType' value="{{size}}" >{{size}}</option>
                     </select>
-                    <p>${{selectedSize === "large" ? pizza.price[0] : selectedSize === "medium" ? pizza.price[1] : pizza.price[2] }}</p>
-                    <p><a href="#" class="btn btn-primary" role="button">Add to Basket</a> </p>
+                    <p>$ {{ pizza.price[pizza.selectedSize] }} </p>
+                    <p><a (click)='addToBasket(pizza)' class="btn btn-primary" role="button">Add to Basket</a> </p>
                 </div>
             </div>
         </div>

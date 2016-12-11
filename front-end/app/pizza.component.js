@@ -11,11 +11,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var items_service_1 = require('./service/items.service');
 var basket_service_1 = require('./service/basket.service');
+var utils_1 = require('./utils');
 var PizzaComponent = (function () {
     function PizzaComponent(itemService, basket) {
         this.itemService = itemService;
         this.basket = basket;
-        this.selectedSize = "large";
     }
     PizzaComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -25,6 +25,28 @@ var PizzaComponent = (function () {
             _this.pizzas.forEach(function (x) { return x.selectedSize = 'large'; });
         });
         this.totalQuantity = this.basket.totalQuantity;
+    };
+    PizzaComponent.prototype.addToBasket = function (item) {
+        // reformating item interface for polymorphism case
+        // to look like sides and drinks items in the basket
+        var reFormatedItem = {
+            name: item.name + " | " + item.selectedSize,
+            _id: item._id,
+            size_id: item._id + item.selectedSize,
+            price: +item.price[item.selectedSize],
+            imageName: item.imageName
+        };
+        var storedItem = this.basket.items[reFormatedItem.size_id];
+        if (!storedItem) {
+            storedItem = { item: reFormatedItem, qty: 0, price: 0 };
+            this.basket.items[reFormatedItem.size_id] = storedItem;
+        }
+        storedItem.qty++;
+        storedItem.price = storedItem.item.price * storedItem.qty;
+        this.basket.totalPrice += storedItem.item.price;
+        this.basket.totalQuantity++;
+        this.totalQuantity = this.basket.totalQuantity;
+        utils_1.saveBasket(this.basket);
     };
     PizzaComponent = __decorate([
         core_1.Component({
