@@ -62,23 +62,7 @@ export class PizzaComponent implements OnInit {
 
 }
 
-// {
-//  "_id": "58488a9cf36d283e14c2ec61",
-//  "name": "Neapolitan Pizza",
-//  "description": "Features tomatoes, garlic, oregano, and extra virgin olive oil.",
-//  "imageName": "images/pizzas/neapolitan-pizza.jpg",
-//  "subType": [
-//   "large",
-//   "medium",
-//   "small"
-//  ],
-//  "price": {
-//   "large": "16.99",
-//   "medium": "14.99",
-//   "small": "12.99"
-//  },
-//  "selectedSize": "medium"
-// }
+
 
 interface PizzaItem {
     name: string;
