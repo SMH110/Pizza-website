@@ -1,20 +1,32 @@
 <my-header [totalQuantity]="totalQuantity"></my-header>
 <div class="container">
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-12">
             <h2>Basket</h2>
-            <hr>
-            <ul class="list-group">
-                <li class="list-group-item" *ngFor="let item of items">
-                    <img src="{{item.item.imageName}}" class="img-responsive" alt="">
-                    <span class="badge">{{item.qty}}</span>
-                    <h4> {{item.item.name}}</h4>
-                    <p>${{item.price | number:'1.2-2'}}</p>
-                    <button class="btn btn-primary" (click)='increaseItem(item.item)'><span class="glyphicon glyphicon-plus"></span></button>
-                    <button class="btn btn-warning" [disabled]="buttonState(item.qty)" (click)='decreaseItem(item.item)'><span class="glyphicon glyphicon-minus"></span></button>
-                    <button class="btn btn-danger" (click)="removeItem(item)"><span class="glyphicon glyphicon-remove"></span></button>
-                </li>
-            </ul>
+            <table class="table table-striped" *ngIf='items.length > 0'>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Item</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Options</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of items;let i=index">
+                        <th scope="row">{{i + 1}}</th>
+                        <td><img src="{{item.item.imageName}}" class="img-responsive" alt=""> {{item.item.name}}</td>
+                        <td>${{item.price | number:'1.2-2'}}</td>
+                        <td>{{item.qty}}</td>
+                        <td>
+                            <button class="btn btn-primary" (click)='increaseItem(item.item)'><span class="glyphicon glyphicon-plus"></span></button>
+                            <button class="btn btn-warning" [disabled]="buttonState(item.qty)" (click)='decreaseItem(item.item)'><span class="glyphicon glyphicon-minus"></span></button>
+                            <button class="btn btn-danger" (click)="removeItem(item)"><span class="glyphicon glyphicon-remove"></span></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
             <hr>
             <button class="btn btn-danger" *ngIf='items.length > 1' (click)="removeAll()">Clear Basket</button>
             <h2 *ngIf='items.length > 0'>Total: $ {{totalPrice}}</h2>

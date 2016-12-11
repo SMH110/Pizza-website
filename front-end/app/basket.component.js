@@ -73,7 +73,7 @@ var BasketComponent = (function () {
         core_1.Component({
             moduleId: module.id,
             templateUrl: "./basket.component.html",
-            styles: ["\n            img{\n                max-height: 150px;\n            }\n    "]
+            styles: ["\n            img{\n                max-height: 60px;\n                max-width: 60px;\n                display: inline-block\n            }\n    "]
         }), 
         __metadata('design:paramtypes', [basket_service_1.BasketService])
     ], BasketComponent);

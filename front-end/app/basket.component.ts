@@ -8,7 +8,9 @@ import { saveBasket } from './utils';
     templateUrl: `./basket.component.html`,
     styles: [`
             img{
-                max-height: 150px;
+                max-height: 60px;
+                max-width: 60px;
+                display: inline-block
             }
     `]
 })
