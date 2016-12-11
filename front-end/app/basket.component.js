@@ -39,6 +39,7 @@ var BasketComponent = (function () {
         utils_1.saveBasket(this.basket);
     };
     BasketComponent.prototype.decreaseItem = function (item) {
+        // because pizzas item have item.size_id 
         var storedItem = this.basket.items[item.size_id || item._id];
         if (!storedItem)
             return;

@@ -44,6 +44,7 @@ export class BasketComponent implements OnInit {
     }
 
     decreaseItem(item: any) {
+        // because pizzas item have item.size_id 
         let storedItem = this.basket.items[item.size_id || item._id]
         if (!storedItem) return;
         storedItem.qty--;
