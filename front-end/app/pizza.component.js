@@ -33,7 +33,7 @@ var PizzaComponent = (function () {
             name: item.name + " | " + item.selectedSize,
             _id: item._id,
             size_id: item._id + item.selectedSize,
-            price: +item.price[item.selectedSize],
+            price: item.price[item.selectedSize],
             imageName: item.imageName
         };
         var storedItem = this.basket.items[reFormatedItem.size_id];

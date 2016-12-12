@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 let pizzas = new Schema({
     name: String,
     description: String,
-    price: { large: String, medium: String, small: String },
+    price: { large: Number, medium: Number, small: Number },
     subType: [String],
     imageName: String
 });

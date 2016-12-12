@@ -42,7 +42,7 @@ export class PizzaComponent implements OnInit {
             name: `${item.name} | ${item.selectedSize}`,
             _id: item._id,
             size_id: item._id + item.selectedSize,
-            price: +item.price[item.selectedSize],
+            price: item.price[item.selectedSize],
             imageName: item.imageName
         }
        
