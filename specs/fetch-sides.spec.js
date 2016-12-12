@@ -33,6 +33,6 @@ describe('Fetch Sides from MongoDB', function() {
                         imageName: '/images/sides/potato-wedges.jpg'
                     }
                 ]);
-            }).then(done)
+            }).then(done).catch(console.error)
     });
 });

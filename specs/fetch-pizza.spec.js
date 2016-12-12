@@ -45,6 +45,6 @@ describe('Fetch Pizza from MongoDB', function() {
                         }
                     }
                 ])
-            }).then(done)
+            }).then(done).catch(console.error)
     });
 });

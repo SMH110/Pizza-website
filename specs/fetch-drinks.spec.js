@@ -45,6 +45,6 @@ describe('Fetch Drinks from MongoDB', function() {
                         imageName: '/images/drinks/fanta-2-l.jpg'
                     }
                 ]);
-            }).then(done)
+            }).then(done).catch(console.error)
     });
 });
