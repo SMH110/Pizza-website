@@ -2,10 +2,10 @@ const expect = require('chai').expect;
 const fetch = require('node-fetch');
 
 describe('Fetch Drinks from MongoDB', function() {
-    this.timeout(20000)
+    this.timeout(20000);
 
-    it('Should fetch the items as expected', (done) => {
-        fetch('http://localhost:3000/api/drinks')
+    it('Should fetch the items as expected', () => {
+        return fetch('http://localhost:3000/api/drinks')
             .then(res => res.json())
             .then(json => {
                 expect(json).to.deep.equal([{
@@ -45,6 +45,6 @@ describe('Fetch Drinks from MongoDB', function() {
                         imageName: '/images/drinks/fanta-2-l.jpg'
                     }
                 ]);
-            }).then(done).catch(console.error)
+            }).catch(console.error);
     });
 });
