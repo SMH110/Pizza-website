@@ -10,21 +10,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var basket_service_1 = require('./service/basket.service');
-var AboutUsComponent = (function () {
-    function AboutUsComponent(basket) {
+var ContactUsComponent = (function () {
+    function ContactUsComponent(basket) {
         this.basket = basket;
     }
-    AboutUsComponent.prototype.ngOnInit = function () {
+    ContactUsComponent.prototype.ngOnInit = function () {
         this.totalQuantity = this.basket.totalQuantity;
     };
-    AboutUsComponent = __decorate([
+    ContactUsComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
-            templateUrl: "./about-us.component.html",
+            templateUrl: "./contact-us.component.html",
         }), 
         __metadata('design:paramtypes', [basket_service_1.BasketService])
-    ], AboutUsComponent);
-    return AboutUsComponent;
+    ], ContactUsComponent);
+    return ContactUsComponent;
 }());
-exports.AboutUsComponent = AboutUsComponent;
-//# sourceMappingURL=about-us.component.js.map
+exports.ContactUsComponent = ContactUsComponent;
+//# sourceMappingURL=contact-us.component.js.map

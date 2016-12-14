@@ -8,3 +8,45 @@
     color: #fff;
 }
 
+.phone {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    display: inline-block;
+    color: #777;
+}
+
+.logo {
+    width: 100%;
+    margin: 0 auto;
+    color: #666;
+    text-align: center;
+}
+
+.logo h1 {
+    margin: 10px 0 0 0;
+}
+
+.footer {
+    width: 100%;
+    background-color: #efeded;
+    border-top: 1px solid;
+    border-color: #dbdbdb;
+    margin-top: 50px;
+    padding-bottom: 30px;
+}
+
+
+/* Contact Us */
+
+.contact-us .glyphicon {
+    font-size: 20px;
+}
+
+.contact-us h2 {
+    margin-bottom: 20px;
+}
+
+.contact-us .phone {
+    font-size: 20px;
+    color: #333;
+}

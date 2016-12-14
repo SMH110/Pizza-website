@@ -10,7 +10,10 @@ import { PizzaComponent } from './pizza.component';
 import { SidesComponent } from './sides.component';
 import { DrinksComponent } from './drinks.component';
 import { AboutUsComponent } from './about-us.component';
+import { TermsAndConditionsComponent } from './terms-and-conditions.component';
+import { ContactUsComponent } from './contact-us.component';
 import { BasketComponent } from './basket.component';
+import { FooterComponent } from './footer.component';
 
 @NgModule({
   imports: [BrowserModule, HttpModule, FormsModule, RouterModule.forRoot([
@@ -18,6 +21,8 @@ import { BasketComponent } from './basket.component';
     { path: 'sides', component: SidesComponent },
     { path: 'drinks', component: DrinksComponent },
     { path: 'about-us', component: AboutUsComponent },
+    { path: 'terms-and-conditions', component: TermsAndConditionsComponent },
+    { path: 'contact-us', component: ContactUsComponent },
     { path: 'basket', component: BasketComponent },
     { path: '', redirectTo: 'pizza', pathMatch: 'full' }
 
@@ -29,7 +34,10 @@ import { BasketComponent } from './basket.component';
     SidesComponent,
     DrinksComponent,
     AboutUsComponent,
-    BasketComponent
+    BasketComponent,
+    FooterComponent,
+    TermsAndConditionsComponent,
+    ContactUsComponent
   ],
   bootstrap: [AppComponent]
 })

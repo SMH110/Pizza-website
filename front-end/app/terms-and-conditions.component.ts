@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { BasketService } from './service/basket.service';
 @Component({
     moduleId: module.id,
-    templateUrl: `./about-us.component.html`,
+    templateUrl: `./terms-and-conditions.component.html`,
 })
-export class AboutUsComponent implements OnInit {
+export class TermsAndConditionsComponent implements OnInit {
     totalQuantity: number;
     constructor(private basket: BasketService) {
 

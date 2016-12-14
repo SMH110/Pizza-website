@@ -10,21 +10,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var basket_service_1 = require('./service/basket.service');
-var AboutUsComponent = (function () {
-    function AboutUsComponent(basket) {
+var TermsAndConditionsComponent = (function () {
+    function TermsAndConditionsComponent(basket) {
         this.basket = basket;
     }
-    AboutUsComponent.prototype.ngOnInit = function () {
+    TermsAndConditionsComponent.prototype.ngOnInit = function () {
         this.totalQuantity = this.basket.totalQuantity;
     };
-    AboutUsComponent = __decorate([
+    TermsAndConditionsComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
-            templateUrl: "./about-us.component.html",
+            templateUrl: "./terms-and-conditions.component.html",
         }), 
         __metadata('design:paramtypes', [basket_service_1.BasketService])
-    ], AboutUsComponent);
-    return AboutUsComponent;
+    ], TermsAndConditionsComponent);
+    return TermsAndConditionsComponent;
 }());
-exports.AboutUsComponent = AboutUsComponent;
-//# sourceMappingURL=about-us.component.js.map
+exports.TermsAndConditionsComponent = TermsAndConditionsComponent;
+//# sourceMappingURL=terms-and-conditions.component.js.map

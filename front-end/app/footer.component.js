@@ -9,22 +9,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var basket_service_1 = require('./service/basket.service');
-var AboutUsComponent = (function () {
-    function AboutUsComponent(basket) {
-        this.basket = basket;
+var FooterComponent = (function () {
+    function FooterComponent() {
     }
-    AboutUsComponent.prototype.ngOnInit = function () {
-        this.totalQuantity = this.basket.totalQuantity;
-    };
-    AboutUsComponent = __decorate([
+    FooterComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
-            templateUrl: "./about-us.component.html",
+            selector: 'my-footer',
+            templateUrl: "./footer.component.html",
         }), 
-        __metadata('design:paramtypes', [basket_service_1.BasketService])
-    ], AboutUsComponent);
-    return AboutUsComponent;
+        __metadata('design:paramtypes', [])
+    ], FooterComponent);
+    return FooterComponent;
 }());
-exports.AboutUsComponent = AboutUsComponent;
-//# sourceMappingURL=about-us.component.js.map
+exports.FooterComponent = FooterComponent;
+//# sourceMappingURL=footer.component.js.map

@@ -19,7 +19,10 @@ var pizza_component_1 = require('./pizza.component');
 var sides_component_1 = require('./sides.component');
 var drinks_component_1 = require('./drinks.component');
 var about_us_component_1 = require('./about-us.component');
+var terms_and_conditions_component_1 = require('./terms-and-conditions.component');
+var contact_us_component_1 = require('./contact-us.component');
 var basket_component_1 = require('./basket.component');
+var footer_component_1 = require('./footer.component');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -30,6 +33,8 @@ var AppModule = (function () {
                     { path: 'sides', component: sides_component_1.SidesComponent },
                     { path: 'drinks', component: drinks_component_1.DrinksComponent },
                     { path: 'about-us', component: about_us_component_1.AboutUsComponent },
+                    { path: 'terms-and-conditions', component: terms_and_conditions_component_1.TermsAndConditionsComponent },
+                    { path: 'contact-us', component: contact_us_component_1.ContactUsComponent },
                     { path: 'basket', component: basket_component_1.BasketComponent },
                     { path: '', redirectTo: 'pizza', pathMatch: 'full' }
                 ])],
@@ -40,7 +45,10 @@ var AppModule = (function () {
                 sides_component_1.SidesComponent,
                 drinks_component_1.DrinksComponent,
                 about_us_component_1.AboutUsComponent,
-                basket_component_1.BasketComponent
+                basket_component_1.BasketComponent,
+                footer_component_1.FooterComponent,
+                terms_and_conditions_component_1.TermsAndConditionsComponent,
+                contact_us_component_1.ContactUsComponent
             ],
             bootstrap: [app_component_1.AppComponent]
         }), 
