@@ -4,9 +4,11 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "install": "node front-end/node_modules/typescript/bin/tsc -p ./front-end/",
+        "install_child": "cd front-end && npm install && cd ..",
+        "compile": "node front-end/node_modules/typescript/bin/tsc -p ./front-end/",
         "start": "node server",
-        "test": "node node_modules/mocha/bin/mocha specs --require mocha-setup.js"
+        "test": "node node_modules/mocha/bin/mocha specs --require mocha-setup.js",
+        "install": "npm run install_child && npm run compile"
     },
     "repository": {
         "type": "git",
