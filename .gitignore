@@ -199,3 +199,6 @@ FakesAssemblies/
 # bmpr files
 *.bmpr
 *.map
+
+front-end/**/*.js
+front-end/**/*.js.map
