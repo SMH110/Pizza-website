@@ -4,8 +4,8 @@ const fetch = require('node-fetch');
 describe('Fetch Sides from MongoDB', function() {
     this.timeout(10000)
 
-    it('Should fetch the items as expected', (done) => {
-        fetch('http://localhost:3000/api/sides')
+    it('Should fetch the items as expected', () => {
+       return fetch('http://localhost:3000/api/sides')
             .then(res => res.json())
             .then(json => {
                 expect(json).to.deep.equal([{
@@ -33,6 +33,6 @@ describe('Fetch Sides from MongoDB', function() {
                         imageName: '/images/sides/potato-wedges.jpg'
                     }
                 ]);
-            }).then(done).catch(console.error)
+            }).catch(console.error);
     });
 });
