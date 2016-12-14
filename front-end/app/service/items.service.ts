@@ -9,17 +9,17 @@ export class ItemService {
     }
 
     getPizzas() {
-        return this.http.get('http://localhost:3000/api/pizzas')
+        return this.http.get('/api/pizzas')
             .map(res => res.json());
     }
 
     getSides() {
-        return this.http.get('http://localhost:3000/api/sides')
+        return this.http.get('/api/sides')
             .map(res => res.json());
     }
 
     getDrinks() {
-        return this.http.get('http://localhost:3000/api/drinks')
+        return this.http.get('/api/drinks')
             .map(res => res.json());
     }
 
