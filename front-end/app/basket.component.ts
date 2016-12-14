@@ -12,6 +12,12 @@ import { saveBasket } from './utils';
                 max-width: 60px;
                 display: inline-block
             }
+
+            .next{
+                margin-right: 20px;
+               padding-left: 35px;
+               padding-right: 35px;
+            }
     `]
 })
 export class BasketComponent implements OnInit {

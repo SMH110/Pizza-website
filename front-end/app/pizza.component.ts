@@ -15,6 +15,12 @@ import { saveBasket } from './utils';
 select {
     margin-bottom: 15px;
 }
+
+.form-control{
+    width:50%;
+    display: inline-block;
+    margin-right:10px;
+}
 `]
 })
 export class PizzaComponent implements OnInit {

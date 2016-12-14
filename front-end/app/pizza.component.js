@@ -53,7 +53,7 @@ var PizzaComponent = (function () {
             moduleId: module.id,
             selector: 'my-pizza',
             templateUrl: "./pizza.component.html",
-            styles: ["\n   .thumbnail img {\n    max-height: 160px;\n}\nselect {\n    margin-bottom: 15px;\n}\n"]
+            styles: ["\n   .thumbnail img {\n    max-height: 160px;\n}\nselect {\n    margin-bottom: 15px;\n}\n\n.form-control{\n    width:50%;\n    display: inline-block;\n    margin-right:10px;\n}\n"]
         }), 
         __metadata('design:paramtypes', [items_service_1.ItemService, basket_service_1.BasketService])
     ], PizzaComponent);
