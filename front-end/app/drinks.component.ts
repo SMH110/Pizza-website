@@ -11,6 +11,7 @@ import { saveBasket } from './utils';
 export class DrinksComponent implements OnInit {
     drinks: Drink[];
     totalQuantity: number;
+     jumbotronImage: string = "/images/drinks-jumbotron.jpg";
     constructor(private itemService: ItemService, private basket: BasketService) {
 
     }

@@ -10,6 +10,7 @@ import { saveBasket } from './utils';
 export class SidesComponent implements OnInit {
     sides: Side[];
     totalQuantity: number;
+    jumbotronImage: string = "/images/side-jumbotron.jpg";
     constructor(private ItemService: ItemService, private basket: BasketService) {
        
     }

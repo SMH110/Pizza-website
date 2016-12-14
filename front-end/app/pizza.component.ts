@@ -27,6 +27,7 @@ export class PizzaComponent implements OnInit {
 
     pizzas: PizzaItem[];
     totalQuantity: number;
+    jumbotronImage: string = "/images/hero.jpg";
     constructor(private itemService: ItemService, private basket: BasketService) {
 
     }

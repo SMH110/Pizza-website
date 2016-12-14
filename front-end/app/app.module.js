@@ -23,6 +23,7 @@ var terms_and_conditions_component_1 = require('./terms-and-conditions.component
 var contact_us_component_1 = require('./contact-us.component');
 var basket_component_1 = require('./basket.component');
 var footer_component_1 = require('./footer.component');
+var jumbotron_component_1 = require('./jumbotron.component');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -48,7 +49,8 @@ var AppModule = (function () {
                 basket_component_1.BasketComponent,
                 footer_component_1.FooterComponent,
                 terms_and_conditions_component_1.TermsAndConditionsComponent,
-                contact_us_component_1.ContactUsComponent
+                contact_us_component_1.ContactUsComponent,
+                jumbotron_component_1.JumbotronComponent
             ],
             bootstrap: [app_component_1.AppComponent]
         }), 

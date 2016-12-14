@@ -14,6 +14,7 @@ import { TermsAndConditionsComponent } from './terms-and-conditions.component';
 import { ContactUsComponent } from './contact-us.component';
 import { BasketComponent } from './basket.component';
 import { FooterComponent } from './footer.component';
+import { JumbotronComponent } from './jumbotron.component';
 
 @NgModule({
   imports: [BrowserModule, HttpModule, FormsModule, RouterModule.forRoot([
@@ -37,7 +38,8 @@ import { FooterComponent } from './footer.component';
     BasketComponent,
     FooterComponent,
     TermsAndConditionsComponent,
-    ContactUsComponent
+    ContactUsComponent,
+    JumbotronComponent
   ],
   bootstrap: [AppComponent]
 })

@@ -16,6 +16,7 @@ var SidesComponent = (function () {
     function SidesComponent(ItemService, basket) {
         this.ItemService = ItemService;
         this.basket = basket;
+        this.jumbotronImage = "/images/side-jumbotron.jpg";
     }
     SidesComponent.prototype.ngOnInit = function () {
         var _this = this;

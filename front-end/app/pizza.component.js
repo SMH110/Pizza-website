@@ -16,6 +16,7 @@ var PizzaComponent = (function () {
     function PizzaComponent(itemService, basket) {
         this.itemService = itemService;
         this.basket = basket;
+        this.jumbotronImage = "/images/hero.jpg";
     }
     PizzaComponent.prototype.ngOnInit = function () {
         var _this = this;
