@@ -2,7 +2,7 @@ const expect = require('chai').expect;
 const fetch = require('node-fetch');
 
 describe('Fetch Drinks from MongoDB', function() {
-    this.timeout(20000)
+    this.timeout(20000);
 
     it('Should fetch the items as expected', () => {
         return fetch('http://localhost:3000/api/drinks')

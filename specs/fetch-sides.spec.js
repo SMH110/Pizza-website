@@ -5,7 +5,7 @@ describe('Fetch Sides from MongoDB', function() {
     this.timeout(10000)
 
     it('Should fetch the items as expected', () => {
-       return fetch('http://localhost:3000/api/sides')
+        return fetch('http://localhost:3000/api/sides')
             .then(res => res.json())
             .then(json => {
                 expect(json).to.deep.equal([{
