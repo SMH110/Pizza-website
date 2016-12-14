@@ -50,3 +50,18 @@
     font-size: 20px;
     color: #333;
 }
+
+
+/* style to the item  Sides and Drinks */
+
+.item {
+    text-align: center;
+}
+
+.price {
+    padding-top: 7px;
+}
+
+.item h3 {
+    margin-bottom: 35px;
+}
