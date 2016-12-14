@@ -4,8 +4,9 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "test": "node node_modules/mocha/bin/mocha specs --require mocha-setup.js",
-        "start": "node server"
+        "install": "node front-end/node_modules/typescript/bin/tsc -p ./front-end/",
+        "start": "node server",
+        "test": "node node_modules/mocha/bin/mocha specs --require mocha-setup.js"
     },
     "repository": {
         "type": "git",

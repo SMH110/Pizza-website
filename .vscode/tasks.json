@@ -2,9 +2,9 @@
     // See https://go.microsoft.com/fwlink/?LinkId=733558
     // for the documentation about the tasks.json format
     "version": "0.1.0",
-    "command": "tsc",
+    "command": "node",
     "isShellCommand": true,
-    "args": ["-w", "-p", "."],
+    "args": ["front-end/node_modules/typescript/bin/tsc", "-w", "-p", "./front-end/"],
     "showOutput": "silent",
     "isWatching": true,
     "problemMatcher": "$tsc-watch"
