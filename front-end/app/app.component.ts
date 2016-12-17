@@ -9,10 +9,11 @@ import { BasketService } from './service/basket.service';
   providers: [ItemService, BasketService]
 })
 export class AppComponent implements OnInit {
-  constructor() {
+  totalQ: number;
+  constructor(private basket:BasketService) {
 
   }
   ngOnInit(): void {
-
+  
   }
 }

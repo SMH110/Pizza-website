@@ -39,8 +39,8 @@ describe('Fetch Pizza from MongoDB', function() {
                         imageName: 'images/pizzas/mushrooms-pizza.jpg',
                         subType: ['large', 'medium', 'small'],
                         price: {
-                            "large": 16.8,
-                            "medium": 14.8,
+                            "large": 16.88,
+                            "medium": 14.88,
                             "small": 11.99
                         }
                     }

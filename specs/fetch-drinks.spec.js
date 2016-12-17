@@ -17,7 +17,7 @@ describe('Fetch Drinks from MongoDB', function() {
                     {
                         _id: '5848d9f0f36d287699c1e7f0',
                         name: 'Pepsi Max 330ml',
-                        price: 0.3,
+                        price: 0.33,
                         imageName: '/images/drinks/pepsi-max-can.jpg'
                     },
                     {
