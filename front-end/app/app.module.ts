@@ -5,7 +5,6 @@ import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms'
 
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './header.component';
 import { PizzaComponent } from './pizza.component';
 import { SidesComponent } from './sides.component';
 import { DrinksComponent } from './drinks.component';
@@ -30,7 +29,6 @@ import { JumbotronComponent } from './jumbotron.component';
   ])],
   declarations: [
     AppComponent,
-    HeaderComponent,
     PizzaComponent,
     SidesComponent,
     DrinksComponent,
