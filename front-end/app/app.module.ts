@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
-import { FormsModule } from '@angular/forms'
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { PizzaComponent } from './pizza.component';
@@ -14,6 +14,8 @@ import { ContactUsComponent } from './contact-us.component';
 import { BasketComponent } from './basket.component';
 import { FooterComponent } from './footer.component';
 import { JumbotronComponent } from './jumbotron.component';
+import { CheckoutComponent } from './checkout.component/checkout.component';
+import { PaymentComponent } from './checkout.component/payment.component';
 
 @NgModule({
   imports: [BrowserModule, HttpModule, FormsModule, RouterModule.forRoot([
@@ -24,6 +26,8 @@ import { JumbotronComponent } from './jumbotron.component';
     { path: 'terms-and-conditions', component: TermsAndConditionsComponent },
     { path: 'contact-us', component: ContactUsComponent },
     { path: 'basket', component: BasketComponent },
+    { path: 'checkout', component: CheckoutComponent },
+    { path: 'payment', component: PaymentComponent },
     { path: '', redirectTo: 'pizza', pathMatch: 'full' }
 
   ])],
@@ -37,7 +41,9 @@ import { JumbotronComponent } from './jumbotron.component';
     FooterComponent,
     TermsAndConditionsComponent,
     ContactUsComponent,
-    JumbotronComponent
+    JumbotronComponent,
+    CheckoutComponent,
+    PaymentComponent
   ],
   bootstrap: [AppComponent]
 })

@@ -9,6 +9,8 @@ router.get('/drinks', serveIndex);
 router.get('/about-us', serveIndex);
 router.get('/terms-and-conditions', serveIndex);
 router.get('/contact-us', serveIndex);
+router.get('/payment', serveIndex);
+router.get('/checkout', serveIndex);
 
 function serveIndex(req, res) {
     res.render('index.html')
