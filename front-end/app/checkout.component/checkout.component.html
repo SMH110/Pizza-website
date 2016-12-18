@@ -46,15 +46,12 @@
                         <input type="text" class="form-control" id="phone" name="phone" ngModel>
                     </div>
                 </div>
-                <div class="radio">
+                <div class="radio" *ngFor='let method of deliveryMethods'>
                     <label class="delivery-method">
-                        <input type="radio" name="deliveryMethod" value="delivery" ngModel >
-                             Delivery
+                        <input type="radio" name="deliveryMethod"  [(ngModel)]='defaultDeliveryMethod' [value]='method'>
+                             {{method}}
                     </label>
-                    <label>
-                         <input type="radio" name="deliveryMethod"  value="collection" ngModel>
-                            Collection
-                     </label>
+
                 </div>
                 <hr>
                 <button class="btn btn-default next" type="submit"> Next <span class="glyphicon glyphicon-chevron-right"></span></button>

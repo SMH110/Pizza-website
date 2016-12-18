@@ -5,7 +5,7 @@ import { BasketService } from '../service/basket.service';
     moduleId: module.id,
     templateUrl: `./payment.component.html`,
     styles: [
-        
+
         `
         h2{
             display:inline-block;
@@ -18,10 +18,10 @@ import { BasketService } from '../service/basket.service';
         }
         `
     ]
-    
+
 })
 export class PaymentComponent implements OnInit {
-
+   
     constructor(private basket: BasketService) {
 
     }
@@ -29,6 +29,6 @@ export class PaymentComponent implements OnInit {
     ngOnInit(): void {
     }
 
-    
+
 }
 

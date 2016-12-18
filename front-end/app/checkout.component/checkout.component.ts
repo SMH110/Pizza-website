@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { BasketService } from '../service/basket.service';
 import { saveFormDetails } from '../utils';
-import { Router } from '@angular/router'
+import { Router } from '@angular/router';
+import {NgForm} from '@angular/forms';
 @Component({
     moduleId: module.id,
     templateUrl: `./checkout.component.html`,
@@ -29,7 +30,10 @@ import { Router } from '@angular/router'
     ]
 })
 export class CheckoutComponent implements OnInit {
-
+    defaultDeliveryMethod: string = 'delivery';
+    deliveryMethods: string[] = [
+        'delivery', 'collection'
+    ]
     constructor(private basket: BasketService, private router: Router) {
 
     }
@@ -37,8 +41,8 @@ export class CheckoutComponent implements OnInit {
     ngOnInit(): void {
     }
 
-    onSubmit(formValues: any): void {
-        saveFormDetails(formValues.value);
+    onSubmit(form: NgForm): void {
+        saveFormDetails(form.value);
         this.router.navigate(['./payment'])
     }
     preventDefault(event: Event): void {
@@ -47,13 +51,3 @@ export class CheckoutComponent implements OnInit {
 
 }
 
-interface CheckoutForm {
-    firstName: string;
-    lastName: string;
-    address1: string;
-    address2: string;
-    postCode: string;
-    email: string;
-    phone: string;
-    deliveryMethod: string;
-}
