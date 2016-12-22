@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BasketService } from '../service/basket.service';
+import { OrderService } from './../service/order.service';
 
 @Component({
     moduleId: module.id,
@@ -21,14 +22,18 @@ import { BasketService } from '../service/basket.service';
 
 })
 export class PaymentComponent implements OnInit {
-   
-    constructor(private basket: BasketService) {
+
+    constructor(private basket: BasketService, private orderService: OrderService) {
 
     }
 
     ngOnInit(): void {
     }
 
+    order() {
+        this.orderService.postOrder().subscribe(x => { console.log(x); })
+
+    }
 
 }
 

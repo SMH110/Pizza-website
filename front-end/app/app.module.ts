@@ -16,6 +16,8 @@ import { FooterComponent } from './footer.component';
 import { JumbotronComponent } from './jumbotron.component';
 import { CheckoutComponent } from './checkout.component/checkout.component';
 import { PaymentComponent } from './checkout.component/payment.component';
+import { OrderService } from './service/order.service';
+import { BasketService } from './service/basket.service';
 
 @NgModule({
   imports: [BrowserModule, HttpModule, FormsModule, RouterModule.forRoot([
@@ -45,6 +47,7 @@ import { PaymentComponent } from './checkout.component/payment.component';
     CheckoutComponent,
     PaymentComponent
   ],
+  providers: [OrderService, BasketService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

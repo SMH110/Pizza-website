@@ -6,7 +6,7 @@ import { BasketService } from './service/basket.service';
   moduleId: module.id,
   selector: 'my-app',
   templateUrl: `./app.component.html`,
-  providers: [ItemService, BasketService]
+  providers: [ItemService]
 })
 export class AppComponent implements OnInit {
   totalQ: number;

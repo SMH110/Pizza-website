@@ -7,11 +7,12 @@ mongoose.connect('mongodb://SMH110:yaaAli@ds127948.mlab.com:27948/pizza-delivery
         console.error(error);
         return;
     }
-   console.log('MongoDb connected');
+    console.log('MongoDb connected');
 });
 
 const index = require('./router/index');
 const items = require('./router/items');
+const order = require('./router/order');
 
 const app = express();
 //engine
@@ -25,6 +26,7 @@ app.use(express.static(path.join(__dirname, 'front-end')));
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
+app.use('/api/order', order);
 app.use('/', index);
 app.use('/api', items);
 

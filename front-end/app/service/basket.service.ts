@@ -21,6 +21,10 @@ export class BasketService {
         }
         return items;
     }
+
+    generateDescription() {
+        return this.generateArray().reduce((initial, current) => initial + `${current.qty} ${current.item.name}, `, "").slice(0, -2);
+    }
 }
 
 
