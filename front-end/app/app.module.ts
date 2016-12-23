@@ -16,6 +16,7 @@ import { FooterComponent } from './footer.component';
 import { JumbotronComponent } from './jumbotron.component';
 import { CheckoutComponent } from './checkout.component/checkout.component';
 import { PaymentComponent } from './checkout.component/payment.component';
+import { PaymentProcess } from './checkout.component/payment-processing.component';
 import { OrderService } from './service/order.service';
 import { BasketService } from './service/basket.service';
 
@@ -30,6 +31,7 @@ import { BasketService } from './service/basket.service';
     { path: 'basket', component: BasketComponent },
     { path: 'checkout', component: CheckoutComponent },
     { path: 'payment', component: PaymentComponent },
+    { path: 'payment/process', component: PaymentProcess },
     { path: '', redirectTo: 'pizza', pathMatch: 'full' }
 
   ])],
@@ -45,7 +47,8 @@ import { BasketService } from './service/basket.service';
     ContactUsComponent,
     JumbotronComponent,
     CheckoutComponent,
-    PaymentComponent
+    PaymentComponent,
+    PaymentProcess
   ],
   providers: [OrderService, BasketService],
   bootstrap: [AppComponent]

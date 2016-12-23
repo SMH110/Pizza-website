@@ -11,6 +11,7 @@ router.get('/terms-and-conditions', serveIndex);
 router.get('/contact-us', serveIndex);
 router.get('/payment', serveIndex);
 router.get('/checkout', serveIndex);
+router.get('/payment/process', serveIndex);
 
 function serveIndex(req, res) {
     res.render('index.html')

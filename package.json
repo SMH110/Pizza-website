@@ -1,36 +1,38 @@
 {
-    "name": "pizza-website",
-    "version": "1.0.0",
-    "description": "",
-    "main": "index.js",
-    "scripts": {
-        "install_child": "cd front-end && npm install && npm install --only=development && cd ..",
-        "compile": "node front-end/node_modules/typescript/bin/tsc -p ./front-end/",
-        "start": "node server",
-        "test": "node node_modules/mocha/bin/mocha specs --require mocha-setup.js",
-        "install": "npm run install_child && npm run compile"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/SMH110/Pizza-website.git"
-    },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
-    "bugs": {
-        "url": "https://github.com/SMH110/Pizza-website/issues"
-    },
-    "homepage": "https://github.com/SMH110/Pizza-website#readme",
-    "dependencies": {
-        "body-parser": "^1.15.2",
-        "ejs": "^2.5.5",
-        "express": "^4.14.0",
-        "mongoose": "^4.7.1"
-    },
-    "devDependencies": {
-        "chai": "^3.5.0",
-        "mocha": "^3.2.0",
-        "node-fetch": "^1.6.3",
-        "sinon-chai": "^2.8.0"
-    }
+  "name": "pizza-website",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "install_child": "cd front-end && npm install && npm install --only=development && cd ..",
+    "compile": "node front-end/node_modules/typescript/bin/tsc -p ./front-end/",
+    "start": "node server",
+    "test": "node node_modules/mocha/bin/mocha specs --require mocha-setup.js",
+    "install": "npm run install_child && npm run compile"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SMH110/Pizza-website.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SMH110/Pizza-website/issues"
+  },
+  "homepage": "https://github.com/SMH110/Pizza-website#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "ejs": "^2.5.5",
+    "express": "^4.14.0",
+    "mongoose": "^4.7.1",
+    "request": "^2.79.0",
+    "request-promise": "^4.1.1"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0",
+    "node-fetch": "^1.6.3",
+    "sinon-chai": "^2.8.0"
+  }
 }

@@ -33,4 +33,17 @@ export class OrderService {
     }
 
 
+    postPayerId(payerId: string, token: string) {
+        const postBody = {
+            "payer_id": payerId,
+            "Authorization": token,
+            "execute_link": localStorage.getItem('execute-url')
+        }
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.post('/api/order/execute', postBody, options)
+            .map(this.extractData)
+    }
+
+
 }
