@@ -39,7 +39,7 @@ export class PaymentProcess implements OnInit, OnDestroy {
         this.subscription = this.activatedRoute.queryParams.subscribe(
             (param: any) => {
                 console.log(param);
-                this.orderService.postPayerId(param['PayerID'], localStorage.getItem('access-token'))
+                this.orderService.postPayerId(param['PayerID'], param['paymentId'])
                     .subscribe(response => {
                         window.location.assign("/pizza")
                     });

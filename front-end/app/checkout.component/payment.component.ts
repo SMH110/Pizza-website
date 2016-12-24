@@ -32,8 +32,6 @@ export class PaymentComponent implements OnInit {
 
     order() {
         this.orderService.postOrder().subscribe(response => {
-            localStorage.setItem('execute-url', response.execute_url);
-            localStorage.setItem('access-token', response.access_token)
             window.location.assign(response.approval_url || response.error);
         });
 

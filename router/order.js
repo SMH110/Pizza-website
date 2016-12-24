@@ -17,14 +17,12 @@ router.post('/get-token', (req, res) => {
             grant_type: 'client_credentials'
         }
     };
-    let accessToken;
     requestPromise(options)
         .then(response => {
             response = JSON.parse(response);
             return response.access_token;
         })
         .then(token => {
-            accessToken = token;
             const options = {
                 method: 'POST',
                 headers: {
@@ -50,10 +48,7 @@ router.post('/get-token', (req, res) => {
             const approvalUrl = response.links.filter(obj => obj.rel === 'approval_url')[0];
             const executeUrl = response.links.filter(obj => obj.rel === 'execute')[0];
             const dataToBeRespondedWith = {
-                approval_url: approvalUrl.href,
-                execute_url: executeUrl.href,
-                access_token: accessToken ? accessToken : 'error'
-
+                approval_url: approvalUrl.href
             }
             res.json(dataToBeRespondedWith || { "error": "/errors/error-getting-approval_url" });
         }).catch(console.error);
@@ -61,26 +56,36 @@ router.post('/get-token', (req, res) => {
 
 
 router.post('/execute', (req, res) => {
-    console.log(req.body);
-
-
-    // todo -> get another Authorization token from paypal
+    console.log('Request Body is       ------------------------>   ', req.body);
     const executePostBody = req.body;
-    const options = {
+    const getNewTokenOptions = {
         method: 'POST',
         headers: {
-            'Authorization': 'Bearer ' + executePostBody.Authorization
+            'Authorization': 'Basic ' + new Buffer(`${paypalConfig.client_id}:${paypalConfig.secret}`).toString('base64')
         },
-        // todo -> make up the execute link from the payment ID
-        uri: `https://api.sandbox.paypal.com/v1/payments/payment/${executePostBody.payment_id}/execute/`,
-        body: {
-            "payer_id": executePostBody.payer_id
-        },
-        json: true
+        uri: 'https://api.sandbox.paypal.com/v1/oauth2/token',
+        form: {
+            grant_type: 'client_credentials'
+        }
     };
-
-    console.log("      ------------------------>   Payer ID", options.body.payer_id);
-    requestPromise(options)
+    requestPromise(getNewTokenOptions)
+        .then(response => {
+            response = JSON.parse(response);
+            return response.access_token;
+        }).then(token => {
+            const options = {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                },
+                uri: `https://api.sandbox.paypal.com/v1/payments/payment/${executePostBody.payment_id}/execute/`,
+                body: {
+                    "payer_id": executePostBody.payerId
+                },
+                json: true
+            };
+            return requestPromise(options)
+        })
         .then(response => {
             res.json(response);
         }).catch(console.error);

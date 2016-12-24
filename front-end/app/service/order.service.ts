@@ -33,11 +33,10 @@ export class OrderService {
     }
 
 
-    postPayerId(payerId: string, token: string) {
+    postPayerId(payerId: string, paymentId: string) {
         const postBody = {
-            "payer_id": payerId,
-            "Authorization": token,
-            "execute_link": localStorage.getItem('execute-url')
+            "payerId": payerId,
+            "payment_id": paymentId
         }
         const headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });

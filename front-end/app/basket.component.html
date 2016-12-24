@@ -27,8 +27,8 @@
             <hr>
             <h2 *ngIf='items.length > 0'>Total: £{{totalPrice}}</h2>
 
-            <button class="btn btn-default next" *ngIf='items.length > 1' [routerLink]="['/checkout']"> Next <span class="glyphicon glyphicon-chevron-right"></span></button>
-            <button class="btn btn-danger" *ngIf='items.length > 1' (click)="removeAll()">Clear Basket</button>
+            <button class="btn btn-default next" *ngIf='items.length > 0' [routerLink]="['/checkout']"> Next <span class="glyphicon glyphicon-chevron-right"></span></button>
+            <button class="btn btn-danger" *ngIf='items.length > 0' (click)="removeAll()">Clear Basket</button>
             <h2 class="text-danger" *ngIf='items.length < 1'>No Item in the Basket</h2>
         </div>
     </div>
