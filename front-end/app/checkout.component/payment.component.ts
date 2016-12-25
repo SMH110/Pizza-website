@@ -26,11 +26,12 @@ export class PaymentComponent implements OnInit {
     constructor(private basket: BasketService, private orderService: OrderService) {
 
     }
-
+    isShowSpinner: boolean = false;
     ngOnInit(): void {
     }
 
     order() {
+        this.isShowSpinner = true
         this.orderService.postOrder().subscribe(response => {
             window.location.assign(response.approval_url || response.error);
         });

@@ -33,8 +33,8 @@ router.post('/get-token', (req, res) => {
                 body: {
                     "intent": "sale",
                     "redirect_urls": {
-                        "return_url": "http://localhost:3000/payment/process",
-                        "cancel_url": "http://localhost:3000/basket"
+                        "return_url": `${req.headers.origin}/payment/process`,
+                        "cancel_url": `${req.headers.origin}/basket`
                     },
                     "payer": {
                         "payment_method": "paypal"
@@ -46,7 +46,6 @@ router.post('/get-token', (req, res) => {
             return requestPromise(options);
         }).then(response => {
             const approvalUrl = response.links.filter(obj => obj.rel === 'approval_url')[0];
-            const executeUrl = response.links.filter(obj => obj.rel === 'execute')[0];
             const dataToBeRespondedWith = {
                 approval_url: approvalUrl.href
             }
@@ -56,7 +55,6 @@ router.post('/get-token', (req, res) => {
 
 
 router.post('/execute', (req, res) => {
-    console.log('Request Body is       ------------------------>   ', req.body);
     const executePostBody = req.body;
     const getNewTokenOptions = {
         method: 'POST',

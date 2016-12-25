@@ -41,7 +41,9 @@ export class PaymentProcess implements OnInit, OnDestroy {
                 console.log(param);
                 this.orderService.postPayerId(param['PayerID'], param['paymentId'])
                     .subscribe(response => {
-                        window.location.assign("/pizza")
+                        if (response.state === 'approved') {
+                            window.location.assign("/order/success");
+                        }
                     });
             });
     }
