@@ -26,6 +26,10 @@ import {NgForm} from '@angular/forms';
             font-weight: bold;
             margin-left: 30px;
         }
+
+        .error-msg{
+             width: 85%;
+        }
         `
     ]
 })

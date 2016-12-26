@@ -43,6 +43,9 @@ export class PaymentProcess implements OnInit, OnDestroy {
                     .subscribe(response => {
                         if (response.state === 'approved') {
                             window.location.assign("/order/success");
+                            localStorage.removeItem('totalQuantity');
+                            localStorage.removeItem('totalPrice');
+                            localStorage.removeItem('items');
                         }
                     });
             });
