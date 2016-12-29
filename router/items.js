@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const products = require('../models/products.model');
+const sides = require('../models/sides.model');
+const drinks = require('../models/drinks.model');
 
 router.get('/pizzas', (req, res) => {
     pizzas.find({}, (error, pizzas) => {
@@ -15,14 +17,14 @@ router.get('/pizzas', (req, res) => {
 });
 
 router.get('/sides', (req, res) => {
-    products.find({ type: "side" }, (error, sides) => {
+    sides.find({}, (error, sides) => {
         if (error) return console.error(error);
         res.json(sides);
     });
 });
 
 router.get('/drinks', (req, res) => {
-    products.find({ type: "drink" }, (error, drinks) => {
+    drinks.find({}, (error, drinks) => {
         if (error) return console.error(error);
         res.json(drinks);
     });

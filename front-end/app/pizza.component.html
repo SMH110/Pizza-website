@@ -3,14 +3,14 @@
     <div class="row">
         <div class="col-sm-12 col-md-3 product" *ngFor='let pizza of pizzas'>
             <div class="thumbnail">
-                <img src="{{pizza.imageUrl}}" alt="...">
+                <img src="{{pizza.imageName}}" alt="...">
                 <div class="caption">
                     <h3>{{pizza.name}}</h3>
                     <p>{{pizza.description}}</p>
 
                     <label for="sizes">Size:</label>
                     <select class="form-control" id="sizes" [(ngModel)]="pizza.selectedSize">
-                        <option *ngFor='let size of pizza.size' value="{{size}}" >{{size}}</option>
+                        <option *ngFor='let size of pizza.subType' value="{{size}}" >{{size}}</option>
                     </select><span>£{{ pizza.price[pizza.selectedSize] }}</span>
                     <p>
                         <a (click)='addToBasket(pizza)' class="btn btn-primary" role="button">Add to Basket</a>

@@ -44,5 +44,32 @@ export class OrderService {
             .map(this.extractData)
     }
 
+    postOrderDetails(orderDetails: OrderDetail) {
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
 
+        return this.http.post('/api/order/save-order', orderDetails, options)
+            .map(this.extractData)
+    }
+
+
+}
+
+
+interface OrderDetail {
+    buyer: {
+        firstName: string;
+        lastName: string;
+        address: string;
+        postCode: string;
+        email: string;
+        phone: string;
+    },
+    orderItems: any;
+    deliveryMethod: string;
+    date: Date;
+    paymentMethod: string;
+    total: number;
+    discount: number;
+    totalPayment: number;
 }

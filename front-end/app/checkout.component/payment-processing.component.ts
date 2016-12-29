@@ -42,10 +42,46 @@ export class PaymentProcess implements OnInit, OnDestroy {
                 this.orderService.postPayerId(param['PayerID'], param['paymentId'])
                     .subscribe(response => {
                         if (response.state === 'approved') {
-                            window.location.assign("/order/success");
-                            localStorage.removeItem('totalQuantity');
-                            localStorage.removeItem('totalPrice');
-                            localStorage.removeItem('items');
+                            const buyerDetails = JSON.parse(localStorage.getItem('checkout-details'));
+                            console.log(buyerDetails);
+
+                            let items: any = [];
+                            let storedItems: any = JSON.parse(localStorage.getItem('items'));
+                            for (let id in storedItems) {
+                                items.push({
+                                    item: storedItems[id].item,
+                                    qty: storedItems[id].qty,
+                                    price: storedItems[id].price
+                                });
+                            }
+                            let orderDetail = {
+                                buyer: {
+                                    firstName: buyerDetails.firstName,
+                                    lastName: buyerDetails.lastName,
+                                    address: buyerDetails.address2.length ? `${buyerDetails.address1} ${buyerDetails.address2}` : buyerDetails.address1,
+                                    postCode: buyerDetails.postCode,
+                                    email: buyerDetails.email,
+                                    phone: buyerDetails.phone
+                                },
+                                orderItems: items,
+                                deliveryMethod: buyerDetails.deliveryMethod,
+                                date: new Date(),
+                                paymentMethod: 'paypal',
+                                total: Math.round(JSON.parse(localStorage.getItem('totalPrice')) * 100) / 100,
+                                discount: 0,
+                                totalPayment: Math.round(JSON.parse(localStorage.getItem('totalPrice')) * 100) / 100
+                            }
+
+                            this.orderService.postOrderDetails(orderDetail)
+                                .subscribe(response => {
+                                    if (response.message === 'ok') {
+                                        window.location.assign("/order/success");
+                                        localStorage.removeItem('totalQuantity');
+                                        localStorage.removeItem('totalPrice');
+                                        localStorage.removeItem('items');
+                                        localStorage.removeItem('checkout-details');
+                                    }
+                                });
                         }
                     });
             });
@@ -56,4 +92,5 @@ export class PaymentProcess implements OnInit, OnDestroy {
         this.subscription.unsubscribe();
     }
 }
+
 

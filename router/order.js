@@ -4,6 +4,7 @@ const https = require('https');
 const querystring = require('querystring');
 const paypalConfig = require('../config/paypal.config');
 const requestPromise = require('request-promise');
+const Order = require('../models/orders.model');
 
 router.post('/get-token', (req, res) => {
     const orderBody = req.body;
@@ -87,7 +88,21 @@ router.post('/execute', (req, res) => {
         .then(response => {
             res.json(response);
         }).catch(console.error);
+});
 
+
+// Route to save the orders in the mongoose database
+router.post('/save-order', (req, res) => {
+    const order = new Order(req.body);
+    order.save((error, orders) => {
+        if (error) {
+            res.json(error);
+            return;
+        }
+        res.json({
+            message: "ok"
+        });
+    })
 });
 
 
