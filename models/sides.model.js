@@ -8,3 +8,4 @@ let sideItem = new Schema({
 });
 
 module.exports = mongoose.model('sides', sideItem);
+//

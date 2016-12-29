@@ -6,7 +6,11 @@ const drinks = require('../models/drinks.model');
 
 router.get('/pizzas', (req, res) => {
     pizzas.find({}, (error, pizzas) => {
-        if (error) return console.error(error);
+        if (error) {
+            res.json(error);
+            console.error(error);
+            return;
+        }
         res.json(pizzas);
     });
 });
