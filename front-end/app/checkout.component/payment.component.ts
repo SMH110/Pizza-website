@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+
 import { BasketService } from '../service/basket.service';
 import { OrderService } from './../service/order.service';
+import { GuardService } from '../service/guard.service';
 
 @Component({
     moduleId: module.id,
@@ -23,7 +25,7 @@ import { OrderService } from './../service/order.service';
 })
 export class PaymentComponent implements OnInit {
 
-    constructor(private basket: BasketService, private orderService: OrderService) {
+    constructor(private basket: BasketService, private orderService: OrderService, private guardService: GuardService) {
 
     }
     isShowSpinner: boolean = false;
@@ -31,6 +33,8 @@ export class PaymentComponent implements OnInit {
     }
 
     order() {
+        this.guardService.canGetPaymentProcessRoute = true;
+        localStorage.setItem('canGetPaymentProcessRoute', 'true');
         this.isShowSpinner = true
         this.orderService.postOrder().subscribe(response => {
             window.location.assign(response.approval_url || response.error);

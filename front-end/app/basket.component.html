@@ -13,7 +13,7 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let item of items">
-                        <td>{{item.item.name}}</td>
+                        <td>{{item.item.nameAndSize || item.item.name}}</td>
                         <td>£{{item.price | number:'1.2-2'}}</td>
                         <td>{{item.qty}}</td>
                         <td>

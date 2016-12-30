@@ -20,6 +20,11 @@ import { PaymentProcess } from './checkout.component/payment-processing.componen
 import { OrderSuccessComponent } from './notification.component/order-success.component';
 import { OrderService } from './service/order.service';
 import { BasketService } from './service/basket.service';
+import { GuardService } from './service/guard.service';
+// Guards
+import { CheckoutGuard } from './guards/checkout.guard';
+import { PaymentGuard } from './guards/payment.guard';
+import { PaymentProcessGuard } from './guards/payment-process.guard'
 
 @NgModule({
   imports: [BrowserModule, HttpModule, FormsModule, RouterModule.forRoot([
@@ -30,9 +35,9 @@ import { BasketService } from './service/basket.service';
     { path: 'terms-and-conditions', component: TermsAndConditionsComponent },
     { path: 'contact-us', component: ContactUsComponent },
     { path: 'basket', component: BasketComponent },
-    { path: 'checkout', component: CheckoutComponent },
-    { path: 'payment', component: PaymentComponent },
-    { path: 'payment/process', component: PaymentProcess },
+    { path: 'checkout', canActivate: [CheckoutGuard], component: CheckoutComponent },
+    { path: 'payment', canActivate: [PaymentGuard], component: PaymentComponent },
+    { path: 'payment/process', canActivate: [PaymentProcessGuard], component: PaymentProcess },
     { path: 'order/success', component: OrderSuccessComponent },
     { path: '', redirectTo: 'pizza', pathMatch: 'full' }
 
@@ -53,7 +58,15 @@ import { BasketService } from './service/basket.service';
     PaymentProcess,
     OrderSuccessComponent
   ],
-  providers: [OrderService, BasketService],
+  providers:
+  [
+    OrderService,
+    BasketService,
+    GuardService,
+    CheckoutGuard,
+    PaymentGuard,
+    PaymentProcessGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

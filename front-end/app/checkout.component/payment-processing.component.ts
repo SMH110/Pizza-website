@@ -11,47 +11,36 @@ import { OrderService } from './../service/order.service';
 
 })
 export class PaymentProcess implements OnInit, OnDestroy {
-
     dots = "";
     Processing = "Processing ";
     fullLoading = "";
-
     private subscription: Subscription;
-
     constructor(private activatedRoute: ActivatedRoute, private orderService: OrderService) { }
+    // updateLoading(): void {
+    //     if (this.dots === "...") {
+    //         this.dots = "";
+    //     }
+    //     this.dots += ".";
 
+    //     this.fullLoading = this.Processing + this.dots;
 
-
-    updateLoading(): void {
-        if (this.dots === "...") {
-            console.log(" I have run");
-            this.dots = "";
-        }
-        this.dots += ".";
-
-        this.fullLoading = this.Processing + this.dots;
-
-    }
+    // }
 
     ngOnInit(): void {
-        console.log(localStorage.getItem('execute-url'));
-        setInterval(this.updateLoading, 500);
+        // setInterval(this.updateLoading, 500);
         this.subscription = this.activatedRoute.queryParams.subscribe(
             (param: any) => {
-                console.log(param);
                 this.orderService.postPayerId(param['PayerID'], param['paymentId'])
                     .subscribe(response => {
                         if (response.state === 'approved') {
                             const buyerDetails = JSON.parse(localStorage.getItem('checkout-details'));
-                            console.log(buyerDetails);
-
                             let items: any = [];
                             let storedItems: any = JSON.parse(localStorage.getItem('items'));
                             for (let id in storedItems) {
                                 items.push({
                                     item: storedItems[id].item,
                                     qty: storedItems[id].qty,
-                                    price: storedItems[id].price
+                                    price: Math.round(storedItems[id].price * 100) / 100
                                 });
                             }
                             let orderDetail = {
@@ -80,6 +69,7 @@ export class PaymentProcess implements OnInit, OnDestroy {
                                         localStorage.removeItem('totalPrice');
                                         localStorage.removeItem('items');
                                         localStorage.removeItem('checkout-details');
+                                        localStorage.removeItem('canGetPaymentProcessRoute');
                                     }
                                 });
                         }

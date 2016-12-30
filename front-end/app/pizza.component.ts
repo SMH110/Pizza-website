@@ -46,13 +46,15 @@ export class PizzaComponent implements OnInit {
         // reformating item interface for polymorphism case
         // to look like sides and drinks items in the basket
         let reFormatedItem = {
-            name: `${item.name} | ${item.selectedSize}`,
+            name: item.name,
+            nameAndSize: `${item.name} | ${item.selectedSize}`,
             _id: item._id,
             size_id: item._id + item.selectedSize,
+            size: item.selectedSize,
             price: item.price[item.selectedSize],
             imageName: item.imageName
         }
-       
+
         let storedItem = this.basket.items[reFormatedItem.size_id]
         if (!storedItem) {
             storedItem = { item: reFormatedItem, qty: 0, price: 0 };

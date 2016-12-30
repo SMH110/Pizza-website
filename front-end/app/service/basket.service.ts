@@ -23,7 +23,7 @@ export class BasketService {
     }
 
     generateDescription() {
-        return this.generateArray().reduce((initial, current) => initial + `${current.qty} ${current.item.name}, `, "").slice(0, -2);
+        return this.generateArray().reduce((initial, current) => initial + `${current.qty} ${current.item.nameAndSize ||current.item.name }, `, "").slice(0, -2);
     }
 }
 
@@ -31,15 +31,16 @@ export class BasketService {
 
 type Items = { [id: string]: Item | any }
 interface Item {
-    item: ItemDetail,
-    qty: number,
-    price: number
+    item: ItemDetail;
+    qty: number;
+    price: number;
 }
 
 interface ItemDetail {
-    name: string,
-    price: number | number[],
-    description?: string,
-    subType?: string[],
-    imageName: string,
+    name: string;
+    nameAndSize? : string;
+    price: number | number[];
+    description?: string;
+    subType?: string[];
+    imageName: string;
 }
