@@ -21,6 +21,7 @@ import { OrderSuccessComponent } from './notification.component/order-success.co
 import { OrderService } from './service/order.service';
 import { BasketService } from './service/basket.service';
 import { GuardService } from './service/guard.service';
+import { OrderFailureComponent } from './notification.component/order-failure.component'
 // Guards
 import { CheckoutGuard } from './guards/checkout.guard';
 import { PaymentGuard } from './guards/payment.guard';
@@ -39,6 +40,7 @@ import { PaymentProcessGuard } from './guards/payment-process.guard'
     { path: 'payment', canActivate: [PaymentGuard], component: PaymentComponent },
     { path: 'payment/process', canActivate: [PaymentProcessGuard], component: PaymentProcess },
     { path: 'order/success', component: OrderSuccessComponent },
+    { path: 'order/failure', component: OrderFailureComponent },
     { path: '', redirectTo: 'pizza', pathMatch: 'full' }
 
   ])],
@@ -56,7 +58,8 @@ import { PaymentProcessGuard } from './guards/payment-process.guard'
     CheckoutComponent,
     PaymentComponent,
     PaymentProcess,
-    OrderSuccessComponent
+    OrderSuccessComponent,
+    OrderFailureComponent
   ],
   providers:
   [

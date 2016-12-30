@@ -63,15 +63,24 @@ export class PaymentProcess implements OnInit, OnDestroy {
 
                             this.orderService.postOrderDetails(orderDetail)
                                 .subscribe(response => {
-                                    if (response.message === 'ok') {
+                                    if (response.success && response.success === 'ok') {
                                         window.location.assign("/order/success");
                                         localStorage.removeItem('totalQuantity');
                                         localStorage.removeItem('totalPrice');
                                         localStorage.removeItem('items');
                                         localStorage.removeItem('checkout-details');
                                         localStorage.removeItem('canGetPaymentProcessRoute');
+                                        localStorage.removeItem('errorMessage');
+                                    } else {
+                                        localStorage.setItem('errorMessage', JSON.stringify(response.message))
+                                        window.location.assign("/order/failure");
                                     }
+
                                 });
+                        } else {
+                            localStorage.setItem('errorMessage', JSON.stringify(response.message))
+                            window.location.assign("/order/failure");
+
                         }
                     });
             });

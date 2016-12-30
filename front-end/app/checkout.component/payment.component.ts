@@ -34,10 +34,18 @@ export class PaymentComponent implements OnInit {
 
     order() {
         this.guardService.canGetPaymentProcessRoute = true;
+        localStorage.removeItem('errorMessage');
         localStorage.setItem('canGetPaymentProcessRoute', 'true');
         this.isShowSpinner = true
         this.orderService.postOrder().subscribe(response => {
-            window.location.assign(response.approval_url || response.error);
+            if (response.approval_url) {
+                window.location.assign(response.approval_url);
+            } else {
+                localStorage.setItem('errorMessage', JSON.stringify(response.message));
+                localStorage.removeItem('canGetPaymentProcessRoute');
+                window.location.assign(response.error);
+            }
+
         });
 
     }

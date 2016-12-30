@@ -13,6 +13,7 @@ router.get('/payment', serveIndex);
 router.get('/checkout', serveIndex);
 router.get('/payment/process', serveIndex);
 router.get('/order/success', serveIndex);
+router.get('/order/failure', serveIndex);
 
 function serveIndex(req, res) {
     res.render('index.html')

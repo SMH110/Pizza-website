@@ -35,7 +35,7 @@ router.post('/get-token', (req, res) => {
                     "intent": "sale",
                     "redirect_urls": {
                         "return_url": `${req.headers.origin}/payment/process`,
-                        "cancel_url": `${req.headers.origin}/basket`
+                        "cancel_url": `${req.headers.origin}/order/failure`
                     },
                     "payer": {
                         "payment_method": "paypal"
@@ -50,8 +50,14 @@ router.post('/get-token', (req, res) => {
             const dataToBeRespondedWith = {
                 approval_url: approvalUrl.href
             }
-            res.json(dataToBeRespondedWith || { "error": "/errors/error-getting-approval_url" });
-        }).catch(console.error);
+            res.json(dataToBeRespondedWith || { error: `${req.headers.origin}/order/failure`, message: "failed get paypal token" });
+        }).catch(error => {
+            console.log(error);
+            res.json({
+                error: `${req.headers.origin}/order/failure`,
+                message: "failed get paypal token"
+            })
+        });
 });
 
 
@@ -87,7 +93,12 @@ router.post('/execute', (req, res) => {
         })
         .then(response => {
             res.json(response);
-        }).catch(console.error);
+        }).catch(error => {
+            console.error(error);
+            res.json({
+                message: "failure during executing the order"
+            })
+        });
 });
 
 
@@ -96,11 +107,13 @@ router.post('/save-order', (req, res) => {
     const order = new Order(req.body);
     order.save((error, orders) => {
         if (error) {
-            res.json(error);
+            res.json({
+                message: 'failed to save the order'
+            });
             return;
         }
         res.json({
-            message: "ok"
+            success: "ok"
         });
     })
 });
