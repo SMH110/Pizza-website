@@ -20,7 +20,8 @@ import { HeaderComponent } from './header.component/header.component'
 import { CheckoutGuard } from './guards/checkout.guard';
 import { PaymentGuard } from './guards/payment.guard';
 import { PaymentProcessGuard } from './guards/payment-process.guard';
-import { OrdersComponent } from './admin/orders.component'
+import { OrdersComponent } from './admin/orders.component';
+import {SignInComponent} from './admin/sign-in.component';
 import { Routes } from '@angular/router';
 
 export default [
@@ -37,5 +38,6 @@ export default [
     { path: 'order/success', component: OrderSuccessComponent },
     { path: 'order/failure', component: OrderFailureComponent },
     { path: 'admin/get-orders', component: OrdersComponent },
+    { path: 'admin/sign-in', component: SignInComponent },
     { path: '', redirectTo: 'pizza', pathMatch: 'full' }
 ] as Routes;

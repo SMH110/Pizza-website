@@ -23,7 +23,8 @@ import { BasketService } from './service/basket.service';
 import { GuardService } from './service/guard.service';
 import { OrderFailureComponent } from './notification.component/order-failure.component';
 import { HeaderComponent } from './header.component/header.component';
-import {OrdersComponent} from './admin/orders.component'
+import {OrdersComponent} from './admin/orders.component';
+import {SignInComponent} from './admin/sign-in.component';
 
 // Guards
 import { CheckoutGuard } from './guards/checkout.guard';
@@ -50,7 +51,8 @@ import Routes from './routes';
     OrderSuccessComponent,
     OrderFailureComponent,
     HeaderComponent,
-    OrdersComponent
+    OrdersComponent,
+    SignInComponent
   ],
   providers:
   [

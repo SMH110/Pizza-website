@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
 
 
   isHeaderShown(): boolean {
-    if (this.router.url === "/admin/get-orders") {
+    if (this.router.url === "/admin/get-orders" || this.router.url === "/admin/sign-in") {
       return false
     }
 
@@ -29,7 +29,7 @@ export class AppComponent implements OnInit {
   }
 
   isFooterShown(): boolean {
-    if (this.router.url === "/admin/get-orders") {
+    if (this.router.url === "/admin/get-orders" || this.router.url === "/admin/sign-in") {
       return false
     }
 

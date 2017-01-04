@@ -15,6 +15,7 @@ router.get('/payment/process', serveIndex);
 router.get('/order/success', serveIndex);
 router.get('/order/failure', serveIndex);
 router.get('/admin/get-orders', serveIndex);
+router.get('/admin/sign-in', serveIndex);
 
 function serveIndex(req, res) {
     res.render('index.html')
