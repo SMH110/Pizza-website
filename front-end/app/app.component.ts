@@ -12,9 +12,7 @@ import { Router } from '@angular/router';
 export class AppComponent implements OnInit {
   totalQ: number;
   constructor(private basket: BasketService, private router: Router) {
-    this.router.routerState.root.data.subscribe(data => {
-      console.log('isAdmin', data['isAdmin']);
-    });
+
 
   }
   ngOnInit(): void {
@@ -23,6 +21,14 @@ export class AppComponent implements OnInit {
 
 
   isHeaderShown(): boolean {
+    if (this.router.url === "/admin/get-orders") {
+      return false
+    }
+
+    return true
+  }
+
+  isFooterShown(): boolean {
     if (this.router.url === "/admin/get-orders") {
       return false
     }

@@ -20,11 +20,11 @@ import { HeaderComponent } from './header.component/header.component'
 import { CheckoutGuard } from './guards/checkout.guard';
 import { PaymentGuard } from './guards/payment.guard';
 import { PaymentProcessGuard } from './guards/payment-process.guard';
-import {OrdersComponent} from './admin/orders.component'
+import { OrdersComponent } from './admin/orders.component'
 import { Routes } from '@angular/router';
 
 export default [
-    { path: 'pizza', component: PizzaComponent, data: {isAdmin: true} },
+    { path: 'pizza', component: PizzaComponent },
     { path: 'sides', component: SidesComponent },
     { path: 'drinks', component: DrinksComponent },
     { path: 'about-us', component: AboutUsComponent },
