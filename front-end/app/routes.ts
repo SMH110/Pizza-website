@@ -1,9 +1,3 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule } from '@angular/router';
-import { HttpModule } from '@angular/http';
-import { FormsModule } from '@angular/forms';
-
 import { AppComponent } from './app.component';
 import { PizzaComponent } from './pizza.component';
 import { SidesComponent } from './sides.component';
@@ -23,41 +17,23 @@ import { BasketService } from './service/basket.service';
 import { GuardService } from './service/guard.service';
 import { OrderFailureComponent } from './notification.component/order-failure.component';
 import { HeaderComponent } from './header.component/header.component'
-// Guards
 import { CheckoutGuard } from './guards/checkout.guard';
 import { PaymentGuard } from './guards/payment.guard';
 import { PaymentProcessGuard } from './guards/payment-process.guard'
-import Routes from './routes';
+import { Routes } from '@angular/router';
 
-@NgModule({
-  imports: [BrowserModule, HttpModule, FormsModule, RouterModule.forRoot(Routes)],
-  declarations: [
-    AppComponent,
-    PizzaComponent,
-    SidesComponent,
-    DrinksComponent,
-    AboutUsComponent,
-    BasketComponent,
-    FooterComponent,
-    TermsAndConditionsComponent,
-    ContactUsComponent,
-    JumbotronComponent,
-    CheckoutComponent,
-    PaymentComponent,
-    PaymentProcess,
-    OrderSuccessComponent,
-    OrderFailureComponent,
-    HeaderComponent
-  ],
-  providers:
-  [
-    OrderService,
-    BasketService,
-    GuardService,
-    CheckoutGuard,
-    PaymentGuard,
-    PaymentProcessGuard
-  ],
-  bootstrap: [AppComponent]
-})
-export class AppModule { }
+export default [
+    { path: 'pizza', component: PizzaComponent, data: {isAdmin: true} },
+    { path: 'sides', component: SidesComponent },
+    { path: 'drinks', component: DrinksComponent },
+    { path: 'about-us', component: AboutUsComponent },
+    { path: 'terms-and-conditions', component: TermsAndConditionsComponent },
+    { path: 'contact-us', component: ContactUsComponent },
+    { path: 'basket', component: BasketComponent },
+    { path: 'checkout', canActivate: [CheckoutGuard], component: CheckoutComponent },
+    { path: 'payment', canActivate: [PaymentGuard], component: PaymentComponent },
+    { path: 'payment/process', canActivate: [PaymentProcessGuard], component: PaymentProcess },
+    { path: 'order/success', component: OrderSuccessComponent },
+    { path: 'order/failure', component: OrderFailureComponent },
+    { path: '', redirectTo: 'pizza', pathMatch: 'full' }
+] as Routes;
