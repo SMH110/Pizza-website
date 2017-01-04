@@ -22,7 +22,9 @@ import { OrderService } from './service/order.service';
 import { BasketService } from './service/basket.service';
 import { GuardService } from './service/guard.service';
 import { OrderFailureComponent } from './notification.component/order-failure.component';
-import { HeaderComponent } from './header.component/header.component'
+import { HeaderComponent } from './header.component/header.component';
+import {OrdersComponent} from './admin/orders.component'
+
 // Guards
 import { CheckoutGuard } from './guards/checkout.guard';
 import { PaymentGuard } from './guards/payment.guard';
@@ -47,7 +49,8 @@ import Routes from './routes';
     PaymentProcess,
     OrderSuccessComponent,
     OrderFailureComponent,
-    HeaderComponent
+    HeaderComponent,
+    OrdersComponent
   ],
   providers:
   [

@@ -19,7 +19,8 @@ import { OrderFailureComponent } from './notification.component/order-failure.co
 import { HeaderComponent } from './header.component/header.component'
 import { CheckoutGuard } from './guards/checkout.guard';
 import { PaymentGuard } from './guards/payment.guard';
-import { PaymentProcessGuard } from './guards/payment-process.guard'
+import { PaymentProcessGuard } from './guards/payment-process.guard';
+import {OrdersComponent} from './admin/orders.component'
 import { Routes } from '@angular/router';
 
 export default [
@@ -35,5 +36,6 @@ export default [
     { path: 'payment/process', canActivate: [PaymentProcessGuard], component: PaymentProcess },
     { path: 'order/success', component: OrderSuccessComponent },
     { path: 'order/failure', component: OrderFailureComponent },
+    { path: 'admin/get-orders', component: OrdersComponent },
     { path: '', redirectTo: 'pizza', pathMatch: 'full' }
 ] as Routes;
