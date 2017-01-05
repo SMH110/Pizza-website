@@ -1,21 +1,27 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-
-            <form>
+            <div class="alert alert-danger danger-danger" *ngIf='errorMessage'> {{errorMessage}}
+            </div>
+            <form #signIn='ngForm' (ngSubmit)='getTokenAndSignIn(signIn)' (submit)='preventDefault($event)'>
                 <fieldset>
                     <legend>
                         Sign In:
                     </legend>
                     <div class="form-group">
                         <label for="email">Email address</label>
-                        <input type="email" class="form-control" id="email" placeholder="Email">
+                        <input type="email" class="form-control" id="email" placeholder="Email" name="email" ngModel #email="ngModel" required>
+                        <div class="alert alert-danger danger-danger" [hidden]="email.valid || (email.pristine && email.untouched)"> Email is required
+                        </div>
+
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>
-                        <input type="password" class="form-control" id="password" placeholder="Password">
+                        <input type="password" class="form-control" id="password" placeholder="Password" name="password" ngModel #password="ngModel" required>
+                        <div class="alert alert-danger danger-danger" [hidden]="password.valid || (password.pristine && password.untouched)"> Passwrod is required
+                        </div>
                     </div>
-                    <button type="submit" class="btn btn-default">Sign in</button>
+                    <button type="submit" class="btn btn-default" type="submit" [disabled]="!signIn.form.valid">Sign in</button>
                 </fieldset>
             </form>
         </div>

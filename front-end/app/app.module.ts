@@ -23,10 +23,10 @@ import { BasketService } from './service/basket.service';
 import { GuardService } from './service/guard.service';
 import { OrderFailureComponent } from './notification.component/order-failure.component';
 import { HeaderComponent } from './header.component/header.component';
-import {OrdersComponent} from './admin/orders.component';
-import {SignInComponent} from './admin/sign-in.component';
-import {AdminFailureComponent} from './admin/admin-failure.component';
-
+import { OrdersComponent } from './admin/orders.component';
+import { SignInComponent } from './admin/sign-in.component';
+import { AdminFailureComponent } from './admin/admin-failure.component';
+import { SignInService } from './service/sign-in.service'
 // Guards
 import { CheckoutGuard } from './guards/checkout.guard';
 import { PaymentGuard } from './guards/payment.guard';
@@ -63,7 +63,8 @@ import Routes from './routes';
     GuardService,
     CheckoutGuard,
     PaymentGuard,
-    PaymentProcessGuard
+    PaymentProcessGuard,
+    SignInService
   ],
   bootstrap: [AppComponent]
 })

@@ -5,6 +5,9 @@ const querystring = require('querystring');
 const paypalConfig = require('../config/paypal.config');
 const requestPromise = require('request-promise');
 const Order = require('../models/orders.model');
+const passport = require('passport');
+
+require('../config/passport.config')(passport)
 
 router.post('/get-token', (req, res) => {
     const orderBody = req.body;
@@ -145,5 +148,13 @@ router.post('/update-status', (req, res) => {
     });
 });
 
+
+
+//// TODO: You have to move this later.
+
+
+router.get('/orders', passport.authenticate('jwt', { session: false }), (req, res) => {
+    res.send('it worked');
+});
 
 module.exports = router;
