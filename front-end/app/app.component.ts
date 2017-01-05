@@ -10,7 +10,6 @@ import { Router } from '@angular/router';
   providers: [ItemService]
 })
 export class AppComponent implements OnInit {
-  totalQ: number;
   constructor(private basket: BasketService, private router: Router) {
 
 
@@ -38,3 +37,5 @@ export class AppComponent implements OnInit {
 
 
 }
+
+

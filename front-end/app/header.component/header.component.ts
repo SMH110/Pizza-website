@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import {BasketService} from '../service/basket.service';
+import { BasketService } from '../service/basket.service';
 
 @Component({
     moduleId: module.id,
@@ -10,8 +10,10 @@ import {BasketService} from '../service/basket.service';
 
 export class HeaderComponent {
 
-    constructor (private basket : BasketService){
-
+    constructor(private basket: BasketService) {
+        
     }
+
+    
 }
 
