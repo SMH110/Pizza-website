@@ -119,4 +119,31 @@ router.post('/save-order', (req, res) => {
 });
 
 
+
+router.get('/get-orders', (req, res) => {
+    Order.find({}, (error, orders) => {
+        if (error) {
+            res.json({ error: 'An Error occurred during getting the orders' });
+            return console.error(error);
+        }
+
+        res.json(orders);
+    });
+});
+
+// update order status
+
+router.post('/update-status', (req, res) => {
+    console.log(req.body.id);
+    Order.update({ _id: req.body.id }, { status: "Complete" }, (error) => {
+        if (error) {
+            res.json({ error: "An Error occurred durning updating the status" });
+            return console.error(error);
+        }
+
+        res.json({ message: "ok" });
+    });
+});
+
+
 module.exports = router;

@@ -2,6 +2,41 @@
     <div class="row">
         <div class="col-md-12">
             <h1>Orders</h1>
+            <hr>
+            <div class="col-md-8" *ngFor='let order of orders; let i=index'>
+                <h2>Order {{i + 1}}</h2>
+                <p class="date">{{order.date | date:"medium"}}</p>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Size</th>
+                            <th>Quantity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor='let item of order.orderItems'>
+                            <td>{{item.item.name}}</td>
+                            <td>{{item.item.size ? item.item.size : "_"}}</td>
+                            <td>{{item.qty}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h4>Total:</h4><span> £{{order.total | number:'1.2-2'}}</span><br>
+                <h4>Status:</h4> <span [style.color]="order.status === 'Outstanding' ? '#ff7e00' : '#11a348'">{{order.status}}</span>
+                <button class="btn btn-primary mark-complete" *ngIf='order.status === "Outstanding"' (click)='markAsComplete(order._id)'>Mark as complete</button>
+                <h3>Customer's details:</h3>
+                <h4>Name: </h4>
+                <span>{{order.buyer.firstName}} {{order.buyer.lastName}}</span><br>
+                <h4>Address: </h4>
+                <span>{{order.buyer.address}} {{order.buyer.postCode}}</span><br>
+                <h4>Email: </h4>
+                <span>{{order.buyer.email | lowercase}}</span><br>
+                <h4>Phone: </h4>
+                <span>{{order.buyer.phone}}</span><br>
+                <br>
+                <hr>
+            </div>
         </div>
     </div>
 </div>

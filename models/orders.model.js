@@ -16,7 +16,8 @@ const orders = new Schema({
     paymentMethod: String,
     total: Number,
     discount: Number,
-    totalPayment: Number
+    totalPayment: Number,
+    status: { type: String, default: "Outstanding" }
 });
 
 module.exports = mongoose.model('orders', orders);

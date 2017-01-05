@@ -25,6 +25,7 @@ import { OrderFailureComponent } from './notification.component/order-failure.co
 import { HeaderComponent } from './header.component/header.component';
 import {OrdersComponent} from './admin/orders.component';
 import {SignInComponent} from './admin/sign-in.component';
+import {AdminFailureComponent} from './admin/admin-failure.component';
 
 // Guards
 import { CheckoutGuard } from './guards/checkout.guard';
@@ -52,7 +53,8 @@ import Routes from './routes';
     OrderFailureComponent,
     HeaderComponent,
     OrdersComponent,
-    SignInComponent
+    SignInComponent,
+    AdminFailureComponent
   ],
   providers:
   [

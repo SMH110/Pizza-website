@@ -53,6 +53,19 @@ export class OrderService {
     }
 
 
+    getOrders() {
+        return this.http.get('/api/order/get-orders')
+            .map(this.extractData)
+    }
+
+
+    postIdToUpdateOrderStatus(id: any) {
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+        const options = new RequestOptions({ headers: headers });
+        return this.http.post('/api/order/update-status', id, options)
+            .map(this.extractData)
+    }
+
 }
 
 
@@ -65,11 +78,29 @@ interface OrderDetail {
         email: string;
         phone: string;
     },
-    orderItems: any;
+    orderItems: OrderItem;
     deliveryMethod: string;
     date: Date;
     paymentMethod: string;
     total: number;
     discount: number;
     totalPayment: number;
+    status: string;
+}
+
+
+interface OrderItem {
+    item: Item;
+    qty: number;
+    price: number
+}
+
+interface Item {
+    name: string;
+    nameAndSize?: string;
+    _id: string;
+    size_id?: string;
+    size: string;
+    price: number;
+    imageName: string;
 }
