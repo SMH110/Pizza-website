@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { SignInService } from '../service/sign-in.service';
 @Component({
@@ -11,8 +12,7 @@ fieldset {
     border: 1px solid #aaa;
     border-radius: 5px;
     padding: 15px;
-    margin-top : 75px;
-}
+   }
 
 fieldset legend {
     padding: 5px 10px ;
@@ -23,8 +23,8 @@ fieldset legend {
     font-weight: bold;
     font-size: 2.2em;
 }
-h1 {
-    margin-top: 100px;
+.container{
+    padding-top : 75px;
 }
 
 .danger-danger{
@@ -36,12 +36,12 @@ h1 {
 })
 export class SignInComponent {
     errorMessage: string;
-    constructor(private signInService: SignInService) {
+    constructor(private signInService: SignInService, private router: Router) {
 
     }
 
     getTokenAndSignIn(form: NgForm) {
-        console.log(form.value);
+        this.errorMessage = null;
         this.signInService.postAndGetTokenForSingingIn(form.value)
             .subscribe(response => {
                 console.log(response);
@@ -50,7 +50,8 @@ export class SignInComponent {
                     return
                 }
 
-              //TODO navigate to order route
+                this.router.navigate(['/admin/get-orders']);
+
             })
     }
     preventDefault(event: Event): void {

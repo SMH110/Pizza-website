@@ -1,11 +1,11 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-sm-12">
-            <h2>Your Details:</h2>
+            <h2>Your Details</h2>
             <hr>
             <form class="form-horizontal" #checkoutForm='ngForm' (ngSubmit)='onSubmit(checkoutForm)' (submit)="preventDefault($event)">
                 <div class="form-group">
-                    <label for="firstName" class="col-sm-2 control-label">First Name:</label>
+                    <label for="firstName" class="col-sm-2 control-label">First Name</label>
                     <div class="col-sm-10">
 
 
@@ -15,7 +15,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="lastName" class="col-sm-2 control-label">Last Name:</label>
+                    <label for="lastName" class="col-sm-2 control-label">Last Name</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" id="lastName" name="lastName" ngModel #lastName="ngModel" required>
                         <div class="alert alert-danger error-msg" [hidden]="lastName.valid || (lastName.pristine && lastName.untouched)"> Last name is required
@@ -23,7 +23,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="address1" class="col-sm-2 control-label">Address 1:</label>
+                    <label for="address1" class="col-sm-2 control-label">Address 1</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" id="address1" name="address1" ngModel required #address="ngModel">
                         <div class="alert alert-danger error-msg" [hidden]="address.valid || (address.pristine && address.untouched)"> Address is required
@@ -31,13 +31,13 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="address2" class="col-sm-2 control-label">Address 2:</label>
+                    <label for="address2" class="col-sm-2 control-label">Address 2</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" id="address2" name="address2" ngModel>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="post-code" class="col-sm-2 control-label">Post Code:</label>
+                    <label for="post-code" class="col-sm-2 control-label">Post Code</label>
                     <div class="col-sm-5">
                         <input type="text" class="form-control" id="post-code" name="postCode" ngModel required #postCode="ngModel">
                         <div class="alert alert-danger error-msg" [hidden]="postCode.valid || (postCode.pristine && postCode.untouched)"> Post code is required
@@ -45,7 +45,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="email" class="col-sm-2 control-label">E-mail:</label>
+                    <label for="email" class="col-sm-2 control-label">E-mail</label>
                     <div class="col-sm-10">
                         <input type="email" class="form-control" id="email" name="email" ngModel required #email="ngModel">
                         <div class="alert alert-danger error-msg" [hidden]="email.valid || (email.pristine && email.untouched)"> Valid Email is required
@@ -53,7 +53,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="phone" class="col-sm-2 control-label">Phone:</label>
+                    <label for="phone" class="col-sm-2 control-label">Phone</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" id="phone" name="phone" ngModel required #phone="ngModel">
                         <div class="alert alert-danger error-msg" [hidden]="phone.valid || (phone.pristine && phone.untouched)"> Phone is required

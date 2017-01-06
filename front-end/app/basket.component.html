@@ -25,7 +25,7 @@
                 </tbody>
             </table>
             <hr>
-            <h2 *ngIf='items.length > 0'>Total: £{{totalPrice}}</h2>
+            <h2 *ngIf='items.length > 0'>Total: £{{totalPrice | number:'1.2-2'}}</h2>
 
             <button class="btn btn-default next" *ngIf='items.length > 0' [routerLink]="['/checkout']"> Next <span class="glyphicon glyphicon-chevron-right"></span></button>
             <button class="btn btn-danger" *ngIf='items.length > 0' (click)="removeAll()">Clear Basket</button>

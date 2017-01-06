@@ -51,7 +51,7 @@ export class CheckoutComponent implements OnInit {
     onSubmit(form: NgForm): void {
         this.guardService.canGetPaymentRoute = true;
         saveFormDetails(form.value);
-        this.router.navigate(['./payment'])
+        this.router.navigate(['./payment']);
     }
     preventDefault(event: Event): void {
         event.preventDefault();
