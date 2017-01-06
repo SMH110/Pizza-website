@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
-
+import { Response } from '@angular/http';
 import { OrderService } from './../service/order.service';
 
 
@@ -33,8 +33,8 @@ export class PaymentProcess implements OnInit, OnDestroy {
                 this.orderService.postPayerId(param['PayerID'], param['paymentId'])
                     .subscribe(response => {
                         if (response.state === 'approved') {
-                            const buyerDetails = JSON.parse(localStorage.getItem('checkout-details'));
-                            let items: any = [];
+                            const buyerDetails: any = JSON.parse(localStorage.getItem('checkout-details'));
+                            let items: any[] = [];
                             let storedItems: any = JSON.parse(localStorage.getItem('items'));
                             for (let id in storedItems) {
                                 items.push({
@@ -43,7 +43,7 @@ export class PaymentProcess implements OnInit, OnDestroy {
                                     price: Math.round(storedItems[id].price * 100) / 100
                                 });
                             }
-                            let orderDetail = {
+                            let orderDetail: any = {
                                 buyer: {
                                     firstName: buyerDetails.firstName,
                                     lastName: buyerDetails.lastName,
@@ -91,5 +91,6 @@ export class PaymentProcess implements OnInit, OnDestroy {
         this.subscription.unsubscribe();
     }
 }
+
 
 
