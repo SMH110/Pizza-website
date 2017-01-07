@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { BasketService } from '../service/basket.service';
 import { OrderService } from './../service/order.service';
@@ -23,14 +24,14 @@ import { GuardService } from '../service/guard.service';
     ]
 
 })
-export class PaymentComponent implements OnInit {
+export class PaymentComponent {
 
-    constructor(private basket: BasketService, private orderService: OrderService, private guardService: GuardService) {
+    constructor(private basket: BasketService, private orderService: OrderService, private guardService: GuardService, private router: Router) {
 
     }
     isShowSpinner: boolean = false;
-    ngOnInit(): void {
-    }
+
+   
 
     order() {
         this.guardService.canGetPaymentProcessRoute = true;
@@ -38,16 +39,12 @@ export class PaymentComponent implements OnInit {
         localStorage.setItem('canGetPaymentProcessRoute', 'true');
         this.isShowSpinner = true
         this.orderService.postOrder().subscribe(response => {
-            if (response.approval_url) {
-                window.location.assign(response.approval_url);
-            } else {
-                localStorage.setItem('errorMessage', JSON.stringify(response.message));
-                localStorage.removeItem('canGetPaymentProcessRoute');
-                window.location.assign(response.error);
-            }
-
+            window.location.assign(response.approval_url);
+        }, error => {
+            localStorage.setItem('errorMessage', JSON.stringify(error.message));
+            localStorage.removeItem('canGetPaymentProcessRoute');
+            this.router.navigateByUrl('/order/failure');
         });
-
     }
 
 }

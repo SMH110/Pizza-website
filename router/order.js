@@ -49,17 +49,11 @@ router.post('/get-token', (req, res) => {
             };
             return requestPromise(options);
         }).then(response => {
-            const approvalUrl = response.links.filter(obj => obj.rel === 'approval_url')[0];
-            const dataToBeRespondedWith = {
-                approval_url: approvalUrl.href
-            }
-            res.json(dataToBeRespondedWith || { error: `${req.headers.origin}/order/failure`, message: "failed get paypal token" });
+            const approvalUrl = response.links.find(obj => obj.rel === 'approval_url');
+            res.json({ approval_url: approvalUrl.href });
         }).catch(error => {
-            console.log(error);
-            res.json({
-                error: `${req.headers.origin}/order/failure`,
-                message: "failed get paypal token"
-            })
+            console.error(error);
+            res.status(500);
         });
 });
 
@@ -98,9 +92,7 @@ router.post('/execute', (req, res) => {
             res.json(response);
         }).catch(error => {
             console.error(error);
-            res.json({
-                message: "failure during executing the order"
-            })
+            res.status(500).send("error")
         });
 });
 
@@ -110,23 +102,21 @@ router.post('/save-order', (req, res) => {
     const order = new Order(req.body);
     order.save((error, orders) => {
         if (error) {
-            res.json({
-                message: 'failed to save the order'
-            });
+            res.status(500).send();
             return;
         }
         res.json({
-            success: "ok"
+            success: true
         });
     })
 });
 
 
 
-router.get('/get-orders', (req, res) => {
+router.get('/get-orders', passport.authenticate('jwt', { session: false }), (req, res) => {
     Order.find({}, (error, orders) => {
         if (error) {
-            res.json({ error: 'An Error occurred during getting the orders' });
+            res.status(500).send(error);
             return console.error(error);
         }
 
@@ -135,26 +125,15 @@ router.get('/get-orders', (req, res) => {
 });
 
 // update order status
-
 router.post('/update-status', (req, res) => {
-    console.log(req.body.id);
     Order.update({ _id: req.body.id }, { status: "Complete" }, (error) => {
         if (error) {
-            res.json({ error: "An Error occurred durning updating the status" });
+            res.status(500).send(error);
             return console.error(error);
         }
 
-        res.json({ message: "ok" });
+        res.json({ success: true });
     });
-});
-
-
-
-//// TODO: You have to move this later.
-
-
-router.get('/orders', passport.authenticate('jwt', { session: false }), (req, res) => {
-    res.send('it worked');
 });
 
 module.exports = router;

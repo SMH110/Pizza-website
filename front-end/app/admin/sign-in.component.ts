@@ -44,12 +44,11 @@ export class SignInComponent {
         this.errorMessage = null;
         this.signInService.postAndGetTokenForSingingIn(form.value)
             .subscribe(response => {
-                console.log(response);
                 if (!response.success) {
                     this.errorMessage = response.message;
                     return
                 }
-
+                window.localStorage.setItem('get-orders-token', response.token);
                 this.router.navigate(['/admin/get-orders']);
 
             })

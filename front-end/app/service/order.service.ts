@@ -5,6 +5,8 @@ import 'rxjs/add/operator/map';
 import { BasketService } from './basket.service';
 @Injectable()
 export class OrderService {
+
+    orders: any;
     constructor(private http: Http, private basket: BasketService) {
     }
 
@@ -54,7 +56,9 @@ export class OrderService {
 
 
     getOrders() {
-        return this.http.get('/api/order/get-orders')
+        const headers = new Headers({ "Content-Type": "application/json", "Authorization": localStorage.getItem('get-orders-token') });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.get('/api/order/get-orders', options)
             .map(this.extractData)
     }
 

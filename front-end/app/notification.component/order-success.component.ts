@@ -10,9 +10,7 @@ import { Component, OnInit } from '@angular/core';
     `]
 
 })
-export class OrderSuccessComponent implements OnInit {
+export class OrderSuccessComponent {
     constructor() { }
-    ngOnInit(): void {
-       
-    }
+   
 }

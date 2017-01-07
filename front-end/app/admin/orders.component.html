@@ -3,7 +3,7 @@
         <div class="col-md-12">
             <h1>Orders</h1>
             <hr>
-            <div class="col-md-8" *ngFor='let order of orders; let i=index'>
+            <div class="col-md-8" *ngFor='let order of orderService.orders; let i=index'>
                 <h2>Order {{i + 1}}</h2>
                 <p class="date">{{order.date | date:"medium"}}</p>
                 <table class="table table-striped">
@@ -26,7 +26,7 @@
                 <h4>Delivery method: </h4><span> {{order.deliveryMethod | uppercase}}</span><br>
                 <h4>Status:</h4> <span [style.color]="order.status === 'Outstanding' ? '#ff7e00' : '#11a348'">{{order.status}}</span>
                 <button class="btn btn-primary mark-complete" *ngIf='order.status === "Outstanding"' (click)='markAsComplete(order._id)'>Mark as complete</button>
-                <h3>Customer's details:</h3>
+                <h3>Customer's details</h3>
                 <h4>Name: </h4>
                 <span>{{order.buyer.firstName}} {{order.buyer.lastName}}</span><br>
                 <h4>Address: </h4>

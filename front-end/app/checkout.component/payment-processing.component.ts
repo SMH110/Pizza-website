@@ -15,7 +15,7 @@ export class PaymentProcess implements OnInit, OnDestroy {
     Processing = "Processing ";
     fullLoading = "";
     private subscription: Subscription;
-    constructor(private activatedRoute: ActivatedRoute, private orderService: OrderService) { }
+    constructor(private activatedRoute: ActivatedRoute, private orderService: OrderService, private router: Router) { }
     // updateLoading(): void {
     //     if (this.dots === "...") {
     //         this.dots = "";
@@ -63,24 +63,20 @@ export class PaymentProcess implements OnInit, OnDestroy {
 
                             this.orderService.postOrderDetails(orderDetail)
                                 .subscribe(response => {
-                                    if (response.success && response.success === 'ok') {
-                                        window.location.assign("/order/success");
-                                        localStorage.removeItem('totalQuantity');
-                                        localStorage.removeItem('totalPrice');
-                                        localStorage.removeItem('items');
-                                        localStorage.removeItem('checkout-details');
-                                        localStorage.removeItem('canGetPaymentProcessRoute');
-                                        localStorage.removeItem('errorMessage');
-                                    } else {
-                                        localStorage.setItem('errorMessage', JSON.stringify(response.message))
-                                        window.location.assign("/order/failure");
+                                    if (response.success) {
+                                        this.router.navigate(["/order/success"]);
+                                        localStorage.clear();
                                     }
-
+                                }, error => {
+                                    console.log("I have ran");
+                                    if (error.status === 500) {
+                                        this.router.navigate(["/order/failure"]);
+                                    }
                                 });
-                        } else {
-                            localStorage.setItem('errorMessage', JSON.stringify(response.message))
-                            window.location.assign("/order/failure");
-
+                        }
+                    }, error => {
+                        if (error.status === 500) {
+                            this.router.navigate(["/order/failure"]);
                         }
                     });
             });

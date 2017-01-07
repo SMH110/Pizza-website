@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { OrderService } from '../service/order.service'
 @Component({
@@ -29,41 +30,43 @@ import { OrderService } from '../service/order.service'
 })
 export class OrdersComponent implements OnInit {
     orders: Order[];
-    constructor(private orderService: OrderService) {
+    constructor(private orderService: OrderService, private router: Router) {
 
     }
     ngOnInit() {
-        localStorage.removeItem('adminErrorMessage');
         this.getOrders();
-        setInterval(this.getOrders.bind(this), 10000);
+        setInterval(this.getOrders.bind(this), 15000);
     }
 
     markAsComplete(id: string) {
-        localStorage.removeItem('adminErrorMessage');
         this.orderService.postIdToUpdateOrderStatus({ id: id })
             .subscribe(response => {
-                if (response.error) {
-                    localStorage.setItem('adminErrorMessage', JSON.stringify(response.error))
-                    window.location.assign("/admin/failure");
-                    return;
+                if (response.success) {
+                    this.getOrders()
                 }
-                this.getOrders()
+            }, error => {
+                if (error.status === 500) {
+                    this.router.navigateByUrl('/admin/failure');
+                }
             });
     }
 
 
 
     private getOrders() {
+
         // why this is undefined?!
         // someFunction.bind(this)()
         this.orderService.getOrders()
             .subscribe(response => {
-                if (response.error) {
-                    localStorage.setItem('adminErrorMessage', JSON.stringify(response.error))
-                    window.location.assign("/admin/failure");
-                    return;
+                this.orderService.orders = response.sort((a: Order, b: Order) => new Date(b.date).valueOf() - new Date(a.date).valueOf());
+            }, error => {
+                if (error.status === 401) {
+                    this.router.navigateByUrl('/admin/sign-in');
                 }
-                this.orders = response.sort((a: Order, b: Order) => new Date(b.date).valueOf() - new Date(a.date).valueOf());
+                if (error.status === 500) {
+                    this.router.navigateByUrl('/admin/failure');
+                }
             });
     }
 }
