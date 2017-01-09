@@ -21,7 +21,6 @@ import { Component, Input } from '@angular/core';
 export class JumbotronComponent {
     @Input() jumbotronImage: string;
     constructor() {
-        console.log('constructing JumbotronComponent');
 
     }
 

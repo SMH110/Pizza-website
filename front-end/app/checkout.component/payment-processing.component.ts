@@ -68,7 +68,6 @@ export class PaymentProcess implements OnInit, OnDestroy {
                                         localStorage.clear();
                                     }
                                 }, error => {
-                                    console.log("I have ran");
                                     if (error.status === 500) {
                                         this.router.navigate(["/order/failure"]);
                                     }

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 
-import { saveFormDetails } from '../utils';
+import { saveFormDetails, saveInputValue } from '../utils';
 import { BasketService } from '../service/basket.service';
 import { GuardService } from '../service/guard.service';
 
@@ -20,7 +20,7 @@ import { GuardService } from '../service/guard.service';
             margin-right: 50px;
         }
         button{
-            margin: 15px 0;
+            margin: 12px 0;
             display:inline-block;
         }
 
@@ -33,19 +33,35 @@ import { GuardService } from '../service/guard.service';
         .error-msg{
              width: 85%;
         }
+
+        .asterisk{
+            color: red
+        }
+        .note{
+            color: #888;
+            font-style: italic;
+            margin-bottom : 0;
+        }
         `
     ]
 })
-export class CheckoutComponent implements OnInit {
-    defaultDeliveryMethod: string = 'delivery';
+export class CheckoutComponent {
+
+    // set default value from the form's inputs 
+    firstName: string = this.initializeInputWithDefaultValue("firstName");
+    lName: string = this.initializeInputWithDefaultValue("lastName");
+    address1: string = this.initializeInputWithDefaultValue("address1");
+    address2: string = this.initializeInputWithDefaultValue("address2");
+    pc: string = this.initializeInputWithDefaultValue("postCode");
+    email_: string = this.initializeInputWithDefaultValue("email");
+    phone_: string = this.initializeInputWithDefaultValue("phone");
+
+    defaultDeliveryMethod: string = this.initializeInputWithDefaultValue("deliveryMethod") || 'delivery';
     deliveryMethods: string[] = [
         'delivery', 'collection'
     ]
     constructor(private basket: BasketService, private router: Router, private guardService: GuardService) {
 
-    }
-
-    ngOnInit(): void {
     }
 
     onSubmit(form: NgForm): void {
@@ -57,5 +73,26 @@ export class CheckoutComponent implements OnInit {
         event.preventDefault();
     }
 
+    // get the customer detail from localStorage if it's available otherwise return empty string ""
+    private initializeInputWithDefaultValue(value: string) {
+        const storedDetails = JSON.parse(localStorage.getItem('checkout-details'));
+        return storedDetails ? storedDetails[value] : "";
+    }
+
+    onBlurMethod(value: any) {
+        // get the customer details from the local storage if they are already there
+        let storedInput = JSON.parse(localStorage.getItem('checkout-details'));
+
+        // if there is no stored details in the local storge set storedInput to empty object
+        if (!storedInput) {
+            storedInput = {};
+        }
+        // delete the stored input for replacing
+        if ( storedInput && storedInput[value.name]) {
+            delete storedInput[value.name];
+        }
+        storedInput[value.name] = value.model;
+        saveInputValue(storedInput)
+    }
 }
 
