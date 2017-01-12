@@ -60,7 +60,7 @@
                 </div>
                 <div class="radio" *ngFor='let method of deliveryMethods'>
                     <label class="delivery-method">
-                        <input type="radio" name="deliveryMethod"  [(ngModel)]='defaultDeliveryMethod' [value]='method' #delivery="ngModel" (click)="onBlurMethod(delivery)">
+                        <input type="radio" name="deliveryMethod"  [(ngModel)]='defaultDeliveryMethod' [value]='method' #delivery="ngModel" (click)="onClickDeliveryMethod(method)">
                              {{method}}
                     </label>
 
@@ -74,20 +74,6 @@
 
                 </div>
             </form>
-
-
-            <!--
-            <form action="" class="form-horizontal" [formGroup]='detailsForm'>
-                <div class="form-group">
-                    <label for="firstName" class="col-sm-2 control-label">First Name</label>
-                    <input type="text" class="form-control" id="firstName" formControllName='firstName'>
-                </div>
-                <div class="form-group">
-                    <label for="lastName" class="col-sm-2 control-label"> Last Name</label>
-                    <input type="text" class="form-control" id="lastName" formControllName='lastName'>
-                </div>
-                <button type="submit" class="btn btn-default">Submit</button>
-            </form>-->
         </div>
     </div>
 </div>

@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Response } from '@angular/http';
 import { OrderService } from './../service/order.service';
-
+import { clearSomeItemsFromLocalStorage } from '../utils'
 
 @Component({
     moduleId: module.id,
@@ -16,18 +16,7 @@ export class PaymentProcess implements OnInit, OnDestroy {
     fullLoading = "";
     private subscription: Subscription;
     constructor(private activatedRoute: ActivatedRoute, private orderService: OrderService, private router: Router) { }
-    // updateLoading(): void {
-    //     if (this.dots === "...") {
-    //         this.dots = "";
-    //     }
-    //     this.dots += ".";
-
-    //     this.fullLoading = this.Processing + this.dots;
-
-    // }
-
     ngOnInit(): void {
-        // setInterval(this.updateLoading, 500);
         this.subscription = this.activatedRoute.queryParams.subscribe(
             (param: any) => {
                 this.orderService.postPayerId(param['PayerID'], param['paymentId'])
@@ -47,7 +36,7 @@ export class PaymentProcess implements OnInit, OnDestroy {
                                 buyer: {
                                     firstName: buyerDetails.firstName,
                                     lastName: buyerDetails.lastName,
-                                    address: buyerDetails.address2.length ? `${buyerDetails.address1} ${buyerDetails.address2}` : buyerDetails.address1,
+                                    address: buyerDetails.address2 && buyerDetails.address2.length ? `${buyerDetails.address1} ${buyerDetails.address2}` : buyerDetails.address1,
                                     postCode: buyerDetails.postCode,
                                     email: buyerDetails.email,
                                     phone: buyerDetails.phone
@@ -64,8 +53,8 @@ export class PaymentProcess implements OnInit, OnDestroy {
                             this.orderService.postOrderDetails(orderDetail)
                                 .subscribe(response => {
                                     if (response.success) {
+                                      clearSomeItemsFromLocalStorage();
                                         this.router.navigate(["/order/success"]);
-                                        localStorage.clear();
                                     }
                                 }, error => {
                                     if (error.status === 500) {

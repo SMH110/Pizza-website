@@ -8,12 +8,12 @@ import { BasketService } from '../service/basket.service';
     templateUrl: './header.component.html'
 })
 
-export class HeaderComponent {
+export class HeaderComponent  {
 
     constructor(private basket: BasketService) {
         
     }
 
-    
+   
 }
 

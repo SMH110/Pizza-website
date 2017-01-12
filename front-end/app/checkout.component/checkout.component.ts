@@ -47,7 +47,7 @@ import { GuardService } from '../service/guard.service';
 })
 export class CheckoutComponent {
 
-    // set default value from the form's inputs 
+    // set default value for the form's inputs 
     firstName: string = this.initializeInputWithDefaultValue("firstName");
     lName: string = this.initializeInputWithDefaultValue("lastName");
     address1: string = this.initializeInputWithDefaultValue("address1");
@@ -67,6 +67,7 @@ export class CheckoutComponent {
     onSubmit(form: NgForm): void {
         this.guardService.canGetPaymentRoute = true;
         saveFormDetails(form.value);
+        console.log(form.value);
         this.router.navigate(['./payment']);
     }
     preventDefault(event: Event): void {
@@ -88,10 +89,16 @@ export class CheckoutComponent {
             storedInput = {};
         }
         // delete the stored input for replacing
-        if ( storedInput && storedInput[value.name]) {
-            delete storedInput[value.name];
-        }
         storedInput[value.name] = value.model;
+        saveInputValue(storedInput)
+    }
+
+    onClickDeliveryMethod(value: any) {
+        let storedInput = JSON.parse(localStorage.getItem('checkout-details'));
+        if (!storedInput) {
+            storedInput = {};
+        }
+        storedInput.deliveryMethod = value;
         saveInputValue(storedInput)
     }
 }

@@ -15,7 +15,12 @@ export function saveInputValue(value: any) {
 export const storedQuantity = localStorage.getItem('totalQuantity');
 export const storedTotalPrice = localStorage.getItem('totalPrice');
 export const storedItems = localStorage.getItem('items');
-
+export function clearSomeItemsFromLocalStorage(){
+    localStorage.removeItem('items');
+    localStorage.removeItem('totalPrice');
+    localStorage.removeItem('totalQuantity');
+    localStorage.removeItem('canGetPaymentProcessRoute');
+}
 interface CheckoutForm {
     firstName: string;
     lastName: string;

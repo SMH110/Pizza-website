@@ -1,7 +1,7 @@
 <my-jumbotron [jumbotronImage]="jumbotronImage"></my-jumbotron>
 <div class="container">
     <div class="row">
-        <div class="col-sm-12 col-md-3 product" *ngFor='let pizza of pizzas'>
+        <div class="col-sm-4 col-md-3 product" *ngFor='let pizza of pizzas'>
             <div class="thumbnail">
                 <img src="{{pizza.imageName}}" alt="...">
                 <div class="caption">
@@ -13,7 +13,7 @@
                         <option *ngFor='let size of pizza.subType' value="{{size}}" >{{size}}</option>
                     </select><span>£{{ pizza.price[pizza.selectedSize] | number:'1.2-2'}}</span>
                     <p>
-                        <a (click)='addToBasket(pizza)' class="btn btn-primary" role="button">Add to Basket</a>
+                        <a (click)='basket.addToBasket(pizza)' class="btn btn-primary" role="button">Add to Basket</a>
                     </p>
                 </div>
             </div>

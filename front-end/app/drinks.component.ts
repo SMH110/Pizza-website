@@ -10,7 +10,6 @@ import { saveBasket } from './utils';
 })
 export class DrinksComponent implements OnInit {
     drinks: Drink[];
-    totalQuantity: number;
      jumbotronImage: string = "/images/drinks-jumbotron.jpg";
     constructor(private itemService: ItemService, private basket: BasketService) {
 
@@ -18,7 +17,6 @@ export class DrinksComponent implements OnInit {
     ngOnInit(): void {
         this.itemService.getDrinks()
             .subscribe(drinks => this.drinks = drinks);
-            this.totalQuantity = this.basket.totalQuantity;
     }
     addToBasket(item: any): void {
         let storedItem = this.basket.items[item._id]
@@ -30,7 +28,6 @@ export class DrinksComponent implements OnInit {
         storedItem.price = storedItem.item.price * storedItem.qty;
         this.basket.totalPrice += storedItem.item.price;
         this.basket.totalQuantity++;
-        this.totalQuantity = this.basket.totalQuantity;
         saveBasket(this.basket)
     }
 }
