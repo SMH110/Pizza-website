@@ -6,7 +6,7 @@
                 <img src="{{side.imageName}}" alt="...">
                 <div class="caption item clearfix">
                     <h3>{{side.name}}</h3>
-                    <p><a (click)='addToBasket(side)' class="btn btn-primary pull-left" role="button">Add to Basket</a>
+                    <p><a (click)='basket.addToBasket(side)' class="btn btn-primary pull-left" role="button">Add to Basket</a>
                         <span class="pull-right price">£{{side.price | number:'1.2-2'}}</span>
                     </p>
                 </div>

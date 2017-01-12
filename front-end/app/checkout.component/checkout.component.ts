@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 
-import { saveFormDetails, saveInputValue } from '../utils';
 import { BasketService } from '../service/basket.service';
 import { GuardService } from '../service/guard.service';
 
@@ -66,8 +65,7 @@ export class CheckoutComponent {
 
     onSubmit(form: NgForm): void {
         this.guardService.canGetPaymentRoute = true;
-        saveFormDetails(form.value);
-        console.log(form.value);
+        this.saveFormDetails(form.value);
         this.router.navigate(['./payment']);
     }
     preventDefault(event: Event): void {
@@ -90,7 +88,7 @@ export class CheckoutComponent {
         }
         // delete the stored input for replacing
         storedInput[value.name] = value.model;
-        saveInputValue(storedInput)
+        this.saveInputValue(storedInput)
     }
 
     onClickDeliveryMethod(value: any) {
@@ -99,7 +97,25 @@ export class CheckoutComponent {
             storedInput = {};
         }
         storedInput.deliveryMethod = value;
-        saveInputValue(storedInput)
+       this.saveInputValue(storedInput)
+    }
+
+    private saveFormDetails(formDetails: CheckoutForm) {
+        localStorage.setItem('checkout-details', JSON.stringify(formDetails));
+    }
+
+    private saveInputValue(value: any) {
+        localStorage.setItem('checkout-details', JSON.stringify(value));
     }
 }
 
+interface CheckoutForm {
+    firstName: string;
+    lastName: string;
+    address1: string;
+    address2: string;
+    postCode: string;
+    email: string;
+    phone: string;
+    deliveryMethod: string;
+}

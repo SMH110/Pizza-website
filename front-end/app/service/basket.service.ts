@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { storedItems, storedQuantity, storedTotalPrice } from '../utils';
 
 @Injectable()
 export class BasketService {
@@ -8,9 +7,9 @@ export class BasketService {
     totalPrice: number;
 
     constructor() {
-        this.items = JSON.parse(storedItems || '{}');
-        this.totalQuantity = JSON.parse(storedQuantity || '0');
-        this.totalPrice = JSON.parse(storedTotalPrice || '0');
+        this.items = this.getBasketItemsFromStorage('items') || {};
+        this.totalQuantity = this.getBasketItemsFromStorage('totalQuantity') || 0;
+        this.totalPrice = this.getBasketItemsFromStorage('totalPrice') || 0;
     }
 
     addToBasket(item: ItemDetail): void {
@@ -43,7 +42,7 @@ export class BasketService {
         storedItem.price = storedItem.item.price * storedItem.qty;
         this.totalPrice += storedItem.item.price;
         this.totalQuantity++;
-        this.saveBasket(this)
+        this.saveBasket(this);
     }
 
     private saveBasket(basket: this) {
@@ -51,6 +50,40 @@ export class BasketService {
         localStorage.setItem('totalPrice', JSON.stringify(basket.totalPrice));
         localStorage.setItem('items', JSON.stringify(basket.items));
     }
+
+    private getBasketItemsFromStorage(item: string) {
+        let storedItem = localStorage.getItem(item);
+        return storedItem ? JSON.parse(storedItem) : null
+    }
+
+
+    decreaseItem(item: any) {
+        // because pizzas item have item.size_id 
+        let storedItem = this.items[item.size_id || item._id]
+        if (!storedItem) return;
+        storedItem.qty--;
+        storedItem.price = storedItem.item.price * storedItem.qty;
+        this.totalPrice -= storedItem.item.price;
+        this.totalQuantity--;
+        this.totalPrice = Math.round(this.totalPrice * 100) / 100;
+        this.saveBasket(this);
+
+    }
+
+    removeItem(item: any): void {
+        this.totalPrice -= item.price
+        this.totalQuantity -= item.qty
+        delete this.items[item.item.size_id || item.item._id];
+        this.saveBasket(this);
+    }
+
+    removeAll(): void {
+        this.items = {};
+        this.totalPrice = 0;
+        this.totalQuantity = 0;
+        this.saveBasket(this);
+    }
+
 
     generateArray(): Item[] {
         let items: Item[] = [];

@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Response } from '@angular/http';
 import { OrderService } from './../service/order.service';
-import { clearSomeItemsFromLocalStorage } from '../utils'
+import { BasketService } from '../service/basket.service'
 
 @Component({
     moduleId: module.id,
@@ -15,7 +15,9 @@ export class PaymentProcess implements OnInit, OnDestroy {
     Processing = "Processing ";
     fullLoading = "";
     private subscription: Subscription;
-    constructor(private activatedRoute: ActivatedRoute, private orderService: OrderService, private router: Router) { }
+    constructor(private activatedRoute: ActivatedRoute, private orderService: OrderService, private router: Router, private basket: BasketService) {
+
+    }
     ngOnInit(): void {
         this.subscription = this.activatedRoute.queryParams.subscribe(
             (param: any) => {
@@ -53,7 +55,8 @@ export class PaymentProcess implements OnInit, OnDestroy {
                             this.orderService.postOrderDetails(orderDetail)
                                 .subscribe(response => {
                                     if (response.success) {
-                                      clearSomeItemsFromLocalStorage();
+                                        this.basket.removeAll();
+                                        localStorage.removeItem('canGetPaymentProcessRoute');
                                         this.router.navigate(["/order/success"]);
                                     }
                                 }, error => {

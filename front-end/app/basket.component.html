@@ -17,15 +17,15 @@
                         <td>£{{item.price | number:'1.2-2'}}</td>
                         <td>{{item.qty}}</td>
                         <td>
-                            <button class="btn btn-primary" (click)='increaseItem(item.item)'><span class="glyphicon glyphicon-plus"></span></button>
-                            <button class="btn btn-warning" [disabled]="buttonState(item.qty)" (click)='decreaseItem(item.item)'><span class="glyphicon glyphicon-minus"></span></button>
+                            <button class="btn btn-primary" (click)='basket.addToBasket(item.item)'><span class="glyphicon glyphicon-plus"></span></button>
+                            <button class="btn btn-warning" [disabled]="buttonState(item.qty)" (click)='basket.decreaseItem(item.item)'><span class="glyphicon glyphicon-minus"></span></button>
                             <button class="btn btn-danger" (click)="removeItem(item)"><span class="glyphicon glyphicon-remove"></span></button>
                         </td>
                     </tr>
                 </tbody>
             </table>
             <hr>
-            <h2 *ngIf='items.length > 0'>Total: £{{totalPrice | number:'1.2-2'}}</h2>
+            <h2 *ngIf='items.length > 0'>Total: £{{basket.totalPrice | number:'1.2-2'}}</h2>
 
             <button class="btn btn-default next" *ngIf='items.length > 0' [routerLink]="['/checkout']"> Next <span class="glyphicon glyphicon-chevron-right"></span></button>
             <button class="btn btn-danger" *ngIf='items.length > 0' (click)="removeAll()">Clear Basket</button>
