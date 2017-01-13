@@ -22,7 +22,7 @@ router.post('/sign-in', (req, res) => {
             return;
         }
         let token = jwt.sign(user, tokenConfig.secret, {
-            expiresIn: 1000 * 60 * 60
+            expiresIn: 1000 * 60
         })
         res.json({ success: true, token: `JWT ${token}` });
     });
