@@ -56,8 +56,17 @@ export class BasketService {
         return storedItem ? JSON.parse(storedItem) : null
     }
 
-
-    decreaseItem(item: any) {
+    increase(item: ItemDetail) {
+        let storedItem = this.items[item.size_id || item._id];
+        if (!storedItem) return;
+        storedItem.qty++;
+        storedItem.price = storedItem.item.price * storedItem.qty;
+        this.totalPrice += storedItem.item.price;
+        this.totalQuantity++;
+        this.totalPrice = Math.round(this.totalPrice * 100) / 100;
+        this.saveBasket(this);
+    }
+    decreaseItem(item: ItemDetail) {
         // because pizzas item have item.size_id 
         let storedItem = this.items[item.size_id || item._id]
         if (!storedItem) return;
@@ -117,4 +126,5 @@ interface ItemDetail {
     subType?: string[];
     imageName: string;
     selectedSize?: string;
+    size_id?: string
 }
