@@ -38,5 +38,6 @@ export class BasketComponent implements OnInit {
 
     removeAll(): void {
         this.basket.removeAll();
+        console.log();
     }
 }
