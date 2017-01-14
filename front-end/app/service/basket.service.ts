@@ -108,8 +108,6 @@ export class BasketService {
     }
 }
 
-
-
 type Items = { [id: string]: Item | any }
 interface Item {
     item: ItemDetail;
@@ -128,5 +126,3 @@ interface ItemDetail {
     selectedSize?: string;
     size_id?: string
 }
-
-//

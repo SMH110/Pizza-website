@@ -34,12 +34,11 @@ export class BasketComponent implements OnInit {
 
     removeItem(item: any): void {
         this.basket.removeItem(item);
+        this.items = this.basket.generateArray();
     }
 
     removeAll(): void {
         this.basket.removeAll();
-        console.log();
+        this.items = this.basket.generateArray();
     }
 }
-
-//
