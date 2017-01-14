@@ -57,6 +57,7 @@ export class PaymentProcess implements OnInit, OnDestroy {
                                     if (response.success) {
                                         this.basket.removeAll();
                                         localStorage.removeItem('canGetPaymentProcessRoute');
+                                        localStorage.removeItem('checkout-details');
                                         this.router.navigate(["/order/success"]);
                                     }
                                 }, error => {
