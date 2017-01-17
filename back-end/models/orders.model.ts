@@ -1,7 +1,6 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+import { Schema, model } from 'mongoose';
 
-const orders = new Schema({
+export default model('orders', new Schema({
     buyer: {
         firstName: String,
         lastName: String,
@@ -18,6 +17,4 @@ const orders = new Schema({
     discount: Number,
     totalPayment: Number,
     status: { type: String, default: "Outstanding" }
-});
-
-module.exports = mongoose.model('orders', orders);
+}));

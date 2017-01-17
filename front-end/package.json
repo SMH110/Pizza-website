@@ -2,7 +2,7 @@
   "name": "pizza-website-front-end",
   "version": "1.0.0",
   "scripts": {
-    "compile": "node node_modules/typescript/bin/tsc"
+    "compile": "node ../node_modules/typescript/bin/tsc"
   },
   "dependencies": {
     "@angular/common": "~2.2.0",

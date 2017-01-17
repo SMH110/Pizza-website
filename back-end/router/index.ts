@@ -1,6 +1,6 @@
-const express = require('express');
-const router = express.Router();
-const passport = require('passport');
+import { Router, Request, Response } from 'express';
+const router = Router();
+
 router.get('/', serveIndex);
 router.get('/basket', serveIndex);
 router.get('/pizza', serveIndex);
@@ -18,9 +18,8 @@ router.get('/admin/get-orders', serveIndex);
 router.get('/admin/sign-in', serveIndex);
 router.get('/admin/failure', serveIndex);
 
-function serveIndex(req, res) {
-    res.render('index.html')
-};
+function serveIndex(_req: Request, res: Response) {
+    res.render('index.html');
+}
 
-
-module.exports = router;
+export default router;

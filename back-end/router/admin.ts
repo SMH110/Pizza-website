@@ -1,10 +1,10 @@
-const express = require('express');
-const router = express.Router();
+import * as express from 'express';
+import * as jwt from 'jsonwebtoken';
 
-const jwt = require('jsonwebtoken');
-const tokenConfig = require('../config/token.config');
-const User = require('../models/user.model');
-const passport = require('passport');
+import { SECRET } from '../config/passport.config';
+import User from '../models/user.model';
+
+const router = express.Router();
 
 router.post('/sign-in', (req, res) => {
 
@@ -13,7 +13,7 @@ router.post('/sign-in', (req, res) => {
             res.json({ success: false, message: "Some Error" });
             return console.error(error)
         }
-        if (!user || !user.validatePassword(req.body.password)) {
+        if (!user || !(user as any).validatePassword(req.body.password)) {
             res.json({
                 success: false,
                 message: "Wrong email or password!"
@@ -21,11 +21,11 @@ router.post('/sign-in', (req, res) => {
 
             return;
         }
-        let token = jwt.sign(user, tokenConfig.secret, {
+        let token = jwt.sign(user, SECRET, {
             expiresIn: 1000 * 60
         })
         res.json({ success: true, token: `JWT ${token}` });
     });
 });
 
-module.exports = router;
+export default router;

@@ -1,13 +1,9 @@
-const express = require('express');
-const router = express.Router();
-const https = require('https');
-const querystring = require('querystring');
-const paypalConfig = require('../config/paypal.config');
-const requestPromise = require('request-promise');
-const Order = require('../models/orders.model');
-const passport = require('passport');
-
-require('../config/passport.config')(passport)
+import { Router } from 'express';
+const router = Router();
+import paypalConfig from '../config/paypal.config';
+import * as requestPromise from 'request-promise';
+import Order from '../models/orders.model';
+import {authenticate} from 'passport';
 
 router.post('/get-token', (req, res) => {
     const orderBody = req.body;
@@ -37,8 +33,8 @@ router.post('/get-token', (req, res) => {
                 body: {
                     "intent": "sale",
                     "redirect_urls": {
-                        "return_url": `${req.headers.origin}/payment/process`,
-                        "cancel_url": `${req.headers.origin}/order/failure`
+                        "return_url": `${req.headers['origin']}/payment/process`,
+                        "cancel_url": `${req.headers['origin']}/order/failure`
                     },
                     "payer": {
                         "payment_method": "paypal"
@@ -49,7 +45,7 @@ router.post('/get-token', (req, res) => {
             };
             return requestPromise(options);
         }).then(response => {
-            const approvalUrl = response.links.find(obj => obj.rel === 'approval_url');
+            const approvalUrl = response.links.find((obj: any) => obj.rel === 'approval_url');
             res.json({ approval_url: approvalUrl.href });
         }).catch(error => {
             console.error(error);
@@ -100,7 +96,7 @@ router.post('/execute', (req, res) => {
 // Route to save the orders in the mongoose database
 router.post('/save-order', (req, res) => {
     const order = new Order(req.body);
-    order.save((error, orders) => {
+    order.save(error => {
         if (error) {
             res.status(500).send();
             return;
@@ -111,9 +107,7 @@ router.post('/save-order', (req, res) => {
     })
 });
 
-
-
-router.get('/get-orders', passport.authenticate('jwt', { session: false }), (req, res) => {
+router.get('/get-orders', authenticate('jwt', { session: false }), (_req, res) => {
     Order.find({}, (error, orders) => {
         if (error) {
             res.status(500).send(error);
@@ -136,4 +130,4 @@ router.post('/update-status', (req, res) => {
     });
 });
 
-module.exports = router;
+export default router;
