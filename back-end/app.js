@@ -25,7 +25,7 @@ app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, 'views'));
 //static
-app.use(express.static(path.join(__dirname, 'front-end')));
+app.use(express.static(path.join(__dirname, '..', 'front-end')));
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))

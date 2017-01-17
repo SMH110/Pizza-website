@@ -82,7 +82,7 @@ export class CheckoutComponent {
         // get the customer details from the local storage if they are already there
         let storedInput = JSON.parse(localStorage.getItem('checkout-details'));
 
-        // if there is no stored details in the local storge set storedInput to empty object
+        // if there is no stored details in the local storage set storedInput to empty object
         if (!storedInput) {
             storedInput = {};
         }

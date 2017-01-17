@@ -1,42 +1,14 @@
 {
   "name": "pizza-website",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
   "scripts": {
-    "install_child": "cd front-end && npm install && npm install --only=development && cd ..",
-    "compile": "node front-end/node_modules/typescript/bin/tsc -p ./front-end/",
-    "start": "node server",
-    "test": "node node_modules/mocha/bin/mocha specs --require mocha-setup.js",
-    "install": "npm run install_child && npm run compile"
+    "install-front-end": "cd front-end && npm install --production && npm install --only=development && npm run compile && cd ..",
+    "install-back-end": "cd back-end && npm install --production && npm install --only=development && cd ..",
+    "install": "npm run install-back-end && npm run install-front-end",
+    "start": "node back-end/app.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/SMH110/Pizza-website.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/SMH110/Pizza-website/issues"
-  },
-  "homepage": "https://github.com/SMH110/Pizza-website#readme",
   "dependencies": {
-    "bcrypt-nodejs": "0.0.3",
-    "body-parser": "^1.15.2",
-    "ejs": "^2.5.5",
-    "express": "^4.14.0",
-    "jsonwebtoken": "^7.2.1",
-    "mongoose": "^4.7.1",
-    "passport": "^0.3.2",
-    "passport-jwt": "^2.2.1",
-    "request": "^2.79.0",
-    "request-promise": "^4.1.1"
   },
   "devDependencies": {
-    "chai": "^3.5.0",
-    "mocha": "^3.2.0",
-    "node-fetch": "^1.6.3",
-    "sinon-chai": "^2.8.0"
   }
 }
