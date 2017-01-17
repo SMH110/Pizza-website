@@ -1,10 +1,11 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const path = require('path');
-const mongoose = require('mongoose');
-const passport = require('passport');
-const jwt = require('jsonwebtoken');
-const tokenConfig = require('./config/token.config');
+import * as express from 'express';
+import * as bodyParser from 'body-parser';
+import * as path from 'path';
+import * as mongoose from 'mongoose';
+import * as passport from 'passport';
+
+import './config/passport.config';
+
 mongoose.connect('mongodb://SMH110:yaaAli@ds127948.mlab.com:27948/pizza-delivery', (error) => {
     if (error) {
         console.error(error);
@@ -13,10 +14,11 @@ mongoose.connect('mongodb://SMH110:yaaAli@ds127948.mlab.com:27948/pizza-delivery
     console.log('MongoDb connected');
 });
 
-const index = require('./router/index');
-const items = require('./router/items');
-const order = require('./router/order');
-const admin = require('./router/admin');
+import index from './router/index';
+import items from './router/items';
+import order from './router/order';
+import admin from './router/admin';
+
 
 const app = express();
 //engine

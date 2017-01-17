@@ -4,7 +4,12 @@
     "version": "0.1.0",
     "command": "node",
     "isShellCommand": true,
-    "args": ["front-end/node_modules/typescript/bin/tsc", "-w", "-p", "./front-end/"],
+    "args": [
+        "node_modules/concurrently/src/main",
+        "--raw",
+        "node node_modules/typescript/bin/tsc -w -p ./back-end/",
+        "node node_modules/typescript/bin/tsc -w -p ./front-end/"
+    ],
     "showOutput": "silent",
     "isWatching": true,
     "problemMatcher": "$tsc-watch"

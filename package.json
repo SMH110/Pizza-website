@@ -3,12 +3,14 @@
   "version": "1.0.0",
   "scripts": {
     "install-front-end": "cd front-end && npm install --production && npm install --only=development && npm run compile && cd ..",
-    "install-back-end": "cd back-end && npm install --production && npm install --only=development && cd ..",
+    "install-back-end": "cd back-end && npm install --production && npm install --only=development && npm run compile && cd ..",
     "install": "npm run install-back-end && npm run install-front-end",
     "start": "node back-end/app.js"
   },
   "dependencies": {
+    "typescript": "^2.1.5"
   },
   "devDependencies": {
+    "concurrently": "^3.1.0"
   }
 }
