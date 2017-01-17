@@ -17,6 +17,10 @@ import { BasketService } from './service/basket.service';
                padding-left: 35px;
                padding-right: 35px;
             }
+
+            .increase{
+                margin-left: 5px;
+            }
     `]
 })
 export class BasketComponent implements OnInit {
