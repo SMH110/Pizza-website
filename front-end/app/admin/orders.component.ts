@@ -55,8 +55,7 @@ export class OrdersComponent implements OnInit {
 
     private getOrders() {
 
-        // why this is undefined?!
-        // someFunction.bind(this)()
+
         this.orderService.getOrders()
             .subscribe(response => {
                 this.orderService.orders = response.sort((a: Order, b: Order) => new Date(b.date).valueOf() - new Date(a.date).valueOf());
@@ -71,10 +70,6 @@ export class OrdersComponent implements OnInit {
     }
 }
 
-
-function someFunction() {
-    console.log(this);
-}
 
 interface Order {
     buyer: {

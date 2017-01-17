@@ -8,17 +8,17 @@
                         <th>Item</th>
                         <th>Price</th>
                         <th>Quantity</th>
-                        <th>Options</th>
+                        <th>Remove</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let item of items">
                         <td>{{item.item.nameAndSize || item.item.name}}</td>
                         <td>£{{item.price | number:'1.2-2'}}</td>
-                        <td>{{item.qty}}</td>
+                        <td>{{item.qty}} <button class="btn btn-primary increase" (click)='basket.increase(item.item)'><span class="glyphicon glyphicon-plus"></span></button>
+                            <button class="btn btn-warning" [disabled]="buttonState(item.qty)" (click)='basket.decreaseItem(item.item)'><span class="glyphicon glyphicon-minus"></span></button></td>
                         <td>
-                            <button class="btn btn-primary" (click)='basket.increase(item.item)'><span class="glyphicon glyphicon-plus"></span></button>
-                            <button class="btn btn-warning" [disabled]="buttonState(item.qty)" (click)='basket.decreaseItem(item.item)'><span class="glyphicon glyphicon-minus"></span></button>
+
                             <button class="btn btn-danger" (click)="removeItem(item)"><span class="glyphicon glyphicon-remove"></span></button>
                         </td>
                     </tr>
