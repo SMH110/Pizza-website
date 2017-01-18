@@ -2,17 +2,18 @@
   "name": "pizza-website",
   "version": "1.0.0",
   "scripts": {
-    "install-front-end": "cd front-end && npm install --production && npm install --only=development && npm run compile && cd ..",
-    "install-back-end": "cd back-end && npm install --production && npm install --only=development && npm run compile && cd ..",
-    "install": "npm run install-back-end && npm run install-front-end",
+    "compile": "node node_modules/typescript/bin/tsc",
+    "install-front-end": "cd front-end && npm install --production && npm install --only=development && cd ..",
+    "install-back-end": "cd back-end && npm install --production && npm install --only=development && cd ..",
+    "install": "npm run install-back-end && npm run install-front-end && npm run compile",
     "e2e": "node node_modules/protractor/bin/webdriver-manager update && node node_modules/protractor/bin/protractor front-end/specs/protractor.conf.js",
+    "api-test": "node node_modules/mocha/bin/mocha back-end/specs/**/*.spec.js",
     "start": "node back-end/app.js"
   },
   "dependencies": {
+    "@types/mocha": "^2.2.38",
+    "mocha": "^3.2.0",
     "protractor": "^5.0.0",
     "typescript": "^2.1.5"
-  },
-  "devDependencies": {
-    "concurrently": "^3.1.0"
   }
 }

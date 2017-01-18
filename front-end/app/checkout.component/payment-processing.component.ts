@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Response } from '@angular/http';
+
 import { OrderService } from './../service/order.service';
 import { BasketService } from '../service/basket.service'
 
@@ -15,9 +15,10 @@ export class PaymentProcess implements OnInit, OnDestroy {
     Processing = "Processing ";
     fullLoading = "";
     private subscription: Subscription;
-    constructor(private activatedRoute: ActivatedRoute, private orderService: OrderService, private router: Router, private basket: BasketService) {
 
+    constructor(private activatedRoute: ActivatedRoute, private orderService: OrderService, private router: Router, private basket: BasketService) {
     }
+
     ngOnInit(): void {
         this.subscription = this.activatedRoute.queryParams.subscribe(
             (param: any) => {

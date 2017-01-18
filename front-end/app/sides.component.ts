@@ -9,22 +9,12 @@ import { BasketService } from './service/basket.service';
 export class SidesComponent implements OnInit {
     sides: Side[];
     jumbotronImage: string = "/images/side-jumbotron.jpg";
-    constructor(private ItemService: ItemService, private basket: BasketService) {
-       
+    
+    constructor(private ItemService: ItemService, public basket: BasketService) {
     }
 
     ngOnInit(): void {
         this.ItemService.getSides()
             .subscribe(sides => this.sides = sides);
     }
-   
 }
-
-
-interface Side {
-    name: string,
-    price: number,
-    imageName: string
-}
-
-

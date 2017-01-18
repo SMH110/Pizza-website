@@ -22,11 +22,11 @@ select {
 `]
 })
 export class PizzaComponent implements OnInit {
-    pizzas: PizzaItem[];
+    pizzas: PizzaViewModel[];
     jumbotronImage: string = "/images/hero.jpg";
-    constructor(private itemService: ItemService, private basket: BasketService) {
-
+    constructor(private itemService: ItemService, public basket: BasketService) {
     }
+    
     ngOnInit(): void {
         this.itemService.getPizzas()
             .subscribe(x => {
@@ -37,14 +37,6 @@ export class PizzaComponent implements OnInit {
 }
 
 
-interface PizzaItem {
-    name: string;
-    description: string;
-    _id: string;
-    price: number[];
-    subType: string[];
-    imageName: string;
-    selectedSize: string;
+interface PizzaViewModel extends Pizza {
+    selectedSize?: string;
 }
-
-// 

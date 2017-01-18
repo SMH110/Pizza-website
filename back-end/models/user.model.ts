@@ -1,4 +1,4 @@
-import { Schema, model } from 'mongoose';
+import { Document, Schema, model } from 'mongoose';
 import * as bcrypt from 'bcrypt-nodejs';
 
 const User = new Schema({
@@ -14,4 +14,9 @@ User.methods.validatePassword = function (password: string) {
     return bcrypt.compareSync(password, this.password);
 };
 
-export default model('User', User);
+export default model<User & Document>('User', User);
+
+interface User {
+    email: string;
+    password: string;
+}

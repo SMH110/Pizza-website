@@ -1,6 +1,6 @@
-import { Schema, model } from 'mongoose';
+import { Document, Schema, model } from 'mongoose';
 
-export default model('orders', new Schema({
+export default model<Order & Document>('orders', new Schema({
     buyer: {
         firstName: String,
         lastName: String,

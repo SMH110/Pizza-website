@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 
@@ -59,7 +59,7 @@ export class CheckoutComponent {
     deliveryMethods: string[] = [
         'delivery', 'collection'
     ]
-    constructor(private basket: BasketService, private router: Router, private guardService: GuardService) {
+    constructor(public basket: BasketService, private router: Router, private guardService: GuardService) {
 
     }
 

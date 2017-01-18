@@ -7,13 +7,7 @@ import { BasketService } from '../service/basket.service';
     selector: 'my-header',
     templateUrl: './header.component.html'
 })
-
 export class HeaderComponent  {
-
-    constructor(private basket: BasketService) {
-        
+    constructor(public basket: BasketService) {
     }
-
-   
 }
-

@@ -1,5 +1,5 @@
 interface PaymentGateway {
-    getRedirectDetails: (basket: any) => Promise<PaymentRedirectDetails>;
+    getRedirectDetails: (order: Order) => Promise<PaymentRedirectDetails>;
 }
 
 interface PaymentRedirectDetails {
