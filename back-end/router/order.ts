@@ -4,6 +4,7 @@ import paypalConfig from '../config/paypal.config';
 import * as requestPromise from 'request-promise';
 import Order from '../models/orders.model';
 import {authenticate} from 'passport';
+import * as url from 'url';
 
 router.post('/get-token', (req, res) => {
     const orderBody = req.body;
@@ -23,6 +24,8 @@ router.post('/get-token', (req, res) => {
             return response.access_token;
         })
         .then(token => {
+            let referer = url.parse(req.headers['referer']);
+            let returnAddress = referer.protocol + '://' + referer.host;
             const options = {
                 method: 'POST',
                 headers: {
@@ -33,8 +36,8 @@ router.post('/get-token', (req, res) => {
                 body: {
                     "intent": "sale",
                     "redirect_urls": {
-                        "return_url": `${req.headers['origin']}/payment/process`,
-                        "cancel_url": `${req.headers['origin']}/order/failure`
+                        "return_url": `${returnAddress}/payment/process`,
+                        "cancel_url": `${returnAddress}/order/failure`
                     },
                     "payer": {
                         "payment_method": "paypal"
