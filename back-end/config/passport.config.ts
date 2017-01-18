@@ -10,15 +10,15 @@ var options = {
     secretOrKey: SECRET
 };
 
-passport.use(new Strategy(options, (jwtPayLoad, done) => {
-    User.findOne({ id: jwtPayLoad.id }, (error, user) => {
-        if (error) {
-            return done(error)
-        }
+passport.use(new Strategy(options, async (jwtPayLoad, done) => {
+    try {
+        let user = await User.findOne({ id: jwtPayLoad.id });
         if (user) {
-            return done(null, user);
+            done(null, user);
+        } else {
+            done(null, false);
         }
-
-        return done(null, false);
-    });
+    } catch (error) {
+        done(error);
+    }
 }));

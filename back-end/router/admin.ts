@@ -1,31 +1,19 @@
-import * as express from 'express';
+import { Router } from 'express';
 import * as jwt from 'jsonwebtoken';
 
 import { SECRET } from '../config/passport.config';
 import User from '../models/user.model';
+import { asyncHandler } from './router-utils';
 
-const router = express.Router();
+const router = Router();
 
-router.post('/sign-in', (req, res) => {
-
-    User.findOne({ email: req.body.email }, (error, user) => {
-        if (error) {
-            res.json({ success: false, message: "Some Error" });
-            return console.error(error)
-        }
-        if (!user || !(user as any).validatePassword(req.body.password)) {
-            res.json({
-                success: false,
-                message: "Wrong email or password!"
-            });
-
-            return;
-        }
-        let token = jwt.sign(user, SECRET, {
-            expiresIn: 1000 * 60
-        })
-        res.json({ success: true, token: `JWT ${token}` });
-    });
-});
+router.post('/sign-in', asyncHandler(async (req, res) => {
+    let user = await User.findOne({ email: req.body.email });
+    if (!user || !(user as any).validatePassword(req.body.password)) {
+        return res.json({ success: false });
+    }
+    let token = jwt.sign(user, SECRET, { expiresIn: '30m' });
+    res.json({ success: true, token: `JWT ${token}` });
+}));
 
 export default router;

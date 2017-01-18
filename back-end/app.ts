@@ -6,6 +6,7 @@ import * as passport from 'passport';
 
 import './config/passport.config';
 
+// TODO: Check how mongoose handles app disconnections
 mongoose.connect('mongodb://SMH110:yaaAli@ds127948.mlab.com:27948/pizza-delivery', (error) => {
     if (error) {
         console.error(error);
