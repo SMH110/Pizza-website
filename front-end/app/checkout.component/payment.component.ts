@@ -38,8 +38,8 @@ export class PaymentComponent {
         localStorage.removeItem('errorMessage');
         localStorage.setItem('canGetPaymentProcessRoute', 'true');
         this.isShowSpinner = true
-        this.orderService.postOrder().subscribe(response => {
-            window.location.assign(response.approval_url);
+        this.orderService.placeOrder().subscribe(response => {
+            window.location.assign(response.url);
         }, error => {
             localStorage.setItem('errorMessage', JSON.stringify(error.message));
             localStorage.removeItem('canGetPaymentProcessRoute');

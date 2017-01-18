@@ -10,7 +10,7 @@ export class OrderService {
     constructor(private http: Http, private basket: BasketService) {
     }
 
-    postOrder() {
+    placeOrder() {
         const postBody = {
             transactions: [
                 {
@@ -24,10 +24,8 @@ export class OrderService {
         }
         const headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
-        return this.http.post('/api/order/get-token', postBody, options)
+        return this.http.post('/api/order/place-order', postBody, options)
             .map(this.extractData)
-
-
     }
 
     private extractData(res: Response) {
@@ -42,7 +40,7 @@ export class OrderService {
         }
         const headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
-        return this.http.post('/api/order/execute', postBody, options)
+        return this.http.post('/api/paypal/execute', postBody, options)
             .map(this.extractData)
     }
 
