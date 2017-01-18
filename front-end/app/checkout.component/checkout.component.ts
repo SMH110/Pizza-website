@@ -54,6 +54,7 @@ export class CheckoutComponent {
     pc: string = this.initializeInputWithDefaultValue("postCode");
     email_: string = this.initializeInputWithDefaultValue("email");
     phone_: string = this.initializeInputWithDefaultValue("phone");
+    note: string = this.initializeInputWithDefaultValue("note");
 
     defaultDeliveryMethod: string = this.initializeInputWithDefaultValue("deliveryMethod") || 'delivery';
     deliveryMethods: string[] = [
@@ -118,4 +119,5 @@ interface CheckoutForm {
     email: string;
     phone: string;
     deliveryMethod: string;
+    note: string;
 }

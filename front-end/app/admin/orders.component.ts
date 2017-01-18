@@ -88,6 +88,7 @@ interface Order {
     discount: Number;
     totalPayment: Number;
     status: string;
+    note: string;
 }
 
 
