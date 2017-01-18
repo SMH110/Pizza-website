@@ -1,12 +1,13 @@
 import * as rp from 'request-promise';
 import { Application } from 'express';
 import { asyncHandler } from '../router/router-utils';
+import Order from '../models/orders.model';
 
 export default class PayPal implements PaymentGateway {
     constructor(private baseReturnAddress: string) {
     }
 
-    public async getRedirectDetails(basket: any): Promise<PaymentRedirectDetails> {
+    public async createPaymentRequest(order: Order): Promise<PaymentRequestDetails> {
         const options = {
             headers: { 'Authorization': 'Bearer ' + await getPayPalAuthToken() },
             body: {
@@ -19,16 +20,27 @@ export default class PayPal implements PaymentGateway {
                 "payer": {
                     "payment_method": "paypal"
                 },
-                "transactions": basket.transactions
+                "transactions": [{
+                    amount: {
+                        total: order.totalPayment,
+                        currency: "GBP"
+                    },
+                    description: this.generateDescription(order)
+                }]
             },
             json: true
         };
         console.log('Requesting PayPal payment', JSON.stringify(options));
         let response = await rp.post('https://api.sandbox.paypal.com/v1/payments/payment', options);
         return {
+            paymentId: response.id,
             url: response.links.find((obj: any) => obj.rel === 'approval_url').href,
             isFullPageRedirect: true
         };
+    }
+
+    private generateDescription(order: Order) {
+        return order.orderItems.reduce((initial, current) => initial + `${current.qty} ${current.item.nameAndSize || current.item.name}, `, "").slice(0, -2);
     }
 }
 
@@ -50,14 +62,17 @@ async function getPayPalAuthToken() {
 export function initialisePayPalEndpoints(application: Application) {
     // TODO: Don't initialise if PayPal is not enabled
     application.use('/api/paypal/execute', asyncHandler(async (req, res) => {
+        let paymentId = req.body.payment_id;
         const options = {
             headers: { 'Authorization': 'Bearer ' + await getPayPalAuthToken() },
             body: { "payer_id": req.body.payerId },
             json: true
         };
-        let response = await rp.post(`https://api.sandbox.paypal.com/v1/payments/payment/${req.body.payment_id}/execute/`, options);
-        // TODO: It seems like we are not handling the PayPal response when checking if the
-        // payment was approved or not (i.e. if not approved we basically leave the UI hanging)
-        res.json(response);
+        let response = await rp.post(`https://api.sandbox.paypal.com/v1/payments/payment/${paymentId}/execute/`, options);
+        if (response.state !== 'approved') {
+            throw new Error('Payment was not approved');
+        }
+        await Order.update({ paymentId: paymentId }, { status: "Outstanding" });
+        res.send();
     }));
 }

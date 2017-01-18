@@ -1,8 +1,9 @@
 interface PaymentGateway {
-    getRedirectDetails: (order: Order) => Promise<PaymentRedirectDetails>;
+    createPaymentRequest: (order: Order) => Promise<PaymentRequestDetails>;
 }
 
-interface PaymentRedirectDetails {
+interface PaymentRequestDetails {
     url: string;
+    paymentId?: string;
     isFullPageRedirect: boolean;
 }

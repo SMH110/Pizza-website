@@ -2,36 +2,21 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
 
-import { BasketService } from './basket.service';
 @Injectable()
 export class OrderService {
-
-    orders: any;
-    constructor(private http: Http, private basket: BasketService) {
+    constructor(private http: Http) {
     }
 
-    placeOrder() {
-        const postBody = {
-            transactions: [
-                {
-                    amount:
-                    {
-                        total: Math.round(this.basket.totalPrice * 100) / 100,
-                        currency: "GBP"
-                    },
-                    description: this.basket.generateDescription()
-                }]
-        }
+    placeOrder(order: Order) {
         const headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
-        return this.http.post('/api/order/place-order', postBody, options)
+        return this.http.post('/api/order/place-order', order, options)
             .map(this.extractData)
     }
 
     private extractData(res: Response) {
         return res.json() || {};
     }
-
 
     postPayerId(payerId: string, paymentId: string) {
         const postBody = {
@@ -44,15 +29,6 @@ export class OrderService {
             .map(this.extractData)
     }
 
-    postOrderDetails(orderDetails: OrderDetail) {
-        const headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers });
-
-        return this.http.post('/api/order/save-order', orderDetails, options)
-            .map(this.extractData)
-    }
-
-
     getOrders() {
         const headers = new Headers({ "Content-Type": "application/json", "Authorization": localStorage.getItem('get-orders-token') });
         let options = new RequestOptions({ headers: headers });
@@ -60,49 +36,10 @@ export class OrderService {
             .map(this.extractData)
     }
 
-
     postIdToUpdateOrderStatus(id: any) {
         const headers = new Headers({ 'Content-Type': 'application/json' });
         const options = new RequestOptions({ headers: headers });
         return this.http.post('/api/order/update-status', id, options)
             .map(this.extractData)
     }
-
-}
-
-
-interface OrderDetail {
-    buyer: {
-        firstName: string;
-        lastName: string;
-        address: string;
-        postCode: string;
-        email: string;
-        phone: string;
-    },
-    orderItems: OrderItem;
-    deliveryMethod: string;
-    date: Date;
-    paymentMethod: string;
-    total: number;
-    discount: number;
-    totalPayment: number;
-    status: string;
-}
-
-
-interface OrderItem {
-    item: Item;
-    qty: number;
-    price: number
-}
-
-interface Item {
-    name: string;
-    nameAndSize?: string;
-    _id: string;
-    size_id?: string;
-    size: string;
-    price: number;
-    imageName: string;
 }

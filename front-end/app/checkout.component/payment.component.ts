@@ -34,7 +34,41 @@ export class PaymentComponent {
         localStorage.removeItem('errorMessage');
         localStorage.setItem('canGetPaymentProcessRoute', 'true');
         this.isShowSpinner = true
-        this.orderService.placeOrder().subscribe(response => {
+
+        const buyerDetails: any = JSON.parse(localStorage.getItem('checkout-details'));
+        let items: any[] = [];
+        let storedItems: any = JSON.parse(localStorage.getItem('items'));
+
+        for (let id in storedItems) {
+            items.push({
+                item: storedItems[id].item,
+                qty: storedItems[id].qty,
+                price: Math.round(storedItems[id].price * 100) / 100
+            });
+        }
+
+        let orderDetail = {
+            buyer: {
+                firstName: buyerDetails.firstName,
+                lastName: buyerDetails.lastName,
+                address: buyerDetails.address2 && buyerDetails.address2.length ? `${buyerDetails.address1} ${buyerDetails.address2}` : buyerDetails.address1,
+                postCode: buyerDetails.postCode,
+                email: buyerDetails.email,
+                phone: buyerDetails.phone
+            },
+            orderItems: items,
+            deliveryMethod: buyerDetails.deliveryMethod,
+            date: new Date(),
+            paymentMethod: 'paypal',
+            total: Math.round(JSON.parse(localStorage.getItem('totalPrice')) * 100) / 100,
+            discount: 0,
+            totalPayment: Math.round(JSON.parse(localStorage.getItem('totalPrice')) * 100) / 100
+        };
+
+        this.orderService.placeOrder(orderDetail).subscribe(response => {
+            this.basket.removeAll();
+            localStorage.removeItem('canGetPaymentProcessRoute');
+            localStorage.removeItem('checkout-details');
             window.location.assign(response.url);
         }, error => {
             localStorage.setItem('errorMessage', JSON.stringify(error.message));
