@@ -1,136 +1,79 @@
 import { Router } from 'express';
 const router = Router();
 import paypalConfig from '../config/paypal.config';
-import * as requestPromise from 'request-promise';
+import * as rp from 'request-promise';
 import Order from '../models/orders.model';
-import {authenticate} from 'passport';
+import { authenticate } from 'passport';
 import * as url from 'url';
+import { asyncHandler } from './router-utils';
 
-router.post('/get-token', (req, res) => {
-    const orderBody = req.body;
+router.post('/get-token', asyncHandler(async (req, res) => {
+    let referer = url.parse(req.headers['referer']);
+    let returnAddress = referer.protocol + '//' + referer.host;
     const options = {
-        method: 'POST',
-        headers: {
-            'Authorization': 'Basic ' + new Buffer(`${paypalConfig.client_id}:${paypalConfig.secret}`).toString('base64')
+        headers: { 'Authorization': 'Bearer ' + await getPayPalAuthToken() },
+        body: {
+            "intent": "sale",
+            "redirect_urls": {
+                "return_url": `${returnAddress}/payment/process`,
+                "cancel_url": `${returnAddress}/order/failure`
+            },
+            // TODO: Why do we have this here? Are we limiting the customer to PayPal only?
+            "payer": {
+                "payment_method": "paypal"
+            },
+            "transactions": req.body.transactions
         },
-        uri: 'https://api.sandbox.paypal.com/v1/oauth2/token',
-        form: {
-            grant_type: 'client_credentials'
-        }
+        json: true
     };
-    requestPromise(options)
-        .then(response => {
-            response = JSON.parse(response);
-            return response.access_token;
-        })
-        .then(token => {
-            let referer = url.parse(req.headers['referer']);
-            let returnAddress = referer.protocol + '://' + referer.host;
-            const options = {
-                method: 'POST',
-                headers: {
-                    "Content-Type": "application/json",
-                    'Authorization': 'Bearer ' + token
-                },
-                uri: 'https://api.sandbox.paypal.com/v1/payments/payment',
-                body: {
-                    "intent": "sale",
-                    "redirect_urls": {
-                        "return_url": `${returnAddress}/payment/process`,
-                        "cancel_url": `${returnAddress}/order/failure`
-                    },
-                    "payer": {
-                        "payment_method": "paypal"
-                    },
-                    "transactions": orderBody.transactions
-                },
-                json: true
-            };
-            return requestPromise(options);
-        }).then(response => {
-            const approvalUrl = response.links.find((obj: any) => obj.rel === 'approval_url');
-            res.json({ approval_url: approvalUrl.href });
-        }).catch(error => {
-            console.error(error);
-            res.status(500);
-        });
-});
+    console.log('Requesting PayPal payment', JSON.stringify(options));
+    let response = await rp.post('https://api.sandbox.paypal.com/v1/payments/payment', options);
+    const approvalUrl = response.links.find((obj: any) => obj.rel === 'approval_url');
+    res.json({ approval_url: approvalUrl.href });
+}));
 
-
-router.post('/execute', (req, res) => {
-    const executePostBody = req.body;
-    const getNewTokenOptions = {
-        method: 'POST',
-        headers: {
-            'Authorization': 'Basic ' + new Buffer(`${paypalConfig.client_id}:${paypalConfig.secret}`).toString('base64')
-        },
-        uri: 'https://api.sandbox.paypal.com/v1/oauth2/token',
-        form: {
-            grant_type: 'client_credentials'
-        }
+router.post('/execute', asyncHandler(async (req, res) => {
+    const options = {
+        headers: { 'Authorization': 'Bearer ' + await getPayPalAuthToken() },
+        body: { "payer_id": req.body.payerId },
+        json: true
     };
-    requestPromise(getNewTokenOptions)
-        .then(response => {
-            response = JSON.parse(response);
-            return response.access_token;
-        }).then(token => {
-            const options = {
-                method: 'POST',
-                headers: {
-                    'Authorization': 'Bearer ' + token
-                },
-                uri: `https://api.sandbox.paypal.com/v1/payments/payment/${executePostBody.payment_id}/execute/`,
-                body: {
-                    "payer_id": executePostBody.payerId
-                },
-                json: true
-            };
-            return requestPromise(options)
-        })
-        .then(response => {
-            res.json(response);
-        }).catch(error => {
-            console.error(error);
-            res.status(500).send("error")
-        });
-});
+    let response = await rp.post(`https://api.sandbox.paypal.com/v1/payments/payment/${req.body.payment_id}/execute/`, options)
+    // TODO: It seems like we are not handling the PayPal response when checking if the
+    // payment was approved or not (i.e. if not approved we basically leave the UI hanging)
+    res.json(response);
+}));
 
 
 // Route to save the orders in the mongoose database
-router.post('/save-order', (req, res) => {
-    const order = new Order(req.body);
-    order.save(error => {
-        if (error) {
-            res.status(500).send();
-            return;
-        }
-        res.json({
-            success: true
-        });
-    })
-});
-
-router.get('/get-orders', authenticate('jwt', { session: false }), (_req, res) => {
-    Order.find({}, (error, orders) => {
-        if (error) {
-            res.status(500).send(error);
-            return console.error(error);
-        }
-
-        res.json(orders);
+router.post('/save-order', asyncHandler(async (req, res) => {
+    await new Order(req.body).save();
+    res.json({
+        success: true
     });
-});
+}));
+
+// TODO: Check what happens when authenticate fails?
+router.get('/get-orders', authenticate('jwt', { session: false }), asyncHandler(async (_req, res) => {
+    res.json(await Order.find());
+}));
 
 // update order status
-router.post('/update-status', (req, res) => {
-    Order.update({ _id: req.body.id }, { status: "Complete" }, (error) => {
-        if (error) {
-            res.status(500).send(error);
-            return console.error(error);
-        }
+router.post('/update-status', asyncHandler(async (req, res) => {
+    await Order.update({ _id: req.body.id }, { status: "Complete" });
+    res.json({ success: true });
+}));
 
-        res.json({ success: true });
-    });
-});
+async function getPayPalAuthToken() {
+    const options = {
+        headers: {
+            'Authorization': 'Basic ' + new Buffer(`${paypalConfig.client_id}:${paypalConfig.secret}`).toString('base64')
+        },
+        form: { grant_type: 'client_credentials' },
+        json: true
+    };
+    let response = await rp.post('https://api.sandbox.paypal.com/v1/oauth2/token', options);
+    return response.access_token;
+}
 
 export default router;

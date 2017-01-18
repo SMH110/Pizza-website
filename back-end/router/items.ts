@@ -1,38 +1,21 @@
-import { Router, Request, Response } from 'express';
+import { Router } from 'express';
 const router = Router();
 
 import pizzas from '../models/pizzas.model';
 import sides from '../models/sides.model';
 import drinks from '../models/drinks.model';
+import { asyncHandler } from './router-utils';
 
-router.get('/pizzas', (_req: Request, res: Response) => {
-    pizzas.find((error, pizzas) => {
-        if (error) {
-            console.error(error);
-            return res.sendStatus(500);
-        }
-        res.json(pizzas);
-    });
-});
+router.get('/pizzas', asyncHandler(async (_req, res) => {
+    res.json(await pizzas.find());
+}));
 
-router.get('/sides', (_req: Request, res: Response) => {
-    sides.find((error, sides) => {
-        if (error) {
-            console.error(error);
-            return res.sendStatus(500);
-        }
-        res.json(sides);
-    });
-});
+router.get('/sides', asyncHandler(async (_req, res) => {
+    res.json(await sides.find());
+}));
 
-router.get('/drinks', (_req: Request, res: Response) => {
-    drinks.find((error, drinks) => {
-        if (error) {
-            console.error(error);
-            return res.sendStatus(500);
-        }
-        res.json(drinks);
-    });
-});
+router.get('/drinks', asyncHandler(async (_req, res) => {
+    res.json(await drinks.find());
+}));
 
 export default router;
