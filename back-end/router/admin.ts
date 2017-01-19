@@ -3,11 +3,11 @@ import * as jwt from 'jsonwebtoken';
 
 import { SECRET } from '../config/passport.config';
 import User from '../models/user.model';
-import { asyncHandler } from './router-utils';
+import { errorHandler } from './router-utils';
 
 const router = Router();
 
-router.post('/sign-in', asyncHandler(async (req, res) => {
+router.post('/sign-in', errorHandler(async (req, res) => {
     let user = await User.findOne({ email: req.body.email });
     if (!user || !(user as any).validatePassword(req.body.password)) {
         return res.json({ success: false });

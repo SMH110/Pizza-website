@@ -1,6 +1,6 @@
 import * as rp from 'request-promise';
 import { Application } from 'express';
-import { asyncHandler } from '../router/router-utils';
+import { errorHandler } from '../router/router-utils';
 import Order from '../models/orders.model';
 
 export default class PayPal implements PaymentGateway {
@@ -30,7 +30,7 @@ export default class PayPal implements PaymentGateway {
             },
             json: true
         };
-        console.log('Requesting PayPal payment', JSON.stringify(options));
+        console.log('Requesting PayPal payment', JSON.stringify(options, null, 4));
         let response = await rp.post('https://api.sandbox.paypal.com/v1/payments/payment', options);
         return {
             paymentId: response.id,
@@ -61,18 +61,22 @@ async function getPayPalAuthToken() {
 
 export function initialisePayPalEndpoints(application: Application) {
     // TODO: Don't initialise if PayPal is not enabled
-    application.use('/api/paypal/execute', asyncHandler(async (req, res) => {
+    application.use('/api/paypal/execute', errorHandler(async (req, res) => {
         let paymentId = req.body.payment_id;
+        let payerId = req.body.payerId;
         const options = {
             headers: { 'Authorization': 'Bearer ' + await getPayPalAuthToken() },
-            body: { "payer_id": req.body.payerId },
+            body: { "payer_id": payerId },
             json: true
         };
+        console.log(`Executing payment ${paymentId} for ${payerId}`);
         let response = await rp.post(`https://api.sandbox.paypal.com/v1/payments/payment/${paymentId}/execute/`, options);
         if (response.state !== 'approved') {
-            throw new Error('Payment was not approved');
+            throw new Error(`Payment ${paymentId} for ${payerId} was NOT approved`);
         }
+        console.log(`Payment ${paymentId} for ${payerId} approved. Updating order...`);
         await Order.update({ paymentId: paymentId }, { status: "Outstanding" });
+        console.log(`Updated order for ${paymentId}`);
         res.send();
     }));
 }
