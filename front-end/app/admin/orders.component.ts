@@ -30,35 +30,19 @@ import { OrderService } from '../service/order.service'
 })
 export class OrdersComponent implements OnInit {
     orders: Order[];
-    constructor(private orderService: OrderService, private router: Router) {
 
+    constructor(private orderService: OrderService, private router: Router) {
     }
+
     ngOnInit() {
-        this.getOrders();
-        setInterval(this.getOrders.bind(this), 15000);
+        this.refreshOrders();
+        setInterval(this.refreshOrders.bind(this), 15000);
     }
 
     markAsComplete(id: string) {
-        this.orderService.postIdToUpdateOrderStatus({ id: id })
-            .subscribe(response => {
-                if (response.success) {
-                    this.getOrders()
-                }
-            }, error => {
-                if (error.status === 500) {
-                    this.router.navigateByUrl('/admin/failure');
-                }
-            });
-    }
-
-
-
-    private getOrders() {
-
-
-        this.orderService.getOrders()
-            .subscribe(response => {
-                this.orders = response.sort((a: Order, b: Order) => new Date(b.date).valueOf() - new Date(a.date).valueOf());
+        this.orderService.markOrderAsComplete({ orderId: id })
+            .subscribe(() => {
+                this.refreshOrders()
             }, error => {
                 if (error.status === 401) {
                     this.router.navigateByUrl('/admin/sign-in');
@@ -68,41 +52,18 @@ export class OrdersComponent implements OnInit {
                 }
             });
     }
-}
 
-
-interface Order {
-    buyer: {
-        firstName: String;
-        lastName: String;
-        address: String;
-        postCode: String;
-        email: String;
-        phone: String;
-    };
-    orderItems: OrderItem[];
-    deliveryMethod: String;
-    date: Date;
-    paymentMethod: String;
-    total: Number;
-    discount: Number;
-    totalPayment: Number;
-    status: string;
-}
-
-
-interface OrderItem {
-    item: Item;
-    qty: number;
-    price: number
-}
-
-interface Item {
-    name: string;
-    nameAndSize?: string;
-    _id: string;
-    size_id?: string;
-    size?: string;
-    price: number;
-    imageName: string;
+    private refreshOrders() {
+        this.orderService.getOrders()
+            .subscribe(response => {
+                this.orders = response.sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf());
+            }, error => {
+                if (error.status === 401) {
+                    this.router.navigateByUrl('/admin/sign-in');
+                }
+                if (error.status === 500) {
+                    this.router.navigateByUrl('/admin/failure');
+                }
+            });
+    }
 }

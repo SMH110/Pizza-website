@@ -36,9 +36,9 @@ router.get('/get-orders', authenticate('jwt', { session: false }), errorHandler(
 }));
 
 // TODO: Move to admin.ts
-router.post('/update-status', authenticate('jwt', { session: false }), errorHandler(async (req, res: IResponse<ApiResponse>) => {
-    await Order.update({ _id: req.body.id }, { status: "Complete" });
-    res.json({ success: true });
+router.post('/mark-as-complete', authenticate('jwt', { session: false }), errorHandler(async (req: IRequest<MarkAsCompleteRequest>, res) => {
+    await Order.update({ _id: req.body.orderId }, { status: "Complete" });
+    res.send();
 }));
 
 export default router;

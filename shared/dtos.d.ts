@@ -61,6 +61,15 @@ interface Buyer {
     phone: string;
 }
 
-interface ApiResponse {
-    success: boolean;
+interface MarkAsCompleteRequest {
+    orderId: string;
+}
+
+interface AuthRequest {
+    email: string;
+    password: string;
+}
+
+interface AuthResponse {
+    token: string;
 }
