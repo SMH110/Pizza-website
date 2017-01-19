@@ -58,7 +58,7 @@ export class OrdersComponent implements OnInit {
 
         this.orderService.getOrders()
             .subscribe(response => {
-                this.orderService.orders = response.sort((a: Order, b: Order) => new Date(b.date).valueOf() - new Date(a.date).valueOf());
+                this.orders = response.sort((a: Order, b: Order) => new Date(b.date).valueOf() - new Date(a.date).valueOf());
             }, error => {
                 if (error.status === 401) {
                     this.router.navigateByUrl('/admin/sign-in');

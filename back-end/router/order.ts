@@ -2,29 +2,38 @@ import { Router } from 'express';
 const router = Router();
 import Order from '../models/orders.model';
 import { authenticate } from 'passport';
-import { asyncHandler } from './router-utils';
+import { asyncHandler, IRequest, IResponse } from './router-utils';
 import { getPaymentGateway } from '../payment-gateways/factory';
 
-router.post('/place-order', asyncHandler(async (req, res) => {
+router.post('/place-order', asyncHandler(async (req: IRequest<Order>, res: IResponse<PaymentRequestDetails>) => {
     let paymentProvider = getPaymentGateway(req);
-    res.json(await paymentProvider.getRedirectDetails(req.body));
+    let order: Order = {
+        _id: null,
+        buyer: Object.assign({}, req.body.buyer),
+        date: req.body.date, // TODO - set on server side
+        deliveryMethod: req.body.deliveryMethod,
+        discount: req.body.discount, // TODO - set on server side
+        orderItems: req.body.orderItems,
+        paymentMethod: req.body.paymentMethod,
+        status: 'Awaiting Payment',
+        total: req.body.total, // TODO - set on server side
+        totalPayment: req.body.totalPayment // TODO - set on server side
+    };
+
+    let paymentRequestDetails = await paymentProvider.createPaymentRequest(order);
+    order.paymentId = paymentRequestDetails.paymentId;
+
+    await new Order(order).save();
+    res.json();
 }));
 
-// Route to save the orders in the mongoose database
-router.post('/save-order', asyncHandler(async (req, res) => {
-    await new Order(req.body).save();
-    res.json({
-        success: true
-    });
-}));
-
-// TODO: Check what happens when authenticate fails?
-router.get('/get-orders', authenticate('jwt', { session: false }), asyncHandler(async (_req, res) => {
+// TODO: Move to admin.ts
+router.get('/get-orders', authenticate('jwt', { session: false }), asyncHandler(async (_req, res: IResponse<Order[]>) => {
     res.json(await Order.find());
 }));
 
-// Update order status
-router.post('/update-status', asyncHandler(async (req, res) => {
+// TODO: Move to admin.ts
+router.post('/update-status', authenticate('jwt', { session: false }), asyncHandler(async (req, res: IResponse<ApiResponse>) => {
     await Order.update({ _id: req.body.id }, { status: "Complete" });
     res.json({ success: true });
 }));

@@ -24,18 +24,32 @@ interface Side extends Item {
 }
 
 interface Order {
-    _id: any;
+    _id?: any;
     buyer: Buyer;
-    orderItems: Array<Item>;
+    orderItems: Array<OrderItemLine>;
     deliveryMethod: 'collection' | 'delivery';
     // TODO - check if Date is the correct type to use
     date: Date;
-    paymentMethod: 'paypal';
+    paymentMethod: string;
+    paymentId?: string;
     total: number;
     discount: number;
     totalPayment: number;
     // TODO - specify other statuses here
-    status: "Outstanding" | "Complete";
+    status?: "Awaiting Payment" | "Outstanding" | "Complete";
+}
+
+interface OrderItemLine {
+    item: OrderItem;
+    qty: number;
+    price: number
+}
+
+interface OrderItem extends Item {
+    nameAndSize?: string;
+    size_id?: string;
+    size: string;
+    price: number;
 }
 
 interface Buyer {

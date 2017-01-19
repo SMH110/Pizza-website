@@ -3,7 +3,7 @@
         <div class="col-md-12">
             <h1>Orders</h1>
             <hr>
-            <div class="col-md-8" *ngFor='let order of orderService.orders; let i=index'>
+            <div class="col-md-8" *ngFor='let order of orders; let i=index'>
                 <h2>Order {{i + 1}}</h2>
                 <p class="date">{{order.date | date:"medium"}}</p>
                 <table class="table table-striped">
