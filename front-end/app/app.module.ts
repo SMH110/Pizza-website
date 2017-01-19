@@ -16,7 +16,6 @@ import { FooterComponent } from './footer.component';
 import { JumbotronComponent } from './jumbotron.component';
 import { CheckoutComponent } from './checkout.component/checkout.component';
 import { PaymentComponent } from './checkout.component/payment.component';
-import { PaymentProcess } from './checkout.component/payment-processing.component';
 import { OrderSuccessComponent } from './notification.component/order-success.component';
 import { OrderService } from './service/order.service';
 import { BasketService } from './service/basket.service';
@@ -30,7 +29,6 @@ import { SignInService } from './service/sign-in.service'
 // Guards
 import { CheckoutGuard } from './guards/checkout.guard';
 import { PaymentGuard } from './guards/payment.guard';
-import { PaymentProcessGuard } from './guards/payment-process.guard'
 import Routes from './routes';
 
 @NgModule({
@@ -48,7 +46,6 @@ import Routes from './routes';
     JumbotronComponent,
     CheckoutComponent,
     PaymentComponent,
-    PaymentProcess,
     OrderSuccessComponent,
     OrderFailureComponent,
     HeaderComponent,
@@ -63,7 +60,6 @@ import Routes from './routes';
     GuardService,
     CheckoutGuard,
     PaymentGuard,
-    PaymentProcessGuard,
     SignInService
   ],
   bootstrap: [AppComponent]

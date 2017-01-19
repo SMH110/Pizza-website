@@ -9,7 +9,6 @@ router.post('/place-order', errorHandler(async (req: IRequest<Order>, res: IResp
     console.log('Received order - constructing order')
     let paymentProvider = getPaymentGateway(req);
     let order: Order = {
-        _id: null,
         buyer: Object.assign({}, req.body.buyer),
         date: req.body.date, // TODO - set on server side
         deliveryMethod: req.body.deliveryMethod,
