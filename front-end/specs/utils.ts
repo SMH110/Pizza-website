@@ -4,7 +4,7 @@ const UI_READY_TIMEOUT = 10000;
 const URL_CHANGE_TIMEOUT = 20000;
 
 export async function urlShouldBecome(predicate: (url: string) => boolean) {
-    browser.ignoreSynchronization = true;
+    browser.waitForAngularEnabled(false);
     let lastUrl;
     try {
         await browser.wait(async () => {
@@ -16,7 +16,7 @@ export async function urlShouldBecome(predicate: (url: string) => boolean) {
         console.log(`urlShouldBecome failed. Last URL was ${lastUrl}. Looking for ${predicate.toString()}.`);
         throw e;
     } finally {
-        browser.ignoreSynchronization = false;
+        browser.waitForAngularEnabled(true);
     }
 }
 
@@ -30,4 +30,8 @@ export async function whenAnyVisible<T>(locator: By, action: (element: ElementAr
     await browser.wait(EC.visibilityOf(element(locator)), UI_READY_TIMEOUT);
     let elements = element.all(locator);
     return await action(elements);
+}
+
+export async function waitForAngularToLoad() {
+    await browser.wait(async () => await browser.executeScript("return window.getAngularTestability !== undefined;"), URL_CHANGE_TIMEOUT);
 }

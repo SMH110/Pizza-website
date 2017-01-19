@@ -1,5 +1,5 @@
-import { browser, by, element, ElementFinder } from "protractor";
-import { urlShouldBecome, whenAnyVisible, whenVisible } from './utils';
+import { browser, by, element, ElementFinder, ExpectedConditions as EC } from "protractor";
+import { urlShouldBecome, whenAnyVisible, whenVisible, waitForAngularToLoad } from './utils';
 
 describe("E2E Tests", () => {
     beforeEach(async () => {
@@ -8,7 +8,7 @@ describe("E2E Tests", () => {
     });
 
     it("I can add a pizza, side and drink to the basket and check out using PayPal", async () => {
-        await browser.get('https://godfather-pizza-dev.herokuapp.com/');
+        await browser.get('/');
         
         // Add a pizza
         await addProduct('Neapolitan Pizza');
@@ -39,7 +39,7 @@ describe("E2E Tests", () => {
 
         // Wait for PayPal to load
         await urlShouldBecome(url => /sandbox\.paypal\.com/.test(url));
-        browser.ignoreSynchronization = true;
+        browser.waitForAngularEnabled(false);
 
         // Enter details and pay
         await whenVisible(by.id('login_email'), email => email.sendKeys('csharpandsons-buyer@gmail.com'))
@@ -49,7 +49,11 @@ describe("E2E Tests", () => {
 
         // Ensure we are routed back to /order/success
         await urlShouldBecome(url => /\/order\/success/.test(url));
-        browser.ignoreSynchronization = false;
+        await waitForAngularToLoad();
+        browser.waitForAngularEnabled(true);
+
+        let orderSuccess = element(by.css('.order-success'));
+        await EC.visibilityOf(orderSuccess);
     });
 });
 
