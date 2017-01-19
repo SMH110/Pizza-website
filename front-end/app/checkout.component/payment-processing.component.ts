@@ -21,6 +21,8 @@ export class PaymentProcess implements OnInit, OnDestroy {
         this.subscription = this.activatedRoute.queryParams.subscribe((param: any) => {
             this.orderService.postPayerId(param['PayerID'], param['paymentId'])
                 .subscribe(() => {
+                    localStorage.removeItem('canGetPaymentProcessRoute');
+                    localStorage.removeItem('checkout-details');
                     this.router.navigate(["/order/success"]);
                 }, error => {
                     if (error.status === 500) {
