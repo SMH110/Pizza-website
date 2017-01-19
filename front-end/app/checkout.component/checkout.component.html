@@ -58,6 +58,12 @@
                         </div>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label for="note" class="col-sm-2 control-label">Note</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="note" name="note" ngModel [(ngModel)]='note' #additionalNote="ngModel" (blur)='onBlurMethod(additionalNote)'>
+                    </div>
+                </div>
                 <div class="radio" *ngFor='let method of deliveryMethods'>
                     <label class="delivery-method">
                         <input type="radio" name="deliveryMethod"  [(ngModel)]='defaultDeliveryMethod' [value]='method' #delivery="ngModel" (click)="onClickDeliveryMethod(method)">

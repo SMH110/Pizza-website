@@ -44,6 +44,7 @@ export class PaymentProcess implements OnInit, OnDestroy {
                                     email: buyerDetails.email,
                                     phone: buyerDetails.phone
                                 },
+                                note: buyerDetails.note,
                                 orderItems: items,
                                 deliveryMethod: buyerDetails.deliveryMethod,
                                 date: new Date(),

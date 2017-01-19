@@ -16,5 +16,6 @@ export default model<Order & Document>('orders', new Schema({
     total: Number,
     discount: Number,
     totalPayment: Number,
-    status: { type: String, default: "Outstanding" }
+    status: { type: String, default: "Outstanding" },
+    note: { type: String, default: "" }
 }));
