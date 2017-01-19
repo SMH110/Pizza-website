@@ -1,12 +1,12 @@
 import { Request, Response } from 'express';
 
-export function asyncHandler(handler: (req: Request, res: Response) => Promise<any>) {
+export function errorHandler(handler: (req: Request, res: Response) => Promise<any>) {
 
   return async function (req: Request, res: Response) {
     try {
       await handler(req, res);
     } catch (error) {
-      console.error(error);
+      console.error(`Error handling request to ${req.protocol + '://' + req.get('host') + req.originalUrl}`, error);
       res.sendStatus(500);
     }
   }
