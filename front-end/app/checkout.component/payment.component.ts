@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { BasketService } from '../service/basket.service';
@@ -9,7 +9,6 @@ import { GuardService } from '../service/guard.service';
     moduleId: module.id,
     templateUrl: `./payment.component.html`,
     styles: [
-
         `
         h2{
             display:inline-block;
@@ -22,16 +21,13 @@ import { GuardService } from '../service/guard.service';
         }
         `
     ]
-
 })
 export class PaymentComponent {
 
-    constructor(private basket: BasketService, private orderService: OrderService, private guardService: GuardService, private router: Router) {
-
-    }
     isShowSpinner: boolean = false;
 
-   
+    constructor(public basket: BasketService, private orderService: OrderService, private guardService: GuardService, private router: Router) {
+    }
 
     order() {
         this.guardService.canGetPaymentProcessRoute = true;
@@ -46,6 +42,4 @@ export class PaymentComponent {
             this.router.navigateByUrl('/order/failure');
         });
     }
-
 }
-

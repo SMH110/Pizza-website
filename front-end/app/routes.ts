@@ -1,4 +1,3 @@
-import { AppComponent } from './app.component';
 import { PizzaComponent } from './pizza.component';
 import { SidesComponent } from './sides.component';
 import { DrinksComponent } from './drinks.component';
@@ -6,23 +5,17 @@ import { AboutUsComponent } from './about-us.component';
 import { TermsAndConditionsComponent } from './terms-and-conditions.component';
 import { ContactUsComponent } from './contact-us.component';
 import { BasketComponent } from './basket.component';
-import { FooterComponent } from './footer.component';
-import { JumbotronComponent } from './jumbotron.component';
 import { CheckoutComponent } from './checkout.component/checkout.component';
 import { PaymentComponent } from './checkout.component/payment.component';
 import { PaymentProcess } from './checkout.component/payment-processing.component';
 import { OrderSuccessComponent } from './notification.component/order-success.component';
-import { OrderService } from './service/order.service';
-import { BasketService } from './service/basket.service';
-import { GuardService } from './service/guard.service';
 import { OrderFailureComponent } from './notification.component/order-failure.component';
-import { HeaderComponent } from './header.component/header.component'
 import { CheckoutGuard } from './guards/checkout.guard';
 import { PaymentGuard } from './guards/payment.guard';
 import { PaymentProcessGuard } from './guards/payment-process.guard';
 import { OrdersComponent } from './admin/orders.component';
-import {SignInComponent} from './admin/sign-in.component';
-import {AdminFailureComponent} from './admin/admin-failure.component';
+import { SignInComponent } from './admin/sign-in.component';
+import { AdminFailureComponent } from './admin/admin-failure.component';
 
 
 import { Routes } from '@angular/router';

@@ -9,19 +9,13 @@ import { BasketService } from './service/basket.service';
 })
 export class DrinksComponent implements OnInit {
     drinks: Drink[];
-     jumbotronImage: string = "/images/drinks-jumbotron.jpg";
-    constructor(private itemService: ItemService, private basket: BasketService) {
+    jumbotronImage: string = "/images/drinks-jumbotron.jpg";
 
+    constructor(private itemService: ItemService, public basket: BasketService) {
     }
+
     ngOnInit(): void {
         this.itemService.getDrinks()
             .subscribe(drinks => this.drinks = drinks);
     }
-}
-
-
-interface Drink {
-    name: string,
-    price: number,
-    imageName: string
 }

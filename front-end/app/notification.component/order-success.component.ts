@@ -1,7 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
-
-import { BasketService } from '../service/basket.service'
 @Component({
     moduleId: module.id,
     templateUrl: `./order-success.component.html`,
@@ -12,8 +10,6 @@ import { BasketService } from '../service/basket.service'
     `]
 
 })
-export class OrderSuccessComponent implements OnInit {
+export class OrderSuccessComponent {
     constructor() { }
-    ngOnInit() {
-    }
 }

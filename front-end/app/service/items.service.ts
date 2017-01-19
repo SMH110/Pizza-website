@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
+import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 
@@ -10,17 +10,16 @@ export class ItemService {
 
     getPizzas() {
         return this.http.get('/api/products/pizzas')
-            .map(res => res.json());
+            .map(res => res.json() as Pizza[]);
     }
 
     getSides() {
         return this.http.get('/api/products/sides')
-            .map(res => res.json());
+            .map(res => res.json() as Side[]);
     }
 
     getDrinks() {
         return this.http.get('/api/products/drinks')
-            .map(res => res.json());
+            .map(res => res.json() as Drink[]);
     }
-
 }
