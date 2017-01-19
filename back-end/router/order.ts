@@ -24,7 +24,7 @@ router.post('/place-order', asyncHandler(async (req: IRequest<Order>, res: IResp
     order.paymentId = paymentRequestDetails.paymentId;
 
     await new Order(order).save();
-    res.json();
+    res.json(paymentRequestDetails);
 }));
 
 // TODO: Move to admin.ts

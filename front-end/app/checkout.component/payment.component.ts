@@ -67,8 +67,6 @@ export class PaymentComponent {
 
         this.orderService.placeOrder(orderDetail).subscribe(response => {
             this.basket.removeAll();
-            localStorage.removeItem('canGetPaymentProcessRoute');
-            localStorage.removeItem('checkout-details');
             window.location.assign(response.url);
         }, error => {
             localStorage.setItem('errorMessage', JSON.stringify(error.message));
