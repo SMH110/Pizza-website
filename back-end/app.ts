@@ -21,6 +21,7 @@ import clientSide from './router/client-side';
 import items from './router/items';
 import order from './router/order';
 import admin from './router/admin';
+import health from './router/health';
 
 const app = express();
 //engine
@@ -40,6 +41,7 @@ app.use(passport.initialize());
 app.use('/api/order', order);
 app.use('/api/admin', admin);
 app.use('/api/products', items);
+app.use('/health', health);
 app.use('/', clientSide);
 
 initialisePayPalEndpoints(app);
