@@ -19,7 +19,7 @@ export interface IRequest<T> extends Request {
 
 export interface IResponse<T> extends Response {
   json: {
-    (status: number, body?: T): Response;
-    (body?: T): Response;
+    (status: number, body: T): Response;
+    (body: T): Response;
   };
 }
