@@ -69,7 +69,7 @@
                 <p class="note" *ngIf="checkoutForm.invalid && checkoutForm.touched">Please fill in required fields to enable Next button, <span class="asterisk">*</span> indicates required field</p>
                 <button class="btn btn-default next" type="submit" [disabled]="!checkoutForm.form.valid"> Next 
                     <span class="glyphicon glyphicon-chevron-right" ></span></button>
-                <span class="total">Total: £{{basket.totalPrice | number:'1.2-2'}}</span>
+                <span class="total">Total: £{{basket.getTotalPrice() | number:'1.2-2'}}</span>
                 <div class="text-success">
 
                 </div>

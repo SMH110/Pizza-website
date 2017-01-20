@@ -10,10 +10,10 @@
 
                     <label for="sizes">Size:</label>
                     <select class="form-control" id="sizes" [(ngModel)]="pizza.selectedSize">
-                        <option *ngFor='let size of pizza.subType' value="{{size}}" >{{size}}</option>
+                        <option *ngFor='let size of pizza.sizes' value="{{size}}" >{{size}}</option>
                     </select><span>£{{ pizza.price[pizza.selectedSize] | number:'1.2-2'}}</span>
                     <p>
-                        <a (click)='basket.addToBasket(pizza)' class="btn btn-primary" role="button">Add to Basket</a>
+                        <a (click)='basket.addToBasket(pizza, pizza.selectedSize)' class="btn btn-primary" role="button">Add to Basket</a>
                     </p>
                 </div>
             </div>

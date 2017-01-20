@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-12">
             <h2>Basket</h2>
-            <table class="table table-striped" *ngIf='items.length > 0'>
+            <table class="table table-striped" *ngIf='basket.items.length > 0'>
                 <thead>
                     <tr>
                         <th>Item</th>
@@ -12,24 +12,25 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let item of items">
-                        <td>{{item.item.nameAndSize || item.item.name}}</td>
+                    <tr *ngFor="let item of basket.items">
+                        <td>{{item.name}}{{item.version ? ' - ' + item.version : ''}}</td>
                         <td>£{{item.price | number:'1.2-2'}}</td>
-                        <td>{{item.qty}} <button class="btn btn-primary increase" (click)='basket.increase(item.item)'><span class="glyphicon glyphicon-plus"></span></button>
-                            <button class="btn btn-warning" [disabled]="buttonState(item.qty)" (click)='basket.decreaseItem(item.item)'><span class="glyphicon glyphicon-minus"></span></button></td>
+                        <td>{{item.quantity}}
+                            <button class="btn btn-primary increase" (click)='basket.increase(item)'><span class="glyphicon glyphicon-plus"></span></button>
+                            <button class="btn btn-warning decrease" [disabled]="item.quantity < 2" (click)='basket.decrease(item)'><span class="glyphicon glyphicon-minus"></span></button>
+                        </td>
                         <td>
-
-                            <button class="btn btn-danger" (click)="removeItem(item)"><span class="glyphicon glyphicon-remove"></span></button>
+                            <button class="btn btn-danger" (click)="basket.removeItem(item)"><span class="glyphicon glyphicon-remove"></span></button>
                         </td>
                     </tr>
                 </tbody>
             </table>
             <hr>
-            <h2 *ngIf='items.length > 0'>Total: £{{basket.totalPrice | number:'1.2-2'}}</h2>
+            <h2 *ngIf='basket.items.length > 0'>Total: £{{basket.getTotalPrice() | number:'1.2-2'}}</h2>
 
-            <button class="btn btn-default next" *ngIf='items.length > 0' [routerLink]="['/checkout']"> Next <span class="glyphicon glyphicon-chevron-right"></span></button>
-            <button class="btn btn-danger" *ngIf='items.length > 0' (click)="removeAll()">Clear Basket</button>
-            <h2 class="text-danger" *ngIf='items.length < 1'>No Item in the Basket</h2>
+            <button class="btn btn-default next" *ngIf='basket.items.length > 0' [routerLink]="['/checkout']"> Next <span class="glyphicon glyphicon-chevron-right"></span></button>
+            <button class="btn btn-danger" *ngIf='basket.items.length > 0' (click)="basket.removeAll()">Clear Basket</button>
+            <h2 class="text-danger" *ngIf='basket.items.length < 1'>No Item in the Basket</h2>
         </div>
     </div>
 </div>

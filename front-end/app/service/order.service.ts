@@ -7,7 +7,7 @@ export class OrderService {
     constructor(private http: Http) {
     }
 
-    placeOrder(order: Order) {
+    placeOrder(order: PlaceOrderRequest) {
         return this.http.post('/api/order/place-order', order).map(x => x.json() as PaymentRequestDetails);
     }
 

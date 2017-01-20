@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { BasketService } from './service/basket.service';
 
@@ -23,26 +23,7 @@ import { BasketService } from './service/basket.service';
             }
     `]
 })
-export class BasketComponent implements OnInit {
-    items: any[] = [];
-    constructor(private basket: BasketService) {
-
-    }
-    ngOnInit(): void {
-        this.items = this.basket.generateArray();
-    }
-
-    buttonState(quantity: number): boolean {
-        return quantity < 2
-    }
-
-    removeItem(item: any): void {
-        this.basket.removeItem(item);
-        this.items = this.basket.generateArray();
-    }
-
-    removeAll(): void {
-        this.basket.removeAll();
-        this.items = this.basket.generateArray();
+export class BasketComponent {
+    constructor(public basket: BasketService) {
     }
 }

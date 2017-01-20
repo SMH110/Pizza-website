@@ -33,17 +33,7 @@ export class PaymentComponent {
         this.isShowSpinner = true
 
         const buyerDetails: any = JSON.parse(localStorage.getItem('checkout-details'));
-        let items: any[] = [];
-        let storedItems: any = JSON.parse(localStorage.getItem('items'));
-
-        for (let id in storedItems) {
-            items.push({
-                item: storedItems[id].item,
-                qty: storedItems[id].qty,
-                price: Math.round(storedItems[id].price * 100) / 100
-            });
-        }
-
+        
         let orderDetail = {
             buyer: {
                 firstName: buyerDetails.firstName,
@@ -53,14 +43,10 @@ export class PaymentComponent {
                 email: buyerDetails.email,
                 phone: buyerDetails.phone
             },
-            orderItems: items,
+            orderItems: this.basket.items,
             deliveryMethod: buyerDetails.deliveryMethod,
-            date: new Date(),
             paymentMethod: 'paypal',
-            total: Math.round(JSON.parse(localStorage.getItem('totalPrice')) * 100) / 100,
-            discount: 0,
-            totalPayment: Math.round(JSON.parse(localStorage.getItem('totalPrice')) * 100) / 100
-        };
+        } as PlaceOrderRequest;
 
         this.orderService.placeOrder(orderDetail).subscribe(response => {
             this.basket.removeAll();

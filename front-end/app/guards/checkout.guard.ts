@@ -7,10 +7,10 @@ import { BasketService } from '../service/basket.service';
 export class CheckoutGuard implements CanActivate {
 
     constructor(private basket: BasketService, private router: Router) {
-
     }
+
     canActivate(): boolean {
-        if (this.basket.totalQuantity > 0) return true;
+        if (this.basket.getTotalQuantity() > 0) return true;
         this.router.navigate(["/pizza"])
         return false;
     }
