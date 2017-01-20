@@ -36,23 +36,25 @@ fieldset legend {
 })
 export class SignInComponent {
     errorMessage: string;
+    
     constructor(private signInService: SignInService, private router: Router) {
-
     }
 
     getTokenAndSignIn(form: NgForm) {
         this.errorMessage = null;
-        this.signInService.postAndGetTokenForSingingIn(form.value)
+        this.signInService.signIn(form.value)
             .subscribe(response => {
-                if (!response.success) {
-                    this.errorMessage = response.message;
-                    return
-                }
                 window.localStorage.setItem('get-orders-token', response.token);
                 this.router.navigate(['/admin/get-orders']);
-
+            }, error => {
+                if (error.status === 401) {
+                    this.errorMessage = "The email address or password is incorrect.";
+                } else {
+                    this.errorMessage = "There was an error trying to sign in. Please try again."
+                }
             })
     }
+
     preventDefault(event: Event): void {
         event.preventDefault();
     }

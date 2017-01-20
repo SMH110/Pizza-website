@@ -10,9 +10,9 @@ User.methods.hashPassword = function (password: string) {
     return bcrypt.hashSync(password, bcrypt.genSaltSync());
 };
 
-User.methods.validatePassword = function (password: string) {
-    return bcrypt.compareSync(password, this.password);
-};
+export function validatePassword(user: User, password: string) {
+    return bcrypt.compareSync(password, user.password);
+}
 
 export default model<User & Document>('User', User);
 

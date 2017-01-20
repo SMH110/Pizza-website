@@ -2,18 +2,24 @@ import { Router } from 'express';
 import * as jwt from 'jsonwebtoken';
 
 import { SECRET } from '../config/passport.config';
-import User from '../models/user.model';
-import { errorHandler } from './router-utils';
+import User, { validatePassword } from '../models/user.model';
+import { errorHandler, IRequest, IResponse } from './router-utils';
 
 const router = Router();
 
-router.post('/sign-in', errorHandler(async (req, res) => {
-    let user = await User.findOne({ email: req.body.email });
-    if (!user || !(user as any).validatePassword(req.body.password)) {
-        return res.json({ success: false });
+router.post('/sign-in', errorHandler(async (req: IRequest<AuthRequest>, res: IResponse<AuthResponse>) => {
+    let email = req.body.email;
+    let user = await User.findOne({ email: email });
+    if (!user) {
+        console.log(`User with email ${req.body.email} not found. Attempt from IP Address: ${req.ip}.`);
+        return res.sendStatus(401);
+    }
+    if (!validatePassword(user, req.body.password)) {
+        console.log(`Incorrect password for user ${req.body.email}. Attempt from IP Address: ${req.ip}.`);
+        return res.sendStatus(401);
     }
     let token = jwt.sign(user, SECRET, { expiresIn: '30m' });
-    res.json({ success: true, token: `JWT ${token}` });
+    res.json({ token: `JWT ${token}` });
 }));
 
 export default router;
