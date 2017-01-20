@@ -18,6 +18,7 @@ interface Side extends Item {
 
 interface PlaceOrderRequest {
     buyer: Buyer;
+    deliveryAddress?: Address;
     orderItems: BasketItem[];
     deliveryMethod: 'collection' | 'delivery';
     paymentMethod: string;
@@ -32,10 +33,15 @@ interface BasketItem {
 interface Buyer {
     firstName: string;
     lastName: string;
-    address: string;
-    postCode: string;
     email: string;
     phone: string;
+}
+
+interface Address {
+    line1: string;
+    line2?: string;
+    town: string;
+    postcode: string;
 }
 
 interface MarkAsCompleteRequest {

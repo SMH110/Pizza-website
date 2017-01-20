@@ -66,4 +66,13 @@ export class OrdersComponent implements OnInit {
                 }
             });
     }
+
+    formatAddress(address: Address) {
+        return [
+            address.line1,
+            address.line2,
+            address.town,
+            address.postcode
+        ].filter(x => !!x).join(', ');
+    }
 }
