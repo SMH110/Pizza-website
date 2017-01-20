@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 
 import { BasketService } from '../service/basket.service';
 import { OrderService } from './../service/order.service';
-import { GuardService } from '../service/guard.service';
 
 @Component({
     moduleId: module.id,
@@ -26,13 +25,11 @@ export class PaymentComponent {
 
     isShowSpinner: boolean = false;
 
-    constructor(public basket: BasketService, private orderService: OrderService, private guardService: GuardService, private router: Router) {
+    constructor(public basket: BasketService, private orderService: OrderService, private router: Router) {
     }
 
     order() {
-        this.guardService.canGetPaymentProcessRoute = true;
         localStorage.removeItem('errorMessage');
-        localStorage.setItem('canGetPaymentProcessRoute', 'true');
         this.isShowSpinner = true
 
         const buyerDetails: any = JSON.parse(localStorage.getItem('checkout-details'));
@@ -70,7 +67,6 @@ export class PaymentComponent {
             window.location.assign(response.url);
         }, error => {
             localStorage.setItem('errorMessage', JSON.stringify(error.message));
-            localStorage.removeItem('canGetPaymentProcessRoute');
             this.router.navigateByUrl('/order/failure');
         });
     }

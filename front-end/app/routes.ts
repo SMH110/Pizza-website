@@ -7,12 +7,10 @@ import { ContactUsComponent } from './contact-us.component';
 import { BasketComponent } from './basket.component';
 import { CheckoutComponent } from './checkout.component/checkout.component';
 import { PaymentComponent } from './checkout.component/payment.component';
-import { PaymentProcess } from './checkout.component/payment-processing.component';
 import { OrderSuccessComponent } from './notification.component/order-success.component';
 import { OrderFailureComponent } from './notification.component/order-failure.component';
 import { CheckoutGuard } from './guards/checkout.guard';
 import { PaymentGuard } from './guards/payment.guard';
-import { PaymentProcessGuard } from './guards/payment-process.guard';
 import { OrdersComponent } from './admin/orders.component';
 import { SignInComponent } from './admin/sign-in.component';
 import { AdminFailureComponent } from './admin/admin-failure.component';
@@ -30,7 +28,6 @@ export default [
     { path: 'basket', component: BasketComponent },
     { path: 'checkout', canActivate: [CheckoutGuard], component: CheckoutComponent },
     { path: 'payment', canActivate: [PaymentGuard], component: PaymentComponent },
-    { path: 'payment/process', canActivate: [PaymentProcessGuard], component: PaymentProcess },
     { path: 'order/success', component: OrderSuccessComponent },
     { path: 'order/failure', component: OrderFailureComponent },
     { path: 'admin/get-orders', component: OrdersComponent },

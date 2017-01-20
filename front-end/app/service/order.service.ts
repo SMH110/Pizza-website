@@ -18,16 +18,6 @@ export class OrderService {
         return res.json() || {};
     }
 
-    postPayerId(payerId: string, paymentId: string) {
-        const postBody = {
-            "payerId": payerId,
-            "payment_id": paymentId
-        }
-        const headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers });
-        return this.http.post('/api/paypal/execute', postBody, options);
-    }
-
     getOrders() {
         const headers = new Headers({ "Content-Type": "application/json", "Authorization": localStorage.getItem('get-orders-token') });
         let options = new RequestOptions({ headers: headers });
