@@ -4,20 +4,22 @@ import Order from '../models/orders.model';
 import { authenticate } from 'passport';
 import { errorHandler, IRequest, IResponse } from './router-utils';
 import { getPaymentGateway } from '../payment-gateways/factory';
+import { calculateOrderDetails } from '../services/checkout-calculator';
 
-router.post('/place-order', errorHandler(async (req: IRequest<Order>, res: IResponse<PaymentRequestDetails>) => {
+router.post('/place-order', errorHandler(async (req: IRequest<PlaceOrderRequest>, res: IResponse<PaymentRequestDetails>) => {
     console.log('Received order - constructing order')
     let paymentProvider = getPaymentGateway(req);
+    let calculatedOrderDetails = calculateOrderDetails(req.body);
     let order: Order = {
         buyer: Object.assign({}, req.body.buyer),
-        date: req.body.date, // TODO - set on server side
+        date: new Date(),
         deliveryMethod: req.body.deliveryMethod,
-        discount: req.body.discount, // TODO - set on server side
-        orderItems: req.body.orderItems,
         paymentMethod: req.body.paymentMethod,
         status: 'Awaiting Payment',
-        total: req.body.total, // TODO - set on server side
-        totalPayment: req.body.totalPayment // TODO - set on server side
+        orderItems: calculatedOrderDetails.orderLineItems,
+        discount: calculatedOrderDetails.discount,
+        total: calculatedOrderDetails.total,
+        totalPayment: calculatedOrderDetails.totalPayment,
     };
     console.log('Constructed order', JSON.stringify(order, null, 4));
     console.log('Creating payment request for order');

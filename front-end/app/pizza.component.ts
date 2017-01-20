@@ -26,17 +26,23 @@ export class PizzaComponent implements OnInit {
     jumbotronImage: string = "/images/hero.jpg";
     constructor(private itemService: ItemService, public basket: BasketService) {
     }
-    
+
     ngOnInit(): void {
         this.itemService.getPizzas()
-            .subscribe(x => {
-                this.pizzas = x;
-                this.pizzas.forEach(x => x.selectedSize = 'large');
+            .subscribe(pizzas => {
+                this.pizzas = pizzas.map(pizza => {
+                    let sizes = Object.keys(pizza.price);
+                    return Object.assign({
+                        sizes,
+                        selectedSize: sizes[0]
+                    }, pizza);
+                });
             });
     }
 }
 
 
 interface PizzaViewModel extends Pizza {
-    selectedSize?: string;
+    selectedSize: string;
+    sizes: string[];
 }

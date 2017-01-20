@@ -12,7 +12,7 @@ export class PaymentGuard implements CanActivate {
     }
     canActivate(): boolean {
         if (this.guardService.canGetPaymentRoute) return true;
-        if (this.basket.totalQuantity > 0) {
+        if (this.basket.getTotalQuantity() > 0) {
             this.router.navigate(["/checkout"])
             return false;
         }

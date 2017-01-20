@@ -39,7 +39,7 @@ export default class PayPal implements PaymentGateway {
     }
 
     private generateDescription(order: Order) {
-        return order.orderItems.reduce((initial, current) => initial + `${current.qty} ${current.item.nameAndSize || current.item.name}, `, "").slice(0, -2);
+        return order.orderItems.map(item => `${item.quantity} x ${item.name}${item.version ? ' - ' + item.version : ''}`).join(', ');
     }
 }
 

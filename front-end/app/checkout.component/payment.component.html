@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12" *ngIf='!isShowSpinner'>
-            <h2>Payment</h2> <span class="total">Total: £{{basket.totalPrice | number:'1.2-2'}}</span>
+            <h2>Payment</h2> <span class="total">Total: £{{basket.getTotalPrice() | number:'1.2-2'}}</span>
             <hr>
             <img src="/images/paypal.png" class="img-responsive" alt="">
             <hr>

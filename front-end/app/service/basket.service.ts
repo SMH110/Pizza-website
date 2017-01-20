@@ -2,127 +2,58 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class BasketService {
-    items: Items;
-    totalQuantity: number;
-    totalPrice: number;
+    items: BasketItemViewModel[] = [];
 
-    constructor() {
-        this.items = this.getBasketItemsFromStorage('items') || {};
-        this.totalQuantity = this.getBasketItemsFromStorage('totalQuantity') || 0;
-        this.totalPrice = this.getBasketItemsFromStorage('totalPrice') || 0;
-    }
-
-    addToBasket(item: ItemDetail): void {
-        //  check if the item which added to the basket is pizza type
-        // pizza items have selectedSize property
-        let storedItem;
-        if (item.selectedSize) {
-            let reFormatedItem = {
-                name: item.name,
-                nameAndSize: `${item.name} | ${item.selectedSize}`,
-                _id: item._id,
-                size_id: item._id + item.selectedSize,
-                size: item.selectedSize,
-                price: item.price[item.selectedSize],
-                imageName: item.imageName
-            }
-            storedItem = this.items[reFormatedItem.size_id];
-            if (!storedItem) {
-                storedItem = { item: reFormatedItem, qty: 0, price: 0 };
-                this.items[reFormatedItem.size_id] = storedItem;
-            }
+    addToBasket(itemToAdd: ItemToAdd, selectedVersion?: string): void {
+        let existingItem = this.getExistingItem(itemToAdd, selectedVersion);
+        if (existingItem !== undefined) {
+            existingItem.quantity++;
         } else {
-            storedItem = this.items[item._id]
-            if (!storedItem) {
-                storedItem = { item: item, qty: 0, price: 0 };
-                this.items[item._id] = storedItem;
-            }
+            this.items.push({
+                name: itemToAdd.name,
+                price: typeof itemToAdd.price === 'number' ? itemToAdd.price : itemToAdd.price[selectedVersion],
+                imageUrl: itemToAdd.imageName,
+                quantity: 1,
+                version: selectedVersion
+            });
         }
-        storedItem.qty++;
-        storedItem.price = storedItem.item.price * storedItem.qty;
-        this.totalPrice += storedItem.item.price;
-        this.totalQuantity++;
-        this.saveBasket(this);
     }
 
-    private saveBasket(basket: this) {
-        localStorage.setItem('totalQuantity', JSON.stringify(basket.totalQuantity));
-        localStorage.setItem('totalPrice', JSON.stringify(basket.totalPrice));
-        localStorage.setItem('items', JSON.stringify(basket.items));
+    increase(item: BasketItemViewModel) {
+        item.quantity++;
     }
 
-    private getBasketItemsFromStorage(item: string) {
-        let storedItem = localStorage.getItem(item);
-        return storedItem ? JSON.parse(storedItem) : null
+    decrease(item: BasketItemViewModel) {
+        item.quantity--;
     }
 
-    increase(item: ItemDetail) {
-        let storedItem = this.items[item.size_id || item._id];
-        if (!storedItem) return;
-        storedItem.qty++;
-        storedItem.price = storedItem.item.price * storedItem.qty;
-        this.totalPrice += storedItem.item.price;
-        this.totalQuantity++;
-        this.totalPrice = Math.round(this.totalPrice * 100) / 100;
-        this.saveBasket(this);
-    }
-    decreaseItem(item: ItemDetail) {
-        // because pizzas item have item.size_id 
-        let storedItem = this.items[item.size_id || item._id]
-        if (!storedItem) return;
-        storedItem.qty--;
-        storedItem.price = storedItem.item.price * storedItem.qty;
-        this.totalPrice -= storedItem.item.price;
-        this.totalQuantity--;
-        this.totalPrice = Math.round(this.totalPrice * 100) / 100;
-        this.saveBasket(this);
-
-    }
-
-    removeItem(item: any): void {
-        this.totalPrice -= item.price
-        this.totalQuantity -= item.qty
-        delete this.items[item.item.size_id || item.item._id];
-        this.saveBasket(this);
+    removeItem(item: BasketItemViewModel): void {
+        this.items.splice(this.items.indexOf(item), 1);
     }
 
     removeAll(): void {
-        this.items = {};
-        this.totalPrice = 0;
-        this.totalQuantity = 0;
-        this.saveBasket(this);
+        this.items = [];
     }
 
-
-    generateArray(): Item[] {
-        let items: Item[] = [];
-
-        for (let item in this.items) {
-            items.push(this.items[item]);
-        }
-        return items;
+    getTotalPrice(): number {
+        return this.items.reduce((totalPrice, item) => totalPrice += item.price * item.quantity, 0);
     }
 
-    generateDescription() {
-        return this.generateArray().reduce((initial, current) => initial + `${current.qty} ${current.item.nameAndSize || current.item.name}, `, "").slice(0, -2);
+    getTotalQuantity(): number {
+        return this.items.reduce((totalQuantity, item) => totalQuantity += item.quantity, 0);
+    }
+
+    getExistingItem(itemToAdd: ItemToAdd, selectedVersion?: string): BasketItemViewModel {
+        return this.items.find(x =>
+            x.name === itemToAdd.name &&
+            x.version === selectedVersion
+        );
     }
 }
 
-type Items = { [id: string]: Item | any }
-interface Item {
-    item: ItemDetail;
-    qty: number;
+export interface BasketItemViewModel extends BasketItem {
     price: number;
+    imageUrl: string;
 }
 
-interface ItemDetail {
-    name: string;
-    _id: string;
-    nameAndSize?: string;
-    price: number | number[];
-    description?: string;
-    subType?: string[];
-    imageName: string;
-    selectedSize?: string;
-    size_id?: string
-}
+type ItemToAdd = Pizza | Drink | Side;
