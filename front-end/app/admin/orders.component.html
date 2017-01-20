@@ -16,9 +16,9 @@
                     </thead>
                     <tbody>
                         <tr *ngFor='let item of order.orderItems'>
-                            <td>{{item.item.name}}</td>
-                            <td>{{item.item.size ? item.item.size : "_"}}</td>
-                            <td>{{item.qty}}</td>
+                            <td>{{item.name}}</td>
+                            <td>{{item.version}}</td>
+                            <td>{{item.quantity}}</td>
                         </tr>
                     </tbody>
                 </table>
