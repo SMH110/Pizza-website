@@ -8,6 +8,7 @@
     "install": "npm run install-back-end && npm run install-front-end && npm run compile",
     "e2e": "node node_modules/protractor/bin/webdriver-manager update && node node_modules/protractor/bin/protractor front-end/specs/protractor.conf.js",
     "api-test": "node node_modules/mocha/bin/mocha back-end/specs/**/*.spec.js",
+    "test": "npm run api-test && npm run e2e",
     "start": "node back-end/app.js"
   },
   "dependencies": {

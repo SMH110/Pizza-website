@@ -60,7 +60,7 @@ async function getPayPalAuthToken() {
 
 export function initialisePayPalEndpoints(application: Application) {
     // TODO: Don't initialise if PayPal is not enabled
-    application.use('/paypal/execute', async (req, res) => {
+    application.get('/paypal/execute', async (req, res) => {
         try {
             let paymentId = req.query['paymentId'];
             let payerId = req.query['PayerID'];
