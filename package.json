@@ -6,7 +6,7 @@
     "install-front-end": "cd front-end && npm install --production && npm install --only=development && cd ..",
     "install-back-end": "cd back-end && npm install --production && npm install --only=development && cd ..",
     "install": "npm run install-back-end && npm run install-front-end && npm run compile",
-    "e2e": "node node_modules/protractor/bin/webdriver-manager update && node node_modules/protractor/bin/protractor front-end/specs/protractor.conf.js",
+    "e2e": "node node_modules/protractor/bin/webdriver-manager update && node node_modules/protractor/bin/protractor specs/protractor.conf.js",
     "api-test": "node node_modules/mocha/bin/mocha back-end/specs/**/*.spec.js",
     "test": "npm run api-test && npm run e2e",
     "start": "node back-end/app.js"
@@ -14,6 +14,8 @@
   "dependencies": {
     "@types/chai": "^3.4.34",
     "@types/mocha": "^2.2.38",
+    "@types/node": "^7.0.0",
+    "@types/selenium-webdriver": "^2.53.39",
     "chai": "^3.5.0",
     "mocha": "^3.2.0",
     "protractor": "^5.0.0",
