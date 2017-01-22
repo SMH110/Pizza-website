@@ -205,3 +205,5 @@ back-end/**/*.js
 back-end/**/*.js.map
 front-end/**/*.js
 front-end/**/*.js.map
+specs/**/*.js
+specs/**/*.js.map
