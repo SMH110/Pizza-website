@@ -2,7 +2,9 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { BasketService } from '../service/basket.service';
-import { OrderService } from './../service/order.service';
+import { OrderService } from '../service/order.service';
+import { ErrorService } from '../service/error.service';
+import { validateOrderRequest } from '../../../shared/validation/place-order-request-validator';
 
 @Component({
     moduleId: module.id,
@@ -25,15 +27,15 @@ export class PaymentComponent {
 
     isShowSpinner: boolean = false;
 
-    constructor(public basket: BasketService, private orderService: OrderService, private router: Router) {
+    constructor(public basket: BasketService, private orderService: OrderService, private router: Router, private errorService: ErrorService) {
     }
 
     order() {
-        localStorage.removeItem('errorMessage');
+        this.errorService.clearErrors();
         this.isShowSpinner = true
 
         const buyerDetails: any = JSON.parse(localStorage.getItem('checkout-details'));
-        
+
         let orderDetail = {
             buyer: {
                 firstName: buyerDetails.firstName,
@@ -52,12 +54,23 @@ export class PaymentComponent {
             paymentMethod: 'paypal',
         } as PlaceOrderRequest;
 
+        let validationErrors = validateOrderRequest(orderDetail, ['paypal']);
+        if (validationErrors.length > 0) {
+            this.errorService.displayErrors(validationErrors);
+            return;
+        }
+
         this.orderService.placeOrder(orderDetail).subscribe(response => {
             this.basket.removeAll();
             window.location.assign(response.url);
         }, error => {
-            localStorage.setItem('errorMessage', JSON.stringify(error.message));
-            this.router.navigateByUrl('/order/failure');
+            if (error.status === 400) {
+                error.json().then((validationErrors: string[]) => {
+                    this.errorService.displayErrors(validationErrors);
+                });
+            } else {
+                this.router.navigateByUrl('/order/failure');
+            }
         });
     }
 }
