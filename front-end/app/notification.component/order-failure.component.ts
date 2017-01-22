@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     moduleId: module.id,
@@ -10,10 +10,5 @@ import { Component, OnInit } from '@angular/core';
     `]
 
 })
-export class OrderFailureComponent implements OnInit {
-    errorMessage: string;
-    constructor() { }
-    ngOnInit(): void {
-        this.errorMessage = JSON.parse(localStorage.getItem('errorMessage'));
-    }
+export class OrderFailureComponent {
 }
