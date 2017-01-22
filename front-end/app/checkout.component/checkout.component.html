@@ -7,7 +7,7 @@
                 <div class="form-group">
                     <label for="firstName" class="col-sm-2 control-label">First Name <span class="asterisk">*</span></label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="firstName" name="firstName" ngModel #name="ngModel" required [(ngModel)]='firstName' (blur)='onBlurMethod(name)'>
+                        <input type="text" class="form-control" id="firstName" name="firstName" ngModel #name="ngModel" required [(ngModel)]='buyerDetailsService.firstName'>
                         <div class="alert alert-danger error-msg" [hidden]="name.valid || (name.pristine && name.untouched)"> First name is required
                         </div>
                     </div>
@@ -15,37 +15,49 @@
                 <div class="form-group">
                     <label for="lastName" class="col-sm-2 control-label">Last Name <span class="asterisk">*</span></label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="lastName" name="lastName" ngModel #lastName="ngModel" required [(ngModel)]='lName' (blur)='onBlurMethod(lastName)'>
+                        <input type="text" class="form-control" id="lastName" name="lastName" ngModel #lastName="ngModel" required [(ngModel)]='buyerDetailsService.lastName'>
                         <div class="alert alert-danger error-msg" [hidden]="lastName.valid || (lastName.pristine && lastName.untouched)"> Last name is required
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="address1" class="col-sm-2 control-label">Address 1 <span class="asterisk">*</span></label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="address1" name="address1" ngModel required #address="ngModel" [(ngModel)]='address1' (blur)='onBlurMethod(address)'>
-                        <div class="alert alert-danger error-msg" [hidden]="address.valid || (address.pristine && address.untouched)"> Address is required
+                <div class="delivery-method">
+                    <div class="radio" *ngFor='let method of buyerDetailsService.deliveryMethods'>
+                        <label>
+                        <input type="radio" name="deliveryMethod" [(ngModel)]='buyerDetailsService.selectedDeliveryMethod' [value]='method'>
+                             {{method}}
+                    </label>
+
+                    </div>
+                </div>
+                <div class="address-section" *ngIf="buyerDetailsService.selectedDeliveryMethod === 'Delivery'">
+                    <div class="form-group">
+                        <label for="address1" class="col-sm-2 control-label">Address 1 <span class="asterisk">*</span></label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="address1" name="address1" ngModel required #address="ngModel" [(ngModel)]='buyerDetailsService.addressLine1'>
+                            <div class="alert alert-danger error-msg" [hidden]="address.valid || (address.pristine && address.untouched)"> Address is required
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label for="address2" class="col-sm-2 control-label">Address 2</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="address2" name="address2" ngModel [(ngModel)]='address2' #adrs2="ngModel" (blur)='onBlurMethod(adrs2)'>
+                    <div class="form-group">
+                        <label for="address2" class="col-sm-2 control-label">Address 2</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="address2" name="address2" ngModel [(ngModel)]='buyerDetailsService.addressLine2'>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label for="post-code" class="col-sm-2 control-label">Post Code <span class="asterisk">*</span></label>
-                    <div class="col-sm-5">
-                        <input type="text" class="form-control" id="post-code" name="postCode" ngModel required #postCode="ngModel" [(ngModel)]='pc' (blur)='onBlurMethod(postCode)'>
-                        <div class="alert alert-danger error-msg" [hidden]="postCode.valid || (postCode.pristine && postCode.untouched)"> Post code is required
+                    <div class="form-group">
+                        <label for="post-code" class="col-sm-2 control-label">Post Code <span class="asterisk">*</span></label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" id="post-code" name="postCode" ngModel required #postCode="ngModel" [(ngModel)]='buyerDetailsService.postcode'>
+                            <div class="alert alert-danger error-msg" [hidden]="postCode.valid || (postCode.pristine && postCode.untouched)"> Post code is required
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="email" class="col-sm-2 control-label">E-mail <span class="asterisk">*</span></label>
                     <div class="col-sm-10">
-                        <input type="email" class="form-control" id="email" name="email" ngModel required #email="ngModel" [(ngModel)]='email_' (blur)='onBlurMethod(email)'>
+                        <input type="email" class="form-control" id="email" name="email" ngModel required #email="ngModel" [(ngModel)]='buyerDetailsService.email'>
+
                         <div class="alert alert-danger error-msg" [hidden]="email.valid || (email.pristine && email.untouched)"> Valid Email is required
                         </div>
                     </div>
@@ -53,23 +65,22 @@
                 <div class="form-group">
                     <label for="phone" class="col-sm-2 control-label">Phone <span class="asterisk">*</span></label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="phone" name="phone" ngModel required #phone="ngModel" [(ngModel)]='phone_' (blur)='onBlurMethod(phone)'>
+                        <input type="text" class="form-control" id="phone" name="phone" ngModel required #phone="ngModel" [(ngModel)]='buyerDetailsService.phone'>
                         <div class="alert alert-danger error-msg" [hidden]="phone.valid || (phone.pristine && phone.untouched)"> Phone is required
                         </div>
                     </div>
                 </div>
-                <div class="radio" *ngFor='let method of deliveryMethods'>
-                    <label class="delivery-method">
-                        <input type="radio" name="deliveryMethod"  [(ngModel)]='defaultDeliveryMethod' [value]='method' #delivery="ngModel" (click)="onClickDeliveryMethod(method)">
-                             {{method}}
-                    </label>
-
+                <div class="form-group">
+                    <label for="note" class="col-sm-2 control-label">Note</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="note" name="note" ngModel [(ngModel)]='buyerDetailsService.note'>
+                    </div>
                 </div>
                 <hr>
                 <p class="note" *ngIf="checkoutForm.invalid && checkoutForm.touched">Please fill in required fields to enable Next button, <span class="asterisk">*</span> indicates required field</p>
                 <button class="btn btn-default next" type="submit" [disabled]="!checkoutForm.form.valid"> Next 
                     <span class="glyphicon glyphicon-chevron-right" ></span></button>
-                <span class="total">Total: £{{basket.getTotalPrice() | number:'1.2-2'}}</span>
+                <span class="total">Total: £{{basket.totalPrice | number:'1.2-2'}}</span>
                 <div class="text-success">
 
                 </div>
