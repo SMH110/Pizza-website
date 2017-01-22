@@ -17,14 +17,16 @@ import { JumbotronComponent } from './jumbotron.component';
 import { CheckoutComponent } from './checkout.component/checkout.component';
 import { PaymentComponent } from './checkout.component/payment.component';
 import { OrderSuccessComponent } from './notification.component/order-success.component';
-import { OrderService } from './service/order.service';
-import { BasketService } from './service/basket.service';
-import { GuardService } from './service/guard.service';
 import { OrderFailureComponent } from './notification.component/order-failure.component';
 import { HeaderComponent } from './header.component/header.component';
 import { OrdersComponent } from './admin/orders.component';
 import { SignInComponent } from './admin/sign-in.component';
 import { AdminFailureComponent } from './admin/admin-failure.component';
+//services
+import { BuyerDetailsService } from './service/buyer-details.service';
+import { BasketService } from './service/basket.service';
+import { GuardService } from './service/guard.service';
+import { OrderService } from './service/order.service';
 import { SignInService } from './service/sign-in.service'
 // Guards
 import { CheckoutGuard } from './guards/checkout.guard';
@@ -60,7 +62,8 @@ import Routes from './routes';
     GuardService,
     CheckoutGuard,
     PaymentGuard,
-    SignInService
+    SignInService,
+    BuyerDetailsService
   ],
   bootstrap: [AppComponent]
 })

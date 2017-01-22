@@ -6,13 +6,14 @@ interface Order {
     buyer: Buyer;
     deliveryAddress: Address;
     orderItems: Array<OrderLineItem>;
-    deliveryMethod: 'collection' | 'delivery';
+    deliveryMethod: 'Collection' | 'Delivery';
     date: Date;
     paymentMethod: string;
     paymentId: string;
     total: number;
     discount: number;
     totalPayment: number;
+    note: string | null;
     // TODO - specify other statuses here
     status: "Awaiting Payment" | "Outstanding" | "Complete";
 }
