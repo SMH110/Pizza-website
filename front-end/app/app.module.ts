@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 
+// Components
 import { AppComponent } from './app.component';
 import { PizzaComponent } from './pizza.component';
 import { SidesComponent } from './sides.component';
@@ -19,18 +20,23 @@ import { PaymentComponent } from './checkout.component/payment.component';
 import { OrderSuccessComponent } from './notification.component/order-success.component';
 import { OrderFailureComponent } from './notification.component/order-failure.component';
 import { HeaderComponent } from './header.component/header.component';
+import { ErrorComponent } from './error/error.component';
 import { OrdersComponent } from './admin/orders.component';
 import { SignInComponent } from './admin/sign-in.component';
 import { AdminFailureComponent } from './admin/admin-failure.component';
-//services
+
+// Services
 import { BuyerDetailsService } from './service/buyer-details.service';
+import { ErrorService } from './service/error.service';
 import { BasketService } from './service/basket.service';
 import { GuardService } from './service/guard.service';
 import { OrderService } from './service/order.service';
 import { SignInService } from './service/sign-in.service'
+
 // Guards
 import { CheckoutGuard } from './guards/checkout.guard';
 import { PaymentGuard } from './guards/payment.guard';
+
 import Routes from './routes';
 
 @NgModule({
@@ -51,6 +57,7 @@ import Routes from './routes';
     OrderSuccessComponent,
     OrderFailureComponent,
     HeaderComponent,
+    ErrorComponent,
     OrdersComponent,
     SignInComponent,
     AdminFailureComponent
@@ -58,6 +65,7 @@ import Routes from './routes';
   providers:
   [
     OrderService,
+    ErrorService,
     BasketService,
     GuardService,
     CheckoutGuard,

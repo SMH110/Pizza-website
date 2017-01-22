@@ -11,6 +11,7 @@ export class BuyerDetailsService {
     email = '';
     phone = '';
     note = '';
+    town = '';
 
     deliveryMethods = [
         'Delivery', 'Collection'
@@ -19,6 +20,7 @@ export class BuyerDetailsService {
     clearAddress() {
         this.addressLine1 = null;
         this.addressLine2 = null;
+        this.town = null;
         this.postcode = null;
     }
 }

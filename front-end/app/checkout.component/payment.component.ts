@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { BasketService } from '../service/basket.service';
 import { OrderService } from './../service/order.service';
 import { BuyerDetailsService } from '../service/buyer-details.service';
+import { ErrorService } from '../service/error.service';
+import { validateOrderRequest } from '../../../shared/validation/place-order-request-validator';
 
 @Component({
     moduleId: module.id,
@@ -25,12 +27,12 @@ export class PaymentComponent {
 
     isShowSpinner: boolean = false;
 
-    constructor(public basket: BasketService, private orderService: OrderService, private router: Router, private buyerDetailsService: BuyerDetailsService) {
+    constructor(public basket: BasketService, private orderService: OrderService, private router: Router, private errorService: ErrorService, private buyerDetailsService: BuyerDetailsService) {
     }
 
     order() {
-        localStorage.removeItem('errorMessage');
-        this.isShowSpinner = true
+        this.errorService.clearErrors();
+
         let orderDetail = {
             buyer: {
                 firstName: this.buyerDetailsService.firstName,
@@ -41,21 +43,34 @@ export class PaymentComponent {
             deliveryAddress: {
                 line1: this.buyerDetailsService.addressLine1,
                 line2: this.buyerDetailsService.addressLine2,
-                town: null,
+                town: this.buyerDetailsService.town,
                 postcode: this.buyerDetailsService.postcode,
             },
             orderItems: this.basket.items,
             note: this.buyerDetailsService.note,
             deliveryMethod: this.buyerDetailsService.selectedDeliveryMethod,
             paymentMethod: 'paypal',
-        } as PlaceOrderRequest;
+        };
 
+        let validationErrors = validateOrderRequest(orderDetail, ['paypal']);
+        if (validationErrors.length > 0) {
+            this.errorService.displayErrors(validationErrors);
+            return;
+        }
+
+        this.isShowSpinner = true
         this.orderService.placeOrder(orderDetail).subscribe(response => {
             this.basket.removeAll();
             window.location.assign(response.url);
         }, error => {
-            localStorage.setItem('errorMessage', JSON.stringify(error.message));
-            this.router.navigateByUrl('/order/failure');
+            if (error.status === 400) {
+                error.json().then((validationErrors: string[]) => {
+                    this.isShowSpinner = false;
+                    this.errorService.displayErrors(validationErrors);
+                });
+            } else {
+                this.router.navigateByUrl('/order/failure');
+            }
         });
     }
 }
