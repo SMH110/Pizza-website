@@ -38,10 +38,14 @@ export class PaymentComponent {
             buyer: {
                 firstName: buyerDetails.firstName,
                 lastName: buyerDetails.lastName,
-                address: buyerDetails.address2 && buyerDetails.address2.length ? `${buyerDetails.address1} ${buyerDetails.address2}` : buyerDetails.address1,
-                postCode: buyerDetails.postCode,
                 email: buyerDetails.email,
                 phone: buyerDetails.phone
+            },
+            deliveryAddress: {
+                line1: buyerDetails.address1,
+                line2: buyerDetails.address2,
+                town: null,
+                postcode: buyerDetails.postCode
             },
             orderItems: this.basket.items,
             deliveryMethod: buyerDetails.deliveryMethod,

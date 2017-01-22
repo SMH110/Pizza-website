@@ -30,7 +30,7 @@
                 <h4>Name: </h4>
                 <span>{{order.buyer.firstName}} {{order.buyer.lastName}}</span><br>
                 <h4>Address: </h4>
-                <span>{{order.buyer.address}} {{order.buyer.postCode}}</span><br>
+                <span>{{formatAddress(order.deliveryAddress)}}</span><br>
                 <h4>Email: </h4>
                 <span>{{order.buyer.email | lowercase}}</span><br>
                 <h4>Phone: </h4>

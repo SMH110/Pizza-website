@@ -12,6 +12,7 @@ router.post('/place-order', errorHandler(async (req: IRequest<PlaceOrderRequest>
     let calculatedOrderDetails = calculateOrderDetails(req.body);
     let order: Order = {
         buyer: Object.assign({}, req.body.buyer),
+        deliveryAddress: req.body.deliveryMethod === 'delivery' ? req.body.deliveryAddress : null,
         date: new Date(),
         deliveryMethod: req.body.deliveryMethod,
         paymentMethod: req.body.paymentMethod,
@@ -20,6 +21,7 @@ router.post('/place-order', errorHandler(async (req: IRequest<PlaceOrderRequest>
         discount: calculatedOrderDetails.discount,
         total: calculatedOrderDetails.total,
         totalPayment: calculatedOrderDetails.totalPayment,
+        paymentId: null
     };
     console.log('Constructed order', JSON.stringify(order, null, 4));
     console.log('Creating payment request for order');

@@ -4,23 +4,24 @@
 interface Order {
     _id?: any;
     buyer: Buyer;
+    deliveryAddress: Address;
     orderItems: Array<OrderLineItem>;
     deliveryMethod: 'collection' | 'delivery';
     date: Date;
     paymentMethod: string;
-    paymentId?: string;
+    paymentId: string;
     total: number;
     discount: number;
     totalPayment: number;
     // TODO - specify other statuses here
-    status?: "Awaiting Payment" | "Outstanding" | "Complete";
+    status: "Awaiting Payment" | "Outstanding" | "Complete";
 }
 
 interface OrderLineItem {
     name: string;
     quantity: number;
     price: number;
-    version?: string;
+    version: string;
     imageName: string;
-    description?: string;
+    description: string;
 }
