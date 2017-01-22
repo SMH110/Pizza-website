@@ -26,7 +26,7 @@ export function calculateOrderDetails(orderRequest: PlaceOrderRequest): Calculat
     }
 
     let total = orderTotals.orderLineItems.reduce((total, item) => total += item.price * item.quantity, 0);
-    orderTotals.total = Math.floor(total * 100) / 100;
+    orderTotals.total = Math.round(total * 100) / 100;
     orderTotals.totalPayment = orderTotals.total;
     // TODO: Calculate discount etc
 

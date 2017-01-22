@@ -35,6 +35,9 @@
         main: './main.js',
         defaultExtension: 'js'
       },
+      shared: {
+        defaultExtension: 'js'
+      },
       rxjs: {
         defaultExtension: 'js'
       }

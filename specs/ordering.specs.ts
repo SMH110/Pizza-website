@@ -29,6 +29,7 @@ describe("E2E Tests", () => {
         await whenVisible(by.id('firstName'), firstName => firstName.sendKeys('John'));
         await element(by.id('lastName')).sendKeys('Smith');
         await element(by.id('address1')).sendKeys('1 The Street');
+        await element(by.id('town')).sendKeys('Foo Town');
         await element(by.id('post-code')).sendKeys('AB1 2CD');
         await element(by.id('email')).sendKeys('test@test.com');
         await element(by.id('phone')).sendKeys('01234567890');

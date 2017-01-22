@@ -20,11 +20,19 @@ export default class PayPal implements PaymentGateway {
                     "payment_method": "paypal"
                 },
                 "transactions": [{
+                    item_list: {
+                        items: order.orderItems.map(x => ({
+                            "name": x.name + (x.version ? ' - ' + x.version : ''),
+                            "price": x.price,
+                            "currency": "GBP",
+                            "quantity": x.quantity
+                        }))
+                    },
                     amount: {
                         total: order.totalPayment,
                         currency: "GBP"
                     },
-                    description: this.generateDescription(order)
+                    description: 'Website Order'
                 }]
             },
             json: true
@@ -36,10 +44,6 @@ export default class PayPal implements PaymentGateway {
             url: response.links.find((obj: any) => obj.rel === 'approval_url').href,
             isFullPageRedirect: true
         };
-    }
-
-    private generateDescription(order: Order) {
-        return order.orderItems.map(item => `${item.quantity} x ${item.name}${item.version ? ' - ' + item.version : ''}`).join(', ');
     }
 }
 

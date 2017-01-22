@@ -5,10 +5,10 @@ import { authenticate } from 'passport';
 import { errorHandler, IRequest, IResponse } from './router-utils';
 import { getPaymentGateway } from '../payment-gateways/factory';
 import { calculateOrderDetails } from '../services/checkout-calculator';
+import { validateOrderRequest } from '../../shared/validation/place-order-request-validator';
 
 router.post('/place-order', errorHandler(async (req: IRequest<PlaceOrderRequest>, res: IResponse<PaymentRequestDetails>) => {
     console.log('Received order - constructing order')
-    let paymentProvider = getPaymentGateway(req);
     let calculatedOrderDetails = calculateOrderDetails(req.body);
     let order: Order = {
         buyer: Object.assign({}, req.body.buyer),
@@ -25,7 +25,14 @@ router.post('/place-order', errorHandler(async (req: IRequest<PlaceOrderRequest>
         paymentId: null
     };
     console.log('Constructed order', JSON.stringify(order, null, 4));
-    console.log('Creating payment request for order');
+    console.log('Validating order')
+    let validationErrors = validateOrderRequest(order, ['paypal']);
+    if (validationErrors.length > 0) {
+        console.log('Order failed validation', JSON.stringify(validationErrors, null, 4));
+        return res.json(400, validationErrors);
+    }
+    console.log('Order passed validation. Creating payment request for order');
+    let paymentProvider = getPaymentGateway(req);
     let paymentRequestDetails = await paymentProvider.createPaymentRequest(order);
     console.log('Created payment request', JSON.stringify(paymentRequestDetails, null, 4));
     order.paymentId = paymentRequestDetails.paymentId;
