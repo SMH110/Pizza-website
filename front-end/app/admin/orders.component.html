@@ -24,13 +24,16 @@
                 </table>
                 <h4>Total:</h4><span> £{{order.total | number:'1.2-2'}}</span><br>
                 <h4>Delivery method: </h4><span> {{order.deliveryMethod | uppercase}}</span><br>
+                <div *ngIf='order.note'>
+                    <h4>Note: </h4><span> {{order.note}}</span><br></div>
                 <h4>Status:</h4> <span [style.color]="order.status === 'Outstanding' ? '#ff7e00' : '#11a348'">{{order.status}}</span>
                 <button class="btn btn-primary mark-complete" *ngIf='order.status === "Outstanding"' (click)='markAsComplete(order._id)'>Mark as complete</button>
                 <h3>Customer's details</h3>
                 <h4>Name: </h4>
                 <span>{{order.buyer.firstName}} {{order.buyer.lastName}}</span><br>
-                <h4>Address: </h4>
-                <span>{{formatAddress(order.deliveryAddress)}}</span><br>
+                <div *ngIf='order.deliveryAddress'>
+                    <h4>Address: </h4>
+                    <span>{{formatAddress(order.deliveryAddress)}}</span><br></div>
                 <h4>Email: </h4>
                 <span>{{order.buyer.email | lowercase}}</span><br>
                 <h4>Phone: </h4>

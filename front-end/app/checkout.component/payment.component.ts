@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { BasketService } from '../service/basket.service';
 import { OrderService } from './../service/order.service';
+import { BuyerDetailsService } from '../service/buyer-details.service';
 
 @Component({
     moduleId: module.id,
@@ -12,7 +13,6 @@ import { OrderService } from './../service/order.service';
         h2{
             display:inline-block;
         }
-
         .total{
             font-size:18px;
             font-weight: bold;
@@ -25,30 +25,28 @@ export class PaymentComponent {
 
     isShowSpinner: boolean = false;
 
-    constructor(public basket: BasketService, private orderService: OrderService, private router: Router) {
+    constructor(public basket: BasketService, private orderService: OrderService, private router: Router, private buyerDetailsService: BuyerDetailsService) {
     }
 
     order() {
         localStorage.removeItem('errorMessage');
         this.isShowSpinner = true
-
-        const buyerDetails: any = JSON.parse(localStorage.getItem('checkout-details'));
-        
         let orderDetail = {
             buyer: {
-                firstName: buyerDetails.firstName,
-                lastName: buyerDetails.lastName,
-                email: buyerDetails.email,
-                phone: buyerDetails.phone
+                firstName: this.buyerDetailsService.firstName,
+                lastName: this.buyerDetailsService.lastName,
+                email: this.buyerDetailsService.email,
+                phone: this.buyerDetailsService.phone,
             },
             deliveryAddress: {
-                line1: buyerDetails.address1,
-                line2: buyerDetails.address2,
+                line1: this.buyerDetailsService.addressLine1,
+                line2: this.buyerDetailsService.addressLine2,
                 town: null,
-                postcode: buyerDetails.postCode
+                postcode: this.buyerDetailsService.postcode,
             },
             orderItems: this.basket.items,
-            deliveryMethod: buyerDetails.deliveryMethod,
+            note: this.buyerDetailsService.note,
+            deliveryMethod: this.buyerDetailsService.selectedDeliveryMethod,
             paymentMethod: 'paypal',
         } as PlaceOrderRequest;
 

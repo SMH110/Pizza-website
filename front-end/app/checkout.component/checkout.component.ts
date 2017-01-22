@@ -52,8 +52,9 @@ export class CheckoutComponent {
         if (this.buyerDetailsService.selectedDeliveryMethod === 'Collection') {
             this.buyerDetailsService.clearAddress()
         }
+
         this.guardService.canGetPaymentRoute = true;
-        this.router.navigate(['./payment']);
+         this.router.navigate(['./payment']);
     }
     preventDefault(event: Event): void {
         event.preventDefault();

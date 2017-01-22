@@ -24,6 +24,7 @@ export default model<Order & Document>('orders', new Schema({
     }],
     deliveryMethod: String,
     date: Date,
+    note: String,
     paymentMethod: String,
     paymentId: String,
     total: Number,

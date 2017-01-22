@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 export class BuyerDetailsService {
     firstName = '';
     lastName = '';
-    selectedDeliveryMethod = 'Delivery';
+    selectedDeliveryMethod : any = 'Delivery';
     addressLine1 = '';
     addressLine2 = '';
     postcode = '';

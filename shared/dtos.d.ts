@@ -20,8 +20,9 @@ interface PlaceOrderRequest {
     buyer: Buyer;
     deliveryAddress?: Address;
     orderItems: BasketItem[];
-    deliveryMethod: 'collection' | 'delivery';
+    deliveryMethod: 'Collection' | 'Delivery';
     paymentMethod: string;
+    note: string | null
 }
 
 interface BasketItem {
