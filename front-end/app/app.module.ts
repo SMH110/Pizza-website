@@ -22,7 +22,7 @@ import { HeaderComponent } from './header.component/header.component';
 import { ErrorComponent } from './error/error.component';
 import { OrdersComponent } from './admin/orders.component';
 import { SignInComponent } from './admin/sign-in.component';
-
+import {ItemAddedNotificationComponent } from './notification.component/item-added-notification.component';
 // Services
 import { ErrorService } from './service/error.service';
 import { BasketService } from './service/basket.service';
@@ -53,7 +53,8 @@ import Routes from './routes';
     HeaderComponent,
     ErrorComponent,
     OrdersComponent,
-    SignInComponent
+    SignInComponent,
+    ItemAddedNotificationComponent
   ],
   providers:
   [
