@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import * as rp from 'request-promise';
-import catalogue from '../static-data/catalogue';
+import catalogue from '../../back-end/static-data/catalogue';
 
 describe('Fetch items', function () {
     this.timeout(20000);
