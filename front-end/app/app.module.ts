@@ -16,26 +16,21 @@ import { BasketComponent } from './basket.component';
 import { FooterComponent } from './footer.component';
 import { JumbotronComponent } from './jumbotron.component';
 import { CheckoutComponent } from './checkout.component/checkout.component';
-import { PaymentComponent } from './checkout.component/payment.component';
 import { OrderSuccessComponent } from './notification.component/order-success.component';
 import { OrderFailureComponent } from './notification.component/order-failure.component';
 import { HeaderComponent } from './header.component/header.component';
 import { ErrorComponent } from './error/error.component';
 import { OrdersComponent } from './admin/orders.component';
 import { SignInComponent } from './admin/sign-in.component';
-import { AdminFailureComponent } from './admin/admin-failure.component';
 
 // Services
-import { BuyerDetailsService } from './service/buyer-details.service';
 import { ErrorService } from './service/error.service';
 import { BasketService } from './service/basket.service';
-import { GuardService } from './service/guard.service';
 import { OrderService } from './service/order.service';
 import { SignInService } from './service/sign-in.service'
 
 // Guards
 import { CheckoutGuard } from './guards/checkout.guard';
-import { PaymentGuard } from './guards/payment.guard';
 
 import Routes from './routes';
 
@@ -53,25 +48,23 @@ import Routes from './routes';
     ContactUsComponent,
     JumbotronComponent,
     CheckoutComponent,
-    PaymentComponent,
     OrderSuccessComponent,
     OrderFailureComponent,
     HeaderComponent,
     ErrorComponent,
     OrdersComponent,
-    SignInComponent,
-    AdminFailureComponent
+    SignInComponent
   ],
   providers:
   [
+    // Services
     OrderService,
     ErrorService,
     BasketService,
-    GuardService,
-    CheckoutGuard,
-    PaymentGuard,
     SignInService,
-    BuyerDetailsService
+
+    // Guards
+    CheckoutGuard
   ],
   bootstrap: [AppComponent]
 })

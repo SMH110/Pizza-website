@@ -1,8 +1,6 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <div class="alert alert-danger danger-danger" *ngIf='errorMessage'> {{errorMessage}}
-            </div>
             <form #signIn='ngForm' (ngSubmit)='getTokenAndSignIn(signIn)' (submit)='preventDefault($event)'>
                 <fieldset>
                     <legend>
