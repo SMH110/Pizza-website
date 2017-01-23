@@ -1,8 +1,8 @@
 <div class="conatiner">
     <div class="row">
         <div class="col-md-12">
-            <div class="notification">
-                item has been added to your basket
+            <div class="notification" [class.show]='itemNotification.isNotificationShown'>
+                <strong> {{itemNotification.notificationMessage}}</strong>
             </div>
         </div>
     </div>
