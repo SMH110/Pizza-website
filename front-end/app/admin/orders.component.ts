@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { OrderService } from '../service/order.service'
+import { ErrorService } from '../service/error.service'
+
 @Component({
     moduleId: module.id,
     templateUrl: './orders.component.html',
@@ -31,7 +33,7 @@ import { OrderService } from '../service/order.service'
 export class OrdersComponent implements OnInit {
     orders: Order[];
 
-    constructor(private orderService: OrderService, private router: Router) {
+    constructor(private orderService: OrderService, private errorService: ErrorService, private router: Router) {
     }
 
     ngOnInit() {
@@ -40,31 +42,28 @@ export class OrdersComponent implements OnInit {
     }
 
     markAsComplete(id: string) {
+        this.errorService.clearErrors();
         this.orderService.markOrderAsComplete({ orderId: id })
             .subscribe(() => {
                 this.refreshOrders()
-            }, error => {
-                if (error.status === 401) {
-                    this.router.navigateByUrl('/admin/sign-in');
-                }
-                if (error.status === 500) {
-                    this.router.navigateByUrl('/admin/failure');
-                }
-            });
+            }, error => this.handleError(error, 'There was an unexpected error marking the order as complete. Please try again.'));
     }
 
     private refreshOrders() {
+        this.errorService.clearErrors();
         this.orderService.getOrders()
             .subscribe(response => {
                 this.orders = response.sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf());
-            }, error => {
-                if (error.status === 401) {
-                    this.router.navigateByUrl('/admin/sign-in');
-                }
-                if (error.status === 500) {
-                    this.router.navigateByUrl('/admin/failure');
-                }
-            });
+            }, error => this.handleError(error, 'There was an unexpected error refreshing the orders. Please try again.'));
+    }
+
+    private handleError(error: any, genericErrorMessage: string) {
+        if (error.status === 401) {
+            this.router.navigateByUrl('/admin/sign-in');
+        }
+        if (error.status === 500) {
+            this.errorService.displayErrors([genericErrorMessage]);
+        }
     }
 
     formatAddress(address: Address) {

@@ -28,15 +28,14 @@ describe("E2E Tests", () => {
         // Enter personal details and continue
         await whenVisible(by.id('firstName'), firstName => firstName.sendKeys('John'));
         await element(by.id('lastName')).sendKeys('Smith');
-        await element(by.id('address1')).sendKeys('1 The Street');
-        await element(by.id('town')).sendKeys('Foo Town');
-        await element(by.id('post-code')).sendKeys('AB1 2CD');
         await element(by.id('email')).sendKeys('test@test.com');
         await element(by.id('phone')).sendKeys('01234567890');
-        await element(by.className('next')).click();
+        await element(by.id('delivery_address1')).sendKeys('1 The Street');
+        await element(by.id('delivery_town')).sendKeys('Foo Town');
+        await element(by.id('delivery_postcode')).sendKeys('AB1 2CD');
 
         // PayPal is selected by default. Place the order.
-        await whenVisible(by.buttonText('Order Now'), orderButton => orderButton.click());
+        await element(by.buttonText('Order Now')).click();
 
         // Wait for PayPal to load
         await urlShouldBecome(url => /sandbox\.paypal\.com/.test(url));

@@ -2,8 +2,9 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { BasketService } from '../service/basket.service';
-import { BuyerDetailsService } from '../service/buyer-details.service';
-import { GuardService } from '../service/guard.service';
+import { OrderService } from '../service/order.service';
+import { ErrorService } from '../service/error.service';
+import { validateOrderRequest } from '../../../shared/validation/place-order-request-validator';
 
 @Component({
     moduleId: module.id,
@@ -33,8 +34,9 @@ import { GuardService } from '../service/guard.service';
              width: 85%;
         }
 
-        .asterisk{
-            color: red
+        .required::after {
+            content: ' *';
+            color: red;
         }
         .note{
             color: #888;
@@ -45,20 +47,49 @@ import { GuardService } from '../service/guard.service';
     ]
 })
 export class CheckoutComponent {
-    constructor(public basket: BasketService, private router: Router, private guardService: GuardService, public buyerDetailsService: BuyerDetailsService) {
 
+    isShowSpinner: boolean = false;
+    deliveryMethods: string[] = ['Delivery', 'Collection']
+
+    buyer: Buyer = {} as any;
+    deliveryAddress: Address = {} as any;
+    deliveryMethod: 'Delivery' | 'Collection' = 'Delivery';
+    paymentMethod: string;
+    orderNotes: string;
+
+    constructor(public basket: BasketService, private router: Router, private orderService: OrderService, private errorService: ErrorService) {
     }
-    onSubmit(): void {
-        if (this.buyerDetailsService.selectedDeliveryMethod === 'Collection') {
-            this.buyerDetailsService.clearAddress()
+
+    order() {
+        this.errorService.clearErrors();
+
+        let orderDetail = {
+            buyer: this.buyer,
+            deliveryAddress: this.deliveryAddress,
+            orderItems: this.basket.items,
+            deliveryMethod: this.deliveryMethod,
+            paymentMethod: 'paypal',
+            note: this.orderNotes
+        };
+
+        let validationErrors = validateOrderRequest(orderDetail, ['paypal']);
+        if (validationErrors.length > 0) {
+            this.errorService.displayErrors(validationErrors);
+            return;
         }
 
-        this.guardService.canGetPaymentRoute = true;
-         this.router.navigate(['./payment']);
-    }
-    preventDefault(event: Event): void {
-        event.preventDefault();
+        this.isShowSpinner = true
+        this.orderService.placeOrder(orderDetail).subscribe(response => {
+            this.basket.removeAll();
+            window.location.assign(response.url);
+        }, error => {
+            if (error.status === 400) {
+                this.isShowSpinner = false;
+                let validationErrors = error.json();
+                this.errorService.displayErrors(validationErrors);
+            } else {
+                this.router.navigateByUrl('/order/failure');
+            }
+        });
     }
 }
-
-
