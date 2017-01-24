@@ -11,9 +11,9 @@ module.exports = function(wallaby) {
         files: [
             // Application code
             { pattern: 'back-end/**/*.ts', load: false },
-            '!back-end/node_modules/**/*.ts',
+            '!back-end/node_modules/**',
             { pattern: 'front-end/**/*.ts', load: false },
-            '!front-end/node_modules/**/*.ts',
+            '!front-end/node_modules/**',
             { pattern: 'shared/**/*.ts', load: false }
         ],
         tests: [
