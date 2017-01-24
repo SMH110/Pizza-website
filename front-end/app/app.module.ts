@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { PizzaComponent } from './pizza.component';
 import { SidesComponent } from './sides.component';
 import { DrinksComponent } from './drinks.component';
+import { CheckDeliveryAreaComponent } from './checking-delivery-area.component/check-delivery-area.component'
 import { AboutUsComponent } from './about-us.component';
 import { TermsAndConditionsComponent } from './terms-and-conditions.component';
 import { ContactUsComponent } from './contact-us.component';
@@ -41,6 +42,7 @@ import Routes from './routes';
     AppComponent,
     PizzaComponent,
     SidesComponent,
+    CheckDeliveryAreaComponent,
     DrinksComponent,
     AboutUsComponent,
     BasketComponent,

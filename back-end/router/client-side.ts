@@ -4,6 +4,7 @@ const router = Router();
 router.get('/', serveIndex);
 router.get('/basket', serveIndex);
 router.get('/pizza', serveIndex);
+router.get('/delivery-areas', serveIndex);
 router.get('/sides', serveIndex);
 router.get('/drinks', serveIndex);
 router.get('/about-us', serveIndex);

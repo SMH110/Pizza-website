@@ -11,7 +11,7 @@ import { OrderFailureComponent } from './notification.component/order-failure.co
 import { CheckoutGuard } from './guards/checkout.guard';
 import { OrdersComponent } from './admin/orders.component';
 import { SignInComponent } from './admin/sign-in.component';
-
+import { CheckDeliveryAreaComponent } from './checking-delivery-area.component/check-delivery-area.component'
 
 import { Routes } from '@angular/router';
 
@@ -19,6 +19,7 @@ export default [
     { path: 'pizza', component: PizzaComponent },
     { path: 'sides', component: SidesComponent },
     { path: 'drinks', component: DrinksComponent },
+    { path: 'delivery-areas', component: CheckDeliveryAreaComponent },
     { path: 'about-us', component: AboutUsComponent },
     { path: 'terms-and-conditions', component: TermsAndConditionsComponent },
     { path: 'contact-us', component: ContactUsComponent },
