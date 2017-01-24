@@ -24,27 +24,32 @@ import admin from './router/admin';
 import health from './router/health';
 
 const app = express();
-//engine
+const nocache = require('nocache');
+
+// View engine
 app.engine('html', require('ejs').renderFile);
-// view engine
 app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, 'views'));
-//static
+
+// Static Files
 app.use('/shared', express.static(path.join(__dirname, '..', 'shared')));
 app.use(express.static(path.join(__dirname, '..', 'front-end')));
 
+
+// JSON Requests
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }))
 
 // Initialize passport
 app.use(passport.initialize());
 
-app.use('/api/order', order);
-app.use('/api/admin', admin);
-app.use('/api/products', items);
+// Register Routes
+app.use('/api/order', nocache(), order);
+app.use('/api/admin', nocache(), admin);
+app.use('/api/products', nocache(), items);
 app.use('/health', health);
-app.use('/', clientSide);
+app.use(nocache(), clientSide);
 
+// Register Payment Gateways
 initialisePayPalEndpoints(app);
 
 const port = process.env.PORT || 3000;
