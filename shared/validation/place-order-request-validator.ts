@@ -1,3 +1,4 @@
+import { isPostcodeValid } from './delivery-area-validator';
 export function validateOrderRequest(request: PlaceOrderRequestValidationObject, availablePaymentMethods: string[]): string[] {
     let errors: string[] = [];
     errors.push.apply(errors, validateBasket(request));
@@ -64,6 +65,9 @@ function validateAddress(address: Address, addressType: string): string[] {
     }
     if (address && isNullOrWhitespace(address.postcode)) {
         errors.push(`${addressType} postcode is required`);
+    }
+    if (address && !isPostcodeValid(address.postcode)) {
+        errors.push(`We don't deliver to your area. However, you can still place an order for collection.`);
     }
     // TODO - Shall we bother with a valid postcode regex? Seems like there are a lot of edge cases.
     return errors;

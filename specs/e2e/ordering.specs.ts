@@ -32,7 +32,7 @@ describe("E2E Tests", () => {
         await element(by.id('phone')).sendKeys('01234567890');
         await element(by.id('delivery_address1')).sendKeys('1 The Street');
         await element(by.id('delivery_town')).sendKeys('Foo Town');
-        await element(by.id('delivery_postcode')).sendKeys('AB1 2CD');
+        await element(by.id('delivery_postcode')).sendKeys('CR72GB');
 
         // PayPal is selected by default. Place the order.
         await element(by.buttonText('Order Now')).click();
