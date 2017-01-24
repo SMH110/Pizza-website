@@ -1,5 +1,5 @@
 import catalog from '../static-data/catalogue';
-
+import { discountCalculator } from '../../shared/discount/discounts-calculator'
 export function calculateOrderDetails(orderRequest: PlaceOrderRequest): CalculatedOrderDetails {
     let orderTotals: CalculatedOrderDetails = {
         total: 0,
@@ -28,6 +28,7 @@ export function calculateOrderDetails(orderRequest: PlaceOrderRequest): Calculat
     let total = orderTotals.orderLineItems.reduce((total, item) => total += item.price * item.quantity, 0);
     orderTotals.total = Math.round(total * 100) / 100;
     orderTotals.totalPayment = orderTotals.total;
+    orderTotals.discount = discountCalculator(orderTotals.orderLineItems)
     // TODO: Calculate discount etc
 
     return orderTotals;

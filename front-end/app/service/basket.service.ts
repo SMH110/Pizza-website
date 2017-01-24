@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-
+import { discountCalculator } from '../../../shared/discount/discounts-calculator'
 @Injectable()
 export class BasketService {
     items: BasketItemViewModel[] = [];
-
+    discount: number = 0
     addToBasket(itemToAdd: ItemToAdd, selectedVersion?: string): void {
         let existingItem = this.getExistingItem(itemToAdd, selectedVersion);
         if (existingItem !== undefined) {
@@ -36,11 +36,16 @@ export class BasketService {
     }
 
     getTotalPrice(): number {
-        return this.items.reduce((totalPrice, item) => totalPrice += item.price * item.quantity, 0);
+        return this.items.reduce((totalPrice, item) => totalPrice += item.price * item.quantity, 0) - this.getDiscount()
     }
 
     getTotalQuantity(): number {
         return this.items.reduce((totalQuantity, item) => totalQuantity += item.quantity, 0);
+    }
+
+    getDiscount(): number {
+        this.discount = discountCalculator(this.items);
+        return this.discount;
     }
 
     getExistingItem(itemToAdd: ItemToAdd, selectedVersion?: string): BasketItemViewModel {

@@ -26,7 +26,8 @@
                 </tbody>
             </table>
             <hr>
-            <h2 *ngIf='basket.items.length > 0'>Total: £{{basket.getTotalPrice() | number:'1.2-2'}}</h2>
+            <h2 *ngIf='basket.items.length > 0'>Total payable: £{{basket.getTotalPrice() | number:'1.2-2'}}</h2>
+            <h2 *ngIf='basket.getDiscount() > 0' class="text-success">Discount: £{{basket.getDiscount() | number:'1.2-2'}}</h2>
 
             <button class="btn btn-default next" *ngIf='basket.items.length > 0' [routerLink]="['/checkout']"> Next <span class="glyphicon glyphicon-chevron-right"></span></button>
             <button class="btn btn-danger" *ngIf='basket.items.length > 0' (click)="basket.removeAll()">Clear Basket</button>
