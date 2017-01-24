@@ -1,4 +1,4 @@
-import { browser, by, element, ElementFinder, ExpectedConditions as EC, protractor } from "protractor";
+import { browser, by, element, ElementFinder, ExpectedConditions as EC } from "protractor";
 import { doInsideIFrame, urlShouldBecome, whenAnyVisible, whenVisible, whenVisibleAndNotMoving, waitForAngularToLoad } from './utils';
 
 describe("E2E Tests", () => {
