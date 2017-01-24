@@ -22,12 +22,13 @@ import { HeaderComponent } from './header.component/header.component';
 import { ErrorComponent } from './error/error.component';
 import { OrdersComponent } from './admin/orders.component';
 import { SignInComponent } from './admin/sign-in.component';
-
+import { ItemAddedNotificationComponent } from './notification.component/item-added-notification.component';
 // Services
 import { ErrorService } from './service/error.service';
 import { BasketService } from './service/basket.service';
 import { OrderService } from './service/order.service';
-import { SignInService } from './service/sign-in.service'
+import { SignInService } from './service/sign-in.service';
+import { ItemNotificationService } from './service/item-notification.service';
 
 // Guards
 import { CheckoutGuard } from './guards/checkout.guard';
@@ -53,7 +54,8 @@ import Routes from './routes';
     HeaderComponent,
     ErrorComponent,
     OrdersComponent,
-    SignInComponent
+    SignInComponent,
+    ItemAddedNotificationComponent
   ],
   providers:
   [
@@ -62,6 +64,7 @@ import Routes from './routes';
     ErrorService,
     BasketService,
     SignInService,
+    ItemNotificationService,
 
     // Guards
     CheckoutGuard
