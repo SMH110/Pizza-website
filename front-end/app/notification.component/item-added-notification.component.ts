@@ -8,16 +8,15 @@ import { ItemNotificationService } from '../service/item-notification.service';
 .notification {
     position: fixed;
     top: 10px;
-    right: 0;
-    width: 300px;
+    right: 10px;
     color: red;
     z-index: 100;
     opacity: 0;
     transition: .5s ease-in-out all;
 }
 
-.show{
-    opacity: 1 !important;
+.notification.show {
+    opacity: 1;
 }
     `]
 
