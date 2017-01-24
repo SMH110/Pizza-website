@@ -1,7 +1,7 @@
 import { browser, element, ElementArrayFinder, ElementFinder, ExpectedConditions as EC } from "protractor";
 import { By } from "selenium-webdriver";
-const UI_READY_TIMEOUT = 15000;
-const URL_CHANGE_TIMEOUT = 20000;
+export const UI_READY_TIMEOUT = 15000;
+export const URL_CHANGE_TIMEOUT = 20000;
 
 export async function urlShouldBecome(predicate: (url: string) => boolean) {
     let lastUrl;
@@ -47,6 +47,12 @@ export async function whenVisibleAndNotMoving<T>(locator: By, action: (element: 
         }
         return await action(element);
     });
+}
+
+export async function whenClickable<T>(locator: By, action: (element: ElementFinder) => T) {
+    let theElement = element(locator);
+    await browser.wait(EC.elementToBeClickable(theElement), UI_READY_TIMEOUT);
+    return await action(theElement);
 }
 
 export async function waitForAngularToLoad() {

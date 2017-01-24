@@ -1,5 +1,5 @@
 import { browser, by, element, ElementFinder, ExpectedConditions as EC } from "protractor";
-import { doInsideIFrame, urlShouldBecome, whenAnyVisible, whenVisible, whenVisibleAndNotMoving, waitForAngularToLoad } from './utils';
+import { doInsideIFrame, urlShouldBecome, whenAnyVisible, whenClickable, whenVisible, waitForAngularToLoad, UI_READY_TIMEOUT } from './utils';
 
 describe("E2E Tests", () => {
     beforeEach(async () => {
@@ -47,14 +47,18 @@ describe("E2E Tests", () => {
             await element(by.id('password')).sendKeys('test&test');
             await element(by.id('btnLogin')).click();
         });
-        await whenVisibleAndNotMoving(by.buttonText('Continue'), payNow => payNow.click());
+        // TODO: Clean this up - PayPal are using some kind of spinner immediately after spinner thing
+        await browser.wait(EC.stalenessOf(element(by.id('spinner'))), UI_READY_TIMEOUT);
+        await new Promise(r => setTimeout(r, 500));
+        await browser.wait(EC.stalenessOf(element(by.id('spinner'))), UI_READY_TIMEOUT);
+        await whenClickable(by.buttonText('Continue'), payNow => payNow.click());
 
         // Ensure we are routed back to /order/success
         await urlShouldBecome(url => /\/order\/success/.test(url));
         await waitForAngularToLoad();
 
         let orderSuccess = element(by.css('.order-success'));
-        await EC.visibilityOf(orderSuccess);
+        await browser.wait(EC.visibilityOf(orderSuccess), UI_READY_TIMEOUT);
     });
 });
 
