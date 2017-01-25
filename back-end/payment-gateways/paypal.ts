@@ -47,13 +47,10 @@ export default class PayPal implements PaymentGateway {
     }
 }
 
-const client_id = "AWIevBHnu9162GxBPIu9kqyNU-EB2YItx6jF6fEqQrRlqZ9I9G49tNePR_4q0IMJCRPw3XYUZbMrLEjx";
-const secret = "EHFGmfZjwI5n70O9Uo73MEIIyzd0hv3mGEo0NyErBEeNXJfXOyiwa57NN4gPrQ9HA5L7EmphXyU7Vr9r";
-
 async function getPayPalAuthToken() {
     const options = {
         headers: {
-            'Authorization': 'Basic ' + new Buffer(`${client_id}:${secret}`).toString('base64')
+            'Authorization': 'Basic ' + new Buffer(`${process.env.PAYPAL_CLIENT_ID}:${process.env.PAYPAL_SECRET}`).toString('base64')
         },
         form: { grant_type: 'client_credentials' },
         json: true
@@ -63,7 +60,10 @@ async function getPayPalAuthToken() {
 }
 
 export function initialisePayPalEndpoints(application: Application) {
-    // TODO: Don't initialise if PayPal is not enabled
+    if (process.env.IS_PAYPAL_ENABLED !== "TRUE") {
+        return;
+    }
+
     application.get('/paypal/execute', async (req, res) => {
         try {
             let paymentId = req.query['paymentId'];

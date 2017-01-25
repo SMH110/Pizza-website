@@ -1,21 +1,13 @@
+import './config/dev.config';
+import './startup/initialise-mongoose';
+
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as path from 'path';
-import * as mongoose from 'mongoose';
 import * as passport from 'passport';
 import { initialisePayPalEndpoints } from './payment-gateways/paypal';
 
 import './config/passport.config';
-
-// TODO: Check how mongoose handles app disconnections
-require('mongoose').Promise = Promise;
-mongoose.connect('mongodb://SMH110:yaaAli@ds127948.mlab.com:27948/pizza-delivery', (error) => {
-    if (error) {
-        console.error(error);
-        return;
-    }
-    console.log('MongoDb connected');
-});
 
 import clientSide from './router/client-side';
 import items from './router/items';
@@ -52,5 +44,5 @@ app.use(nocache(), clientSide);
 // Register Payment Gateways
 initialisePayPalEndpoints(app);
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT;
 app.listen(port, () => { console.log(`Listening on port ${port}`) });

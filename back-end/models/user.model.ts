@@ -6,9 +6,21 @@ const User = new Schema({
     password: { type: String, required: true }
 });
 
-User.methods.hashPassword = function (password: string) {
-    return bcrypt.hashSync(password, bcrypt.genSaltSync());
-};
+export function encryptPassword(password: string): Promise<string> {
+    return new Promise<string>((resolve, reject) => {
+        bcrypt.genSalt(10, (error, salt) => {
+            if (error) {
+                return reject(error);
+            }
+            bcrypt.hash(password, salt, null, (error, result) => {
+                if (error) {
+                    return reject(error);
+                }
+                resolve(result);
+            });
+        });
+    });
+}
 
 export function validatePassword(user: User, password: string) {
     return bcrypt.compareSync(password, user.password);
@@ -16,7 +28,7 @@ export function validatePassword(user: User, password: string) {
 
 export default model<User & Document>('User', User);
 
-interface User {
+export interface User {
     email: string;
     password: string;
 }

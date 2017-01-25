@@ -1,7 +1,6 @@
 import { Router } from 'express';
 import * as jwt from 'jsonwebtoken';
 
-import { SECRET } from '../config/passport.config';
 import User, { validatePassword } from '../models/user.model';
 import { errorHandler, IRequest, IResponse } from './router-utils';
 
@@ -18,7 +17,8 @@ router.post('/sign-in', errorHandler(async (req: IRequest<AuthRequest>, res: IRe
         console.log(`Incorrect password for user ${req.body.email}. Attempt from IP Address: ${req.ip}.`);
         return res.sendStatus(401);
     }
-    let token = jwt.sign(user, SECRET, { expiresIn: '30m' });
+    // TODO: Refactor this out into a passport module
+    let token = jwt.sign(user, process.env.PASSPORT_SECRET, { expiresIn: '30m' });
     res.json({ token: `JWT ${token}` });
 }));
 
