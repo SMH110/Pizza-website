@@ -69,7 +69,8 @@ export class CheckoutComponent {
             orderItems: this.basket.items,
             deliveryMethod: this.deliveryMethod,
             paymentMethod: 'paypal',
-            note: this.orderNotes
+            note: this.orderNotes,
+            date: new Date()
         };
 
         let validationErrors = validateOrderRequest(orderDetail, ['paypal']);

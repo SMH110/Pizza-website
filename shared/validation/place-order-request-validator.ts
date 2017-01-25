@@ -1,5 +1,9 @@
 import { isPostcodeValid } from './delivery-area-validator';
 export function validateOrderRequest(request: PlaceOrderRequestValidationObject, availablePaymentMethods: string[]): string[] {
+    if (isShopOpen(request.date) === false) {
+        return ['Sorry, the shop is now closed.'];
+    }
+
     let errors: string[] = [];
     errors.push.apply(errors, validateBasket(request));
     if (request.deliveryMethod !== 'Collection' && request.deliveryMethod !== 'Delivery') {
@@ -47,6 +51,10 @@ function validateDeliveryAddress(request: PlaceOrderRequestValidationObject): st
     let errors: string[] = [];
     if (request.deliveryMethod === 'Delivery') {
         errors.push.apply(errors, validateAddress(request.deliveryAddress, 'Delivery'));
+        
+        if (isNullOrWhitespace(request.deliveryAddress && request.deliveryAddress.postcode) && !isPostcodeValid(request.deliveryAddress.postcode)) {
+            errors.push(`We don't deliver to your area. However, you can still place an order for collection.`);
+        }
         // TODO - Validate postcode is one of the postcodes we deliver to
     }
     return errors;
@@ -66,9 +74,6 @@ function validateAddress(address: Address, addressType: string): string[] {
     if (address && isNullOrWhitespace(address.postcode)) {
         errors.push(`${addressType} postcode is required`);
     }
-    if (address && !isPostcodeValid(address.postcode)) {
-        errors.push(`We don't deliver to your area. However, you can still place an order for collection.`);
-    }
     // TODO - Shall we bother with a valid postcode regex? Seems like there are a lot of edge cases.
     return errors;
 }
@@ -77,6 +82,20 @@ function isNullOrWhitespace(input: string) {
     return !input || input.replace(/\s/g, '').length < 1;
 }
 
-interface PlaceOrderRequestValidationObject extends PlaceOrderRequest {
+function isShopOpen(date: Date): boolean {
+    let day: number = date.getDay();
+    let time: number = (date.getHours() * 100) + date.getMinutes();
+    if (day < 5 && time > 100 && time < 1200) {
+        return false;
+    }
+    if (day > 4 && time > 330 && time < 1200) {
+        return false;
+    }
+    return true;
+}
+
+
+export interface PlaceOrderRequestValidationObject extends PlaceOrderRequest {
     orderItems: Array<BasketItem & { price: number; }>;
+    date: Date;
 }
