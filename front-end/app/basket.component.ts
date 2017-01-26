@@ -21,6 +21,10 @@ import { BasketService } from './service/basket.service';
             .increase{
                 margin-left: 5px;
             }
+
+            h3{
+                margin : 10px 0;
+            }
     `]
 })
 export class BasketComponent {
