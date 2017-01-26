@@ -1,4 +1,5 @@
 import catalog from '../static-data/catalogue';
+import { discountCalculator } from '../../shared/discount-calculator'
 
 export function calculateOrderDetails(orderRequest: PlaceOrderRequest): CalculatedOrderDetails {
     let orderTotals: CalculatedOrderDetails = {
@@ -26,11 +27,14 @@ export function calculateOrderDetails(orderRequest: PlaceOrderRequest): Calculat
     }
 
     let total = orderTotals.orderLineItems.reduce((total, item) => total += item.price * item.quantity, 0);
-    orderTotals.total = Math.round(total * 100) / 100;
-    orderTotals.totalPayment = orderTotals.total;
-    // TODO: Calculate discount etc
-
+    orderTotals.total = normalise(total);
+    orderTotals.totalPayment = normalise(total - discountCalculator(total));
+    orderTotals.discount = normalise(discountCalculator(total));
     return orderTotals;
+}
+
+function normalise(value: number): number {
+    return Math.round(value * 100) / 100
 }
 
 interface CalculatedOrderDetails {
