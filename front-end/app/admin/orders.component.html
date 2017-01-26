@@ -5,9 +5,17 @@
             <hr>
             <table class="table table-bordered">
                 <tbody>
-                    <tr *ngFor='let order of orders'>
-                        <td><span [style.color]='order.status==="Outstanding" ? "#ED7118" : order.status==="Awaiting Payment" ? "#FF0000" : "#0EA603" '>{{order.status}}</span>
-                            <div *ngIf='order.isShown' class="more-details">
+                    <ng-container *ngFor="let order of orders">
+                        <tr>
+                            <td><span [style.color]='order.status==="Outstanding" ? "#ED7118" : order.status==="Awaiting Payment" ? "#FF0000" : "#0EA603" '>{{order.status}}</span></td>
+                            <td>{{order.date | date:"medium"}}</td>
+                            <td>{{order.buyer.firstName}} {{order.buyer.lastName}}</td>
+                            <td>{{order.deliveryAddress ? formatAddress(order.deliveryAddress) : 'COLLECTION'}}</td>
+                            <td>£{{order.totalPayment | number:'1.2-2' }} ({{order.paymentMethod}})</td>
+                            <td><button class="btn btn-default" (click)='toggleIsExpanded(order)'>{{ toggleIsExpandedButtonName(order) }}</button></td>
+                        </tr>
+                        <tr *ngIf='getExpandedStatus(order)' class="more-details">
+                            <td colspan="6">
                                 <strong>E-mail: </strong> {{order.buyer.email | lowercase}} <br>
                                 <strong>Payment Reference: </strong> {{order.paymentId}} <br>
                                 <div *ngIf='order.note'><strong>Note: </strong> {{order.note}} <br></div> <br>
@@ -26,31 +34,23 @@
                                             <td>£{{item.price | number:'1.2-2'}}</td>
                                         </tr>
                                         <tr>
-                                            <th class="remove-right-border">Total before discount</th>
-                                            <td> </td>
+                                            <th colspan="2">Total before discount</th>
                                             <td>£{{order.total | number:'1.2-2'}}</td>
                                         </tr>
                                         <tr>
-                                            <th>Discount amount</th>
-                                            <td></td>
+                                            <th colspan="2">Discount amount</th>
                                             <td>£{{order.discount | number:'1.2-2'}}</td>
                                         </tr>
                                         <tr>
-                                            <th>Total paypal</th>
-                                            <td></td>
+                                            <th colspan="2">Total paypal</th>
                                             <td>£{{order.totalPayment | number:'1.2-2'}}</td>
                                         </tr>
                                     </tbody>
                                 </table>
                                 <button class="btn btn-primary mark-complete" *ngIf='order.status === "Outstanding"' (click)='markAsComplete(order._id)'>Mark as complete</button>
-                            </div>
-                        </td>
-                        <td>{{order.date | date:"medium"}}</td>
-                        <td>{{order.buyer.firstName}} {{order.buyer.lastName}}</td>
-                        <td>{{order.deliveryAddress ? formatAddress(order.deliveryAddress) : 'COLLECTION'}}</td>
-                        <td>£{{order.totalPayment | number:'1.2-2' }} ({{order.paymentMethod}})</td>
-                        <td><button class="btn btn-default" (click)='toggle(order)'>{{order.isShown ? 'Collapse' : 'Expand'}}</button></td>
-                    </tr>
+                            </td>
+                        </tr>
+                    </ng-container>
                 </tbody>
             </table>
         </div>
