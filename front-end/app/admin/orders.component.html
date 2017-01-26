@@ -3,44 +3,56 @@
         <div class="col-md-12">
             <h1>Orders</h1>
             <hr>
-            <div class="col-md-8" *ngFor='let order of orders; let i=index'>
-                <h2>Order {{i + 1}}</h2>
-                <p class="date">{{order.date | date:"medium"}}</p>
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Item</th>
-                            <th>Size</th>
-                            <th>Quantity</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor='let item of order.orderItems'>
-                            <td>{{item.name}}</td>
-                            <td>{{item.version}}</td>
-                            <td>{{item.quantity}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <h4>Total:</h4><span> £{{order.total | number:'1.2-2'}}</span><br>
-                <h4>Delivery method: </h4><span> {{order.deliveryMethod | uppercase}}</span><br>
-                <div *ngIf='order.note'>
-                    <h4>Note: </h4><span> {{order.note}}</span><br></div>
-                <h4>Status:</h4> <span [style.color]="order.status === 'Outstanding' ? '#ff7e00' : '#11a348'">{{order.status}}</span>
-                <button class="btn btn-primary mark-complete" *ngIf='order.status === "Outstanding"' (click)='markAsComplete(order._id)'>Mark as complete</button>
-                <h3>Customer's details</h3>
-                <h4>Name: </h4>
-                <span>{{order.buyer.firstName}} {{order.buyer.lastName}}</span><br>
-                <div *ngIf='order.deliveryAddress'>
-                    <h4>Address: </h4>
-                    <span>{{formatAddress(order.deliveryAddress)}}</span><br></div>
-                <h4>Email: </h4>
-                <span>{{order.buyer.email | lowercase}}</span><br>
-                <h4>Phone: </h4>
-                <span>{{order.buyer.phone}}</span><br>
-                <br>
-                <hr>
-            </div>
+            <table class="table table-bordered">
+                <tbody>
+                    <tr *ngFor='let order of orders'>
+                        <td><span [style.color]='order.status==="Outstanding" ? "#ED7118" : order.status==="Awaiting Payment" ? "#FF0000" : "#0EA603" '>{{order.status}}</span>
+                            <div *ngIf='order.isShown' class="more-details">
+                                <strong>E-mail: </strong> {{order.buyer.email | lowercase}} <br>
+                                <strong>Payment Reference: </strong> {{order.paymentId}} <br>
+                                <div *ngIf='order.note'><strong>Note: </strong> {{order.note}} <br></div> <br>
+                                <table class="table table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Quantity</th>
+                                            <th>Price</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor='let item of order.orderItems'>
+                                            <td>{{item.name}}{{item.version ? ' - ' : ''}}{{item.version}}</td>
+                                            <td>{{item.quantity}}</td>
+                                            <td>£{{item.price | number:'1.2-2'}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="remove-right-border">Total before discount</th>
+                                            <td> </td>
+                                            <td>£{{order.total | number:'1.2-2'}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Discount amount</th>
+                                            <td></td>
+                                            <td>£{{order.discount | number:'1.2-2'}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Total paypal</th>
+                                            <td></td>
+                                            <td>£{{order.totalPayment | number:'1.2-2'}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <button class="btn btn-primary mark-complete" *ngIf='order.status === "Outstanding"' (click)='markAsComplete(order._id)'>Mark as complete</button>
+                            </div>
+                        </td>
+                        <td>{{order.date | date:"medium"}}</td>
+                        <td>{{order.buyer.firstName}} {{order.buyer.lastName}}</td>
+                        <td>{{order.deliveryAddress ? formatAddress(order.deliveryAddress) : 'COLLECTION'}}</td>
+                        <td>£{{order.totalPayment | number:'1.2-2' }} ({{order.paymentMethod}})</td>
+                        <td><button class="btn btn-default" (click)='toggle(order)'>{{order.isShown ? 'Collapse' : 'Expand'}}</button></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

@@ -8,30 +8,26 @@ import { ErrorService } from '../service/error.service'
     moduleId: module.id,
     templateUrl: './orders.component.html',
     styles: [`
-   h1 {
-       margin-top: 60px;
-   }
-
-   h4 {
-       display: inline-block;
-   }
-
-   .date {
-       color: #888;
-   }
-
-   .outstanding{
-       color: #ff7e00;
-   }
-
+    h4 {
+        display: inline-block;
+    }
    .mark-complete{
        padding: 0 16px;
        margin-left: 20px;
    }
+
+ .more-details{
+       min-width: 400px;
+       margin-top:20px;
+   }
+
+   .remove-right-border{
+       border-right: 0;
+   }
     `]
 })
 export class OrdersComponent implements OnInit {
-    orders: Order[];
+    orders: OrderViewModel[];
 
     constructor(private orderService: OrderService, private errorService: ErrorService, private router: Router) {
     }
@@ -54,6 +50,10 @@ export class OrdersComponent implements OnInit {
         this.orderService.getOrders()
             .subscribe(response => {
                 this.orders = response.sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf());
+                this.orders = this.orders.map(order => {
+                    return Object.assign({ isShown: order.status === 'Outstanding' ? true : false }, order)
+                })
+                console.log(this.orders);
             }, error => this.handleError(error, 'There was an unexpected error refreshing the orders. Please try again.'));
     }
 
@@ -64,6 +64,12 @@ export class OrdersComponent implements OnInit {
         if (error.status === 500) {
             this.errorService.displayErrors([genericErrorMessage]);
         }
+
+    }
+
+    toggle(order: OrderViewModel): void {
+        order.isShown = !order.isShown;
+
     }
 
     formatAddress(address: Address) {
@@ -74,4 +80,8 @@ export class OrdersComponent implements OnInit {
             address.postcode
         ].filter(x => !!x).join(', ');
     }
+}
+
+interface OrderViewModel extends Order {
+    isShown?: boolean;
 }
