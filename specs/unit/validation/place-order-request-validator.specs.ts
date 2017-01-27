@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { validateOrderRequest, PlaceOrderRequestValidationObject } from '../../../shared/validation/place-order-request-validator';
 
-const PAYMENT_METHODS = ['paypal'];
+const PAYMENT_METHODS: PaymentMethod[] = ['PayPal', 'Credit / Debit Card'];
 
 describe('Place Order Request Validator', () => {
     it('The valid test data orders are always valid', () => {
@@ -173,7 +173,9 @@ describe('Place Order Request Validator', () => {
 function createValidOrders() {
     return [
         createValidCollectionPayPalOrder(),
-        createValidDeliveryPayPalOrder()
+        createValidDeliveryPayPalOrder(),
+        createValidCollectionCreditDebitCardOrder(),
+        createValidDeliveryCreditDebitCardOrder()
     ];
 }
 
@@ -184,7 +186,7 @@ function createValidCollectionPayPalOrder(): PlaceOrderRequestValidationObject {
         deliveryAddress: null,
         deliveryMethod: 'Collection',
         orderItems: createValidOrderItems(),
-        paymentMethod: 'paypal',
+        paymentMethod: 'PayPal',
         note: null
     };
 }
@@ -196,7 +198,31 @@ function createValidDeliveryPayPalOrder(): PlaceOrderRequestValidationObject {
         deliveryAddress: createValidDeliveryAddress(),
         deliveryMethod: 'Delivery',
         orderItems: createValidOrderItems(),
-        paymentMethod: 'paypal',
+        paymentMethod: 'PayPal',
+        note: null
+    };
+}
+
+function createValidCollectionCreditDebitCardOrder(): PlaceOrderRequestValidationObject {
+    return {
+        buyer: createValidBuyer(),
+        date: new Date(2017, 0, 24, 20, 30, 0),
+        deliveryAddress: null,
+        deliveryMethod: 'Collection',
+        orderItems: createValidOrderItems(),
+        paymentMethod: 'Credit / Debit Card',
+        note: null
+    };
+}
+
+function createValidDeliveryCreditDebitCardOrder(): PlaceOrderRequestValidationObject {
+    return {
+        buyer: createValidBuyer(),
+        date: new Date(2017, 0, 24, 20, 30, 0),
+        deliveryAddress: createValidDeliveryAddress(),
+        deliveryMethod: 'Delivery',
+        orderItems: createValidOrderItems(),
+        paymentMethod: 'Credit / Debit Card',
         note: null
     };
 }

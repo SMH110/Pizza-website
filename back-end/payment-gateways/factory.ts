@@ -1,11 +1,27 @@
-import { Request } from 'express';
-import PayPal from './paypal';
-import { parse } from 'url';
+import { IRequest } from '../router/router-utils';
+import PayPal, { IsPayPalEnabled } from './paypal';
+import BarclaysEPDQ, { IsBarclaysEPDQEnabled } from './barclays-epdq';
+import { PaymentGateway } from './interfaces';
 
-export function getPaymentGateway(req: Request): PaymentGateway {
-    // For now, we always return PayPal.
-    // When we add Cash and ePDQ then this will be where we select the one.
-    let referer = parse(req.headers['referer']);
-    let baseReturnAddress = referer.protocol + '//' + referer.host;
-    return new PayPal(baseReturnAddress);
+export function getPaymentGateway(req: IRequest<PlaceOrderRequest>): PaymentGateway {
+    let baseReturnAddress = req.protocol + '://' + req.get('host');
+    if (req.body.paymentMethod === 'PayPal') {
+        return new PayPal(baseReturnAddress);
+    }
+    if (req.body.paymentMethod === 'Credit / Debit Card') {
+        return new BarclaysEPDQ(baseReturnAddress);
+    }
+
+    throw new Error(`No payment gateway registered for payment method ${req.body.paymentMethod}`);
+}
+
+export function getAvailablePaymentMethods(): PaymentMethod[] {
+    let paymentMethods: PaymentMethod[] = [];
+    if (IsPayPalEnabled) {
+        paymentMethods.push('PayPal');
+    }
+    if (IsBarclaysEPDQEnabled) {
+        paymentMethods.push('Credit / Debit Card');
+    }
+    return paymentMethods;
 }

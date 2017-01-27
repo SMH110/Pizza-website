@@ -1,12 +1,15 @@
 import * as rp from 'request-promise';
 import { Application } from 'express';
-import Order from '../models/orders.model';
+import Order, { PersistedOrder } from '../models/orders.model';
+import { PaymentGateway } from './interfaces';
+
+export const IsPayPalEnabled = process.env.PAYPAL_ENABLED === "TRUE";
 
 export default class PayPal implements PaymentGateway {
     constructor(private baseReturnAddress: string) {
     }
 
-    public async createPaymentRequest(order: Order): Promise<PaymentRequestDetails> {
+    public async createPaymentRedirect(order: PersistedOrder): Promise<PaymentRedirectDetails> {
         const options = {
             headers: { 'Authorization': 'Bearer ' + await getPayPalAuthToken() },
             body: {
@@ -39,8 +42,11 @@ export default class PayPal implements PaymentGateway {
         };
         console.log('Requesting PayPal payment', JSON.stringify(options, null, 4));
         let response = await rp.post('https://api.sandbox.paypal.com/v1/payments/payment', options);
+        console.log('PayPal payment successfully requested. Updating order.', JSON.stringify(response, null, 4));
+        order.paymentId = response.id;
+        order.save()
+        console.log('Order successfully updated.', JSON.stringify(options, null, 4));
         return {
-            paymentId: response.id,
             url: response.links.find((obj: any) => obj.rel === 'approval_url').href,
             isFullPageRedirect: true
         };
@@ -60,7 +66,7 @@ async function getPayPalAuthToken() {
 }
 
 export function initialisePayPalEndpoints(application: Application) {
-    if (process.env.IS_PAYPAL_ENABLED !== "TRUE") {
+    if (IsPayPalEnabled === false) {
         return;
     }
 
@@ -79,7 +85,12 @@ export function initialisePayPalEndpoints(application: Application) {
                 throw new Error(`Payment ${paymentId} for ${payerId} was NOT approved`);
             }
             console.log(`Payment ${paymentId} for ${payerId} approved. Updating order...`);
-            await Order.update({ paymentId: paymentId }, { status: "Outstanding" });
+            let order = await Order.findOne({ paymentId: paymentId });
+            if (!order) {
+                throw new Error(`PayPal Gateway could not find order with paymentId: ${paymentId}`);
+            }
+            order.status = "Outstanding";
+            order.paymentFeedback.push(response);
             console.log(`Updated order for ${paymentId}`);
             res.redirect('/order/success');
         } catch (error) {

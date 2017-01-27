@@ -1,7 +1,7 @@
 import { Document, Schema, model } from 'mongoose';
 
 // TODO: Why are we using mongoose? What value do we get from maintaining these schemas?
-export default model<Order & Document>('orders', new Schema({
+export default model<PersistedOrder>('orders', new Schema({
     buyer: {
         firstName: String,
         lastName: String,
@@ -12,7 +12,13 @@ export default model<Order & Document>('orders', new Schema({
         line1: String,
         line2: String,
         town: String,
-        postCode: String
+        postcode: String
+    },
+    billingAddress: {
+        line1: String,
+        line2: String,
+        town: String,
+        postcode: String
     },
     orderItems: [{
         name: String,
@@ -27,8 +33,11 @@ export default model<Order & Document>('orders', new Schema({
     note: String,
     paymentMethod: String,
     paymentId: String,
+    paymentFeedback: Array,
     total: Number,
     discount: Number,
     totalPayment: Number,
     status: String
 }));
+
+export type PersistedOrder = Order & Document;

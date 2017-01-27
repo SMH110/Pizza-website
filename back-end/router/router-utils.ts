@@ -18,8 +18,16 @@ export interface IRequest<T> extends Request {
 }
 
 export interface IResponse<T> extends Response {
+  status(status: 400): IValidationErrorResponse;
   json: {
-    (status: number, body: T | string[]): Response;
+    (status: number, body: T): IResponse<T>;
     (body: T): Response;
+  };
+}
+
+export interface IValidationErrorResponse extends Response {
+  json: {
+    (status: number, body: string[]): IValidationErrorResponse;
+    (body: string[]): IValidationErrorResponse;
   };
 }
