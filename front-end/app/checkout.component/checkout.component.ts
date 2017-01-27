@@ -81,7 +81,6 @@ export class CheckoutComponent {
             this.errorService.displayErrors(validationErrors);
             return;
         }
-
         this.isShowSpinner = true
         this.orderService.placeOrder(orderDetail).subscribe(response => {
             this.basket.removeAll();
