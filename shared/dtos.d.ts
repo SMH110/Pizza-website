@@ -64,4 +64,4 @@ interface PaymentRedirectDetails {
 }
 
 type DeliveryMethod = 'Collection' | 'Delivery';
-type PaymentMethod = 'PayPal' | 'Credit / Debit Card';
+type PaymentMethod = 'PayPal' | 'MasterCard' | 'JCB' | 'Maestro' | 'VISA';

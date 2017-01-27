@@ -49,8 +49,8 @@ import { validateOrderRequest } from '../../../shared/validation/place-order-req
 export class CheckoutComponent {
 
     isShowSpinner: boolean = false;
-    deliveryMethods: DeliveryMethod[] = ['Delivery', 'Collection']
-    paymentMethods: PaymentMethod[] = ['PayPal', 'Credit / Debit Card']
+    deliveryMethods: DeliveryMethod[] = ['Delivery', 'Collection'];
+    paymentMethods: PaymentMethod[] = [];
 
     buyer: Buyer = {} as any;
     deliveryAddress: Address = {} as any;
@@ -59,6 +59,8 @@ export class CheckoutComponent {
     orderNotes: string;
 
     constructor(public basket: BasketService, private router: Router, private orderService: OrderService, private errorService: ErrorService) {
+        this.orderService.getAvailablePaymentMethods()
+            .subscribe(paymentMethods => this.paymentMethods = paymentMethods);
     }
 
     order() {

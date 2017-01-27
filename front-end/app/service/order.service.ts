@@ -17,6 +17,10 @@ export class OrderService {
         return this.http.get('/api/order/get-orders', options).map(x => x.json() as Order[]);
     }
 
+    getAvailablePaymentMethods() {
+        return this.http.get('/api/payment/methods').map(x => x.json() as PaymentMethod[]);
+    }
+
     markOrderAsComplete(request: MarkAsCompleteRequest) {
         const headers = new Headers({ "Authorization": localStorage.getItem('get-orders-token') });
         let options = new RequestOptions({ headers: headers });

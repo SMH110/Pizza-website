@@ -15,6 +15,7 @@ import items from './router/items';
 import order from './router/order';
 import admin from './router/admin';
 import health from './router/health';
+import payment from './router/payment';
 
 const app = express();
 const nocache = require('nocache');
@@ -39,6 +40,7 @@ app.use(passport.initialize());
 app.use('/api/order', nocache(), order);
 app.use('/api/admin', nocache(), admin);
 app.use('/api/products', nocache(), items);
+app.use('/api/payment', nocache(), payment);
 app.use('/health', health);
 app.use(nocache(), clientSide);
 

@@ -8,7 +8,7 @@ export function getPaymentGateway(req: IRequest<PlaceOrderRequest>): PaymentGate
     if (req.body.paymentMethod === 'PayPal') {
         return new PayPal(baseReturnAddress);
     }
-    if (req.body.paymentMethod === 'Credit / Debit Card') {
+    if (['MasterCard', 'JCB', 'Maestro', 'VISA'].indexOf(req.body.paymentMethod) !== -1) {
         return new BarclaysEPDQ(baseReturnAddress);
     }
 
@@ -21,7 +21,7 @@ export function getAvailablePaymentMethods(): PaymentMethod[] {
         paymentMethods.push('PayPal');
     }
     if (IsBarclaysEPDQEnabled) {
-        paymentMethods.push('Credit / Debit Card');
+        paymentMethods.push('MasterCard', 'JCB', 'Maestro', 'VISA');
     }
     return paymentMethods;
 }
