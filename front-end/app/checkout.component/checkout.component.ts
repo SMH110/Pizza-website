@@ -49,12 +49,13 @@ import { validateOrderRequest } from '../../../shared/validation/place-order-req
 export class CheckoutComponent {
 
     isShowSpinner: boolean = false;
-    deliveryMethods: string[] = ['Delivery', 'Collection']
+    deliveryMethods: DeliveryMethod[] = ['Delivery', 'Collection']
+    paymentMethods: PaymentMethod[] = ['PayPal', 'Credit / Debit Card']
 
     buyer: Buyer = {} as any;
     deliveryAddress: Address = {} as any;
-    deliveryMethod: 'Delivery' | 'Collection' = 'Delivery';
-    paymentMethod: string;
+    deliveryMethod: DeliveryMethod = 'Delivery';
+    paymentMethod: PaymentMethod = 'PayPal';
     orderNotes: string;
 
     constructor(public basket: BasketService, private router: Router, private orderService: OrderService, private errorService: ErrorService) {
@@ -68,12 +69,12 @@ export class CheckoutComponent {
             deliveryAddress: this.deliveryAddress,
             orderItems: this.basket.items,
             deliveryMethod: this.deliveryMethod,
-            paymentMethod: 'paypal',
+            paymentMethod: this.paymentMethod,
             note: this.orderNotes,
             date: new Date()
         };
 
-        let validationErrors = validateOrderRequest(orderDetail, ['paypal']);
+        let validationErrors = validateOrderRequest(orderDetail, this.paymentMethods);
         if (validationErrors.length > 0) {
             this.errorService.displayErrors(validationErrors);
             return;

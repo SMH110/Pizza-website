@@ -107,6 +107,7 @@ export class OrdersComponent implements OnInit {
 }
 
 interface OrderViewModel extends Order {
+    _id?: string;
     isExpanded?: boolean;
 }
 

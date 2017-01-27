@@ -20,8 +20,8 @@ interface PlaceOrderRequest {
     buyer: Buyer;
     deliveryAddress?: Address;
     orderItems: BasketItem[];
-    deliveryMethod: 'Collection' | 'Delivery';
-    paymentMethod: string;
+    deliveryMethod: DeliveryMethod;
+    paymentMethod: PaymentMethod;
     note: string | null
 }
 
@@ -57,3 +57,11 @@ interface AuthRequest {
 interface AuthResponse {
     token: string;
 }
+
+interface PaymentRedirectDetails {
+    url: string;
+    isFullPageRedirect: boolean;
+}
+
+type DeliveryMethod = 'Collection' | 'Delivery';
+type PaymentMethod = 'PayPal' | 'Credit / Debit Card';

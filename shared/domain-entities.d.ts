@@ -2,14 +2,15 @@
 // They will move over to the back-end when we start using DTOs for the Admin side.
 
 interface Order {
-    _id?: any;
     buyer: Buyer;
     deliveryAddress: Address;
+    billingAddress: Address;
     orderItems: Array<OrderLineItem>;
-    deliveryMethod: 'Collection' | 'Delivery';
+    deliveryMethod: DeliveryMethod;
     date: Date;
-    paymentMethod: string;
+    paymentMethod: PaymentMethod;
     paymentId: string;
+    paymentFeedback: any[];
     total: number;
     discount: number;
     totalPayment: number;

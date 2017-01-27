@@ -28,7 +28,7 @@
                 </div>
             </div>
 
-            <div class="delivery-method">
+            <div class="form-group row delivery-method">
                 <div class="radio" *ngFor="let method of deliveryMethods">
                     <label>
                         <input type="radio" name="deliveryMethod" [(ngModel)]="deliveryMethod" [value]="method"> {{method}}
@@ -67,6 +67,14 @@
                 <label for="order_notes" class="col-sm-2 control-label">Order Notes</label>
                 <div class="col-sm-10">
                     <textarea class="form-control" rows="3" id="order_notes" [(ngModel)]="orderNotes"></textarea>
+                </div>
+            </div>
+
+            <div class="form-group row payment-method">
+                <div class="radio" *ngFor="let method of paymentMethods">
+                    <label>
+                        <input [id]="method" type="radio" name="paymentMethod" [(ngModel)]="paymentMethod" [value]="method"> {{method}}
+                    </label>
                 </div>
             </div>
             <hr>

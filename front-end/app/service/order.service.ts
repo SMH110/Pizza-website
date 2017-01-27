@@ -8,7 +8,7 @@ export class OrderService {
     }
 
     placeOrder(order: PlaceOrderRequest) {
-        return this.http.post('/api/order/place-order', order).map(x => x.json() as PaymentRequestDetails);
+        return this.http.post('/api/order/place-order', order).map(x => x.json() as PaymentRedirectDetails);
     }
 
     getOrders() {

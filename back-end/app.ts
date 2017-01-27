@@ -6,6 +6,7 @@ import * as bodyParser from 'body-parser';
 import * as path from 'path';
 import * as passport from 'passport';
 import { initialisePayPalEndpoints } from './payment-gateways/paypal';
+import { initialiseBarclaysEPDQEndpoints } from './payment-gateways/barclays-epdq';
 
 import './config/passport.config';
 
@@ -43,6 +44,7 @@ app.use(nocache(), clientSide);
 
 // Register Payment Gateways
 initialisePayPalEndpoints(app);
+initialiseBarclaysEPDQEndpoints(app);
 
 const port = process.env.PORT;
 app.listen(port, () => { console.log(`Listening on port ${port}`) });
