@@ -10,7 +10,8 @@
                             <td><span [style.color]='order.status==="Outstanding" ? "#ED7118" : order.status==="Awaiting Payment" ? "#FF0000" : "#0EA603" '>{{order.status}}</span></td>
                             <td>{{order.date | date:"medium"}}</td>
                             <td>{{order.buyer.firstName}} {{order.buyer.lastName}}</td>
-                            <td>{{order.deliveryAddress ? formatAddress(order.deliveryAddress) : 'COLLECTION'}}</td>
+                            <td>
+                                <a *ngIf="order.deliveryAddress" [href]="navigateToGoogleMap(order.deliveryAddress)" target="_blank">{{formatAddress(order.deliveryAddress)}}</a> <span *ngIf="!order.deliveryAddress">COLLECTION</span></td>
                             <td>£{{order.totalPayment | number:'1.2-2' }} ({{order.paymentMethod}})</td>
                             <td><button class="btn btn-default" (click)='toggleIsExpanded(order)'>{{ toggleIsExpandedButtonName(order) }}</button></td>
                         </tr>

@@ -104,6 +104,10 @@ export class OrdersComponent implements OnInit {
             address.postcode
         ].filter(x => !!x).join(', ');
     }
+
+    navigateToGoogleMap(address: Address): string {
+        return `http://maps.google.com/maps?&q=${encodeURIComponent(this.formatAddress(address) + ', GB')}&z=16`
+    }
 }
 
 interface OrderViewModel extends Order {
