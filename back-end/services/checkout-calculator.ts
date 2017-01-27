@@ -19,6 +19,7 @@ export function calculateOrderDetails(orderRequest: PlaceOrderRequest): Calculat
         orderTotals.orderLineItems.push({
             name: item.name,
             version: item.version || null,
+            tags: catalogItem.tags,
             price: typeof catalogItem.price === 'number' ? catalogItem.price : catalogItem.price[item.version],
             quantity: item.quantity,
             imageName: catalogItem.imageName,

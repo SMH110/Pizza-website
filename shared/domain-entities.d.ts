@@ -26,4 +26,5 @@ interface OrderLineItem {
     version: string;
     imageName: string;
     description: string;
+    tags: string[],
 }

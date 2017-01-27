@@ -1,6 +1,7 @@
 interface Item {
     name: string;
     imageName: string;
+    tags: string[];
 }
 
 interface Pizza extends Item {
@@ -29,6 +30,7 @@ interface BasketItem {
     name: string;
     quantity: number;
     version?: string;
+    tags?: string[];
 }
 
 interface Buyer {
