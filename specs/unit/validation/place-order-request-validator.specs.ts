@@ -1,7 +1,8 @@
 import { expect } from 'chai';
 import { validateOrderRequest, PlaceOrderRequestValidationObject } from '../../../shared/validation/place-order-request-validator';
 
-const PAYMENT_METHODS: PaymentMethod[] = ['PayPal', 'Credit / Debit Card'];
+const PAYMENT_METHODS: PaymentMethod[] = ['PayPal', 'MasterCard', 'JCB', 'Maestro', 'VISA'];
+const DELIVERY_METHODS: DeliveryMethod[] = ['Collection', 'Delivery'];
 
 describe('Place Order Request Validator', () => {
     it('The valid test data orders are always valid', () => {
@@ -166,63 +167,25 @@ describe('Place Order Request Validator', () => {
 });
 
 
-
-
-
 // HELPER METHODS
 function createValidOrders() {
-    return [
-        createValidCollectionPayPalOrder(),
-        createValidDeliveryPayPalOrder(),
-        createValidCollectionCreditDebitCardOrder(),
-        createValidDeliveryCreditDebitCardOrder()
-    ];
+    let orders = [];
+    for (let deliveryMethod of DELIVERY_METHODS) {
+        for (let paymentMethod of PAYMENT_METHODS) {
+            orders.push(createValidOrder(deliveryMethod, paymentMethod));
+        }
+    }
+    return orders;
 }
 
-function createValidCollectionPayPalOrder(): PlaceOrderRequestValidationObject {
+function createValidOrder(deliveryMethod: DeliveryMethod, paymentMethod: PaymentMethod): PlaceOrderRequestValidationObject {
     return {
         buyer: createValidBuyer(),
         date: new Date(2017, 0, 24, 20, 30, 0),
-        deliveryAddress: null,
+        deliveryAddress: deliveryMethod === 'Collection' ? createValidDeliveryAddress() : null,
         deliveryMethod: 'Collection',
         orderItems: createValidOrderItems(),
-        paymentMethod: 'PayPal',
-        note: null
-    };
-}
-
-function createValidDeliveryPayPalOrder(): PlaceOrderRequestValidationObject {
-    return {
-        buyer: createValidBuyer(),
-        date: new Date(2017, 0, 24, 20, 30, 0),
-        deliveryAddress: createValidDeliveryAddress(),
-        deliveryMethod: 'Delivery',
-        orderItems: createValidOrderItems(),
-        paymentMethod: 'PayPal',
-        note: null
-    };
-}
-
-function createValidCollectionCreditDebitCardOrder(): PlaceOrderRequestValidationObject {
-    return {
-        buyer: createValidBuyer(),
-        date: new Date(2017, 0, 24, 20, 30, 0),
-        deliveryAddress: null,
-        deliveryMethod: 'Collection',
-        orderItems: createValidOrderItems(),
-        paymentMethod: 'Credit / Debit Card',
-        note: null
-    };
-}
-
-function createValidDeliveryCreditDebitCardOrder(): PlaceOrderRequestValidationObject {
-    return {
-        buyer: createValidBuyer(),
-        date: new Date(2017, 0, 24, 20, 30, 0),
-        deliveryAddress: createValidDeliveryAddress(),
-        deliveryMethod: 'Delivery',
-        orderItems: createValidOrderItems(),
-        paymentMethod: 'Credit / Debit Card',
+        paymentMethod: paymentMethod,
         note: null
     };
 }

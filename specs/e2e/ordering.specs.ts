@@ -36,7 +36,7 @@ describe("E2E Tests", () => {
         await element(by.id('delivery_postcode')).sendKeys('CR72GB');
 
         // Select PayPal and place the order.
-        await element(by.id('PayPal')).click();
+        await whenVisible(by.id('PayPal'), paypalOption => paypalOption.click());
         await element(by.buttonText('Order Now')).click();
 
         // Wait for PayPal to load
@@ -62,7 +62,7 @@ describe("E2E Tests", () => {
         await browser.wait(EC.visibilityOf(orderSuccess), UI_READY_TIMEOUT);
     });
 
-    it("I can add a pizza, side and drink to the basket and check out using Credit/Debit Card", async () => {
+    it("I can add a pizza, side and drink to the basket and check out using Barclays ePDQ", async () => {
         await browser.get('/');
 
         // Add a pizza
@@ -90,13 +90,12 @@ describe("E2E Tests", () => {
         await element(by.id('delivery_postcode')).sendKeys('CR72GB');
 
         // Select Credit / Debit Card and place the order.
-        await element(by.id('Credit / Debit Card')).click();
+        await whenVisible(by.id('VISA'), visaOption => visaOption.click());
         await element(by.buttonText('Order Now')).click();
 
         // Wait for PayPal to load
         await urlShouldBecome(url => /mdepayments\.epdq\.co\.uk/.test(url));
 
-        await whenVisible(by.name('VISA_brand'), visaLogo => visaLogo.click());
         await whenVisible(by.id('Ecom_Payment_Card_Number'), cardNumber => cardNumber.sendKeys('4111111111111111'));
         await element(by.id('Ecom_Payment_Card_ExpDate_Month')).sendKeys('01');
         await element(by.id('Ecom_Payment_Card_ExpDate_Year')).sendKeys('2022');

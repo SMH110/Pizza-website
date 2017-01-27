@@ -10,14 +10,33 @@ export default class BarclaysEPDQ implements PaymentGateway {
     constructor(private baseReturnAddress: string) { }
 
     public async createPaymentRedirect(order: PersistedOrder): Promise<PaymentRedirectDetails> {
+        await addCardFeeToOrder(order);
+
         let redirectParameters = getPaymentRedirectParameters(order, this.baseReturnAddress);
         let redirectUrl = `https://mdepayments.epdq.co.uk/ncol/${process.env.BARCLAYS_EPDQ_ENVIRONMENT_NAME}/orderstandard_utf8.asp?${stringifyQS(redirectParameters)}`;
         console.log(`Barclays ePDQ redirect URL: ${redirectUrl}`);
+
         return {
             url: redirectUrl,
             isFullPageRedirect: true
         };
     }
+}
+
+async function addCardFeeToOrder(order: PersistedOrder) {
+    console.log(`Barclays ePDQ adding fee to order: ${order._id}`);
+    order.orderItems.push({
+        name: 'Credit / Debit card fee',
+        quantity: 1,
+        version: null,
+        description: null,
+        imageName: null,
+        price: 0.5
+    });
+    order.totalPayment = Math.round((order.totalPayment + 0.5) * 100) / 100;
+    order.total = Math.round((order.total + 0.5) * 100) / 100;
+    await order.save();
+    console.log(`Barclays ePDQ successfully added card fee to order: ${order._id}`);
 }
 
 export function initialiseBarclaysEPDQEndpoints(application: Application) {
@@ -76,6 +95,9 @@ function getPaymentRedirectParameters(order: PersistedOrder, baseReturnAddress: 
         ORDERID: order._id.toString(),
         AMOUNT: (order.totalPayment * 100).toString(),
         CURRENCY: "GBP",
+        LANGUAGE: 'en_GB',
+        PM: 'CreditCard',
+        BRAND: order.paymentMethod,
         CN: `${order.buyer.firstName} ${order.buyer.lastName}`,
         EMAIL: order.buyer.email,
         OWNERADDRESS: [order.billingAddress.line1, order.billingAddress.line2].filter(x => !!x).join(', '),
@@ -83,7 +105,6 @@ function getPaymentRedirectParameters(order: PersistedOrder, baseReturnAddress: 
         OWNERTOWN: order.billingAddress.town,
         OWNERCTY: "United Kingdom",
         OWNERTELNO: order.buyer.phone,
-        LANGUAGE: 'en_GB',
         ACCEPTURL: `${baseReturnAddress}/barclays-epdq/feedback`,
         DECLINEURL: `${baseReturnAddress}/barclays-epdq/feedback`,
         EXCEPTIONURL: `${baseReturnAddress}/barclays-epdq/feedback`,

@@ -91,6 +91,7 @@ export function initialisePayPalEndpoints(application: Application) {
             }
             order.status = "Outstanding";
             order.paymentFeedback.push(response);
+            await order.save();
             console.log(`Updated order for ${paymentId}`);
             res.redirect('/order/success');
         } catch (error) {
