@@ -10,7 +10,7 @@
                             <td class="status"><span [style.color]='order.status==="Outstanding" ? "#ED7118" : order.status==="Awaiting Payment" ? "#FF0000" : "#0EA603" '>{{order.status}}</span></td>
                             <td class="date">{{order.date | date:"medium"}}</td>
                             <td class="name">{{order.buyer.firstName}} {{order.buyer.lastName}}</td>
-                            <td>
+                            <td class="address">
                                 <a *ngIf="order.deliveryAddress" [href]="navigateToGoogleMap(order.deliveryAddress)" target="_blank">{{formatAddress(order.deliveryAddress)}}</a>
                                 <span *ngIf="!order.deliveryAddress">COLLECTION</span>
                             </td>

@@ -83,7 +83,7 @@ describe("E2E Tests", () => {
         // Test order summary as expected
         expect(await orderSummary.element(by.className('status')).getText()).to.equal('Outstanding');
         expect(await orderSummary.element(by.className('address')).getText()).to.equal('1 The Street, Foo Town, CR7 2GB');
-        expect(await orderSummary.element(by.className('total-payment')).getText()).to.equal('£22.41 (VISA)');
+        expect(await orderSummary.element(by.className('total-payment')).getText()).to.equal('£21.91 (PayPal)');
 
         // Test order details are visible as expected
         let orderId = await orderSummary.getAttribute('id');
@@ -96,6 +96,15 @@ describe("E2E Tests", () => {
         expect(await orderItems[0].element(by.className('name')).getText()).to.equal('Neapolitan Pizza - large');
         expect(await orderItems[0].element(by.className('quantity')).getText()).to.equal('1');
         expect(await orderItems[0].element(by.className('price')).getText()).to.equal('£16.99');
+
+
+        // Test collapse button
+        await orderSummary.element(by.buttonText('Collapse')).click();
+        expect(await element(by.id(`details_${orderId}`)).isPresent()).to.be.false;
+
+        // Test expand button
+        await orderSummary.element(by.buttonText('Expand')).click();
+        expect(await element(by.id(`details_${orderId}`)).isDisplayed()).to.be.true;
     });
 
     it("I can add a pizza, side and drink to the basket and check out using Barclays ePDQ", async () => {
@@ -182,11 +191,11 @@ describe("E2E Tests", () => {
 
         // Test collapse button
         await orderSummary.element(by.buttonText('Collapse')).click();
-        expect(await orderDetails.isPresent()).to.be.false;
+        expect(await element(by.id(`details_${orderId}`)).isPresent()).to.be.false;
 
         // Test expand button
         await orderSummary.element(by.buttonText('Expand')).click();
-        expect(await orderDetails.isDisplayed()).to.be.true;
+        expect(await element(by.id(`details_${orderId}`)).isDisplayed()).to.be.true;
     });
 });
 
