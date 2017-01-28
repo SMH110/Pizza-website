@@ -6,20 +6,22 @@
             <table class="table table-bordered">
                 <tbody>
                     <ng-container *ngFor="let order of orders">
-                        <tr>
-                            <td><span [style.color]='order.status==="Outstanding" ? "#ED7118" : order.status==="Awaiting Payment" ? "#FF0000" : "#0EA603" '>{{order.status}}</span></td>
-                            <td>{{order.date | date:"medium"}}</td>
-                            <td>{{order.buyer.firstName}} {{order.buyer.lastName}}</td>
+                        <tr class="order-summary" [id]="order._id">
+                            <td class="status"><span [style.color]='order.status==="Outstanding" ? "#ED7118" : order.status==="Awaiting Payment" ? "#FF0000" : "#0EA603" '>{{order.status}}</span></td>
+                            <td class="date">{{order.date | date:"medium"}}</td>
+                            <td class="name">{{order.buyer.firstName}} {{order.buyer.lastName}}</td>
                             <td>
-                                <a *ngIf="order.deliveryAddress" [href]="navigateToGoogleMap(order.deliveryAddress)" target="_blank">{{formatAddress(order.deliveryAddress)}}</a> <span *ngIf="!order.deliveryAddress">COLLECTION</span></td>
-                            <td>£{{order.totalPayment | number:'1.2-2' }} ({{order.paymentMethod}})</td>
+                                <a *ngIf="order.deliveryAddress" [href]="navigateToGoogleMap(order.deliveryAddress)" target="_blank">{{formatAddress(order.deliveryAddress)}}</a>
+                                <span *ngIf="!order.deliveryAddress">COLLECTION</span>
+                            </td>
+                            <td class="total-payment">£{{order.totalPayment | number:'1.2-2' }} ({{order.paymentMethod}})</td>
                             <td><button class="btn btn-default" (click)='toggleIsExpanded(order)'>{{ toggleIsExpandedButtonName(order) }}</button></td>
                         </tr>
-                        <tr *ngIf='getExpandedStatus(order)' class="more-details">
+                        <tr *ngIf='getExpandedStatus(order)' class="more-details" [id]="'details_' + order._id">
                             <td colspan="6">
-                                <strong>E-mail: </strong> {{order.buyer.email | lowercase}} <br>
-                                <strong>Payment Reference: </strong> {{order.paymentId}} <br>
-                                <div *ngIf='order.note'><strong>Note: </strong> {{order.note}} <br></div> <br>
+                                <p><strong>E-mail:</strong> <span class="email">{{order.buyer.email | lowercase}}</span></p>
+                                <p><strong>Payment Reference:</strong> <span class="payment-reference">{{order.paymentId}}</span></p>
+                                <p *ngIf="order.note"><strong>Order Notes:</strong> <span class="order-notes">{{order.note}}</span></p>
                                 <table class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
@@ -29,22 +31,22 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor='let item of order.orderItems'>
-                                            <td>{{item.name}}{{item.version ? ' - ' : ''}}{{item.version}}</td>
-                                            <td>{{item.quantity}}</td>
-                                            <td>£{{item.price | number:'1.2-2'}}</td>
+                                        <tr *ngFor='let item of order.orderItems' class="order-item">
+                                            <td class="name">{{item.name}}{{item.version ? ' - ' : ''}}{{item.version}}</td>
+                                            <td class="quantity">{{item.quantity}}</td>
+                                            <td class="price">£{{item.price | number:'1.2-2'}}</td>
                                         </tr>
                                         <tr>
                                             <th colspan="2">Total before discount</th>
-                                            <td>£{{order.total | number:'1.2-2'}}</td>
+                                            <td class="order-total">£{{order.total | number:'1.2-2'}}</td>
                                         </tr>
                                         <tr>
                                             <th colspan="2">Discount amount</th>
-                                            <td>£{{order.discount | number:'1.2-2'}}</td>
+                                            <td class="discount">£{{order.discount | number:'1.2-2'}}</td>
                                         </tr>
                                         <tr>
                                             <th colspan="2">Total paypal</th>
-                                            <td>£{{order.totalPayment | number:'1.2-2'}}</td>
+                                            <td class="total-payable">£{{order.totalPayment | number:'1.2-2'}}</td>
                                         </tr>
                                     </tbody>
                                 </table>
