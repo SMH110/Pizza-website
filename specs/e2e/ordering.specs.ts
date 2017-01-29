@@ -100,11 +100,11 @@ describe("E2E Tests", () => {
 
         // Test collapse button
         await orderSummary.element(by.buttonText('Collapse')).click();
-        expect(await element(by.id(`details_${orderId}`)).isPresent()).to.be.false;
+        expect(await orderDetails.isPresent()).to.be.false;
 
         // Test expand button
         await orderSummary.element(by.buttonText('Expand')).click();
-        expect(await element(by.id(`details_${orderId}`)).isDisplayed()).to.be.true;
+        expect(await orderDetails.isDisplayed()).to.be.true;
     });
 
     it("I can add a pizza, side and drink to the basket and check out using Barclays ePDQ", async () => {
@@ -191,11 +191,11 @@ describe("E2E Tests", () => {
 
         // Test collapse button
         await orderSummary.element(by.buttonText('Collapse')).click();
-        expect(await element(by.id(`details_${orderId}`)).isPresent()).to.be.false;
+        expect(await orderDetails.isPresent()).to.be.false;
 
         // Test expand button
         await orderSummary.element(by.buttonText('Expand')).click();
-        expect(await element(by.id(`details_${orderId}`)).isDisplayed()).to.be.true;
+        expect(await orderDetails.isDisplayed()).to.be.true;
     });
 });
 

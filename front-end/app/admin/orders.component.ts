@@ -34,7 +34,7 @@ export class OrdersComponent implements OnInit {
 
     ngOnInit() {
         this.refreshOrders();
-        setInterval(this.refreshOrders.bind(this), 5000);
+        setInterval(this.refreshOrders.bind(this), 60000);
     }
 
     markAsComplete(id: string) {
