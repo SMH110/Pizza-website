@@ -14,7 +14,8 @@ export class BasketService {
                 price: typeof itemToAdd.price === 'number' ? itemToAdd.price : itemToAdd.price[selectedVersion],
                 imageUrl: itemToAdd.imageName,
                 quantity: 1,
-                version: selectedVersion
+                version: selectedVersion,
+                tags: itemToAdd.tags
             });
         }
     }
@@ -45,7 +46,7 @@ export class BasketService {
     getDiscount(): number {
         return discountCalculator(this.getTotalPrice());
     }
-    getTotalPayable():number{
+    getTotalPayable(): number {
         return this.getTotalPrice() - this.getDiscount();
     }
     getExistingItem(itemToAdd: ItemToAdd, selectedVersion?: string): BasketItemViewModel {
