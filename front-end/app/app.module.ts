@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
@@ -33,6 +33,8 @@ import { ItemNotificationService } from './service/item-notification.service';
 
 // Guards
 import { CheckoutGuard } from './guards/checkout.guard';
+
+import ErrorReporter from './error-reporter';
 
 import Routes from './routes';
 
@@ -69,7 +71,10 @@ import Routes from './routes';
     ItemNotificationService,
 
     // Guards
-    CheckoutGuard
+    CheckoutGuard,
+
+    // Global error handler
+    { provide: ErrorHandler, useClass: ErrorReporter }
   ],
   bootstrap: [AppComponent]
 })
