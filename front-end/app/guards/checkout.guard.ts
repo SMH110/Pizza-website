@@ -11,7 +11,7 @@ export class CheckoutGuard implements CanActivate {
 
     canActivate(): boolean {
         if (this.basket.getTotalQuantity() > 0) return true;
-        this.router.navigate(["/pizza"])
+        this.router.navigate(["/basket"])
         return false;
     }
 }
