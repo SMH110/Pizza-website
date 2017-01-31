@@ -1,0 +1,117 @@
+<body style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:14px;line-height:1.42857143;color:#333;background-color:#fff;">
+    <div style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;display:block;padding-right:15px;padding-left:15px;margin-right:auto;margin-left:auto;max-width:960px;">
+        <div class="row" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;display:block;margin-right:-15px;margin-left:-15px;">
+            <div class="col-md-8 col-sm-12" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;display:block;position:relative;min-height:1px;padding-right:15px;padding-left:15px;">
+                <% if (isStoreCopy) { %>
+                    <div class="email-header" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;background-color:#5b7da0;color:#fff;min-height:150px;display:table;width:100%;padding-left:50px;margin-bottom:50px;">
+                        <h2 style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;display:table-cell;vertical-align:middle;">New customer order</h2>
+                    </div>
+                    <div class="email-body" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;display:block;padding-top:0;padding-bottom:0;padding-right:50px;padding-left:50px;">
+                        <p style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;line-height:12px;">You have received an order from
+                            <%= order.buyer.firstName%>
+                                <%= order.buyer.lastName%>. The order is as follows:</p>
+                        <% } else { %>
+                            Dear
+                            <%= order.buyer.firstName %>
+                                <%= order.buyer.lastName%>,<br> Thank you for choosing Pizza Godefather. We want to let you know that your order has been successfully placed and will be processed as soon as possible.
+                                    <h4 style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;color:#5b7da0;font-weight:bold;margin-top:20px;">Your Order Details</h4>
+                                    <%} %>
+                                        <table class="table table-striped table-bordered" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;border-spacing:0;border-collapse:collapse;width:100%;max-width:100%;margin-bottom:20px;border-width:1px;border-style:solid;border-color:#ddd;">
+                                            <thead style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;">
+                                                <tr style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;">
+                                                    <th style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;text-align:left;padding-top:8px;padding-bottom:8px;padding-right:8px;padding-left:8px;line-height:1.42857143;border-top-width:1px;border-top-style:solid;border-top-color:#ddd;vertical-align:bottom;border-bottom-style:solid;border-bottom-color:#ddd;border-width:1px;border-style:solid;border-color:#ddd;border-bottom-width:2px;">Name</th>
+                                                    <th style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;text-align:left;padding-top:8px;padding-bottom:8px;padding-right:8px;padding-left:8px;line-height:1.42857143;border-top-width:1px;border-top-style:solid;border-top-color:#ddd;vertical-align:bottom;border-bottom-style:solid;border-bottom-color:#ddd;border-width:1px;border-style:solid;border-color:#ddd;border-bottom-width:2px;">Quantity</th>
+                                                    <th style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;text-align:left;padding-top:8px;padding-bottom:8px;padding-right:8px;padding-left:8px;line-height:1.42857143;border-top-width:1px;border-top-style:solid;border-top-color:#ddd;vertical-align:bottom;border-bottom-style:solid;border-bottom-color:#ddd;border-width:1px;border-style:solid;border-color:#ddd;border-bottom-width:2px;">Price</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;">
+                                                <% for ( var item of order.orderItems){ %>
+                                                    <tr>
+                                                        <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;padding-top:8px;padding-bottom:8px;padding-right:8px;padding-left:8px;line-height:1.42857143;vertical-align:top;border-top-width:1px;border-top-style:solid;border-top-color:#ddd;border-width:1px;border-style:solid;border-color:#ddd;">
+                                                            <%= item.name %>
+                                                                <% if (item.version) { %>
+                                                                    -
+                                                                    <%= item.version %>
+                                                                        <%} %>
+
+                                                                            <% if (item.toppings) { %>
+                                                                                <br> Additional Toppings:
+                                                                                <span class="toppings" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-size:0.9em;">
+                                                                    <%= item.toppings.join(",") %>
+                                                                        <%} %>
+                                                                </span>
+                                                        </td>
+                                                        <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;padding-top:8px;padding-bottom:8px;padding-right:8px;padding-left:8px;line-height:1.42857143;vertical-align:top;border-top-width:1px;border-top-style:solid;border-top-color:#ddd;border-width:1px;border-style:solid;border-color:#ddd;">
+                                                            <%= item.quantity %>
+                                                        </td>
+                                                        <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;padding-top:8px;padding-bottom:8px;padding-right:8px;padding-left:8px;line-height:1.42857143;vertical-align:top;border-top-width:1px;border-top-style:solid;border-top-color:#ddd;border-width:1px;border-style:solid;border-color:#ddd;">
+                                                            £
+                                                            <%= item.price %>
+                                                        </td>
+                                                    </tr>
+                                                    <% } %>
+                                                        <tr style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;">
+                                                            <th colspan="2" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;text-align:left;padding-top:8px;padding-bottom:8px;padding-right:8px;padding-left:8px;line-height:1.42857143;vertical-align:top;border-top-width:1px;border-top-style:solid;border-top-color:#ddd;border-width:1px;border-style:solid;border-color:#ddd;">Subtotal</th>
+                                                            <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;padding-top:8px;padding-bottom:8px;padding-right:8px;padding-left:8px;line-height:1.42857143;vertical-align:top;border-top-width:1px;border-top-style:solid;border-top-color:#ddd;border-width:1px;border-style:solid;border-color:#ddd;">
+                                                                £
+                                                                <%= order.total %>
+                                                            </td>
+                                                        </tr>
+                                                        <tr style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;">
+                                                            <th colspan="2" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;text-align:left;padding-top:8px;padding-bottom:8px;padding-right:8px;padding-left:8px;line-height:1.42857143;vertical-align:top;border-top-width:1px;border-top-style:solid;border-top-color:#ddd;border-width:1px;border-style:solid;border-color:#ddd;">Collection/Delivery</th>
+                                                            <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;padding-top:8px;padding-bottom:8px;padding-right:8px;padding-left:8px;line-height:1.42857143;vertical-align:top;border-top-width:1px;border-top-style:solid;border-top-color:#ddd;border-width:1px;border-style:solid;border-color:#ddd;">
+                                                                <%= order.deliveryMethod %>
+                                                            </td>
+                                                        </tr>
+                                                        <tr style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;">
+                                                            <th colspan="2" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;text-align:left;padding-top:8px;padding-bottom:8px;padding-right:8px;padding-left:8px;line-height:1.42857143;vertical-align:top;border-top-width:1px;border-top-style:solid;border-top-color:#ddd;border-width:1px;border-style:solid;border-color:#ddd;">Payment Method</th>
+                                                            <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;padding-top:8px;padding-bottom:8px;padding-right:8px;padding-left:8px;line-height:1.42857143;vertical-align:top;border-top-width:1px;border-top-style:solid;border-top-color:#ddd;border-width:1px;border-style:solid;border-color:#ddd;">
+                                                                <%= order.paymentMethod %>
+                                                            </td>
+                                                        </tr>
+                                                        <tr style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;">
+                                                            <th colspan="2" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;text-align:left;padding-top:8px;padding-bottom:8px;padding-right:8px;padding-left:8px;line-height:1.42857143;vertical-align:top;border-top-width:1px;border-top-style:solid;border-top-color:#ddd;border-width:1px;border-style:solid;border-color:#ddd;">Total</th>
+                                                            <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;padding-top:8px;padding-bottom:8px;padding-right:8px;padding-left:8px;line-height:1.42857143;vertical-align:top;border-top-width:1px;border-top-style:solid;border-top-color:#ddd;border-width:1px;border-style:solid;border-color:#ddd;">
+                                                                £
+                                                                <%= order.totalPayment %>
+                                                            </td>
+                                                        </tr>
+                                            </tbody>
+                                        </table>
+                                        <% if (isStoreCopy) { %>
+                                            <h4 style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;color:#5b7da0;font-weight:bold;margin-top:20px;">Customer details</h4>
+                                            <ul style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;padding-left:60px;">
+                                                <li style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;"><strong>Email:</strong>
+                                                    <%= order.buyer.email %>
+                                                </li>
+                                                <li style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;"><strong>Tel:</strong>
+                                                    <%= order.buyer.phone %>
+                                                </li>
+                                            </ul>
+                                            <h4 style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;color:#5b7da0;font-weight:bold;margin-top:20px;">Delivery Address</h4>
+                                            <% if (order.deliveryAddress){ %>
+                                                <p style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;line-height:12px;">
+                                                    <%= order.buyer.firstName %>
+                                                        <%= order.buyer.lastName %>
+                                                </p>
+                                                <p style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;line-height:12px;">
+                                                    <%= order.deliveryAddress.line1 %> <br>
+                                                        <%= order.deliveryAddress.line2 %>
+                                                </p>
+                                                <p style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;line-height:12px;">
+                                                    <%= order.deliveryAddress.town %>
+                                                </p>
+                                                <p style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;line-height:12px;">
+                                                    <%= order.deliveryAddress.postcode %>
+                                                </p>
+                                                <% } %>
+                                                    <% }else{ %>
+                                                        <p style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;line-height:18px;">If you have any questions about your order, call STORE NUMBER. Thank you and visit us again soon at: STORE URL</p>
+                                                        <% } %>
+
+                    </div>
+            </div>
+        </div>
+</body>
+
+</html>

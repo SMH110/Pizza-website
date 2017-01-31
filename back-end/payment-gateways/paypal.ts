@@ -2,7 +2,7 @@ import * as rp from 'request-promise';
 import { Application } from 'express';
 import Order, { PersistedOrder } from '../models/orders.model';
 import { PaymentGateway } from './interfaces';
-
+import { confirmationSender } from '../services/confirmation-sender'
 export const IsPayPalEnabled = process.env.PAYPAL_ENABLED === "TRUE";
 
 export default class PayPal implements PaymentGateway {
@@ -93,7 +93,16 @@ export function initialisePayPalEndpoints(application: Application) {
             order.paymentFeedback.push(response);
             await order.save();
             console.log(`Updated order for ${paymentId}`);
-            res.redirect('/order/success');
+            try {
+                await confirmationSender(order, true);
+                console.log(`Sent confirmation email to the Store`);
+                await confirmationSender(order, false);
+                console.log(`Sent confirmation email to ${order.buyer.email}`);
+            } catch (error) {
+                console.error(`Failed sending confirmation email, Error: ${error}`);
+            } finally {
+                res.redirect('/order/success');
+            }
         } catch (error) {
             console.error('Error in /paypal/execute', error);
             return res.redirect('/order/failure');

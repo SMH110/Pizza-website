@@ -237,8 +237,8 @@ function createValidOrder(deliveryMethod: DeliveryMethod, paymentMethod: Payment
     return {
         buyer: createValidBuyer(),
         date: new Date(2017, 0, 24, 20, 30, 0),
-        deliveryAddress: deliveryMethod === 'Collection' ? createValidDeliveryAddress() : null,
-        deliveryMethod: 'Collection',
+        deliveryAddress: deliveryMethod === 'Delivery' ? createValidDeliveryAddress() : null,
+        deliveryMethod: deliveryMethod,
         orderItems: createValidOrderItems(),
         paymentMethod: paymentMethod,
         note: null

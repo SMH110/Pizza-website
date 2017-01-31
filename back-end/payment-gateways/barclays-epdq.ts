@@ -3,6 +3,7 @@ import { stringify as stringifyQS } from 'querystring';
 import { Application } from 'express';
 import Order, { PersistedOrder } from '../models/orders.model';
 import { PaymentGateway } from './interfaces';
+import { confirmationSender } from '../services/confirmation-sender'
 
 export const IsBarclaysEPDQEnabled = process.env.BARCLAYS_EPDQ_ENABLED === "TRUE";
 
@@ -74,7 +75,17 @@ export function initialiseBarclaysEPDQEndpoints(application: Application) {
                 order.status = 'Outstanding';
                 await order.save();
                 console.log(`Payment accepted for order. Order ${feedback.ORDERID} updated.`);
-                return res.redirect('/order/success');
+                try {
+                    await confirmationSender(order, true);
+                    console.log(`Sent confirmation email to the Store`);
+                    await confirmationSender(order, false);
+                    console.log(`Sent confirmation email to ${order.buyer.email}`);
+                } catch (error) {
+                    console.error(`Failed sending confirmation email, Error: ${error}`);
+                } finally {
+                    return res.redirect('/order/success');
+                }
+
             } else {
                 await order.save();
                 console.log(`Payment NOT accepted for order. Order ${feedback.ORDERID} updated.`);
