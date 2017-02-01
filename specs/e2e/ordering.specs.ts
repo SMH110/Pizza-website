@@ -197,6 +197,87 @@ describe("E2E Tests", () => {
         await orderSummary.element(by.buttonText('Expand')).click();
         expect(await orderDetails.isDisplayed()).to.be.true;
     });
+    
+    it('I can add a pizza, side and drink to the basket and check out using Cash', async () => {
+        await browser.get("/");
+
+        // Add a pizza
+        await addProduct('Neapolitan Pizza');
+
+        // Add a side
+        await element(by.linkText("Sides")).click();
+        await addProduct("Garlic bread");
+
+        //Add Drinks
+        await element(by.linkText("Drinks")).click();
+        await addProduct("Pepsi Max 330ml");
+
+        //Go to the basket and checkout
+        await element(by.partialLinkText("Basket")).click();
+        await whenVisible(by.className("next"), nextButton => nextButton.click());
+
+        // Enter personal details and continue
+        let firstName = `John ${getRandomString()}`;
+        let lastName = `Smith`;
+        await whenVisible(by.id("firstName"), firstNameInput => firstNameInput.sendKeys(firstName));
+        await element(by.id("lastName")).sendKeys(lastName);
+        await element(by.id("email")).sendKeys("john-smith@test.com");
+        await element(by.id("phone")).sendKeys("01234567890");
+        await element(by.id("delivery_address1")).sendKeys("1 The Street");
+        await element(by.id("delivery_town")).sendKeys("Foo Town");
+        await element(by.id("delivery_postcode")).sendKeys("CR7 2GB");
+        await element(by.id("order_notes")).sendKeys("Cash order test notes");
+
+        // Select Cash and place the order.
+        await whenAnyVisible(by.id("Cash"), cashOption => cashOption.click());
+        await element(by.buttonText("Order Now")).click();
+
+        // Ensure we are routed to /order/success
+        await urlShouldBecome(url => /\/order\/success/.test(url));
+
+        let orderSuccess = element(by.css(".order-success"));
+        await browser.wait(EC.visibilityOf(orderSuccess), UI_READY_TIMEOUT);
+
+        // Go to the Admin site
+        await browser.get("/admin/sign-in");
+        await waitForAngularToLoad();
+
+        // Log into Admin site
+        await whenAnyVisible(by.id("email"), email => email.sendKeys("test@test.com"));
+        await element(by.id("password")).sendKeys("test");
+        await element(by.buttonText("Sign in")).click();
+
+        // Test order details are visible as expected 
+        let fullName = `${firstName} ${lastName}`;
+        let orderSummary = await whenAnyVisible(by.className('order-summary'), orderSummaries =>
+            orderSummaries.filter(async (summary: ElementFinder) => await summary.element(by.className('name')).getText() === fullName).first());
+
+        // Test order summary as expected
+        expect(await orderSummary.element(by.className('status')).getText()).to.equal('Outstanding');
+        expect(await orderSummary.element(by.className('address')).getText()).to.equal('1 The Street, Foo Town, CR7 2GB');
+        expect(await orderSummary.element(by.className('total-payment')).getText()).to.equal('£21.91 (Cash)');
+
+        // Test order details are visible as expected
+        let orderId = await orderSummary.getAttribute('id');
+        let orderDetails = element(by.id(`details_${orderId}`));
+        expect(await orderDetails.isDisplayed()).to.be.true;
+        expect(await orderDetails.element(by.className('email')).getText()).to.equal('john-smith@test.com');
+        expect(await orderDetails.element(by.className('payment-reference')).getText()).to.be.equal('');
+        expect(await orderDetails.element(by.className('order-notes')).getText()).to.equal('Cash order test notes');
+        let orderItems = await element.all(by.css(`#details_${orderId} .order-item`));
+        expect(await orderItems[0].element(by.className('name')).getText()).to.equal('Neapolitan Pizza - large');
+        expect(await orderItems[0].element(by.className('quantity')).getText()).to.equal('1');
+        expect(await orderItems[0].element(by.className('price')).getText()).to.equal('£16.99');
+
+
+        // Test collapse button
+        await orderSummary.element(by.buttonText('Collapse')).click();
+        expect(await orderDetails.isPresent()).to.be.false;
+
+        // Test expand button
+        await orderSummary.element(by.buttonText('Expand')).click();
+        expect(await orderDetails.isDisplayed()).to.be.true;
+    });
 });
 
 async function addProduct(name: string) {

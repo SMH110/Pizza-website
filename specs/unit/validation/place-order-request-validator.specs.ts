@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { validateOrderRequest, PlaceOrderRequestValidationObject } from '../../../shared/validation/place-order-request-validator';
 
-const PAYMENT_METHODS: PaymentMethod[] = ['PayPal', 'MasterCard', 'JCB', 'Maestro', 'VISA'];
+const PAYMENT_METHODS: PaymentMethod[] = ['PayPal', 'MasterCard', 'JCB', 'Maestro', 'VISA', 'Cash'];
 const DELIVERY_METHODS: DeliveryMethod[] = ['Collection', 'Delivery'];
 
 describe('Place Order Request Validator', () => {
