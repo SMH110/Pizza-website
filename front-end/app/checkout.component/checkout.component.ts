@@ -84,7 +84,11 @@ export class CheckoutComponent {
         this.isShowSpinner = true
         this.orderService.placeOrder(orderDetail).subscribe(response => {
             this.basket.removeAll();
-            window.location.assign(response.url);
+            if (response.isFullPageRedirect) {
+                window.location.assign(response.url);
+            } else {
+                this.router.navigateByUrl(`${response.url}`);
+            }
         }, error => {
             if (error.status === 400) {
                 this.isShowSpinner = false;
