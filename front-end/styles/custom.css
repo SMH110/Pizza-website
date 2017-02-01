@@ -6,10 +6,8 @@
 }
 
 .logo {
-    width: 100%;
-    margin: 0 auto;
     color: #666;
-    text-align: center;
+    margin-left: 30px;
 }
 
 .logo h1 {
