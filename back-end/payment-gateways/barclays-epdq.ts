@@ -3,6 +3,7 @@ import { stringify as stringifyQS } from 'querystring';
 import { Application } from 'express';
 import Order, { PersistedOrder } from '../models/orders.model';
 import { PaymentGateway } from './interfaces';
+import { sendConfirmationEmails } from '../services/confirmation-sender'
 
 export const IsBarclaysEPDQEnabled = process.env.BARCLAYS_EPDQ_ENABLED === "TRUE";
 
@@ -74,7 +75,9 @@ export function initialiseBarclaysEPDQEndpoints(application: Application) {
                 order.status = 'Outstanding';
                 await order.save();
                 console.log(`Payment accepted for order. Order ${feedback.ORDERID} updated.`);
-                return res.redirect('/order/success');
+                res.redirect('/order/success');
+                sendConfirmationEmails(order);
+
             } else {
                 await order.save();
                 console.log(`Payment NOT accepted for order. Order ${feedback.ORDERID} updated.`);
