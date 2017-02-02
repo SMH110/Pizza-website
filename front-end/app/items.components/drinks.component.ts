@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import { ItemService } from './service/items.service';
-import { BasketService } from './service/basket.service';
-import { ItemNotificationService } from './service/item-notification.service';
+import { ItemService } from '../service/items.service';
+import { BasketService } from '../service/basket.service';
+import { ItemNotificationService } from '../service/item-notification.service';
 
 @Component({
     moduleId: module.id,

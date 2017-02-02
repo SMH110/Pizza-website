@@ -1,10 +1,10 @@
-import { PizzaComponent } from './pizza.component';
-import { SidesComponent } from './sides.component';
-import { DrinksComponent } from './drinks.component';
-import { AboutUsComponent } from './about-us.component';
-import { TermsAndConditionsComponent } from './terms-and-conditions.component';
-import { ContactUsComponent } from './contact-us.component';
-import { BasketComponent } from './basket.component';
+import { PizzaComponent } from './items.components/pizza.component';
+import { SidesComponent } from './items.components/sides.component';
+import { DrinksComponent } from './items.components/drinks.component';
+import { AboutUsComponent } from './footer.components/about-us.component';
+import { TermsAndConditionsComponent } from './footer.components/terms-and-conditions.component';
+import { ContactUsComponent } from './footer.components/contact-us.component';
+import { BasketComponent } from './basket.component/basket.component';
 import { CheckoutComponent } from './checkout.component/checkout.component';
 import { OrderSuccessComponent } from './notification.component/order-success.component';
 import { OrderFailureComponent } from './notification.component/order-failure.component';
