@@ -4,25 +4,46 @@ import { createTransport, Transporter } from "nodemailer";
 const SMTP_EMAIL = process.env.SMTP_EMAIL;
 const SMTP_PASSWORD = process.env.SMTP_PASSWORD;
 
-export async function confirmationSender(order: any, isStoreCopy: boolean) {
-    const transporter = createTransport({
-        host: "smtp-mail.outlook.com",
-        port: 587,
-        secure: false,
-        auth: {
-            user: SMTP_EMAIL,
-            pass: SMTP_PASSWORD
-        }
-    });
+const transporter = createTransport({
+    host: "smtp-mail.outlook.com",
+    port: 587,
+    secure: false,
+    auth: {
+        user: SMTP_EMAIL,
+        pass: SMTP_PASSWORD
+    }
+});
 
-    let emailTemplate = await renderEjsTemplate(__dirname + "/email-template.ejs", order, isStoreCopy);
+export async function sendConfirmationEmails(order: Order) {
+    try {
+        await sendConfirmationToStore(order);
+        console.log("Sent confirmation email to the Store");
+        await sendConfirmationToUser(order);
+        console.log(`Sent confirmation email to the ${order.buyer.email}`);
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+async function sendConfirmationToStore(order: Order) {
+    const storeEmailTemplate = await renderEjsTemplate(__dirname + "/email-template.ejs", order, true);
     const mailOptions = {
         from: `'Pizza Godfather' <${SMTP_EMAIL}>`,
-        to: isStoreCopy ? SMTP_EMAIL : order.buyer.email,
+        to: SMTP_EMAIL,
         subject: `New order - £${order.totalPayment} - ${order.buyer.firstName} ${order.buyer.lastName}`,
-        html: emailTemplate
-    }
+        html: storeEmailTemplate
+    };
+    return sendEmail(transporter, mailOptions);
+}
 
+async function sendConfirmationToUser(order: Order) {
+    const storeEmailTemplate = await renderEjsTemplate(__dirname + "/email-template.ejs", order, false);
+    const mailOptions = {
+        from: `'Pizza Godfather' <${SMTP_EMAIL}>`,
+        to: order.buyer.email,
+        subject: `New order - £${order.totalPayment} - ${order.buyer.firstName} ${order.buyer.lastName}`,
+        html: storeEmailTemplate
+    };
     return sendEmail(transporter, mailOptions);
 }
 
