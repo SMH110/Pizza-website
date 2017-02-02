@@ -1,17 +1,17 @@
-import { PizzaComponent } from './items.components/pizza.component';
-import { SidesComponent } from './items.components/sides.component';
-import { DrinksComponent } from './items.components/drinks.component';
-import { AboutUsComponent } from './footer.components/about-us.component';
-import { TermsAndConditionsComponent } from './footer.components/terms-and-conditions.component';
-import { ContactUsComponent } from './footer.components/contact-us.component';
-import { BasketComponent } from './basket.component/basket.component';
-import { CheckoutComponent } from './checkout.component/checkout.component';
-import { OrderSuccessComponent } from './notification.component/order-success.component';
-import { OrderFailureComponent } from './notification.component/order-failure.component';
+import { PizzaComponent } from './items/pizza.component';
+import { SidesComponent } from './items/sides.component';
+import { DrinksComponent } from './items/drinks.component';
+import { AboutUsComponent } from './footer/about-us.component';
+import { TermsAndConditionsComponent } from './footer/terms-and-conditions.component';
+import { ContactUsComponent } from './footer/contact-us.component';
+import { BasketComponent } from './basket/basket.component';
+import { CheckoutComponent } from './checkout/checkout.component';
+import { OrderSuccessComponent } from './notification/order-success.component';
+import { OrderFailureComponent } from './notification/order-failure.component';
 import { CheckoutGuard } from './guards/checkout.guard';
 import { OrdersComponent } from './admin/orders.component';
 import { SignInComponent } from './admin/sign-in.component';
-import { CheckDeliveryAreaComponent } from './checking-delivery-area.component/check-delivery-area.component'
+import { CheckDeliveryAreaComponent } from './checking-delivery-area/check-delivery-area.component'
 
 import { Routes } from '@angular/router';
 

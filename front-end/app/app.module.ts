@@ -6,24 +6,24 @@ import { FormsModule } from '@angular/forms';
 
 // Components
 import { AppComponent } from './app.component';
-import { PizzaComponent } from './items.components/pizza.component';
-import { SidesComponent } from './items.components/sides.component';
-import { DrinksComponent } from './items.components/drinks.component';
-import { CheckDeliveryAreaComponent } from './checking-delivery-area.component/check-delivery-area.component'
-import { AboutUsComponent } from './footer.components/about-us.component';
-import { TermsAndConditionsComponent } from './footer.components/terms-and-conditions.component';
-import { ContactUsComponent } from './footer.components/contact-us.component';
-import { BasketComponent } from './basket.component/basket.component';
-import { FooterComponent } from './footer.components/footer.component';
-import { JumbotronComponent } from './header.component/jumbotron.component';
-import { CheckoutComponent } from './checkout.component/checkout.component';
-import { OrderSuccessComponent } from './notification.component/order-success.component';
-import { OrderFailureComponent } from './notification.component/order-failure.component';
-import { HeaderComponent } from './header.component/header.component';
+import { PizzaComponent } from './items/pizza.component';
+import { SidesComponent } from './items/sides.component';
+import { DrinksComponent } from './items/drinks.component';
+import { CheckDeliveryAreaComponent } from './checking-delivery-area/check-delivery-area.component'
+import { AboutUsComponent } from './footer/about-us.component';
+import { TermsAndConditionsComponent } from './footer/terms-and-conditions.component';
+import { ContactUsComponent } from './footer/contact-us.component';
+import { BasketComponent } from './basket/basket.component';
+import { FooterComponent } from './footer/footer.component';
+import { JumbotronComponent } from './header/jumbotron.component';
+import { CheckoutComponent } from './checkout/checkout.component';
+import { OrderSuccessComponent } from './notification/order-success.component';
+import { OrderFailureComponent } from './notification/order-failure.component';
+import { HeaderComponent } from './header/header.component';
 import { ErrorComponent } from './error/error.component';
 import { OrdersComponent } from './admin/orders.component';
 import { SignInComponent } from './admin/sign-in.component';
-import { ItemAddedNotificationComponent } from './notification.component/item-added-notification.component';
+import { ItemAddedNotificationComponent } from './notification/item-added-notification.component';
 // Services
 import { ErrorService } from './service/error.service';
 import { BasketService } from './service/basket.service';
