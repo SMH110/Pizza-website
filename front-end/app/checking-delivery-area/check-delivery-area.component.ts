@@ -26,13 +26,16 @@ export class CheckDeliveryAreaComponent {
 
     validPostcode(): void {
         let result: boolean = isPostcodeWithinDeliveryArea(this.postcode);
-        if (result && this.postcode.replace(/\s/g, "").length < 8) {
+        if (this.postcode.replace(/\s/g, "").length > 7) {
+            this.isValid = false;
+            this.validationResult = "Invalid UK postcode";
+
+        } else if (result === false) {
+            this.isValid = false;
+            this.validationResult = "We don't deliver to your area. However, you can still place an order for collection."
+        } else {
             this.isValid = true;
             this.validationResult = "We can deliver to your area";
-        } else if (result && this.postcode.replace(/\s/g, "").length > 7) {
-            this.validationResult = "Invalid UK postcode";
-        } else {
-            this.validationResult = "We don't deliver to your area. However, you can still place an order for collection."
         }
         this.isValidationResultShown = true;
     }
