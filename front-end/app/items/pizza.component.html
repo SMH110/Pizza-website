@@ -13,10 +13,11 @@
                         <option *ngFor='let size of pizza.sizes' value="{{size}}" >{{size}}</option>
                     </select><span>£{{ pizza.price[pizza.selectedSize] | number:'1.2-2'}}</span>
                     <p>
-                        <a (click)='basket.addToBasket(pizza, pizza.selectedSize)' class="btn btn-primary" role="button" (click)='itemNotification.notify(pizza)'>Add to Basket</a>
+                        <a (click)='addToBasket(pizza)' class="btn btn-primary" role="button">Select Pizza</a>
                     </p>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<pizza-toppings-modal></pizza-toppings-modal>

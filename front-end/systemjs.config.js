@@ -30,6 +30,7 @@
       // other libraries
       'rxjs': 'npm:rxjs',
       'jquery': 'npm:jquery/dist/jquery.min',
+      'ng2-bs3-modal': 'npm:ng2-bs3-modal',
       'bootstrap': 'npm:bootstrap/dist/js/bootstrap.min'
     },
     // packages tells the System loader how to load when no filename and/or no extension
