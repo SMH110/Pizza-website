@@ -38,6 +38,9 @@ import ErrorReporter from './error-reporter';
 
 import Routes from './routes';
 
+import 'jquery';
+import 'bootstrap';
+
 @NgModule({
   imports: [BrowserModule, HttpModule, FormsModule, RouterModule.forRoot(Routes)],
   declarations: [

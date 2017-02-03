@@ -4,6 +4,7 @@
  */
 (function (global) {
   System.config({
+    defaultJSExtensions: true,
     paths: {
       // paths serve as alias
       'npm:': 'node_modules/'
@@ -27,19 +28,14 @@
       '@angular/upgrade/static': 'npm:@angular/upgrade/bundles/upgrade-static.umd.js',
 
       // other libraries
-      'rxjs':                      'npm:rxjs'
+      'rxjs': 'npm:rxjs',
+      'jquery': 'npm:jquery/dist/jquery.min',
+      'bootstrap': 'npm:bootstrap/dist/js/bootstrap.min'
     },
     // packages tells the System loader how to load when no filename and/or no extension
     packages: {
       app: {
         main: './main.js',
-        defaultExtension: 'js'
-      },
-      shared: {
-        defaultExtension: 'js'
-      },
-      rxjs: {
-        defaultExtension: 'js'
       }
     }
   });
