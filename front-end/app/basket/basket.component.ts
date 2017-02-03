@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { BasketService } from './service/basket.service';
+import { BasketService } from '../service/basket.service';
 
 @Component({
     moduleId: module.id,
