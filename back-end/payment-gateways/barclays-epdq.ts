@@ -32,7 +32,8 @@ async function addCardFeeToOrder(order: PersistedOrder) {
         version: null,
         description: null,
         imageName: null,
-        price: 0.5
+        price: 0.5,
+        tags: []
     });
     order.totalPayment = Math.round((order.totalPayment + 0.5) * 100) / 100;
     order.total = Math.round((order.total + 0.5) * 100) / 100;
@@ -147,7 +148,7 @@ interface BarclaysEPDQPaymentRedirectRequest {
     DECLINEURL: string;
     EXCEPTIONURL: string;
     CANCELURL: string;
-    // SHA Signature    
+    // SHA Signature
     SHASIGN: string;
 }
 

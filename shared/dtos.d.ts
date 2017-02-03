@@ -30,7 +30,7 @@ interface BasketItem {
     name: string;
     quantity: number;
     version?: string;
-    tags?: string[];
+    tags: string[];
 }
 
 interface Buyer {
