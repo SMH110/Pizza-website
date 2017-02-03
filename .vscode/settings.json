@@ -1,5 +1,6 @@
 // Place your settings in this file to overwrite default and user settings.
 {
     "editor.tabSize": 4,
-    "vsicons.presets.angular": true
+    "vsicons.presets.angular": true,
+    "files.insertFinalNewline": true
 }

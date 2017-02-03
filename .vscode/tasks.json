@@ -9,6 +9,6 @@
         "-w"
     ],
     "showOutput": "silent",
-    "isWatching": true,
+    "isBackground": true,
     "problemMatcher": "$tsc-watch"
 }
