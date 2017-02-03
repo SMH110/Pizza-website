@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { isPostcodeStartWithValidValue } from '../../../shared/validation/delivery-area-validator'
+import { isPostcodeWithinDeliveryArea } from '../../../shared/validation/delivery-area-validator'
 @Component({
     moduleId: module.id,
     templateUrl: `./check-delivery-area.component.html`,
@@ -25,11 +25,11 @@ export class CheckDeliveryAreaComponent {
     isValid: boolean = false;
 
     validPostcode(): void {
-        let result: boolean = isPostcodeStartWithValidValue(this.postcode);
-        if (result && this.postcode.length < 8) {
+        let result: boolean = isPostcodeWithinDeliveryArea(this.postcode);
+        if (result && this.postcode.replace(/\s/g, "").length < 8) {
             this.isValid = true;
             this.validationResult = "We can deliver to your area";
-        } else if (result && this.postcode.length > 7) {
+        } else if (result && this.postcode.replace(/\s/g, "").length > 7) {
             this.validationResult = "Invalid UK postcode";
         } else {
             this.validationResult = "We don't deliver to your area. However, you can still place an order for collection."
