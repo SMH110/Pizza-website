@@ -1,6 +1,7 @@
 {
   "name": "pizza-website-back-end",
   "version": "1.0.0",
+  "private": true,
   "scripts": {},
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",

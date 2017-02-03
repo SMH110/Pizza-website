@@ -1,6 +1,7 @@
 {
     "name": "pizza-website-front-end",
     "version": "1.0.0",
+    "private": true,
     "scripts": {},
     "dependencies": {
         "@angular/common": "~2.2.0",

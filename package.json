@@ -1,6 +1,7 @@
 {
     "name": "pizza-website",
     "version": "1.0.0",
+    "private": true,
     "scripts": {
         "compile": "node node_modules/typescript/bin/tsc",
         "install-front-end": "cd front-end && npm install --production && npm install --only=development && cd ..",
