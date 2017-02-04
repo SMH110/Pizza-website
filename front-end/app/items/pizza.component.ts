@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { ItemService } from '../service/items.service';
 import { BasketService } from '../service/basket.service';
 import { ItemNotificationService } from '../service/item-notification.service';
+import { PizzaToppingsModalComponent } from '../pizza-toppings-modal/pizza-toppings-modal.component';
 
 @Component({
     moduleId: module.id,
@@ -24,9 +25,12 @@ select {
 `]
 })
 export class PizzaComponent implements OnInit {
+    @ViewChild(PizzaToppingsModalComponent)
+    modal: PizzaToppingsModalComponent;
+
     pizzas: PizzaViewModel[];
     jumbotronImage: string = "/images/hero.jpg";
-    constructor(private itemService: ItemService, public basket: BasketService, public itemNotification: ItemNotificationService ) {
+    constructor(private itemService: ItemService, public basket: BasketService, public itemNotification: ItemNotificationService) {
     }
 
     ngOnInit(): void {
@@ -41,10 +45,21 @@ export class PizzaComponent implements OnInit {
                 });
             });
     }
+
+    addToBasket(pizza: PizzaViewModel) {
+        return this.modal.open({ data: pizza })
+            .then(toppings => {
+                console.log('toppings selected', toppings);
+                this.basket.addToBasket(pizza, pizza.selectedSize);
+                this.itemNotification.notify(pizza);
+            })
+            .catch(error => {
+                console.error("An error from the modal", error);
+            });
+    }
 }
 
-
-interface PizzaViewModel extends Pizza {
+export interface PizzaViewModel extends Pizza {
     selectedSize: string;
     sizes: string[];
 }

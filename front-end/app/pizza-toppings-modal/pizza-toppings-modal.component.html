@@ -1,0 +1,18 @@
+<modal #myModal>
+    <modal-header [show-close]="true">
+        <h4 class="modal-title">I'm a modal!</h4>
+    </modal-header>
+    <modal-body *ngIf="data">
+        The pizza you selected is {{ data.name }}
+    </modal-body>
+    <modal-footer>
+        <button (click)="addToBasketWithToppings()">Call addToBasketWithToppings() on the PizzaToppingsModalComponent</button> Click here to add to basket with some toppings<br /><br />
+
+        <button (click)="addToBasketWithoutToppings()">Call addToBasketWithoutToppings() on the PizzaToppingsModalComponent</button> Click here to add to basket without any toppings<br /><br />
+
+        <button (click)="someErrorHappened()">Call someErrorHappened() on the PizzaToppingsModalComponent</button> Click here to close the modal, returning an error - like I couldn't load the toppings from the API or something<br /><br />
+
+        <button (click)="cancel()">Call cancel() on the BaseModalComponent</button> Click here to close the modal, providing no feedback to the Pizza Component. This is the same as clicking outside the modal or clicking the X in the top right corner.
+
+    </modal-footer>
+</modal>

@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { PizzaComponent } from './items/pizza.component';
 import { SidesComponent } from './items/sides.component';
+import { PizzaToppingsModalComponent } from './pizza-toppings-modal/pizza-toppings-modal.component';
 import { DrinksComponent } from './items/drinks.component';
 import { CheckDeliveryAreaComponent } from './checking-delivery-area/check-delivery-area.component'
 import { AboutUsComponent } from './footer/about-us.component';
@@ -37,12 +38,13 @@ import { CheckoutGuard } from './guards/checkout.guard';
 import ErrorReporter from './error-reporter';
 
 import Routes from './routes';
+import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
 
 import 'jquery';
 import 'bootstrap';
 
 @NgModule({
-  imports: [BrowserModule, HttpModule, FormsModule, RouterModule.forRoot(Routes)],
+  imports: [BrowserModule, HttpModule, FormsModule, RouterModule.forRoot(Routes), Ng2Bs3ModalModule],
   declarations: [
     AppComponent,
     PizzaComponent,
@@ -62,7 +64,8 @@ import 'bootstrap';
     ErrorComponent,
     OrdersComponent,
     SignInComponent,
-    ItemAddedNotificationComponent
+    ItemAddedNotificationComponent,
+    PizzaToppingsModalComponent
   ],
   providers:
   [
