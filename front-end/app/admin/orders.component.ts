@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { OrderService } from '../service/order.service'
-import { ErrorService } from '../service/error.service'
+import { OrderService } from '../service/order.service';
+import { ErrorService } from '../service/error.service';
+import * as moment from 'moment';
 
 @Component({
     moduleId: module.id,
@@ -103,6 +104,10 @@ export class OrdersComponent implements OnInit {
 
     navigateToGoogleMap(address: Address): string {
         return `http://maps.google.com/maps?&q=${encodeURIComponent(this.formatAddress(address) + ', GB')}&z=16`
+    }
+
+    getOrderDate(order: Order) {
+        return moment(order.date).format('dddd Do MMM, HH:mm')
     }
 }
 

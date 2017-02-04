@@ -18,7 +18,7 @@
                     <ng-container *ngFor="let order of orders">
                         <tr class="order-summary" [id]="order._id">
                             <td class="status"><span [style.color]='order.status==="Outstanding" ? "#ED7118" : order.status==="Awaiting Payment" ? "#FF0000" : "#0EA603" '>{{order.status}}</span></td>
-                            <td class="date">{{order.date | date:"medium"}}</td>
+                            <td class="date">{{ getOrderDate(order) }}</td>
                             <td class="name">{{order.buyer.firstName}} {{order.buyer.lastName}}</td>
                             <td class="address">
                                 <a *ngIf="order.deliveryAddress" [href]="navigateToGoogleMap(order.deliveryAddress)" target="_blank">{{formatAddress(order.deliveryAddress)}}</a>

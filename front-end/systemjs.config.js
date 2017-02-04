@@ -30,7 +30,8 @@
       // other libraries
       'rxjs': 'npm:rxjs',
       'jquery': 'npm:jquery/dist/jquery.min',
-      'bootstrap': 'npm:bootstrap/dist/js/bootstrap.min'
+      'bootstrap': 'npm:bootstrap/dist/js/bootstrap.min',
+      'moment': 'npm:moment/moment'
     },
     // packages tells the System loader how to load when no filename and/or no extension
     packages: {
