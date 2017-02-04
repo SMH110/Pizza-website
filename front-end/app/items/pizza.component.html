@@ -1,22 +1,8 @@
-<my-jumbotron [jumbotronImage]="jumbotronImage"></my-jumbotron>
+<jumbotron jumbotronImage="/images/pizzas-jumbotron.jpg"></jumbotron>
 <div class="container">
     <div class="row">
         <div class="col-sm-4 col-md-3 product" *ngFor='let pizza of pizzas'>
-            <div class="thumbnail">
-                <img src="{{pizza.imageName}}" alt="...">
-                <div class="caption">
-                    <h3>{{pizza.name}}</h3>
-                    <p>{{pizza.description}}</p>
-
-                    <label for="sizes">Size:</label>
-                    <select class="form-control" id="sizes" [(ngModel)]="pizza.selectedSize">
-                        <option *ngFor='let size of pizza.sizes' value="{{size}}" >{{size}}</option>
-                    </select><span>£{{ pizza.price[pizza.selectedSize] | number:'1.2-2'}}</span>
-                    <p>
-                        <a (click)='basket.addToBasket(pizza, pizza.selectedSize)' class="btn btn-primary" role="button" (click)='itemNotification.notify(pizza)'>Add to Basket</a>
-                    </p>
-                </div>
-            </div>
+            <item [item]="pizza"></item>
         </div>
     </div>
 </div>

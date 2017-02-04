@@ -1,20 +1,14 @@
 interface Item {
     name: string;
     imageName: string;
-    tags: string[];
-}
-
-interface Pizza extends Item {
     description: string;
-    price: { [version: string]: number };
+    tags: Tag[];
+    price: { [version: string]: number } | number;
 }
 
-interface Drink extends Item {
-    price: number;
-}
-
-interface Side extends Item {
-    price: number;
+interface Topping {
+    type: ToppingCategory;
+    name: string;
 }
 
 interface PlaceOrderRequest {
@@ -67,3 +61,5 @@ interface PaymentRedirectDetails {
 
 type DeliveryMethod = 'Collection' | 'Delivery';
 type PaymentMethod = 'PayPal' | 'MasterCard' | 'JCB' | 'Maestro' | 'VISA' | 'Cash';
+type Tag = 'salad' | 'dessert' | 'drink' | 'pizza' | 'calzone' | 'pasta' | 'side' | 'hot' | 'vegetarian';
+type ToppingCategory = 'Cheese' | 'Vegetable' | 'Meat' | 'Seafood' | 'Other';

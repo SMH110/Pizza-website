@@ -31,7 +31,7 @@
             <div class="form-group row delivery-method">
                 <div class="radio" *ngFor="let method of deliveryMethods">
                     <label>
-                        <input type="radio" name="deliveryMethod" [(ngModel)]="deliveryMethod" [value]="method"> {{method}}
+                        <input type="radio" [id]="method" name="deliveryMethod" [(ngModel)]="deliveryMethod" [value]="method"> {{method}}
                     </label>
                 </div>
             </div>

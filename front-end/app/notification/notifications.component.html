@@ -1,0 +1,19 @@
+<div class="container" *ngIf="notifications.length > 0">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-success">
+                <p *ngFor="let notification of notifications">{{notification}}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container" *ngIf="errorService.errors.length > 0" id="errorList">
+    <div class="row">
+        <div class="col-md-12">
+            <ul class="alert alert-danger">
+                <li *ngFor="let error of errorService.errors">{{error}}</li>
+            </ul>
+        </div>
+    </div>
+</div>

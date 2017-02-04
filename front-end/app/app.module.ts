@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { PizzaComponent } from './items/pizza.component';
 import { SidesComponent } from './items/sides.component';
 import { DrinksComponent } from './items/drinks.component';
+import { ItemComponent } from './items/item.component';
 import { CheckDeliveryAreaComponent } from './checking-delivery-area/check-delivery-area.component'
 import { AboutUsComponent } from './footer/about-us.component';
 import { TermsAndConditionsComponent } from './footer/terms-and-conditions.component';
@@ -20,16 +21,15 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { OrderSuccessComponent } from './notification/order-success.component';
 import { OrderFailureComponent } from './notification/order-failure.component';
 import { HeaderComponent } from './header/header.component';
-import { ErrorComponent } from './error/error.component';
 import { OrdersComponent } from './admin/orders.component';
 import { SignInComponent } from './admin/sign-in.component';
-import { ItemAddedNotificationComponent } from './notification/item-added-notification.component';
+import { NotificationsComponent } from './notification/notifications.component';
 // Services
 import { ErrorService } from './service/error.service';
 import { BasketService } from './service/basket.service';
 import { OrderService } from './service/order.service';
 import { SignInService } from './service/sign-in.service';
-import { ItemNotificationService } from './service/item-notification.service';
+import { NotificationService } from './service/notification.service';
 
 // Guards
 import { CheckoutGuard } from './guards/checkout.guard';
@@ -59,10 +59,10 @@ import 'bootstrap';
     OrderSuccessComponent,
     OrderFailureComponent,
     HeaderComponent,
-    ErrorComponent,
     OrdersComponent,
     SignInComponent,
-    ItemAddedNotificationComponent
+    NotificationsComponent,
+    ItemComponent
   ],
   providers:
   [
@@ -71,7 +71,7 @@ import 'bootstrap';
     ErrorService,
     BasketService,
     SignInService,
-    ItemNotificationService,
+    NotificationService,
 
     // Guards
     CheckoutGuard,

@@ -1,0 +1,24 @@
+<div class="thumbnail">
+    <img src="{{item.imageName}}" alt="{{item.name}}">
+    <div class="caption item clearfix">
+        <h3>{{item.name}}</h3>
+        <p *ngIf="item.description !== null">{{item.description}}</p>
+
+        <ng-container *ngIf="versions === undefined">
+            <p>
+                <button (click)='addToBasket()' class="btn btn-primary pull-left">Add to Basket</button>
+                <span class="pull-right price">£{{item.price | number:'1.2-2' }}</span>
+            </p>
+        </ng-container>
+
+        <ng-container *ngIf="versions !== undefined">
+            <select class="form-control" [(ngModel)]="selectedVersion">
+                <option *ngFor='let version of versions' value="{{version}}">{{version}}</option>
+            </select>
+            <span>£{{ item.price[selectedVersion] | number:'1.2-2'}}</span>
+            <p>
+                <button (click)='addToBasket()' class="btn btn-primary">Add to Basket</button>
+            </p>
+        </ng-container>
+    </div>
+</div>

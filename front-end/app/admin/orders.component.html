@@ -20,7 +20,7 @@
                         <tr *ngIf='getExpandedStatus(order)' class="more-details" [id]="'details_' + order._id">
                             <td colspan="6">
                                 <p><strong>E-mail:</strong> <span class="email">{{order.buyer.email | lowercase}}</span></p>
-                                <p><strong>Payment Reference:</strong> <span class="payment-reference">{{order.paymentId}}</span></p>
+                                <p *ngIf="order.paymentId"><strong>Payment Reference:</strong> <span class="payment-reference">{{order.paymentId}}</span></p>
                                 <p *ngIf="order.note"><strong>Order Notes:</strong> <span class="order-notes">{{order.note}}</span></p>
                                 <table class="table table-striped table-bordered">
                                     <thead>
@@ -36,16 +36,16 @@
                                             <td class="quantity">{{item.quantity}}</td>
                                             <td class="price">£{{item.price | number:'1.2-2'}}</td>
                                         </tr>
-                                        <tr>
+                                        <tr *ngIf="order.discount > 0">
                                             <th colspan="2">Total before discount</th>
                                             <td class="order-total">£{{order.total | number:'1.2-2'}}</td>
                                         </tr>
-                                        <tr>
+                                        <tr *ngIf="order.discount > 0">
                                             <th colspan="2">Discount amount</th>
                                             <td class="discount">£{{order.discount | number:'1.2-2'}}</td>
                                         </tr>
                                         <tr>
-                                            <th colspan="2">Total paypal</th>
+                                            <th colspan="2">Total payment</th>
                                             <td class="total-payable">£{{order.totalPayment | number:'1.2-2'}}</td>
                                         </tr>
                                     </tbody>

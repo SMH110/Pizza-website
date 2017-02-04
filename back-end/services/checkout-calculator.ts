@@ -9,10 +9,8 @@ export function calculateOrderDetails(orderRequest: PlaceOrderRequest): Calculat
         orderLineItems: []
     };
 
-    let allCatalogItems: Array<Pizza | Drink | Side> = [].concat(catalog.drinks).concat(catalog.pizzas).concat(catalog.sides);
-
     for (let item of orderRequest.orderItems) {
-        let catalogItem = allCatalogItems.find(x => x.name === item.name);
+        let catalogItem = catalog.find(x => x.name === item.name);
         if (catalogItem === undefined) {
             throw new Error(`Item with name ${item.name} not found in the catalog`)
         }
@@ -23,7 +21,7 @@ export function calculateOrderDetails(orderRequest: PlaceOrderRequest): Calculat
             price: typeof catalogItem.price === 'number' ? catalogItem.price : catalogItem.price[item.version],
             quantity: item.quantity,
             imageName: catalogItem.imageName,
-            description: (catalogItem as Pizza).description || null
+            description: catalogItem.description
         });
     }
 
