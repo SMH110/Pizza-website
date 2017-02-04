@@ -1,4 +1,4 @@
-import { isPostcodeValid } from './delivery-area-validator';
+import { isPostcodeWithinDeliveryArea } from './delivery-area-validator';
 export function validateOrderRequest(request: PlaceOrderRequestValidationObject, availablePaymentMethods: string[]): string[] {
     if (isShopOpen(request.date) === false) {
         return ['Sorry, the shop is now closed.'];
@@ -53,8 +53,12 @@ function validateDeliveryAddress(request: PlaceOrderRequestValidationObject): st
     if (request.deliveryMethod === 'Delivery') {
         errors.push.apply(errors, validateAddress(request.deliveryAddress, 'Delivery'));
 
-        if (isNullOrWhitespace(request.deliveryAddress && request.deliveryAddress.postcode) && !isPostcodeValid(request.deliveryAddress.postcode)) {
+        if (isNullOrWhitespace(request.deliveryAddress && request.deliveryAddress.postcode) === false && !isPostcodeWithinDeliveryArea(request.deliveryAddress.postcode)) {
             errors.push(`We don't deliver to your area. However, you can still place an order for collection.`);
+        }
+
+        if (isPostcodeWithinDeliveryArea(request.deliveryAddress.postcode) && request.deliveryAddress && request.deliveryAddress.postcode.replace(/\s/g, "").length > 7) {
+            errors.push(`Invalid UK postcode`);
         }
         // TODO - Validate postcode is one of the postcodes we deliver to
     }

@@ -3,17 +3,12 @@
         <div class="col-md-12">
             <h2>Delivery Availability</h2>
             <hr>
-
             <div class="form-group">
                 <p>Please enter your post code to check if we can deliver to your address or not.</p>
                 <input type="text" class="form-control" placeholder="i.e. CR0 1AS" [(ngModel)]='postcode'>
             </div>
-            <button type="submit" class="btn btn-default" (click)='validPostcode()' [disabled]='!postcode.length'>Check</button>
-
-
-            <h4 *ngIf='showErrorMessage' class="text-danger">We don't deliver to your area. However, you can still place an order for collection.</h4>
-            <h4 *ngIf='showSuccessMessage' class="text-success">We can deliver to your post code</h4>
-
+            <button type="submit" class="btn btn-default" (click)="validPostcode()" [disabled]="!postcode.length">Check</button>
+            <h4 *ngIf="isValidationResultShown" [ngClass]="{'text-success': isValid, 'text-danger': isValid === false}">{{validationResult}}</h4>
         </div>
     </div>
 </div>
