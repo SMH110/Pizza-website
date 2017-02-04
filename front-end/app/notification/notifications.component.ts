@@ -25,6 +25,15 @@ export class NotificationsComponent {
     notify(item: Item) {
         let notification = `${item.name} added to your basket`;
         this.notifications.push(notification);
+        // This code should not be in this service. It's a view concern.
+        setTimeout(() => {
+            let errorList = document.getElementById('notificationList');
+            if (errorList['scrollIntoViewIfNeeded'] !== undefined) {
+                errorList['scrollIntoViewIfNeeded'](true/*Align to center of view*/);
+            } else {
+                errorList.scrollIntoView(false/*Align to bottom of view*/);
+            }
+        });
         setTimeout(() => {
             this.notifications.splice(this.notifications.indexOf(notification), 1);
         }, 3000);
