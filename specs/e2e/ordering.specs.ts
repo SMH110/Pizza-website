@@ -92,6 +92,7 @@ describe("E2E Tests", () => {
         let orderDetails = element(by.id(`details_${orderId}`));
         expect(await orderDetails.isDisplayed()).to.be.true;
         expect(await orderDetails.element(by.className('email')).getText()).to.equal('john-smith@test.com');
+        expect(await orderDetails.element(by.className('phone')).getText()).to.equal('01234567890');
         expect(await orderDetails.element(by.className('payment-reference')).getText()).to.not.equal('');
         expect(await orderDetails.element(by.className('order-notes')).getText()).to.equal('Some test order notes');
         expect(await orderDetails.element(by.className('order-total')).getText()).to.equal('£26.20');
@@ -183,6 +184,7 @@ describe("E2E Tests", () => {
         let orderDetails = element(by.id(`details_${orderId}`));
         expect(await orderDetails.isDisplayed()).to.be.true;
         expect(await orderDetails.element(by.className('email')).getText()).to.equal('john-smith@test.com');
+        expect(await orderDetails.element(by.className('phone')).getText()).to.equal('01234567890');
         expect(await orderDetails.element(by.className('payment-reference')).getText()).to.not.equal('');
         expect(await orderDetails.element(by.className('order-notes')).getText()).to.equal('Some test order notes');
         expect(await orderDetails.element(by.className('order-total')).isPresent()).to.be.false;
@@ -260,6 +262,7 @@ describe("E2E Tests", () => {
         let orderDetails = element(by.id(`details_${orderId}`));
         expect(await orderDetails.isDisplayed()).to.be.true;
         expect(await orderDetails.element(by.className('email')).getText()).to.equal('john-smith@test.com');
+        expect(await orderDetails.element(by.className('phone')).getText()).to.equal('01234567890');
         expect(await orderDetails.element(by.className('payment-reference')).isPresent()).to.be.false;
         expect(await orderDetails.element(by.className('order-notes')).getText()).to.equal('Cash order test notes');
         expect(await orderDetails.element(by.className('order-total')).isPresent()).to.be.false;
