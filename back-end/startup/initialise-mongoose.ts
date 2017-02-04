@@ -5,10 +5,12 @@ import { runMigrations } from '../migrations/migration-runner';
 
 (async function startup() {
     try {
-        // Mongoose handles disconnections by throwing an error
-        // We don't handle those because they bring the process down and cause Heroku to reboot the app
-        // We should look into handling them though because the app could be in the middle of something important
-        await mongoose.connect(process.env.CONNECTION_STRING);
+        var options = {
+            server: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } },
+            replset: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } }
+        };
+        console.log('Connecting to MongoDb');
+        await mongoose.connect(process.env.CONNECTION_STRING, options);
         console.log('MongoDb connected');
         await runMigrations();
     } catch (error) {
