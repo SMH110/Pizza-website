@@ -8,22 +8,18 @@ import { ErrorService } from '../service/error.service'
     moduleId: module.id,
     templateUrl: './orders.component.html',
     styles: [`
-    h4 {
-        display: inline-block;
-    }
-   .mark-complete{
-       padding: 0 16px;
-       margin-left: 20px;
-   }
+h4 {
+    display: inline-block;
+}
 
- .more-details{
-       min-width: 400px;
-       margin-top:20px;
-   }
+.more-details{
+    min-width: 400px;
+    margin-top:20px;
+}
 
-   .remove-right-border{
-       border-right: 0;
-   }
+.remove-right-border{
+    border-right: 0;
+}
     `]
 })
 export class OrdersComponent implements OnInit {

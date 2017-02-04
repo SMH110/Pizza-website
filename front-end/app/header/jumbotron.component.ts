@@ -3,11 +3,11 @@ import { Component, Input } from '@angular/core';
 
 @Component({
     moduleId: module.id,
-    selector: 'my-jumbotron',
+    selector: 'jumbotron',
     templateUrl: `./jumbotron.component.html`,
     styles: [
         `
-        .my-jumbotron {
+        .jumbotron {
           width: 100%;
           margin-bottom: 30px;
           padding: 0;

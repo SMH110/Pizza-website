@@ -4,7 +4,7 @@ import { discountCalculator } from '../../../shared/discount-calculator'
 export class BasketService {
     items: BasketItemViewModel[] = [];
 
-    addToBasket(itemToAdd: ItemToAdd, selectedVersion?: string): void {
+    addToBasket(itemToAdd: Item, selectedVersion?: string): void {
         let existingItem = this.getExistingItem(itemToAdd, selectedVersion);
         if (existingItem !== undefined) {
             existingItem.quantity++;
@@ -49,7 +49,7 @@ export class BasketService {
     getTotalPayable(): number {
         return this.getTotalPrice() - this.getDiscount();
     }
-    getExistingItem(itemToAdd: ItemToAdd, selectedVersion?: string): BasketItemViewModel {
+    getExistingItem(itemToAdd: Item, selectedVersion?: string): BasketItemViewModel {
         return this.items.find(x =>
             x.name === itemToAdd.name &&
             x.version === selectedVersion
@@ -61,5 +61,3 @@ export interface BasketItemViewModel extends BasketItem {
     price: number;
     imageUrl: string;
 }
-
-type ItemToAdd = Pizza | Drink | Side;

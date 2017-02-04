@@ -24,12 +24,7 @@ export default class PayPal implements PaymentGateway {
                 },
                 "transactions": [{
                     item_list: {
-                        items: order.orderItems.map(x => ({
-                            "name": x.name + (x.version ? ' - ' + x.version : ''),
-                            "price": x.price,
-                            "currency": "GBP",
-                            "quantity": x.quantity
-                        }))
+                        items: getOrderItems(order)
                     },
                     amount: {
                         total: order.totalPayment,
@@ -93,12 +88,37 @@ export function initialisePayPalEndpoints(application: Application) {
             order.paymentFeedback.push(response);
             await order.save();
             console.log(`Updated order for ${paymentId}`);
-                res.redirect('/order/success');
-                 sendConfirmationEmails(order)
-           
+            res.redirect('/order/success');
+            sendConfirmationEmails(order)
+
         } catch (error) {
             console.error('Error in /paypal/execute', error);
             return res.redirect('/order/failure');
         }
     });
+}
+
+function getOrderItems(order: Order) {
+    let items = order.orderItems.map(x => ({
+        name: x.name + (x.version ? ' - ' + x.version : ''),
+        price: x.price,
+        currency: "GBP",
+        quantity: x.quantity
+    } as PayPalLineItem));
+    if (order.discount > 0) {
+        items.push({
+            name: "Discount",
+            price: -order.discount,
+            currency: "GBP",
+            quantity: 1
+        });
+    }
+    return items;
+}
+
+interface PayPalLineItem {
+    name: string;
+    price: number;
+    currency: 'GBP';
+    quantity: number;
 }

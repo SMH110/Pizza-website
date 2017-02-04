@@ -10,16 +10,16 @@ export class ItemService {
 
     getPizzas() {
         return this.http.get('/api/products/pizzas')
-            .map(res => res.json() as Pizza[]);
+            .map(res => res.json() as Item[]);
     }
 
     getSides() {
         return this.http.get('/api/products/sides')
-            .map(res => res.json() as Side[]);
+            .map(res => res.json() as Item[]);
     }
 
     getDrinks() {
         return this.http.get('/api/products/drinks')
-            .map(res => res.json() as Drink[]);
+            .map(res => res.json() as Item[]);
     }
 }

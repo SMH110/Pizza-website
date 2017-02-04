@@ -1,16 +1,8 @@
-<my-jumbotron [jumbotronImage]="jumbotronImage"></my-jumbotron>
+<jumbotron jumbotronImage="/images/sides-jumbotron.jpg"></jumbotron>
 <div class="container">
     <div class="row">
         <div class="col-sm-4 col-md-3 product" *ngFor='let side of sides'>
-            <div class="thumbnail">
-                <img src="{{side.imageName}}" alt="...">
-                <div class="caption item clearfix">
-                    <h3>{{side.name}}</h3>
-                    <p><a (click)='basket.addToBasket(side)' class="btn btn-primary pull-left" role="button" (click)='itemNotification.notify(side)'>Add to Basket</a>
-                        <span class="pull-right price">£{{side.price | number:'1.2-2'}}</span>
-                    </p>
-                </div>
-            </div>
+            <item [item]="side"></item>
         </div>
     </div>
 </div>
