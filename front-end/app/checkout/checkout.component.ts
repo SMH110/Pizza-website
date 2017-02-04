@@ -55,7 +55,7 @@ export class CheckoutComponent {
     buyer: Buyer = {} as any;
     deliveryAddress: Address = {} as any;
     deliveryMethod: DeliveryMethod = 'Delivery';
-    paymentMethod: PaymentMethod = 'PayPal';
+    paymentMethod: PaymentMethod = 'Cash';
     orderNotes: string;
 
     constructor(public basket: BasketService, private router: Router, private orderService: OrderService, private errorService: ErrorService) {

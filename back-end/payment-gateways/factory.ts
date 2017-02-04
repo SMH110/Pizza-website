@@ -20,13 +20,12 @@ export function getPaymentGateway(req: IRequest<PlaceOrderRequest>): PaymentGate
 }
 
 export function getAvailablePaymentMethods(): PaymentMethod[] {
-    let paymentMethods: PaymentMethod[] = [];
+    let paymentMethods: PaymentMethod[] = ['Cash'];
     if (IsPayPalEnabled) {
         paymentMethods.push('PayPal');
     }
     if (IsBarclaysEPDQEnabled) {
         paymentMethods.push('MasterCard', 'JCB', 'Maestro', 'VISA');
     }
-    paymentMethods.push("Cash")
     return paymentMethods
 }
