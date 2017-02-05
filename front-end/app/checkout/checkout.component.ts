@@ -56,6 +56,7 @@ export class CheckoutComponent {
     deliveryAddress: Address = {} as any;
     deliveryMethod: DeliveryMethod = 'Delivery';
     paymentMethod: PaymentMethod = 'Cash';
+    billingAddress: Address = {} as any;
     orderNotes: string;
 
     constructor(public basket: BasketService, private router: Router, private orderService: OrderService, private errorService: ErrorService) {
@@ -69,6 +70,7 @@ export class CheckoutComponent {
         let orderDetail = {
             buyer: this.buyer,
             deliveryAddress: this.deliveryAddress,
+            billingAddress: this.billingAddress,
             orderItems: this.basket.items,
             deliveryMethod: this.deliveryMethod,
             paymentMethod: this.paymentMethod,
@@ -98,5 +100,9 @@ export class CheckoutComponent {
                 this.router.navigateByUrl('/order/failure');
             }
         });
+    }
+
+    isBillingAddressRequired() {
+        return ['MasterCard', 'JCB', 'Maestro', 'VISA'].indexOf(this.paymentMethod) !== -1;
     }
 }

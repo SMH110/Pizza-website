@@ -164,58 +164,25 @@ describe('Place Order Request Validator', () => {
             }
         });
     });
+
     describe('Order Minimum Value Validation', () => {
         describe('When the delivery method is Delivery', () => {
-            let deliveryOrder: any = {
-                buyer:
-                {
-                    email: 'test@test.com',
-                    firstName: 'John',
-                    lastName: 'Smith',
-                    phone: '01234567890'
-                },
-                date: new Date(2017, 0, 24, 20, 30, 0),
-                deliveryAddress: {
-                    line1: 'Line 1',
-                    line2: null,
-                    town: 'Town',
-                    postcode: 'SE27 1AB',
-                },
-                deliveryMethod: 'Delivery',
-                orderItems:
-                [{
-                    name: 'Some pizza',
-                    price: 10,
-                    quantity: 1,
-                    version: 'Large',
-                    tags: ['pizza']
-                }],
-                paymentMethod: 'MasterCard',
-                note: null
-            }
-            describe('When the price of pizzas is less than  10', () => {
-                beforeEach(() => {
-                    deliveryOrder.orderItems[0].price = 9;
-                });
-                it('When the total pizza is less than 10 - Should return the error message ', () => {
-                    expect(validateOrderRequest(deliveryOrder, PAYMENT_METHODS)).to.be.deep.equal(['A minimum spend of £10 is required on pizza or calzone for delivery orders.'])
-                });
+            it('When the total pizza is less than 10 - Should return the error message', () => {
+                let deliveryOrder = createValidOrder('Delivery', 'PayPal');
+                deliveryOrder.orderItems[0].price = 9;
+                expect(validateOrderRequest(deliveryOrder, PAYMENT_METHODS)).to.be.deep.equal(['A minimum spend of £10 is required on pizza or calzone for delivery orders.'])
             });
-            describe('When the price of pizzas is equal to 10', () => {
-                beforeEach(() => {
-                    deliveryOrder.orderItems[0].price = 10;
-                });
-                it('When the total pizza is less than 10 - Should return the error message ', () => {
-                    expect(validateOrderRequest(deliveryOrder, PAYMENT_METHODS)).to.be.deep.equal([])
-                });
+
+            it('When the total pizza is equal to 10 - Should pass validation', () => {
+                let deliveryOrder = createValidOrder('Delivery', 'PayPal');
+                deliveryOrder.orderItems[0].price = 10;
+                expect(validateOrderRequest(deliveryOrder, PAYMENT_METHODS)).to.be.deep.equal([])
             });
-            describe('When the price of pizzas is more than 10', () => {
-                beforeEach(() => {
-                    deliveryOrder.orderItems[0].price = 12;
-                });
-                it('When the total pizza is less than 10 - Should return the error message ', () => {
-                    expect(validateOrderRequest(deliveryOrder, PAYMENT_METHODS)).to.be.deep.equal([])
-                });
+
+            it('When the total pizza is more than 10 - Should pass validation', () => {
+                let deliveryOrder = createValidOrder('Delivery', 'PayPal');
+                deliveryOrder.orderItems[0].price = 12;
+                expect(validateOrderRequest(deliveryOrder, PAYMENT_METHODS)).to.be.deep.equal([])
             });
         });
     });
@@ -238,6 +205,7 @@ function createValidOrder(deliveryMethod: DeliveryMethod, paymentMethod: Payment
         buyer: createValidBuyer(),
         date: new Date(2017, 0, 24, 20, 30, 0),
         deliveryAddress: deliveryMethod === 'Delivery' ? createValidDeliveryAddress() : null,
+        billingAddress: ['MasterCard', 'JCB', 'Maestro', 'VISA'].indexOf(paymentMethod) !== -1 ? createValidDeliveryAddress() : null,
         deliveryMethod: deliveryMethod,
         orderItems: createValidOrderItems(),
         paymentMethod: paymentMethod,

@@ -37,6 +37,7 @@
             </div>
 
             <div class="address-section" *ngIf="deliveryMethod === 'Delivery'">
+                <h3>Delivery address</h3>
                 <div class="form-group row">
                     <label for="delivery_address1" class="col-sm-2 control-label required">Address 1</label>
                     <div class="col-sm-10">
@@ -78,6 +79,35 @@
                     </label>
                 </div>
             </div>
+
+            <div class="address-section" *ngIf="isBillingAddressRequired()">
+                <h3>Billing address</h3>
+                <div class="form-group row">
+                    <label for="billing_address1" class="col-sm-2 control-label required">Address 1</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="billing_address1" [(ngModel)]="billingAddress.line1">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="billing_address2" class="col-sm-2 control-label">Address 2</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="billing_address2" [(ngModel)]="billingAddress.line2">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="billing_town" class="col-sm-2 control-label required">Town/City</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="billing_town" [(ngModel)]="billingAddress.town">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="billing_postcode" class="col-sm-2 control-label required">Postcode</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" id="billing_postcode" [(ngModel)]="billingAddress.postcode">
+                    </div>
+                </div>
+            </div>
+
             <hr>
             <button class="btn btn-primary" (click)="order()">Order Now</button>
             <span class="total">Total: £{{basket.getTotalPrice() | number:"1.2-2"}}</span>

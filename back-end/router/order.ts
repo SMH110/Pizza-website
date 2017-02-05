@@ -13,7 +13,7 @@ router.post('/place-order', errorHandler(async (req: IRequest<PlaceOrderRequest>
     let order: Order = {
         buyer: Object.assign({}, req.body.buyer),
         deliveryAddress: req.body.deliveryMethod === 'Delivery' ? req.body.deliveryAddress : null,
-        billingAddress: req.body.deliveryAddress,
+        billingAddress: ['MasterCard', 'JCB', 'Maestro', 'VISA'].indexOf(req.body.paymentMethod) !== -1 ? req.body.billingAddress : null,
         date: new Date(),
         deliveryMethod: req.body.deliveryMethod,
         paymentMethod: req.body.paymentMethod,

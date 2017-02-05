@@ -13,7 +13,8 @@ interface Topping {
 
 interface PlaceOrderRequest {
     buyer: Buyer;
-    deliveryAddress?: Address;
+    deliveryAddress: Address;
+    billingAddress: Address;
     orderItems: BasketItem[];
     deliveryMethod: DeliveryMethod;
     paymentMethod: PaymentMethod;

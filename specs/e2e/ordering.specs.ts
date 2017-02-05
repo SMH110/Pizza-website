@@ -85,6 +85,7 @@ describe("E2E Tests", () => {
         // Test order summary as expected
         expect(await orderSummary.element(by.className('status')).getText()).to.equal('Outstanding');
         expect(await orderSummary.element(by.className('address')).getText()).to.equal('1 The Street, Foo Town, CR7 2GB');
+        expect(await orderSummary.element(by.className('phone')).getText()).to.equal('01234567890');
         expect(await orderSummary.element(by.className('total-payment')).getText()).to.equal('£20.96 (PayPal)');
 
         // Test order details are visible as expected
@@ -92,7 +93,6 @@ describe("E2E Tests", () => {
         let orderDetails = element(by.id(`details_${orderId}`));
         expect(await orderDetails.isDisplayed()).to.be.true;
         expect(await orderDetails.element(by.className('email')).getText()).to.equal('john-smith@test.com');
-        expect(await orderDetails.element(by.className('phone')).getText()).to.equal('01234567890');
         expect(await orderDetails.element(by.className('payment-reference')).getText()).to.not.equal('');
         expect(await orderDetails.element(by.className('order-notes')).getText()).to.equal('Some test order notes');
         expect(await orderDetails.element(by.className('order-total')).getText()).to.equal('£26.20');
@@ -140,8 +140,11 @@ describe("E2E Tests", () => {
         await element(by.id('delivery_postcode')).sendKeys('CR7 2GB');
         await element(by.id('order_notes')).sendKeys('Some test order notes');
 
-        // Select Credit / Debit Card and place the order.
+        // Select VISA, fill out billing address and place the order.
         await whenVisible(by.id('VISA'), visaOption => visaOption.click());
+        await element(by.id('billing_address1')).sendKeys('2 The Road');
+        await element(by.id('billing_town')).sendKeys('Some Town');
+        await element(by.id('billing_postcode')).sendKeys('AB1 2CD');
         await element(by.buttonText('Order Now')).click();
 
         // Wait for PayPal to load
@@ -177,6 +180,7 @@ describe("E2E Tests", () => {
         // Test order summary as expected
         expect(await orderSummary.element(by.className('status')).getText()).to.equal('Outstanding');
         expect(await orderSummary.element(by.className('address')).getText()).to.equal('1 The Street, Foo Town, CR7 2GB');
+        expect(await orderSummary.element(by.className('phone')).getText()).to.equal('01234567890');
         expect(await orderSummary.element(by.className('total-payment')).getText()).to.equal('£15.49 (VISA)');
 
         // Test order details are visible as expected
@@ -184,8 +188,8 @@ describe("E2E Tests", () => {
         let orderDetails = element(by.id(`details_${orderId}`));
         expect(await orderDetails.isDisplayed()).to.be.true;
         expect(await orderDetails.element(by.className('email')).getText()).to.equal('john-smith@test.com');
-        expect(await orderDetails.element(by.className('phone')).getText()).to.equal('01234567890');
         expect(await orderDetails.element(by.className('payment-reference')).getText()).to.not.equal('');
+        expect(await orderDetails.element(by.className('billing-address')).getText()).to.equal('2 The Road, Some Town, AB1 2CD');
         expect(await orderDetails.element(by.className('order-notes')).getText()).to.equal('Some test order notes');
         expect(await orderDetails.element(by.className('order-total')).isPresent()).to.be.false;
         expect(await orderDetails.element(by.className('discount')).isPresent()).to.be.false;
@@ -255,6 +259,7 @@ describe("E2E Tests", () => {
         // Test order summary as expected
         expect(await orderSummary.element(by.className('status')).getText()).to.equal('Outstanding');
         expect(await orderSummary.element(by.className('address')).getText()).to.equal('COLLECTION');
+        expect(await orderSummary.element(by.className('phone')).getText()).to.equal('01234567890');
         expect(await orderSummary.element(by.className('total-payment')).getText()).to.equal('£0.50 (Cash)');
 
         // Test order details are visible as expected
@@ -262,7 +267,6 @@ describe("E2E Tests", () => {
         let orderDetails = element(by.id(`details_${orderId}`));
         expect(await orderDetails.isDisplayed()).to.be.true;
         expect(await orderDetails.element(by.className('email')).getText()).to.equal('john-smith@test.com');
-        expect(await orderDetails.element(by.className('phone')).getText()).to.equal('01234567890');
         expect(await orderDetails.element(by.className('payment-reference')).isPresent()).to.be.false;
         expect(await orderDetails.element(by.className('order-notes')).getText()).to.equal('Cash order test notes');
         expect(await orderDetails.element(by.className('order-total')).isPresent()).to.be.false;

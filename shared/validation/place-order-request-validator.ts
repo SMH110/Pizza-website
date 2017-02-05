@@ -14,6 +14,7 @@ export function validateOrderRequest(request: PlaceOrderRequestValidationObject,
     }
     errors.push.apply(errors, validateBuyerDetails(request));
     errors.push.apply(errors, validateDeliveryAddress(request));
+    errors.push.apply(errors, validateBillingAddress(request));
     errors.push.apply(errors, isMinimumOrderSatisfied(request))
     return errors;
 }
@@ -56,11 +57,14 @@ function validateDeliveryAddress(request: PlaceOrderRequestValidationObject): st
         if (isNullOrWhitespace(request.deliveryAddress && request.deliveryAddress.postcode) === false && !isPostcodeWithinDeliveryArea(request.deliveryAddress.postcode)) {
             errors.push(`We don't deliver to your area. However, you can still place an order for collection.`);
         }
+    }
+    return errors;
+}
 
-        if (isPostcodeWithinDeliveryArea(request.deliveryAddress.postcode) && request.deliveryAddress && request.deliveryAddress.postcode.replace(/\s/g, "").length > 7) {
-            errors.push(`Invalid UK postcode`);
-        }
-        // TODO - Validate postcode is one of the postcodes we deliver to
+function validateBillingAddress(request: PlaceOrderRequestValidationObject): string[] {
+    let errors: string[] = [];
+    if (['MasterCard', 'JCB', 'Maestro', 'VISA'].indexOf(request.paymentMethod) !== -1) {
+        errors.push.apply(errors, validateAddress(request.billingAddress, 'Billing'));
     }
     return errors;
 }
