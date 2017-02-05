@@ -26,9 +26,9 @@
                             </td>
                             <td class="phone">{{order.buyer.phone}}</td>
                             <td class="total-payment">£{{order.totalPayment | number:'1.2-2' }} ({{order.paymentMethod}})</td>
-                            <td><button class="btn btn-default" (click)='toggleIsExpanded(order)'>{{ toggleIsExpandedButtonName(order) }}</button></td>
+                            <td><button class="btn btn-default" (click)='toggleIsExpanded(order)'>{{ isOrderExpanded(order) ? 'Collapse' : 'Expand' }}</button></td>
                         </tr>
-                        <tr *ngIf='getExpandedStatus(order)' class="more-details" [id]="'details_' + order._id">
+                        <tr *ngIf='isOrderExpanded(order)' class="more-details" [id]="'details_' + order._id">
                             <td colspan="7">
                                 <p><strong>E-mail:</strong> <span class="email">{{order.buyer.email | lowercase}}</span></p>
                                 <p *ngIf="order.paymentId"><strong>Payment Reference:</strong> <span class="payment-reference">{{order.paymentId}}</span></p>
@@ -62,7 +62,7 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                                <button class="btn btn-primary mark-complete" *ngIf="order.status === 'Outstanding'" (click)='markAsComplete(order._id)'>Mark as complete</button>
+                                <button class="btn btn-primary mark-complete" *ngIf="order.status === 'Outstanding'" (click)='markAsComplete(order)'>Mark as complete</button>
                             </td>
                         </tr>
                     </ng-container>

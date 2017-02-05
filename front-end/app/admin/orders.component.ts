@@ -25,7 +25,8 @@ h4 {
 })
 export class OrdersComponent implements OnInit {
     orders: OrderViewModel[];
-    expandStatus: ExpandStatus[] = [];
+    isOrderExpandedOverride: { [orderId: string]: boolean } = {};
+
     constructor(private orderService: OrderService, private errorService: ErrorService, private router: Router) {
     }
 
@@ -34,11 +35,12 @@ export class OrdersComponent implements OnInit {
         setInterval(this.refreshOrders.bind(this), 60000);
     }
 
-    markAsComplete(id: string) {
+    markAsComplete(order: OrderViewModel) {
         this.errorService.clearErrors();
-        this.orderService.markOrderAsComplete({ orderId: id })
+        this.orderService.markOrderAsComplete({ orderId: order._id })
             .subscribe(() => {
-                this.refreshOrders()
+                this.refreshOrders();
+                delete this.isOrderExpandedOverride[order._id];
             }, error => this.handleError(error, 'There was an unexpected error marking the order as complete. Please try again.'));
     }
 
@@ -60,37 +62,15 @@ export class OrdersComponent implements OnInit {
         if (error.status === 500) {
             this.errorService.displayErrors([genericErrorMessage]);
         }
-
     }
 
     toggleIsExpanded(order: OrderViewModel): void {
-        let locallyStoredStatus = this.expandStatus.find(x => x.id === order._id);
-        if (!locallyStoredStatus) {
-            locallyStoredStatus = {
-                id: order._id,
-                isExpanded: !order.isExpanded
-            }
-            this.expandStatus.push(locallyStoredStatus);
-        } else {
-            locallyStoredStatus.isExpanded = !order.isExpanded;
-            this.toggleIsExpandedButtonName(order)
-        }
-        order.isExpanded = !order.isExpanded;
+        this.isOrderExpandedOverride[order._id] = !this.isOrderExpanded(order);
     }
 
-    getExpandedStatus(order: OrderViewModel): boolean {
-        let locallyStoredStatus = this.expandStatus.find(x => x.id === order._id);
-        if (locallyStoredStatus) {
-            return locallyStoredStatus.isExpanded;
-        }
-        return order.isExpanded
-    }
-    toggleIsExpandedButtonName(order: OrderViewModel): string {
-        let locallyStoredStatus = this.expandStatus.find(x => x.id === order._id);
-        if (locallyStoredStatus) {
-            return locallyStoredStatus.isExpanded ? 'Collapse' : 'Expand';
-        }
-        return order.isExpanded ? 'Collapse' : 'Expand';
+    isOrderExpanded(order: OrderViewModel): boolean {
+        let isExpandedOverride = this.isOrderExpandedOverride[order._id];
+        return isExpandedOverride !== undefined ? isExpandedOverride : (order.status === 'Outstanding');
     }
 
     formatAddress(address: Address) {
@@ -113,10 +93,4 @@ export class OrdersComponent implements OnInit {
 
 interface OrderViewModel extends Order {
     _id?: string;
-    isExpanded?: boolean;
-}
-
-interface ExpandStatus {
-    id: string;
-    isExpanded: boolean;
 }
