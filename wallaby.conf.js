@@ -22,6 +22,9 @@ module.exports = function(wallaby) {
         env: {
             type: 'node'
         },
-        testFramework: 'mocha'
+        testFramework: 'mocha',
+        workers: {
+            recycle: true
+        }
     };
 };

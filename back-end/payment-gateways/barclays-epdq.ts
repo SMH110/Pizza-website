@@ -97,7 +97,7 @@ function getPaymentRedirectParameters(order: PersistedOrder, baseReturnAddress: 
     let paymentRequest = {
         PSPID: process.env.BARCLAYS_EPDQ_PSPID,
         ORDERID: order._id.toString(),
-        AMOUNT: (order.totalPayment * 100).toString(),
+        AMOUNT: Math.round(order.totalPayment * 100).toString(),
         CURRENCY: "GBP",
         LANGUAGE: 'en_GB',
         PM: 'CreditCard',
