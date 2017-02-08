@@ -26,7 +26,9 @@ export default model<PersistedOrder>('orders', new Schema({
         price: Number,
         version: String,
         imageName: String,
-        description: String
+        description: String,
+        tags: [String],
+        options: [String]
     }],
     deliveryMethod: String,
     date: Date,

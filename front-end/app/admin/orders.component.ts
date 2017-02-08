@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { OrderService } from '../service/order.service';
 import { ErrorService } from '../service/error.service';
+import { BasketService } from '../service/basket.service';
 import * as moment from 'moment';
 
 @Component({
@@ -88,6 +89,10 @@ export class OrdersComponent implements OnInit {
 
     getOrderDate(order: Order) {
         return moment(order.date).format('dddd Do MMM, HH:mm')
+    }
+
+    getDescription(item: BasketItem) {
+        return BasketService.getDescription(item);
     }
 }
 

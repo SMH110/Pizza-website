@@ -77,4 +77,12 @@ export class BasketService {
         }
         return price;
     }
+
+    static getDescription(item: BasketItem) {
+        return [
+            item.name,
+            item.version,
+            item.options.join(', ')
+        ].filter(x => !!x).join(' - ');
+    }
 }

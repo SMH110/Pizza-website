@@ -13,7 +13,7 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let item of basket.items">
-                        <td>{{item.name}}{{item.version ? ' - ' + item.version : ''}}</td>
+                        <td>{{ getDescription(item) }}</td>
                         <td>£{{item.price | number:'1.2-2'}}</td>
                         <td>{{item.quantity}}
                             <button class="btn btn-primary increase" (click)='basket.increase(item)'><span class="glyphicon glyphicon-plus"></span></button>
