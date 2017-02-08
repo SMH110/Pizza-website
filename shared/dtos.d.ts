@@ -24,8 +24,8 @@ interface PlaceOrderRequest {
 interface BasketItem {
     name: string;
     quantity: number;
-    version?: string;
-    tags: string[];
+    version: string;
+    options: string[];
 }
 
 interface Buyer {

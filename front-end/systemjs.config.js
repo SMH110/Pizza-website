@@ -31,6 +31,7 @@
       'rxjs': 'npm:rxjs',
       'jquery': 'npm:jquery/dist/jquery.min',
       'bootstrap': 'npm:bootstrap/dist/js/bootstrap.min',
+      'ng2-bs3-modal': 'npm:ng2-bs3-modal',
       'moment': 'npm:moment/moment'
     },
     // packages tells the System loader how to load when no filename and/or no extension

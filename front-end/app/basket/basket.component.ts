@@ -30,4 +30,8 @@ import { BasketService } from '../service/basket.service';
 export class BasketComponent {
     constructor(public basket: BasketService) {
     }
+
+    getDescription(item: BasketItem) {
+        return BasketService.getDescription(item);
+    }
 }

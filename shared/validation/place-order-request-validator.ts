@@ -1,4 +1,7 @@
 import { isPostcodeWithinDeliveryArea } from './delivery-area-validator';
+import Toppings from '../static-data/toppings';
+import Catalogue from '../static-data/catalogue';
+
 export function validateOrderRequest(request: PlaceOrderRequestValidationObject, availablePaymentMethods: string[]): string[] {
     if (isShopOpen(request.date) === false) {
         return ['Sorry, the shop is now closed.'];
@@ -23,6 +26,36 @@ function validateBasket(request: PlaceOrderRequestValidationObject): string[] {
     let errors: string[] = [];
     if (!request.orderItems || request.orderItems.length === 0) {
         errors.push('You must have at least 1 item in your basket to place an order');
+    }
+    errors.push.apply(errors, validateItems(request.orderItems));
+    errors.push.apply(errors, validateOptions(request.orderItems));
+    return errors;
+}
+
+function validateItems(orderItems: OrderItemValidationObject[]): string[] {
+    let errors: string[] = [];
+    for (let item of orderItems) {
+        if (Catalogue.find(i => i.name === item.name) === undefined) {
+            errors.push(`${item.name} is not a valid item`);
+        }
+    }
+    return errors;
+}
+
+function validateOptions(orderItems: OrderItemValidationObject[]): string[] {
+    let errors: string[] = [];
+    for (let item of orderItems) {
+        if (item.options.length > 0) {
+            if (item.tags.indexOf('pizza') !== -1) {
+                for (let option of item.options) {
+                    if (Toppings.find(topping => topping.name === option) === undefined) {
+                        errors.push(`${option} is not a valid option for pizzas`);
+                    }
+                }
+            } else {
+                errors.push(`Options cannot be added to ${item.name}`);
+            }
+        }
     }
     return errors;
 }
@@ -120,6 +153,11 @@ function isMinimumOrderSatisfied(order: PlaceOrderRequestValidationObject): stri
 }
 
 export interface PlaceOrderRequestValidationObject extends PlaceOrderRequest {
-    orderItems: Array<BasketItem & { price: number; tags: string[] }>;
+    orderItems: OrderItemValidationObject[];
     date: Date;
+}
+
+export interface OrderItemValidationObject extends BasketItem {
+    price: number;
+    tags: string[];
 }

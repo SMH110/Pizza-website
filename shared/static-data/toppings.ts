@@ -1,7 +1,3 @@
-// Medium, Large, Extra Large pizzas should be 0.90, 1.20, 1.50 (up to 5 allowed)
-// Free choice pizza should be free (up to 5 allowed)
-// Potato skins should be free (1 must be selected)
-
 const toppings: Topping[] = [
     { type: 'Cheese', name: 'Gorgonzola' },
     { type: 'Cheese', name: 'Goat\'s Cheese' },
@@ -50,3 +46,9 @@ const toppings: Topping[] = [
     { type: 'Other', name: 'Pineapple' }
 ];
 export default toppings;
+
+export const PizzaToppingPrices: { [pizzaSize: string]: number } = {
+    'Medium': 0.90,
+    'Large': 1.20,
+    'Extra Large': 1.50
+};

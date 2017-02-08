@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ItemService } from '../service/items.service';
+import Catalogue from '../../../shared/static-data/catalogue';
 
 @Component({
     moduleId: module.id,
@@ -22,10 +22,7 @@ select {
 export class PizzaComponent {
     pizzas: Item[];
 
-    constructor(private itemService: ItemService) {
-        this.itemService.getPizzas()
-            .subscribe(pizzas => {
-                this.pizzas = pizzas;
-            });
+    constructor() {
+        this.pizzas = Catalogue.filter(x => x.tags.indexOf('pizza') !== -1);
     }
 }

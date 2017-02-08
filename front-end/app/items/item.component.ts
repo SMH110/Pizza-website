@@ -1,7 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 
 import { BasketService } from '../service/basket.service';
 import { NotificationService } from '../service/notification.service';
+import { AddPizzaModalComponent } from '../add-pizza-modal/add-pizza-modal.component';
 
 @Component({
     moduleId: module.id,
@@ -13,8 +14,12 @@ import { NotificationService } from '../service/notification.service';
 export class ItemComponent implements OnInit {
     @Input()
     item: Item;
+
+    @ViewChild(AddPizzaModalComponent)
+    addPizzaModal: AddPizzaModalComponent;
+
     versions?: string[];
-    selectedVersion?: string;
+    selectedVersion: string = null;
 
     constructor(private basket: BasketService, private itemNotificationService: NotificationService) {
     }
@@ -26,8 +31,17 @@ export class ItemComponent implements OnInit {
         }
     }
 
-    addToBasket() {
-        this.basket.addToBasket(this.item, this.selectedVersion);
+    async addToBasket() {
+        let options = await this.getOptions();
+        this.basket.addToBasket(Object.assign({ version: this.selectedVersion, quantity: 1, options }, this.item));
         this.itemNotificationService.itemAdded.emit(this.item);
+    }
+
+    private async getOptions() {
+        if (this.item.tags.indexOf('pizza') !== -1) {
+            return this.addPizzaModal.open({ data: { item: this.item, version: this.selectedVersion } });
+        } else {
+            return [];
+        }
     }
 }

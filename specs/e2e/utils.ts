@@ -17,16 +17,39 @@ export async function urlShouldBecome(predicate: (url: string) => boolean) {
     }
 }
 
-export async function whenVisible<T>(locator: By, action: (element: ElementFinder) => T) {
+export async function whenVisible<T>(locator: By, action?: (element: ElementFinder) => T) {
     let theElement = element(locator);
     await browser.wait(EC.visibilityOf(theElement), UI_READY_TIMEOUT);
-    return await action(theElement);
+    if (action !== undefined) {
+        return await action(theElement);
+    } else {
+        return null;
+    }
 }
 
-export async function whenAnyVisible<T>(locator: By, action: (element: ElementArrayFinder) => T) {
+export async function whenNotVisible<T>(locator: By, action?: (element: ElementFinder) => T) {
+    let theElement = element(locator);
+    await browser.wait(EC.invisibilityOf(theElement), UI_READY_TIMEOUT);
+    if (action !== undefined) {
+        return await action(theElement);
+    } else {
+        return null;
+    }
+}
+
+export async function whenFirstVisible<T>(locator: By, action: (element: ElementArrayFinder) => T) {
     await browser.wait(EC.visibilityOf(element(locator)), UI_READY_TIMEOUT);
     let elements = element.all(locator);
     return await action(elements);
+}
+
+export async function whenAnyVisible(locator: By) {
+    await browser.wait(async () => (await element.all(locator).filter((x: ElementFinder) => x.isDisplayed())).length > 0, UI_READY_TIMEOUT);
+    return element.all(locator).filter((x: ElementFinder) => x.isDisplayed()).first();
+}
+
+export async function whenNoneVisible(locator: By) {
+    await browser.wait(async () => (await element.all(locator).filter((x: ElementFinder) => x.isDisplayed())).length === 0, UI_READY_TIMEOUT);
 }
 
 export async function whenVisibleAndNotMoving<T>(locator: By, action: (element: ElementFinder) => T) {

@@ -33,7 +33,8 @@ async function addCardFeeToOrder(order: PersistedOrder) {
         description: null,
         imageName: null,
         price: 0.5,
-        tags: []
+        tags: [],
+        options: []
     });
     order.totalPayment = Math.round((order.totalPayment + 0.5) * 100) / 100;
     order.total = Math.round((order.total + 0.5) * 100) / 100;

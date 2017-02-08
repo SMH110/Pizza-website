@@ -1,13 +1,10 @@
 import { Component } from '@angular/core';
-
-import { ItemService } from './service/items.service';
 import { Router } from '@angular/router';
 
 @Component({
   moduleId: module.id,
   selector: 'my-app',
-  templateUrl: `./app.component.html`,
-  providers: [ItemService]
+  templateUrl: `./app.component.html`
 })
 export class AppComponent {
   constructor(private router: Router) {

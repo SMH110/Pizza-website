@@ -4,12 +4,16 @@ import Order, { PersistedOrder } from '../models/orders.model';
 import { authenticate } from 'passport';
 import { errorHandler, IRequest, IResponse } from './router-utils';
 import { getPaymentGateway, getAvailablePaymentMethods } from '../payment-gateways/factory';
-import { calculateOrderDetails } from '../services/checkout-calculator';
+import { BasketService } from '../../shared/services/basket-service';
 import { validateOrderRequest } from '../../shared/validation/place-order-request-validator';
 
 router.post('/place-order', errorHandler(async (req: IRequest<PlaceOrderRequest>, res: IResponse<PaymentRedirectDetails>) => {
     console.log('Received order - constructing order')
-    let calculatedOrderDetails = calculateOrderDetails(req.body);
+    let basketService = new BasketService();
+    for (let item of req.body.orderItems) {
+        basketService.addToBasket(item);
+    }
+    
     let order: Order = {
         buyer: Object.assign({}, req.body.buyer),
         deliveryAddress: req.body.deliveryMethod === 'Delivery' ? req.body.deliveryAddress : null,
@@ -20,10 +24,10 @@ router.post('/place-order', errorHandler(async (req: IRequest<PlaceOrderRequest>
         paymentFeedback: [],
         note: req.body.note ? req.body.note : null,
         status: 'Awaiting Payment',
-        orderItems: calculatedOrderDetails.orderLineItems,
-        discount: calculatedOrderDetails.discount,
-        total: calculatedOrderDetails.total,
-        totalPayment: calculatedOrderDetails.totalPayment,
+        orderItems: basketService.items,
+        discount: basketService.getDiscount(),
+        total: basketService.getTotalPrice(),
+        totalPayment: basketService.getTotalPayable(),
         paymentId: null
     };
 

@@ -44,7 +44,7 @@
                                     </thead>
                                     <tbody>
                                         <tr *ngFor='let item of order.orderItems' class="order-item">
-                                            <td class="name">{{item.name}}{{item.version ? ' - ' : ''}}{{item.version}}</td>
+                                            <td class="name">{{ getDescription(item) }}</td>
                                             <td class="quantity">{{item.quantity}}</td>
                                             <td class="price">£{{item.price | number:'1.2-2'}}</td>
                                         </tr>

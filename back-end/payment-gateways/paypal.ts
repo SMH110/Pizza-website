@@ -3,6 +3,7 @@ import { Application } from 'express';
 import Order, { PersistedOrder } from '../models/orders.model';
 import { PaymentGateway } from './interfaces';
 import { sendConfirmationEmails } from '../services/confirmation-sender'
+import { BasketService } from '../../shared/services/basket-service';
 export const IsPayPalEnabled = process.env.PAYPAL_ENABLED === "TRUE";
 
 export default class PayPal implements PaymentGateway {
@@ -99,11 +100,11 @@ export function initialisePayPalEndpoints(application: Application) {
 }
 
 function getOrderItems(order: Order) {
-    let items = order.orderItems.map(x => ({
-        name: x.name + (x.version ? ' - ' + x.version : ''),
-        price: x.price,
+    let items = order.orderItems.map(item => ({
+        name: BasketService.getDescription(item),
+        price: item.price,
         currency: "GBP",
-        quantity: x.quantity
+        quantity: item.quantity
     } as PayPalLineItem));
     if (order.discount > 0) {
         items.push({
