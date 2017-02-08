@@ -1,5 +1,6 @@
 import { expect } from 'chai';
-import { validateOrderRequest, PlaceOrderRequestValidationObject } from '../../../shared/validation/place-order-request-validator';
+import { validateOrderRequest, PlaceOrderRequestValidationObject, OrderItemValidationObject } from '../../../shared/validation/place-order-request-validator';
+import Catalogue from '../../../shared/static-data/catalogue';
 
 const PAYMENT_METHODS: PaymentMethod[] = ['PayPal', 'MasterCard', 'JCB', 'Maestro', 'VISA', 'Cash'];
 const DELIVERY_METHODS: DeliveryMethod[] = ['Collection', 'Delivery'];
@@ -186,6 +187,39 @@ describe('Place Order Request Validator', () => {
             });
         });
     });
+
+    describe("Item options", () => {
+        it("Can add valid toppings to a pizza", () => {
+            for (let order of createValidOrders()) {
+                order.orderItems[0].options = ["Goat's Cheese"];
+                expect(validateOrderRequest(order, PAYMENT_METHODS)).to.deep.equal([]);
+            }
+        });
+
+        it("Can't add invalid toppings to a pizza", () => {
+            for (let order of createValidOrders()) {
+                order.orderItems[0].options = ["Blah blah"];
+                expect(validateOrderRequest(order, PAYMENT_METHODS)).to.deep.equal(['Blah blah is not a valid option for pizzas']);
+            }
+        });
+
+        it("Can't add options to items that don't support options", () => {
+            for (let itemType of ['salad', 'dessert', 'drink', 'calzone', 'pasta', 'side']) {
+                for (let order of createValidOrders()) {
+                    let item = Catalogue.find(x => x.tags.some(t => t === itemType));
+                    order.orderItems.push({
+                        name: item.name,
+                        price: 13.99,
+                        quantity: 1,
+                        tags: item.tags,
+                        options: ["Goat's Cheese"],
+                        version: null
+                    });
+                    expect(validateOrderRequest(order, PAYMENT_METHODS)).to.deep.equal([`Options cannot be added to ${item.name}`]);
+                }
+            }
+        });
+    });
 });
 
 
@@ -231,13 +265,14 @@ function createValidDeliveryAddress(): Address {
     };
 }
 
-function createValidOrderItems(): Array<BasketItem & { price: number; tags: string[] }> {
+function createValidOrderItems(): OrderItemValidationObject[] {
+    let margherita = Catalogue.find(x => x.name === 'Margherita');
     return [{
-        name: 'Some pizza',
-        price: 10,
+        name: margherita.name,
+        price: margherita.price['Extra Large'],
         quantity: 1,
-        version: 'Large',
-        tags: ['pizza'],
+        version: 'Extra Large',
+        tags: margherita.tags,
         options: []
     }];
 }
