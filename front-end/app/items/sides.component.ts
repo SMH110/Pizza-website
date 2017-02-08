@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ItemService } from '../service/items.service';
+import Catalogue from '../../../shared/static-data/catalogue';
 
 @Component({
     moduleId: module.id,
@@ -8,8 +8,7 @@ import { ItemService } from '../service/items.service';
 export class SidesComponent {
     sides: Item[];
 
-    constructor(private itemService: ItemService) {
-        this.itemService.getSides()
-            .subscribe(sides => this.sides = sides);
+    constructor() {
+        this.sides = Catalogue.filter(x => x.tags.indexOf('side') !== -1);
     }
 }

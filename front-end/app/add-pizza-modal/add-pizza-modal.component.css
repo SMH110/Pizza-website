@@ -1,0 +1,25 @@
+.toppings-container {
+    margin: 0 auto;
+}
+
+.topping {
+    margin: 0 10px;
+    width: 45%;
+    float: left;
+}
+
+.add-topping {
+    width: 100%;
+    margin: 10px 0;
+}
+
+h3 {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+@media (min-width: 900px) {
+    .topping {
+        width: 22%;
+    }
+}

@@ -237,6 +237,7 @@ function createValidOrderItems(): Array<BasketItem & { price: number; tags: stri
         price: 10,
         quantity: 1,
         version: 'Large',
-        tags: ['pizza']
+        tags: ['pizza'],
+        options: []
     }];
 }

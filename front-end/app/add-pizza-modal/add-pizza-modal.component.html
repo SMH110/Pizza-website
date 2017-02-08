@@ -1,0 +1,36 @@
+<modal>
+    <modal-header [show-close]="true">
+        <h4 class="modal-title">Pizza Options</h4>
+    </modal-header>
+    <modal-body *ngIf="data">
+        The pizza you selected is {{ data.name }}
+        <hr>
+        <button class="btn btn-default" (click)="addToBasketWithoutToppings()">No extra toppings</button>
+        <hr>
+        <h3>Toppings</h3> <span>£{{getIndividualToppingPrice() | number:'1.2-2'}} Each</span>
+        <div class="toppings-container clearfix">
+            <div class="topping">
+                <select class="form-control" [(ngModel)]="selectedTopping">
+                    <option *ngFor="let topping of toppings" [ngValue]="topping">{{topping.name}}</option>
+                </select>
+                <button class="btn btn-primary add-topping" (click)="addTopping()">Add topping</button>
+            </div>
+        </div>
+        <div *ngIf="selectedOptions.length > 0">
+            <h4>Selected toppings</h4>
+            <ul class="list-group">
+                <li class="list-group-item clearfix" *ngFor="let topping of selectedOptions"> {{topping}}
+                    <button class="btn btn-danger pull-right" (click)="removeOption(topping)"><span class="glyphicon glyphicon-remove"></span></button>
+                </li>
+            </ul>
+            <strong>Total price:</strong> £ {{ getTotalPrice() | number:'1.2-2' }}
+        </div>
+        <hr>
+        <p>You can also request for existing toppings to be removed or swapped in the Order Notes part of the checkout</p>
+    </modal-body>
+
+    <modal-footer>
+        <button (click)="cancel()" class="btn btn-danger">Cancel</button>
+        <button (click)="addToBasketWithToppings()" class="btn btn-primary" [disabled]="selectedOptions.length < 1">Add with toppings</button>
+    </modal-footer>
+</modal>

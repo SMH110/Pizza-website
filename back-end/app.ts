@@ -11,7 +11,6 @@ import { initialiseBarclaysEPDQEndpoints } from './payment-gateways/barclays-epd
 import './config/passport.config';
 
 import clientSide from './router/client-side';
-import items from './router/items';
 import order from './router/order';
 import admin from './router/admin';
 import health from './router/health';
@@ -39,7 +38,6 @@ app.use(passport.initialize());
 // Register Routes
 app.use('/api/order', nocache(), order);
 app.use('/api/admin', nocache(), admin);
-app.use('/api/products', nocache(), items);
 app.use('/api/payment', nocache(), payment);
 app.use('/health', health);
 app.use(nocache(), clientSide);
