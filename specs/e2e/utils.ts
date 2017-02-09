@@ -17,43 +17,22 @@ export async function urlShouldBecome(predicate: (url: string) => boolean) {
     }
 }
 
-export async function whenVisible<T>(locator: By, action?: (element: ElementFinder) => T) {
+export async function whenVisible(locator: By): Promise<ElementFinder>;
+export async function whenVisible<T>(locator: By, action: (element: ElementFinder) => T): Promise<T>;
+export async function whenVisible<T>(locator: By, action?: (element: ElementFinder) => T): Promise<T | ElementFinder> {
     let theElement = element(locator);
     await browser.wait(EC.visibilityOf(theElement), UI_READY_TIMEOUT);
     if (action !== undefined) {
-        return await action(theElement);
+        return action(theElement);
     } else {
-        return null;
+        return theElement;
     }
 }
 
-export async function whenNotVisible<T>(locator: By, action?: (element: ElementFinder) => T) {
-    let theElement = element(locator);
-    await browser.wait(EC.invisibilityOf(theElement), UI_READY_TIMEOUT);
-    if (action !== undefined) {
-        return await action(theElement);
-    } else {
-        return null;
-    }
-}
-
-export async function whenFirstVisible<T>(locator: By, action: (element: ElementArrayFinder) => T) {
-    await browser.wait(EC.visibilityOf(element(locator)), UI_READY_TIMEOUT);
-    let elements = element.all(locator);
-    return await action(elements);
-}
-
-export async function whenAnyVisible(locator: By) {
-    await browser.wait(async () => (await element.all(locator).filter((x: ElementFinder) => x.isDisplayed())).length > 0, UI_READY_TIMEOUT);
-    return element.all(locator).filter((x: ElementFinder) => x.isDisplayed()).first();
-}
-
-export async function whenNoneVisible(locator: By) {
-    await browser.wait(async () => (await element.all(locator).filter((x: ElementFinder) => x.isDisplayed())).length === 0, UI_READY_TIMEOUT);
-}
-
-export async function whenVisibleAndNotMoving<T>(locator: By, action: (element: ElementFinder) => T) {
-    return await whenVisible(locator, async element => {
+export async function whenVisibleAndNotMoving(locator: By): Promise<ElementFinder>;
+export async function whenVisibleAndNotMoving<T>(locator: By, action: (element: ElementFinder) => T): Promise<T>;
+export async function whenVisibleAndNotMoving<T>(locator: By, action?: (element: ElementFinder) => T): Promise<T | ElementFinder> {
+    return whenVisible(locator, async element => {
         let previousLocation = await element.getLocation();
         let attempts = 0;
         while (true) {
@@ -68,14 +47,42 @@ export async function whenVisibleAndNotMoving<T>(locator: By, action: (element: 
                 }
             }
         }
-        return await action(element);
+        if (action !== undefined) {
+            return action(element);
+        } else {
+            return element;
+        }
     });
 }
 
-export async function whenClickable<T>(locator: By, action: (element: ElementFinder) => T) {
+export async function whenClickable(locator: By): Promise<ElementFinder>;
+export async function whenClickable<T>(locator: By, action: (element: ElementFinder) => T): Promise<T>;
+export async function whenClickable<T>(locator: By, action?: (element: ElementFinder) => T): Promise<T | ElementFinder> {
     let theElement = element(locator);
     await browser.wait(EC.elementToBeClickable(theElement), UI_READY_TIMEOUT);
-    return await action(theElement);
+    if (action !== undefined) {
+        return action(theElement);
+    } else {
+        return theElement;
+    }
+}
+
+export async function whenAnyVisible(locator: By): Promise<ElementFinder[]>;
+export async function whenAnyVisible<T>(locator: By, action: (element: ElementArrayFinder) => T): Promise<T>;
+export async function whenAnyVisible<T>(locator: By, action?: (element: ElementArrayFinder) => T): Promise<T | ElementFinder[]> {
+    await browser.wait(EC.visibilityOf(element(locator)), UI_READY_TIMEOUT);
+    let elements = element.all(locator);
+    if (action !== undefined) {
+        return action(elements);
+    } else {
+        return elements;
+    }
+}
+
+export async function whenNotPresent(locator: By): Promise<ElementFinder> {
+    let theElement = element(locator);
+    await browser.wait(EC.stalenessOf(theElement), UI_READY_TIMEOUT);
+    return theElement;
 }
 
 export async function waitForAngularToLoad() {
