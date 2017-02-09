@@ -1,5 +1,5 @@
 import { browser, by, element, ElementFinder, ExpectedConditions as EC } from "protractor";
-import { doInsideIFrame, urlShouldBecome, whenFirstVisible, whenClickable, whenAnyVisible, whenVisible, waitForAngularToLoad, UI_READY_TIMEOUT } from './utils';
+import { doInsideIFrame, urlShouldBecome, whenClickable, whenAnyVisible, whenNotPresent, whenVisible, waitForAngularToLoad, UI_READY_TIMEOUT, whenVisibleAndNotMoving } from './utils';
 import { randomBytes } from 'crypto';
 import { expect } from 'chai';
 
@@ -79,7 +79,7 @@ describe("E2E Tests", () => {
 
         // Look for order
         let fullName = `${firstName} ${lastName}`;
-        let orderSummary = await whenFirstVisible(by.className('order-summary'), orderSummaries =>
+        let orderSummary = await whenAnyVisible(by.className('order-summary'), orderSummaries =>
             orderSummaries.filter(async (summary: ElementFinder) => await summary.element(by.className('name')).getText() === fullName).first());
 
         // Test order summary as expected
@@ -174,7 +174,7 @@ describe("E2E Tests", () => {
 
         // Look for order
         let fullName = `${firstName} ${lastName}`;
-        let orderSummary = await whenFirstVisible(by.className('order-summary'), orderSummaries =>
+        let orderSummary = await whenAnyVisible(by.className('order-summary'), orderSummaries =>
             orderSummaries.filter(async (summary: ElementFinder) => await summary.element(by.className('name')).getText() === fullName).first());
 
         // Test order summary as expected
@@ -215,7 +215,7 @@ describe("E2E Tests", () => {
         await browser.get("/");
 
         // Add a side
-        await element(by.linkText("Sides")).click();
+        await whenVisible(by.linkText("Sides"), sidesLink => sidesLink.click());
         await addProduct("Dips", "BBQ");
 
         //Go to the basket and checkout
@@ -233,7 +233,7 @@ describe("E2E Tests", () => {
         await element(by.id("order_notes")).sendKeys("Cash order test notes");
 
         // Select Cash and place the order.
-        await whenFirstVisible(by.id("Cash"), cashOption => cashOption.click());
+        await whenVisible(by.id("Cash"), cashOption => cashOption.click());
         await element(by.buttonText("Order Now")).click();
 
         // Ensure we are routed to /order/success
@@ -247,13 +247,13 @@ describe("E2E Tests", () => {
         await waitForAngularToLoad();
 
         // Log into Admin site
-        await whenFirstVisible(by.id("email"), email => email.sendKeys("test@test.com"));
+        await whenVisible(by.id("email"), email => email.sendKeys("test@test.com"));
         await element(by.id("password")).sendKeys("test");
         await element(by.buttonText("Sign in")).click();
 
         // Test order details are visible as expected
         let fullName = `${firstName} ${lastName}`;
-        let orderSummary = await whenFirstVisible(by.className('order-summary'), orderSummaries =>
+        let orderSummary = await whenAnyVisible(by.className('order-summary'), orderSummaries =>
             orderSummaries.filter(async (summary: ElementFinder) => await summary.element(by.className('name')).getText() === fullName).first());
 
         // Test order summary as expected
@@ -288,10 +288,8 @@ describe("E2E Tests", () => {
 });
 
 async function addPizza(name: string, version: string, ...options: string[]) {
-    console.log('addPizza starting');
     await addProduct(name, version);
-    let modal = await whenAnyVisible(by.className('add-pizza-modal'));
-    await browser.sleep(1000);
+    let modal = await whenVisibleAndNotMoving(by.className('add-pizza-modal'));
     if (options.length > 0) {
         for (let option of options) {
             await modal.element(by.css('.topping select')).sendKeys(option);
@@ -301,13 +299,11 @@ async function addPizza(name: string, version: string, ...options: string[]) {
     } else {
         await modal.element(by.buttonText('No extra toppings')).click();
     }
-    await EC.invisibilityOf(modal);
-    await browser.sleep(1000);
-    console.log('addPizza complete');
+    await whenNotPresent(by.className('add-pizza-modal'));
 }
 
 async function addProduct(name: string, version?: string) {
-    let product = await whenFirstVisible(by.className('product'), async products => {
+    let product = await whenAnyVisible(by.className('product'), async products => {
         return products.filter(async (x: ElementFinder) => await x.element(by.tagName('h3')).getText() === name).first();
     });
     if (version !== undefined) {

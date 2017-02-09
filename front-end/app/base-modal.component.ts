@@ -9,12 +9,12 @@ import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 export class BaseModalComponent<TInput, TOutput> {
     @ViewChild(ModalComponent)
     private modal: ModalComponent;
-    private isInitialised = false;
-    private resolve?: (value?: TOutput) => void;
-    private reject?: (reason?: Error) => void;
 
     /** The data that was passed to this modal, if any */
     protected data?: TInput;
+
+    private result?: TOutput;
+    private error?: Error;
 
     /**
      * Opens the modal.
@@ -22,70 +22,50 @@ export class BaseModalComponent<TInput, TOutput> {
      * @return A promise containing the result of the modal. This promise will not resolve/reject if the modal is cancelled.
      */
     public open(options?: ModalOptions<TInput>): Promise<TOutput> {
-       this.initialise();
         if (options && options.data) {
             this.data = options && options.data;
         }
+
         let promise = new Promise<TOutput>((resolve, reject) => {
-            this.resolve = resolve;
-            this.reject = reject;
+            this.modal.onClose.subscribe(() => {
+                resolve(this.result);
+            });
+            this.modal.onDismiss.subscribe(() => {
+                reject(this.error);
+            });
         });
+
         return this.modal.open(options && options.size)
             .then(() => promise);
     }
 
     /**
-     * Closes the modal providing a given result to the caller that opened the modal.
+     * Closes the modal, optionally providing a result to the caller that opened the modal.
      * @param result The result to provide to the caller that opened the modal.
-     * @return A promise that resolves once the modal has disappeared.
      */
     protected closeWithResult(result?: TOutput): Promise<void> {
-        let resolve = this.resolve;
-        return this.modal.close().then(() => {
-            resolve(result);
-        });
+        this.result = result;
+        return this.modal.close();
     }
 
     /**
-     * Closes the modal providing a given error to the caller that opened the modal.
+     * Closes the modal providing an error to the caller that opened the modal.
      * @param error The error to provide to the caller that opened the modal.
-     * @return A promise that resolves once the modal has disappeared.
      */
-    protected closeWithError(error: Error): Promise<void> {
-        let reject = this.reject;
-        return this.modal.dismiss().then(() => {
-            reject(error);
-        });
+    protected closeWithError(error: Error) {
+        this.error = error;
+        this.modal.dismiss();
     }
 
     /**
      * Closes the modal providing no feedback to the caller that opened the modal.
-     * @return A promise that resolves once the modal has disappeared.
      */
-    protected cancel(): Promise<void> {
-        return this.modal.dismiss();
-    }
-
-    private initialise() {
-        if (!this.isInitialised) {
-            this.modal.onClose.subscribe(() => {
-                this.cleanup();
-            });
-            this.modal.onDismiss.subscribe(() => {
-                this.cleanup();
-            });
-            this.isInitialised = true;
-        }
-    }
-
-    private cleanup() {
-        delete this.data;
-        delete this.resolve;
-        delete this.reject;
+    protected cancel() {
+        this.modal.dismiss();
     }
 }
 
-interface ModalOptions<T> {
+export interface ModalOptions<T> {
     data?: T;
     size?: string;
 }

@@ -25,12 +25,15 @@ import { HeaderComponent } from './header/header.component';
 import { OrdersComponent } from './admin/orders.component';
 import { SignInComponent } from './admin/sign-in.component';
 import { NotificationsComponent } from './notification/notifications.component';
+import { ModalHostComponent } from './modal-host/modal-host.component';
+
 // Services
 import { ErrorService } from './service/error.service';
 import { BasketService } from './service/basket.service';
 import { OrderService } from './service/order.service';
 import { SignInService } from './service/sign-in.service';
 import { NotificationService } from './service/notification.service';
+import { ModalService } from './service/modal.service';
 
 // Guards
 import { CheckoutGuard } from './guards/checkout.guard';
@@ -65,7 +68,8 @@ import 'bootstrap';
     SignInComponent,
     NotificationsComponent,
     ItemComponent,
-    AddPizzaModalComponent
+    AddPizzaModalComponent,
+    ModalHostComponent
   ],
   providers:
   [
@@ -75,6 +79,7 @@ import 'bootstrap';
     BasketService,
     SignInService,
     NotificationService,
+    ModalService,
 
     // Guards
     CheckoutGuard,
@@ -82,6 +87,9 @@ import 'bootstrap';
     // Global error handler
     { provide: ErrorHandler, useClass: ErrorReporter }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    AddPizzaModalComponent
+  ]
 })
 export class AppModule { }

@@ -62,3 +62,8 @@
     vertical-align: top;
     float: none;
 }
+
+
+.modal-backdrop {
+    opacity: 0;
+}
