@@ -3,7 +3,7 @@
         <div class="row" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;display:block;margin-right:-15px;margin-left:-15px;">
             <div class="col-md-8 col-sm-12" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;display:block;position:relative;min-height:1px;padding-right:15px;padding-left:15px;">
                 <% if (isStoreCopy) { %>
-                    <div class="email-header" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;background-color:#5b7da0;color:#fff;min-height:150px;display:table;width:100%;padding-left:50px;margin-bottom:50px;">
+                    <div class="email-header" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;background-color:#5b7da0;color:#fff;min-height:130px;display:table;width:100%;padding-left:50px;margin-bottom:50px;">
                         <h2 style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;display:table-cell;vertical-align:middle;">New customer order</h2>
                     </div>
                     <div class="email-body" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;display:block;padding-top:0;padding-bottom:0;padding-right:50px;padding-left:50px;">
@@ -28,18 +28,7 @@
                                                 <% for ( var item of order.orderItems){ %>
                                                     <tr>
                                                         <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;padding-top:8px;padding-bottom:8px;padding-right:8px;padding-left:8px;line-height:1.42857143;vertical-align:top;border-top-width:1px;border-top-style:solid;border-top-color:#ddd;border-width:1px;border-style:solid;border-color:#ddd;">
-                                                            <%= item.name %>
-                                                                <% if (item.version) { %>
-                                                                    -
-                                                                    <%= item.version %>
-                                                                        <%} %>
-
-                                                                            <% if (item.toppings) { %>
-                                                                                <br> Additional Toppings:
-                                                                                <span class="toppings" style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-size:0.9em;">
-                                                                    <%= item.toppings.join(",") %>
-                                                                        <%} %>
-                                                                </span>
+                                                            <%= getDescription(item) %>
                                                         </td>
                                                         <td style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;padding-top:8px;padding-bottom:8px;padding-right:8px;padding-left:8px;line-height:1.42857143;vertical-align:top;border-top-width:1px;border-top-style:solid;border-top-color:#ddd;border-width:1px;border-style:solid;border-color:#ddd;">
                                                             <%= item.quantity %>
@@ -88,26 +77,36 @@
                                                     <%= order.buyer.phone %>
                                                 </li>
                                             </ul>
-                                            <h4 style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;color:#5b7da0;font-weight:bold;margin-top:20px;">Delivery Address</h4>
-                                            <% if (order.deliveryAddress){ %>
-                                                <p style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;line-height:12px;">
-                                                    <%= order.buyer.firstName %>
-                                                        <%= order.buyer.lastName %>
-                                                </p>
-                                                <p style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;line-height:12px;">
-                                                    <%= order.deliveryAddress.line1 %> <br>
-                                                        <%= order.deliveryAddress.line2 %>
-                                                </p>
-                                                <p style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;line-height:12px;">
-                                                    <%= order.deliveryAddress.town %>
-                                                </p>
-                                                <p style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;line-height:12px;">
-                                                    <%= order.deliveryAddress.postcode %>
-                                                </p>
-                                                <% } %>
-                                                    <% }else{ %>
-                                                        <p style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;line-height:18px;">If you have any questions about your order, call STORE NUMBER. Thank you and visit us again soon at: STORE URL</p>
+                                            <% } %>
+                                                <h4 style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;color:#5b7da0;font-weight:bold;margin-top:20px;">Delivery Address</h4>
+                                                <% if (order.deliveryMethod === "Delivery"){ %>
+                                                    <p style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;line-height:12px;">
+                                                        <%= order.buyer.firstName %>
+                                                            <%= order.buyer.lastName %>
+                                                    </p>
+
+                                                    <p style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;line-height:12px;">
+                                                        <%= order.deliveryAddress.line1 %> <br>
+                                                            <%= order.deliveryAddress.line2 %>
+                                                    </p>
+                                                    <p style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;line-height:12px;">
+                                                        <%= order.deliveryAddress.town %>
+                                                    </p>
+                                                    <p style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;line-height:12px;">
+                                                        <%= order.deliveryAddress.postcode %>
+                                                    </p>
+                                                    <% }  else { %>
+                                                        <strong style="line-height:10px;"> Collect From </strong></br>
+                                                        <p style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;line-height:9px;"> 152 Norwood Road </p>
+                                                        <p style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;line-height:9px;"> Lambeth</p>
+                                                        <p style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;line-height:9px;"> London </p>
+                                                        <p style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;line-height:9px;">SE27 9AZ </p>
                                                         <% } %>
+                                                            <% if (isStoreCopy === false){ %>
+                                                                <p style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;line-height:18px;">If you have any questions about your order, call <strong>0208 674 2000</strong>. Thank you and visit us again soon at:
+                                                                    <a href="http://www.godfatherpizzawoodoven.co.uk/" target="_blank">www.godfatherpizzawoodoven.co.uk</a>
+                                                                </p>
+                                                                <% } %>
 
                     </div>
             </div>

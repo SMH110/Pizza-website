@@ -1,5 +1,6 @@
 import { renderFile } from "ejs";
 import { createTransport, Transporter } from "nodemailer";
+import { BasketService } from '../../shared/services/basket-service';
 
 const SMTP_EMAIL = process.env.SMTP_EMAIL;
 const SMTP_PASSWORD = process.env.SMTP_PASSWORD;
@@ -26,7 +27,7 @@ export async function sendConfirmationEmails(order: Order) {
 }
 
 async function sendConfirmationToStore(order: Order) {
-    const storeEmailTemplate = await renderEjsTemplate(__dirname + "/email-template.ejs", order, true);
+    const storeEmailTemplate = await renderEjsTemplate(__dirname + "/email-template.ejs", order, true , BasketService.getDescription);
     const mailOptions = {
         from: `'Pizza Godfather' <${SMTP_EMAIL}>`,
         to: SMTP_EMAIL,
@@ -37,19 +38,19 @@ async function sendConfirmationToStore(order: Order) {
 }
 
 async function sendConfirmationToUser(order: Order) {
-    const storeEmailTemplate = await renderEjsTemplate(__dirname + "/email-template.ejs", order, false);
+    const storeEmailTemplate = await renderEjsTemplate(__dirname + "/email-template.ejs", order, false , BasketService.getDescription);
     const mailOptions = {
         from: `'Pizza Godfather' <${SMTP_EMAIL}>`,
         to: order.buyer.email,
-        subject: `New order - £${order.totalPayment} - ${order.buyer.firstName} ${order.buyer.lastName}`,
+        subject: `Your order was received`,
         html: storeEmailTemplate
     };
     return sendEmail(transporter, mailOptions);
 }
 
-function renderEjsTemplate(template: string, order: Order, isStoreCopy: boolean): Promise<string> {
+function renderEjsTemplate(template: string, order: Order, isStoreCopy: boolean, getDescription: Function): Promise<string> {
     return new Promise<string>((resolve, reject) => {
-        renderFile(template, { order, isStoreCopy }, (error, html) => {
+        renderFile(template, { order, isStoreCopy , getDescription }, (error, html) => {
             if (error) {
                 return reject(error);
             }
