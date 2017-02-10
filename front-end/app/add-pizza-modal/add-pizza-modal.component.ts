@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 import { BaseModalComponent } from '../base-modal.component';
 import Toppings, { PizzaToppingPrices } from '../../../shared/static-data/toppings';
+import calculatePrice from '../../../shared/business-rules/pizza-pricing-rule';
 
 @Component({
     moduleId: module.id,
@@ -12,7 +13,6 @@ import Toppings, { PizzaToppingPrices } from '../../../shared/static-data/toppin
 export class AddPizzaModalComponent extends BaseModalComponent<AddPizzaModalDto, string[]> {
     selectedOptions: string[] = [];
     toppings: Topping[] = Toppings;
-    toppingPrices = PizzaToppingPrices;
     selectedTopping: Topping = Toppings[0];
 
     addTopping() {
@@ -32,13 +32,15 @@ export class AddPizzaModalComponent extends BaseModalComponent<AddPizzaModalDto,
     }
 
     getIndividualToppingPrice(): number {
-        return this.toppingPrices[this.data.version];
+        return PizzaToppingPrices[this.data.version];
     }
 
     getTotalPrice(): number {
-        let pizzaPrice = this.data.item.price[this.data.version];
-        let optionsPrice = this.selectedOptions.length * this.getIndividualToppingPrice();
-        return pizzaPrice + optionsPrice;
+        return calculatePrice(Object.assign({ quantity: 1, version: this.data.version, options: this.selectedOptions }, this.data.item));
+    }
+
+    isFreeChoice(): boolean {
+        return this.data.item.name === 'Free Choice';
     }
 }
 
