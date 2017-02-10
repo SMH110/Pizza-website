@@ -8,7 +8,7 @@ const toppings: Topping[] = [
     { type: 'Vegetable', name: 'Fresh Tomato' },
     { type: 'Vegetable', name: 'Cherry Tomato' },
     { type: 'Vegetable', name: 'Sundried Tomato' },
-    { type: 'Vegetable', name: 'Brocolli' },
+    { type: 'Vegetable', name: 'Broccoli' },
     { type: 'Vegetable', name: 'Artichoke' },
     { type: 'Vegetable', name: 'Courgette' },
     { type: 'Vegetable', name: 'Roasted Mushroom' },

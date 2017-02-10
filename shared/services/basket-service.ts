@@ -64,9 +64,11 @@ export class BasketService {
     }
 
     getExistingItem(item: BasketItem): OrderLineItem {
-        return this.items.find(x =>
-            x.name === item.name &&
-            x.version === item.version
+        return this.items.find(x => {
+            return x.name === item.name &&
+                x.version === item.version &&
+                x.options.slice().sort().join() === item.options.slice().sort().join()
+        }
         );
     }
 
