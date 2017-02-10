@@ -3,9 +3,9 @@ import Toppings from '../static-data/toppings';
 import Catalogue from '../static-data/catalogue';
 
 export function validateOrderRequest(request: PlaceOrderRequestValidationObject, availablePaymentMethods: string[]): string[] {
-    // if (isShopOpen(request.date) === false) {
-    //     return ['Sorry, the shop is now closed.'];
-    // }
+    if (isShopOpen(request.date) === false) {
+        return ['Sorry, the shop is now closed.'];
+    }
 
     let errors: string[] = [];
     errors.push.apply(errors, validateBasket(request));
