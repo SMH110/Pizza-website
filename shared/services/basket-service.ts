@@ -1,6 +1,6 @@
 import { discountCalculator } from '../discount-calculator'
 import catalog from '../static-data/catalogue';
-import { PizzaToppingPrices } from '../static-data/toppings';
+import { getPricingRule } from '../business-rules/pricing-rule-factory';
 
 export class BasketService {
     items: OrderLineItem[] = [];
@@ -17,7 +17,7 @@ export class BasketService {
             this.items.push({
                 name: item.name,
                 description: catalogItem.description,
-                price: this.calculateItemPrice(item, catalogItem),
+                price: getPricingRule(catalogItem)(item),
                 imageName: catalogItem.imageName,
                 quantity: item.quantity,
                 version: item.version,
@@ -68,14 +68,6 @@ export class BasketService {
             x.name === item.name &&
             x.version === item.version
         );
-    }
-
-    private calculateItemPrice(item: BasketItem, catalogItem: Item) {
-        let price = typeof catalogItem.price === 'number' ? catalogItem.price : catalogItem.price[item.version];
-        if (catalogItem.tags.indexOf('pizza') !== -1) {
-            price += item.options.length * PizzaToppingPrices[item.version];
-        }
-        return price;
     }
 
     static getDescription(item: BasketItem) {

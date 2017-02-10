@@ -7,7 +7,9 @@
         <hr>
         <button class="btn btn-default" (click)="addToBasketWithoutToppings()">No extra toppings</button>
         <hr>
-        <h3>Toppings</h3> <span>£{{getIndividualToppingPrice() | number:'1.2-2'}} Each</span>
+        <h3>Toppings</h3>
+        <span *ngIf="isFreeChoice()">Up to 5 toppings are free.</span>
+        <span>Additional toppings are £{{getIndividualToppingPrice() | number:'1.2-2'}} each</span>
         <div class="toppings-container clearfix">
             <div class="topping">
                 <select class="form-control" [(ngModel)]="selectedTopping">
