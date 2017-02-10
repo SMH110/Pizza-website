@@ -23,7 +23,7 @@ export function validateOrderRequest(request: PlaceOrderRequestValidationObject,
 }
 
 function validateBasket(request: PlaceOrderRequestValidationObject): string[] {
-    let errors: string[] = [];
+    let errors = [];
     if (!request.orderItems || request.orderItems.length === 0) {
         errors.push('You must have at least 1 item in your basket to place an order');
     }
@@ -33,7 +33,7 @@ function validateBasket(request: PlaceOrderRequestValidationObject): string[] {
 }
 
 function validateItems(orderItems: OrderItemValidationObject[]): string[] {
-    let errors: string[] = [];
+    let errors = [];
     for (let item of orderItems) {
         if (Catalogue.find(i => i.name === item.name) === undefined) {
             errors.push(`${item.name} is not a valid item`);
@@ -43,7 +43,7 @@ function validateItems(orderItems: OrderItemValidationObject[]): string[] {
 }
 
 function validateOptions(orderItems: OrderItemValidationObject[]): string[] {
-    let errors: string[] = [];
+    let errors = [];
     for (let item of orderItems) {
         if (item.options.length > 0) {
             if (item.tags.indexOf('pizza') !== -1) {
@@ -61,7 +61,7 @@ function validateOptions(orderItems: OrderItemValidationObject[]): string[] {
 }
 
 function validateBuyerDetails(request: PlaceOrderRequestValidationObject): string[] {
-    let errors: string[] = [];
+    let errors = [];
     if (!request.buyer) {
         errors.push('Please enter your details')
     }
@@ -103,7 +103,7 @@ function validateBillingAddress(request: PlaceOrderRequestValidationObject): str
 }
 
 function validateAddress(address: Address, addressType: string): string[] {
-    let errors: string[] = [];
+    let errors = [];
     if (!address) {
         errors.push(`${addressType} address is required`)
     }
@@ -125,8 +125,8 @@ function isNullOrWhitespace(input: string) {
 }
 
 function isShopOpen(date: Date): boolean {
-    let day: number = date.getDay();
-    let time: number = (date.getHours() * 100) + date.getMinutes();
+    let day = date.getDay();
+    let time = (date.getHours() * 100) + date.getMinutes();
     if (day < 5 && time > 100 && time < 1200) {
         return false;
     }
@@ -137,19 +137,17 @@ function isShopOpen(date: Date): boolean {
 }
 
 function isMinimumOrderSatisfied(order: PlaceOrderRequestValidationObject): string[] {
-    let error: string[] = [];
-    if (order.deliveryMethod === 'Collection' && order.paymentMethod === 'Cash') {
-        return error;
+    let totalAmountOfPizzaOrCalzone = order.orderItems.filter(x => x.tags.indexOf('pizza') !== -1 || x.tags.indexOf('calzone') !== -1).reduce((x, y) => x + y.price * y.quantity, 0);
+
+    if (order.deliveryMethod === 'Delivery' && totalAmountOfPizzaOrCalzone < 10) {
+        return ["A minimum spend of £10 is required on pizza or calzone for delivery orders."];
     }
-    let priceOfPizzaItems = order.orderItems.filter(x => x.tags.indexOf('pizza') !== -1)
-        .reduce((x, y) => x + y.price * y.quantity, 0);
-    if (order.deliveryMethod === 'Delivery' && priceOfPizzaItems < 10) {
-        error.push("A minimum spend of £10 is required on pizza or calzone for delivery orders.");
+
+    if (order.paymentMethod !== 'Cash' && totalAmountOfPizzaOrCalzone < 10) {
+        return [`A minimum spend of £10 is required on pizza or calzone for ${order.paymentMethod} orders.`];
     }
-    if (order.paymentMethod !== 'Cash' && order.deliveryMethod !== 'Delivery' && priceOfPizzaItems < 10) {
-        error.push(`A minimum spend of £10 is required on pizza or calzone for ${order.paymentMethod} orders.`)
-    }
-    return error;
+
+    return [];
 }
 
 export interface PlaceOrderRequestValidationObject extends PlaceOrderRequest {
