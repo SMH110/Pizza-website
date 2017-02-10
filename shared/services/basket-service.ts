@@ -64,12 +64,10 @@ export class BasketService {
     }
 
     getExistingItem(item: BasketItem): OrderLineItem {
-        let sortedItemOptions = item.options.sort();
         return this.items.find(x => {
             return x.name === item.name &&
                 x.version === item.version &&
-                x.options.length === sortedItemOptions.length &&
-                x.options.sort().every((option, i) => option === sortedItemOptions[i])
+                x.options.slice().sort().join() === item.options.slice().sort().join()
         }
         );
     }
