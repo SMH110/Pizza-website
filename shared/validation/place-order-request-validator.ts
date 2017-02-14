@@ -84,12 +84,10 @@ function validateBuyerDetails(request: PlaceOrderRequestValidationObject): strin
 
 function validateDeliveryAddress(request: PlaceOrderRequestValidationObject): string[] {
     let errors: string[] = [];
-    if (request.deliveryMethod === 'Delivery') {
-        errors.push.apply(errors, validateAddress(request.deliveryAddress, 'Delivery'));
 
-        if (isNullOrWhitespace(request.deliveryAddress && request.deliveryAddress.postcode) === false && !isPostcodeWithinDeliveryArea(request.deliveryAddress.postcode)) {
-            errors.push(`We don't deliver to your area. However, you can still place an order for collection.`);
-        }
+    errors.push.apply(errors, validateAddress(request.deliveryAddress, request.deliveryMethod));
+    if (isNullOrWhitespace(request.deliveryAddress && request.deliveryAddress.postcode) === false && !isPostcodeWithinDeliveryArea(request.deliveryAddress.postcode)) {
+        errors.push(`We don't deliver to your area. However, you can still place an order for collection.`);
     }
     return errors;
 }
