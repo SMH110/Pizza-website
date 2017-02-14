@@ -26,6 +26,11 @@ import { OrdersComponent } from './admin/orders.component';
 import { SignInComponent } from './admin/sign-in.component';
 import { NotificationsComponent } from './notification/notifications.component';
 import { ModalHostComponent } from './modal-host/modal-host.component';
+import { CalzoneComponent } from './items/calzone/calzone.component';
+import { PastaComponent } from './items/pasta/pasta.component';
+import { SaladsComponent } from './items/salads/salads.component';
+import { DessertsComponent } from './items/desserts/desserts.component';
+
 
 // Services
 import { ErrorService } from './service/error.service';
@@ -47,49 +52,53 @@ import 'jquery';
 import 'bootstrap';
 
 @NgModule({
-  imports: [BrowserModule, HttpModule, FormsModule, RouterModule.forRoot(Routes), Ng2Bs3ModalModule],
-  declarations: [
-    AppComponent,
-    PizzaComponent,
-    SidesComponent,
-    CheckDeliveryAreaComponent,
-    DrinksComponent,
-    AboutUsComponent,
-    BasketComponent,
-    FooterComponent,
-    TermsAndConditionsComponent,
-    ContactUsComponent,
-    JumbotronComponent,
-    CheckoutComponent,
-    OrderSuccessComponent,
-    OrderFailureComponent,
-    HeaderComponent,
-    OrdersComponent,
-    SignInComponent,
-    NotificationsComponent,
-    ItemComponent,
-    AddPizzaModalComponent,
-    ModalHostComponent
-  ],
-  providers:
-  [
-    // Services
-    OrderService,
-    ErrorService,
-    BasketService,
-    SignInService,
-    NotificationService,
-    ModalService,
+    imports: [BrowserModule, HttpModule, FormsModule, RouterModule.forRoot(Routes), Ng2Bs3ModalModule],
+    declarations: [
+        AppComponent,
+        PizzaComponent,
+        SidesComponent,
+        CheckDeliveryAreaComponent,
+        DrinksComponent,
+        AboutUsComponent,
+        BasketComponent,
+        FooterComponent,
+        TermsAndConditionsComponent,
+        ContactUsComponent,
+        JumbotronComponent,
+        CheckoutComponent,
+        OrderSuccessComponent,
+        OrderFailureComponent,
+        HeaderComponent,
+        OrdersComponent,
+        SignInComponent,
+        NotificationsComponent,
+        ItemComponent,
+        AddPizzaModalComponent,
+        ModalHostComponent,
+        CalzoneComponent,
+        PastaComponent,
+        SaladsComponent,
+        DessertsComponent
+    ],
+    providers:
+    [
+        // Services
+        OrderService,
+        ErrorService,
+        BasketService,
+        SignInService,
+        NotificationService,
+        ModalService,
 
-    // Guards
-    CheckoutGuard,
+        // Guards
+        CheckoutGuard,
 
-    // Global error handler
-    { provide: ErrorHandler, useClass: ErrorReporter }
-  ],
-  bootstrap: [AppComponent],
-  entryComponents: [
-    AddPizzaModalComponent
-  ]
+        // Global error handler
+        { provide: ErrorHandler, useClass: ErrorReporter }
+    ],
+    bootstrap: [AppComponent],
+    entryComponents: [
+        AddPizzaModalComponent
+    ]
 })
 export class AppModule { }
