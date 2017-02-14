@@ -230,6 +230,9 @@ describe("E2E Tests", () => {
         await element(by.id("email")).sendKeys("john-smith@test.com");
         await element(by.id("phone")).sendKeys("01234567890");
         await element(by.id("Collection")).click();
+        await element(by.id('delivery_address1')).sendKeys('1 The Street');
+        await element(by.id('delivery_town')).sendKeys('Foo Town');
+        await element(by.id('delivery_postcode')).sendKeys('CR7 2GB');
         await element(by.id("order_notes")).sendKeys("Cash order test notes");
 
         // Select Cash and place the order.
