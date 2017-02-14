@@ -11,13 +11,22 @@ import { OrderFailureComponent } from './notification/order-failure.component';
 import { CheckoutGuard } from './guards/checkout.guard';
 import { OrdersComponent } from './admin/orders.component';
 import { SignInComponent } from './admin/sign-in.component';
-import { CheckDeliveryAreaComponent } from './checking-delivery-area/check-delivery-area.component'
+import { CheckDeliveryAreaComponent } from './checking-delivery-area/check-delivery-area.component';
+import { CalzoneComponent } from './items/calzone/calzone.component';
+import { PastaComponent } from './items/pasta/pasta.component';
+import { SaladsComponent } from './items/salads/salads.component';
+import { DessertsComponent } from './items/desserts/desserts.component';
+
 
 import { Routes } from '@angular/router';
 
 export default [
     { path: 'pizza', component: PizzaComponent },
+    { path: 'calzone', component: CalzoneComponent },
+    { path: 'pasta', component: PastaComponent },
     { path: 'sides', component: SidesComponent },
+    { path: 'salads', component: SaladsComponent },
+    { path: 'desserts', component: DessertsComponent },
     { path: 'drinks', component: DrinksComponent },
     { path: 'delivery-areas', component: CheckDeliveryAreaComponent },
     { path: 'about-us', component: AboutUsComponent },
