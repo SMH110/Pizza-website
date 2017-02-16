@@ -16,14 +16,14 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li><a [routerLink]="['/pizza']">Pizza</a></li>
-                <li><a [routerLink]="['/calzone']">Calzone</a></li>
-                <li><a [routerLink]="['/pasta']">Pasta</a></li>
-                <li><a [routerLink]="['/sides']">Sides</a></li>
-                <li><a [routerLink]="['/salads']">Salads</a></li>
-                <li><a [routerLink]="['/desserts']">Desserts</a></li>
-                <li><a [routerLink]="['/drinks']">Drinks</a></li>
-                <li><a [routerLink]="['/delivery-areas']">Areas we deliver</a></li>
+                <li [routerLinkActive]="['active']"><a [routerLink]="['/pizza']">Pizza</a></li>
+                <li [routerLinkActive]="['active']"><a [routerLink]="['/calzone']">Calzone</a></li>
+                <li [routerLinkActive]="['active']"><a [routerLink]="['/pasta']">Pasta</a></li>
+                <li [routerLinkActive]="['active']"><a [routerLink]="['/sides']">Sides</a></li>
+                <li [routerLinkActive]="['active']"><a [routerLink]="['/salads']">Salads</a></li>
+                <li [routerLinkActive]="['active']"><a [routerLink]="['/desserts']">Desserts</a></li>
+                <li [routerLinkActive]="['active']"><a [routerLink]="['/drinks']">Drinks</a></li>
+                <li [routerLinkActive]="['active']"><a [routerLink]="['/delivery-areas']">Areas we deliver</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><span class="glyphicon glyphicon-earphone phone"></span> <span class="phone"> +441632960727 </span></li>

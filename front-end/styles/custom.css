@@ -11,7 +11,7 @@
 }
 
 .logo h1 {
-    margin: 10px 0 0 0;
+    margin: 14px 0;
 }
 
 .footer {
@@ -62,7 +62,6 @@
     vertical-align: top;
     float: none;
 }
-
 
 .modal-backdrop {
     opacity: 0;
