@@ -21,8 +21,8 @@
                             <td class="date">{{ getOrderDate(order) }}</td>
                             <td class="name">{{order.buyer.firstName}} {{order.buyer.lastName}}</td>
                             <td class="address">
-                                <a *ngIf="order.deliveryAddress" [href]="navigateToGoogleMap(order.deliveryAddress)" target="_blank">{{formatAddress(order.deliveryAddress)}}</a>
-                                <span *ngIf="!order.deliveryAddress">COLLECTION</span>
+                                <a *ngIf="order.deliveryMethod === 'Delivery'" [href]="navigateToGoogleMap(order.deliveryAddress)" target="_blank">{{formatAddress(order.deliveryAddress)}}</a>
+                                <span *ngIf="order.deliveryMethod === 'Collection'">COLLECTION</span>
                             </td>
                             <td class="phone">{{order.buyer.phone}}</td>
                             <td class="total-payment">£{{order.totalPayment | number:'1.2-2' }} ({{order.paymentMethod}})</td>
@@ -31,6 +31,7 @@
                         <tr *ngIf='isOrderExpanded(order)' class="more-details" [id]="'details_' + order._id">
                             <td colspan="7">
                                 <p><strong>E-mail:</strong> <span class="email">{{order.buyer.email | lowercase}}</span></p>
+                                <p *ngIf="order.deliveryMethod === 'Collection' && order.paymentMethod === 'Cash'"><strong>Address:</strong> <a [href]="navigateToGoogleMap(order.deliveryAddress)" target="_blank">{{formatAddress(order.deliveryAddress)}}</a></p>
                                 <p *ngIf="order.paymentId"><strong>Payment Reference:</strong> <span class="payment-reference">{{order.paymentId}}</span></p>
                                 <p *ngIf="order.billingAddress"><strong>Billing Address:</strong> <span class="billing-address">{{formatAddress(order.billingAddress)}}</span></p>
                                 <p><strong>Order Notes:</strong> <span class="order-notes">{{order.note}}</span></p>
