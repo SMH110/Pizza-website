@@ -48,9 +48,6 @@ import ErrorReporter from './error-reporter';
 import Routes from './routes';
 import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
 
-import 'jquery';
-import 'bootstrap';
-
 @NgModule({
     imports: [BrowserModule, HttpModule, FormsModule, RouterModule.forRoot(Routes), Ng2Bs3ModalModule],
     declarations: [

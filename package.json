@@ -4,9 +4,11 @@
   "private": true,
   "scripts": {
     "compile": "node node_modules/typescript/bin/tsc",
+    "watch": "node_modules/.bin/webpack --config webpack.dev.js --watch",
+    "package": "node_modules/.bin/webpack --config webpack.prod.js",
     "install-front-end": "cd front-end && npm install --production && npm install --only=development && cd ..",
     "install-back-end": "cd back-end && npm install --production && npm install --only=development && cd ..",
-    "install": "npm run install-back-end && npm run install-front-end && npm run compile",
+    "install": "npm run install-back-end && npm run install-front-end && npm run compile && npm run package",
     "unit": "node node_modules/mocha/bin/mocha specs/unit/**/*.specs.js",
     "integration": "node node_modules/mocha/bin/mocha specs/integration/**/*.specs.js",
     "e2e": "node node_modules/protractor/bin/webdriver-manager update && node node_modules/protractor/bin/protractor specs/e2e/protractor.conf.js",
@@ -21,7 +23,24 @@
     "chai": "^3.5.0",
     "mocha": "^3.2.0",
     "protractor": "5.0.0",
-    "typescript": "^2.1.5"
+    "typescript": "^2.1.6"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@types/copy-webpack-plugin": "^4.0.0",
+    "@types/extract-text-webpack-plugin": "^2.0.0",
+    "@types/html-webpack-plugin": "^2.11.2",
+    "@types/webpack": "^2.2.6",
+    "@types/webpack-merge": "0.0.4",
+    "angular2-template-loader": "^0.6.0",
+    "copy-webpack-plugin": "^4.0.1",
+    "css-loader": "^0.26.1",
+    "extract-text-webpack-plugin": "2.0.0-beta.5",
+    "file-loader": "^0.9.0",
+    "html-loader": "^0.4.3",
+    "html-webpack-plugin": "^2.16.1",
+    "raw-loader": "^0.5.1",
+    "style-loader": "^0.13.1",
+    "webpack": "^2.2.1",
+    "webpack-merge": "^2.4.0"
+  }
 }

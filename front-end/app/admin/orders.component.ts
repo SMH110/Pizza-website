@@ -7,7 +7,6 @@ import { BasketService } from '../service/basket.service';
 import * as moment from 'moment';
 
 @Component({
-    moduleId: module.id,
     templateUrl: './orders.component.html',
     styles: [`
 h4 {

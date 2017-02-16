@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import Catalogue from '../../../shared/static-data/catalogue';
 
 @Component({
-    moduleId: module.id,
     templateUrl: `./sides.component.html`,
 })
 export class SidesComponent {

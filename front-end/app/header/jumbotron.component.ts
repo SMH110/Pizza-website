@@ -2,7 +2,6 @@ import { Component, Input } from '@angular/core';
 
 
 @Component({
-    moduleId: module.id,
     selector: 'jumbotron',
     templateUrl: `./jumbotron.component.html`,
     styles: [

@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { isPostcodeWithinDeliveryArea } from '../../../shared/validation/delivery-area-validator'
 @Component({
-    moduleId: module.id,
     templateUrl: `./check-delivery-area.component.html`,
     styles: [
         `h2 {

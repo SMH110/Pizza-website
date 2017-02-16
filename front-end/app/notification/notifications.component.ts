@@ -3,7 +3,6 @@ import { NotificationService } from '../service/notification.service';
 import { ErrorService } from '../service/error.service';
 
 @Component({
-    moduleId: module.id,
     selector: 'notifications',
     templateUrl: 'notifications.component.html',
     styles: [`

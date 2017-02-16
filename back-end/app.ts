@@ -19,15 +19,8 @@ import payment from './router/payment';
 const app = express();
 const nocache = require('nocache');
 
-// View engine
-app.engine('html', require('ejs').renderFile);
-app.set('view engine', 'ejs')
-app.set('views', path.join(__dirname, 'views'));
-
 // Static Files
-app.use('/shared', express.static(path.join(__dirname, '..', 'shared')));
-app.use(express.static(path.join(__dirname, '..', 'front-end')));
-
+app.use(express.static(path.join(__dirname, '..', 'dist')));
 
 // JSON Requests
 app.use(bodyParser.json())

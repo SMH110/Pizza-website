@@ -3,5 +3,10 @@
     "editor.tabSize": 4,
     "vsicons.presets.angular": true,
     "files.insertFinalNewline": true,
-    "editor.detectIndentation": false
+    "editor.detectIndentation": false,
+    "search.exclude": {
+        "**/node_modules": true,
+        "**/bower_components": true,
+        "dist": true
+    }
 }

@@ -128,7 +128,7 @@ publish/
 # Publish Web Output
 *.[Pp]ublish.xml
 *.azurePubxml
-# TODO: Comment the next line if you want to checkin your web deploy settings 
+# TODO: Comment the next line if you want to checkin your web deploy settings
 # but database connection strings (with potential passwords) will be unencrypted
 *.pubxml
 *.publishproj
@@ -201,11 +201,9 @@ FakesAssemblies/
 *.map
 
 # Compiled JavaScript files
-back-end/**/*.js
-back-end/**/*.js.map
-front-end/**/*.js
-front-end/**/*.js.map
-shared/**/*.js
-shared/**/*.js.map
-specs/**/*.js
-specs/**/*.js.map
+*.js
+*.js.map
+!front-end/analytics.js
+
+# Webpack generated
+dist
