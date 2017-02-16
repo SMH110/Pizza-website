@@ -7,7 +7,6 @@ import { ErrorService } from '../service/error.service';
 import { validateOrderRequest } from '../../../shared/validation/place-order-request-validator';
 
 @Component({
-    moduleId: module.id,
     templateUrl: `./checkout.component.html`,
     styles: [
         `

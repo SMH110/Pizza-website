@@ -6,7 +6,6 @@ import { ModalService } from '../service/modal.service';
 import { AddPizzaModalComponent } from '../add-pizza-modal/add-pizza-modal.component';
 
 @Component({
-    moduleId: module.id,
     selector: 'item',
     templateUrl: `./item.component.html`,
     styles: [`

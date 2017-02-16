@@ -204,3 +204,6 @@ FakesAssemblies/
 *.js
 *.js.map
 !front-end/analytics.js
+
+# Webpack generated
+dist

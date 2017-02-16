@@ -5,8 +5,6 @@ import Toppings, { PizzaToppingPrices } from '../../../shared/static-data/toppin
 import calculatePrice from '../../../shared/business-rules/pizza-pricing-rule';
 
 @Component({
-    moduleId: module.id,
-    selector: 'add-pizza-modal',
     templateUrl: `./add-pizza-modal.component.html`,
     styleUrls: [`./add-pizza-modal.component.css`]
 })

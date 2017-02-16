@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { BasketService } from '../service/basket.service';
 
 @Component({
-    moduleId: module.id,
     templateUrl: `./basket.component.html`,
     styles: [`
             img{

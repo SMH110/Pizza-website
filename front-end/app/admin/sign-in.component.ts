@@ -6,7 +6,6 @@ import { SignInService } from '../service/sign-in.service';
 import { ErrorService } from '../service/error.service';
 
 @Component({
-    moduleId: module.id,
     templateUrl: 'sign-in.component.html',
     styles: [`
 fieldset {
@@ -33,7 +32,7 @@ fieldset legend {
     padding: 5px 15px;
     margin : 5px 0;
 }
-  
+
     `]
 })
 export class SignInComponent {

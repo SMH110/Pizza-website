@@ -1,4 +1,6 @@
 import { Router, Request, Response } from 'express';
+import * as path from 'path';
+
 const router = Router();
 
 router.get('/', serveIndex);
@@ -21,7 +23,7 @@ router.get('/admin/get-orders', serveIndex);
 router.get('/admin/sign-in', serveIndex);
 
 function serveIndex(_req: Request, res: Response) {
-    res.render('index.html');
+    res.sendFile(path.join(__dirname, '../../dist/index.html'));
 }
 
 export default router;
