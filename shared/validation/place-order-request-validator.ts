@@ -18,7 +18,8 @@ export function validateOrderRequest(request: PlaceOrderRequestValidationObject,
     errors.push.apply(errors, validateBuyerDetails(request));
     errors.push.apply(errors, validateDeliveryAddress(request));
     errors.push.apply(errors, validateBillingAddress(request));
-    errors.push.apply(errors, isMinimumOrderSatisfied(request))
+    errors.push.apply(errors, isMinimumOrderSatisfied(request));
+    errors.push.apply(errors, validateCashAddressOnCollection(request));
     return errors;
 }
 
@@ -84,10 +85,12 @@ function validateBuyerDetails(request: PlaceOrderRequestValidationObject): strin
 
 function validateDeliveryAddress(request: PlaceOrderRequestValidationObject): string[] {
     let errors: string[] = [];
+    if (request.deliveryMethod === 'Delivery') {
+        errors.push.apply(errors, validateAddress(request.deliveryAddress, 'Delivery'));
 
-    errors.push.apply(errors, validateAddress(request.deliveryAddress, request.deliveryMethod));
-    if (isNullOrWhitespace(request.deliveryAddress && request.deliveryAddress.postcode) === false && !isPostcodeWithinDeliveryArea(request.deliveryAddress.postcode)) {
-        errors.push(`We don't deliver to your area. However, you can still place an order for collection.`);
+        if (isNullOrWhitespace(request.deliveryAddress && request.deliveryAddress.postcode) === false && !isPostcodeWithinDeliveryArea(request.deliveryAddress.postcode)) {
+            errors.push(`We don't deliver to your area. However, you can still place an order for collection.`);
+        }
     }
     return errors;
 }
@@ -115,6 +118,28 @@ function validateAddress(address: Address, addressType: string): string[] {
         errors.push(`${addressType} postcode is required`);
     }
     // TODO - Shall we bother with a valid postcode regex? Seems like there are a lot of edge cases.
+    return errors;
+}
+
+function validateCashAddressOnCollection(request: PlaceOrderRequestValidationObject) {
+    let errors: string[] = [];
+    if (request.deliveryMethod === "Collection" && request.paymentMethod === "Cash") {
+        if (!request.deliveryAddress) {
+            errors.push("Your address is required");
+        }
+        if (request.deliveryAddress && isNullOrWhitespace(request.deliveryAddress.line1)) {
+            errors.push("Your address line 1 is required");
+        }
+        if (request.deliveryAddress && isNullOrWhitespace(request.deliveryAddress.town)) {
+            errors.push("Your address town/city is required");
+        }
+        if (request.deliveryAddress && isNullOrWhitespace(request.deliveryAddress.postcode)) {
+            errors.push("Your postcode is required");
+        }
+        if (isNullOrWhitespace(request.deliveryAddress && request.deliveryAddress.postcode) === false && !isPostcodeWithinDeliveryArea(request.deliveryAddress.postcode)) {
+            errors.push(`We were unable to verify your address. If you still want to place an cash on collection order please call us.`);
+        }
+    }
     return errors;
 }
 

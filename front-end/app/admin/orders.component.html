@@ -31,7 +31,7 @@
                         <tr *ngIf='isOrderExpanded(order)' class="more-details" [id]="'details_' + order._id">
                             <td colspan="7">
                                 <p><strong>E-mail:</strong> <span class="email">{{order.buyer.email | lowercase}}</span></p>
-                                <p *ngIf="order.deliveryMethod === 'Collection'"><strong>Address:</strong> <a [href]="navigateToGoogleMap(order.deliveryAddress)" target="_blank">{{formatAddress(order.deliveryAddress)}}</a></p>
+                                <p *ngIf="order.deliveryMethod === 'Collection' && order.paymentMethod === 'Cash'"><strong>Address:</strong> <a [href]="navigateToGoogleMap(order.deliveryAddress)" target="_blank">{{formatAddress(order.deliveryAddress)}}</a></p>
                                 <p *ngIf="order.paymentId"><strong>Payment Reference:</strong> <span class="payment-reference">{{order.paymentId}}</span></p>
                                 <p *ngIf="order.billingAddress"><strong>Billing Address:</strong> <span class="billing-address">{{formatAddress(order.billingAddress)}}</span></p>
                                 <p><strong>Order Notes:</strong> <span class="order-notes">{{order.note}}</span></p>

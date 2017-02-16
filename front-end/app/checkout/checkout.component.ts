@@ -105,4 +105,8 @@ export class CheckoutComponent {
     isBillingAddressRequired() {
         return ['MasterCard', 'JCB', 'Maestro', 'VISA'].indexOf(this.paymentMethod) !== -1;
     }
+
+    isAddressRequired(): boolean {
+        return this.deliveryMethod === "Delivery" || (this.deliveryMethod === "Collection" && this.paymentMethod === "Cash");
+    }
 }
