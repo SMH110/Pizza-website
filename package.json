@@ -17,30 +17,30 @@
   },
   "dependencies": {
     "@types/chai": "^3.4.34",
-    "@types/mocha": "^2.2.38",
-    "@types/node": "^7.0.0",
-    "@types/selenium-webdriver": "^2.53.39",
-    "chai": "^3.5.0",
-    "mocha": "^3.2.0",
-    "protractor": "5.0.0",
-    "typescript": "^2.1.6"
-  },
-  "devDependencies": {
     "@types/copy-webpack-plugin": "^4.0.0",
     "@types/extract-text-webpack-plugin": "^2.0.0",
     "@types/html-webpack-plugin": "^2.11.2",
+    "@types/mocha": "^2.2.38",
+    "@types/node": "^7.0.0",
+    "@types/selenium-webdriver": "^2.53.39",
     "@types/webpack": "^2.2.6",
     "@types/webpack-merge": "0.0.4",
     "angular2-template-loader": "^0.6.0",
+    "chai": "^3.5.0",
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.26.1",
     "extract-text-webpack-plugin": "2.0.0-beta.5",
     "file-loader": "^0.9.0",
     "html-loader": "^0.4.3",
     "html-webpack-plugin": "^2.16.1",
+    "mocha": "^3.2.0",
+    "protractor": "5.0.0",
     "raw-loader": "^0.5.1",
     "style-loader": "^0.13.1",
+    "typescript": "^2.1.6",
     "webpack": "^2.2.1",
     "webpack-merge": "^2.4.0"
+  },
+  "devDependencies": {
   }
 }
