@@ -66,23 +66,6 @@ export class CheckoutComponent {
         });
     }
 
-    checkPostcode(): void {
-        this.errorService.clearErrors();
-
-        if (this.deliveryMethod === "Collection" && this.paymentMethod === "Cash") {
-            if (isPostcodeWithinDeliveryArea(this.deliveryAddress.postcode) === false) {
-                this.errorService.displayErrors(["We were unable to verify your address. If you still want to place an cash on collection order please call us."]);
-            }
-        } else if (this.deliveryMethod === "Delivery") {
-            if (isPostcodeWithinDeliveryArea(this.deliveryAddress.postcode) === false) {
-                this.errorService.displayErrors(["We don't deliver to your area. However, you can still place an order for collection."]);
-            }
-        }
-
-
-
-    }
-
     isBillingAddressRequired() {
         return ['MasterCard', 'JCB', 'Maestro', 'VISA'].indexOf(this.paymentMethod) !== -1;
     }
@@ -90,6 +73,4 @@ export class CheckoutComponent {
     isAddressRequired(): boolean {
         return this.deliveryMethod === "Delivery" || (this.deliveryMethod === "Collection" && this.paymentMethod === "Cash");
     }
-
-
 }
