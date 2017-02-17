@@ -3,10 +3,13 @@
         <h4 class="modal-title">Pizza Options</h4>
     </modal-header>
     <modal-body *ngIf="data">
-        The pizza you selected is {{ data.name }}
+        The pizza you selected is {{ data.item.name }}
         <hr>
         <button class="btn btn-default" (click)="addToBasketWithoutToppings()">No extra toppings</button>
         <hr>
+        <button class="btn btn-default" (click)="addBBQ_Base()" [disabled]="isBBQ_BaseDisabled()">Add BBQ base</button>
+        <span>BBQ base is £2.00</span>
+        <br>
         <h3>Toppings</h3>
         <span *ngIf="isFreeChoice()">Up to 5 toppings are free.</span>
         <span>Additional toppings are £{{getIndividualToppingPrice() | number:'1.2-2'}} each</span>
@@ -19,7 +22,7 @@
             </div>
         </div>
         <div *ngIf="selectedOptions.length > 0">
-            <h4>Selected toppings</h4>
+            <h4>Selected options</h4>
             <ul class="list-group">
                 <li class="list-group-item clearfix" *ngFor="let topping of selectedOptions"> {{topping}}
                     <button class="btn btn-danger pull-right" (click)="removeOption(topping)"><span class="glyphicon glyphicon-remove"></span></button>
