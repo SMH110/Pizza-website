@@ -40,6 +40,13 @@ export class AddPizzaModalComponent extends BaseModalComponent<AddPizzaModalDto,
     isFreeChoice(): boolean {
         return this.data.item.name === 'Free Choice';
     }
+    addBBQ_Base() {
+        this.selectedOptions.push("BBQ base");
+    }
+
+    isBBQ_BaseDisabled() {
+        return this.data.item.name == "BBQ Pizza" || this.selectedOptions.indexOf("BBQ base") !== -1;
+    }
 }
 
 interface AddPizzaModalDto {

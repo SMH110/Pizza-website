@@ -48,10 +48,17 @@ function validateOptions(orderItems: OrderItemValidationObject[]): string[] {
     for (let item of orderItems) {
         if (item.options.length > 0) {
             if (item.tags.indexOf('pizza') !== -1) {
-                for (let option of item.options) {
+                const toppings = item.options.filter(option => option !== "BBQ base");
+                for (let option of toppings) {
                     if (Toppings.find(topping => topping.name === option) === undefined) {
                         errors.push(`${option} is not a valid option for pizzas`);
                     }
+                }
+                if (item.name === "BBQ Pizza" && item.options.indexOf("BBQ base") !== -1) {
+                    errors.push(`BBQ base cannot be added to BBQ Pizza`);
+                }
+                if (item.name !== "BBQ Pizza" && item.options.indexOf("BBQ base") !== item.options.lastIndexOf("BBQ base")) {
+                    errors.push(`BBQ base cannot be added more than once with ${item.name}`);
                 }
             } else {
                 errors.push(`Options cannot be added to ${item.name}`);
