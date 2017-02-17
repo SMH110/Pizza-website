@@ -5,45 +5,10 @@ import { BasketService } from '../service/basket.service';
 import { OrderService } from '../service/order.service';
 import { ErrorService } from '../service/error.service';
 import { validateOrderRequest } from '../../../shared/validation/place-order-request-validator';
-
+import { isPostcodeWithinDeliveryArea } from '../../../shared/validation/delivery-area-validator';
 @Component({
     templateUrl: `./checkout.component.html`,
-    styles: [
-        `
-        .form-control{
-            width: 85%;
-            display:inline-block;
-            margin-bottom: 10px;
-        }
-        .delivery-method{
-           margin: 20px 0;
-        }
-        button{
-            margin: 12px 0;
-            display:inline-block;
-        }
-
-        .total{
-            font-size:18px;
-            font-weight: bold;
-            margin-left: 30px;
-        }
-
-        .error-msg{
-             width: 85%;
-        }
-
-        .required::after {
-            content: ' *';
-            color: red;
-        }
-        .note{
-            color: #888;
-            font-style: italic;
-            margin-bottom : 0;
-        }
-        `
-    ]
+    styleUrls: ['./checkout.component.css']
 })
 export class CheckoutComponent {
 
@@ -101,6 +66,23 @@ export class CheckoutComponent {
         });
     }
 
+    checkPostcode(): void {
+        this.errorService.clearErrors();
+
+        if (this.deliveryMethod === "Collection" && this.paymentMethod === "Cash") {
+            if (isPostcodeWithinDeliveryArea(this.deliveryAddress.postcode) === false) {
+                this.errorService.displayErrors(["We were unable to verify your address. If you still want to place an cash on collection order please call us."]);
+            }
+        } else if (this.deliveryMethod === "Delivery") {
+            if (isPostcodeWithinDeliveryArea(this.deliveryAddress.postcode) === false) {
+                this.errorService.displayErrors(["We don't deliver to your area. However, you can still place an order for collection."]);
+            }
+        }
+
+
+
+    }
+
     isBillingAddressRequired() {
         return ['MasterCard', 'JCB', 'Maestro', 'VISA'].indexOf(this.paymentMethod) !== -1;
     }
@@ -108,4 +90,6 @@ export class CheckoutComponent {
     isAddressRequired(): boolean {
         return this.deliveryMethod === "Delivery" || (this.deliveryMethod === "Collection" && this.paymentMethod === "Cash");
     }
+
+
 }
