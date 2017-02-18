@@ -5,7 +5,6 @@ import { BasketService } from '../service/basket.service';
 import { OrderService } from '../service/order.service';
 import { ErrorService } from '../service/error.service';
 import { validateOrderRequest } from '../../../shared/validation/place-order-request-validator';
-import { isPostcodeWithinDeliveryArea } from '../../../shared/validation/delivery-area-validator';
 @Component({
     templateUrl: `./checkout.component.html`,
     styleUrls: ['./checkout.component.css']
