@@ -5,45 +5,9 @@ import { BasketService } from '../service/basket.service';
 import { OrderService } from '../service/order.service';
 import { ErrorService } from '../service/error.service';
 import { validateOrderRequest } from '../../../shared/validation/place-order-request-validator';
-
 @Component({
     templateUrl: `./checkout.component.html`,
-    styles: [
-        `
-        .form-control{
-            width: 85%;
-            display:inline-block;
-            margin-bottom: 10px;
-        }
-        .delivery-method{
-           margin: 20px 0;
-        }
-        button{
-            margin: 12px 0;
-            display:inline-block;
-        }
-
-        .total{
-            font-size:18px;
-            font-weight: bold;
-            margin-left: 30px;
-        }
-
-        .error-msg{
-             width: 85%;
-        }
-
-        .required::after {
-            content: ' *';
-            color: red;
-        }
-        .note{
-            color: #888;
-            font-style: italic;
-            margin-bottom : 0;
-        }
-        `
-    ]
+    styleUrls: ['./checkout.component.css']
 })
 export class CheckoutComponent {
 
