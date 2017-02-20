@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { BasketService } from '../service/basket.service';
 
 @Component({
     templateUrl: `./order-success.component.html`,
@@ -10,5 +11,7 @@ import { Component } from '@angular/core';
 
 })
 export class OrderSuccessComponent {
-    constructor() { }
+    constructor(private basketService: BasketService) {
+        this.basketService.removeAll();
+    }
 }
