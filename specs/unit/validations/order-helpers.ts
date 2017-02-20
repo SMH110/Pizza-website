@@ -1,7 +1,9 @@
 import { PlaceOrderRequestValidationObject, OrderItemValidationObject } from '../../../shared/validation/place-order-request-validator';
 import Catalogue from '../../../shared/static-data/catalogue';
+import { isDeliveryAddressRequired } from '../../../shared/business-rules/delivery-address-required-rule';
+import { isBillingAddressRequired } from '../../../shared/business-rules/billing-address-required-rule';
 
-export const PAYMENT_METHODS: PaymentMethod[] = ['PayPal', 'MasterCard', 'JCB', 'Maestro', 'VISA', 'Cash'];
+export const PAYMENT_METHODS: PaymentMethod[] = ['PayPal', 'Credit / Debit Card', 'Cash'];
 const DELIVERY_METHODS: DeliveryMethod[] = ['Collection', 'Delivery'];
 
 // HELPER METHODS
@@ -19,8 +21,8 @@ export function createValidOrder(deliveryMethod: DeliveryMethod, paymentMethod: 
     return {
         buyer: createValidBuyer(),
         date: new Date(2017, 0, 24, 20, 30, 0),
-        deliveryAddress: deliveryMethod === 'Delivery' ? createValidDeliveryAddress() : null,
-        billingAddress: ['MasterCard', 'JCB', 'Maestro', 'VISA'].indexOf(paymentMethod) !== -1 ? createValidDeliveryAddress() : null,
+        deliveryAddress: isDeliveryAddressRequired({ deliveryMethod, paymentMethod }) ? createValidDeliveryAddress() : null,
+        billingAddress: isBillingAddressRequired({ paymentMethod }) ? createValidDeliveryAddress() : null,
         deliveryMethod: deliveryMethod,
         orderItems: createValidOrderItems(),
         paymentMethod: paymentMethod,

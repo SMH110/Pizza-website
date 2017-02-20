@@ -1,41 +1,56 @@
 <modal class="add-pizza-modal">
-    <modal-header [show-close]="true">
-        <h4 class="modal-title">Pizza Options</h4>
+    <modal-header>
+        <h3 class="modal-title">{{ data.item.name }}</h3>
     </modal-header>
     <modal-body *ngIf="data">
-        The pizza you selected is {{ data.item.name }}
-        <hr>
-        <button class="btn btn-default" (click)="addToBasketWithoutToppings()">No extra toppings</button>
-        <hr>
-        <button class="btn btn-default" (click)="addBBQ_Base()" [disabled]="isBBQ_BaseDisabled()">Add BBQ base</button>
-        <span>BBQ base is £2.00</span>
-        <br>
-        <h3>Toppings</h3>
+        <h4>Choose your base</h4>
+        <div class="base-selection" *ngIf="isShowBaseOptions()">
+            <button class="btn btn-default" [ngClass]="{ 'btn-success': !isBBQBaseSelected }" (click)="isBBQBaseSelected = false">Tomato sauce</button>
+            <button class="btn btn-default" [ngClass]="{ 'btn-success': isBBQBaseSelected }" (click)="isBBQBaseSelected = true">BBQ sauce (£2 extra)</button>
+        </div>
+
+        <h4>Change existing toppings</h4>
+        <p>You can request changes to existing toppings in your order notes during the checkout</p>
+
+        <h4>Add extra toppings</h4>
         <span *ngIf="isFreeChoice()">Up to 5 toppings are free.</span>
         <span>Additional toppings are £{{getIndividualToppingPrice() | number:'1.2-2'}} each</span>
-        <div class="toppings-container clearfix">
-            <div class="topping">
-                <select class="form-control" [(ngModel)]="selectedTopping">
-                    <option *ngFor="let topping of toppings" [ngValue]="topping">{{topping.name}}</option>
-                </select>
-                <button class="btn btn-primary add-topping" (click)="addTopping()">Add topping</button>
-            </div>
+
+        <div class="topping-selection">
+            <select class="form-control" [(ngModel)]="toppingToAdd">
+                <option *ngFor="let topping of availableToppings" [ngValue]="topping">{{topping.name}}</option>
+            </select>
+            <button class="btn btn-success" (click)="addSelectedTopping()">Add topping</button>
         </div>
-        <div *ngIf="selectedOptions.length > 0">
-            <h4>Selected options</h4>
-            <ul class="list-group">
-                <li class="list-group-item clearfix" *ngFor="let topping of selectedOptions"> {{topping}}
-                    <button class="btn btn-danger pull-right" (click)="removeOption(topping)"><span class="glyphicon glyphicon-remove"></span></button>
-                </li>
-            </ul>
-            <strong>Total price:</strong> £ {{ getTotalPrice() | number:'1.2-2' }}
+
+        <div *ngIf="selectedToppings.length > 0">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Selected topping</th>
+                        <th class="quantity">Quantity</th>
+                        <th class="remove"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let topping of selectedToppings">
+                        <td>{{topping.name}}</td>
+                        <td class="quantity">
+                            <button class="btn btn-info btn-sm decrease" [disabled]="topping.quantity < 2" (click)='decreaseQuantity(topping)'><span class="glyphicon glyphicon-minus"></span></button>
+                            <span>{{topping.quantity}}</span>
+                            <button class="btn btn-info btn-sm increase" (click)='increaseQuantity(topping)'><span class="glyphicon glyphicon-plus"></span></button>
+                        </td>
+                        <td class="remove">
+                            <button class="btn btn-primary btn-sm" (click)="removeTopping(topping)"><span class="glyphicon glyphicon-remove"></span></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-        <hr>
-        <p>You can also request for existing toppings to be removed or swapped in the Order Notes part of the checkout</p>
     </modal-body>
 
     <modal-footer>
-        <button (click)="cancel()" class="btn btn-danger">Cancel</button>
-        <button (click)="addToBasketWithToppings()" class="btn btn-primary" [disabled]="selectedOptions.length < 1">Add with toppings</button>
+        <button (click)="cancel()" class="btn btn-primary pull-left">Cancel</button>
+        <button (click)="addToBasket()" class="btn btn-success">Add to Basket (£{{ getTotalPrice() | number:'1.2-2' }})</button>
     </modal-footer>
 </modal>

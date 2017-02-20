@@ -6,27 +6,40 @@ import calculatePrice from '../../../shared/business-rules/pizza-pricing-rule';
 
 @Component({
     templateUrl: `./add-pizza-modal.component.html`,
-    styleUrls: [`./add-pizza-modal.component.css`]
+    styleUrls: [`./add-pizza-modal.component.scss`]
 })
 export class AddPizzaModalComponent extends BaseModalComponent<AddPizzaModalDto, string[]> {
-    selectedOptions: string[] = [];
-    toppings: Topping[] = Toppings;
-    selectedTopping: Topping = Toppings[0];
+    availableToppings: Topping[] = Toppings;
+    selectedToppings: SelectedTopping[] = [];
+    toppingToAdd: Topping = Toppings[0];
+    isBBQBaseSelected = false;
 
-    addTopping() {
-        this.selectedOptions.push(this.selectedTopping.name);
+    addSelectedTopping() {
+        let existingTopping = this.selectedToppings.find(x => x.name === this.toppingToAdd.name);
+        if (existingTopping !== undefined) {
+            existingTopping.quantity++;
+        } else {
+            this.selectedToppings.push({
+                name: this.toppingToAdd.name,
+                quantity: 1
+            });
+        }
     }
 
-    addToBasketWithToppings() {
-        return this.closeWithResult(this.selectedOptions);
+    increaseQuantity(selectedTopping: SelectedTopping) {
+        selectedTopping.quantity++;
     }
 
-    addToBasketWithoutToppings() {
-        return this.closeWithResult([]);
+    decreaseQuantity(selectedTopping: SelectedTopping) {
+        selectedTopping.quantity--;
     }
 
-    removeOption(option: string) {
-        this.selectedOptions.splice(this.selectedOptions.indexOf(option), 1);
+    removeTopping(selectedTopping: SelectedTopping) {
+        this.selectedToppings.splice(this.selectedToppings.indexOf(selectedTopping), 1);
+    }
+
+    addToBasket() {
+        return this.closeWithResult(this.getSelectedOptions());
     }
 
     getIndividualToppingPrice(): number {
@@ -34,22 +47,38 @@ export class AddPizzaModalComponent extends BaseModalComponent<AddPizzaModalDto,
     }
 
     getTotalPrice(): number {
-        return calculatePrice(Object.assign({ quantity: 1, version: this.data.version, options: this.selectedOptions }, this.data.item));
+        return calculatePrice(Object.assign({ quantity: 1, version: this.data.version, options: this.getSelectedOptions() }, this.data.item));
     }
 
     isFreeChoice(): boolean {
         return this.data.item.name === 'Free Choice';
     }
-    addBBQ_Base() {
-        this.selectedOptions.push("BBQ base");
+
+    isShowBaseOptions() {
+        return this.data.item.name !== "BBQ Pizza";
     }
 
-    isBBQ_BaseDisabled() {
-        return this.data.item.name == "BBQ Pizza" || this.selectedOptions.indexOf("BBQ base") !== -1;
+    private getSelectedOptions(): string[] {
+        let options = [];
+        if (this.isBBQBaseSelected) {
+            options.push('BBQ base');
+        }
+        for (let topping of this.selectedToppings) {
+            let amountToAdd = topping.quantity;
+            while (amountToAdd-- > 0) {
+                options.push(topping.name);
+            }
+        }
+        return options;
     }
 }
 
 interface AddPizzaModalDto {
     item: Item;
     version: string;
+}
+
+interface SelectedTopping {
+    name: string;
+    quantity: number;
 }

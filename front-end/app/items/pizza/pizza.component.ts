@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import Catalogue from '../../../shared/static-data/catalogue';
+import Catalogue from '../../../../shared/static-data/catalogue';
 
 @Component({
     templateUrl: `./pizza.component.html`,

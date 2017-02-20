@@ -15,6 +15,6 @@ import 'rxjs';
 // Others
 import 'jquery';
 import 'bootstrap';
-import 'bootstrap/dist/css/bootstrap.css';
+import './styles/bootstrap.min.css';
 import 'ng2-bs3-modal';
 import 'moment';

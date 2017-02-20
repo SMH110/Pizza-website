@@ -1,14 +1,13 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <h2>Delivery Availability</h2>
-            <hr>
+            <h2>Areas we deliver</h2>
             <form action="" (submit)="validPostcode()">
                 <div class="form-group">
-                    <p>Please enter your post code to check if we can deliver to your address or not.</p>
+                    <p>Enter your postcode below to check if we deliver to your area</p>
                     <input type="text" class="form-control" placeholder="i.e. CR0 1AS" [(ngModel)]='postcode' name="postcode" (blur)="validPostcode()">
+                    <button type="submit" class="btn btn-success" (click)="validPostcode()" [disabled]="!postcode.length">Check</button>
                 </div>
-                <button type="submit" class="btn btn-default" (click)="validPostcode()" [disabled]="!postcode.length">Check</button>
             </form>
             <h4 *ngIf="isValidationResultShown" [ngClass]="{'text-success': isValid, 'text-danger': isValid === false}">{{validationResult}}</h4>
         </div>

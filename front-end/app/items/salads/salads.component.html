@@ -1,8 +1,4 @@
 <jumbotron jumbotronImage="/images/salad-jumbotron.jpg"></jumbotron>
-<div class="container">
-    <div class="row">
-        <div class="col-sm-4 col-md-3 product" *ngFor='let salad of salads'>
-            <item [item]="salad"></item>
-        </div>
-    </div>
+<div class="container products">
+    <item *ngFor='let salad of salads' [item]="salad"></item>
 </div>

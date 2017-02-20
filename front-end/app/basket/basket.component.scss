@@ -1,0 +1,29 @@
+.table {
+    .price {
+        text-align: right;
+        width: 90px;
+    }
+
+    .price-label {
+        text-align: right;
+    }
+
+    .quantity {
+        text-align: center;
+        width: 180px;
+    }
+
+    .quantity > span {
+        display: inline-block;
+        width: 25px;
+    }
+
+    .remove {
+        width: 1%;
+    }
+}
+
+.next {
+    padding-left: 35px;
+    padding-right: 35px;
+}

@@ -1,0 +1,32 @@
+.required::after {
+    color: red;
+    content: '*';
+}
+
+.delivery-methods,
+.payment-methods {
+    display: flex;
+
+    button {
+        flex: 1 0 auto;
+        margin-left: 10px;
+        margin-right: 10px;
+
+        &:first-child {
+            margin-left: 0;
+        }
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+}
+
+.total {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.actions {
+    margin-top: 15px;
+}

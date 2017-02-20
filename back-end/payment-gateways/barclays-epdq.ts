@@ -102,7 +102,6 @@ function getPaymentRedirectParameters(order: PersistedOrder, baseReturnAddress: 
         CURRENCY: "GBP",
         LANGUAGE: 'en_GB',
         PM: 'CreditCard',
-        BRAND: order.paymentMethod,
         CN: `${order.buyer.firstName} ${order.buyer.lastName}`,
         EMAIL: order.buyer.email,
         OWNERADDRESS: [order.billingAddress.line1, order.billingAddress.line2].filter(x => !!x).join(', '),
@@ -151,6 +150,7 @@ interface BarclaysEPDQPaymentRedirectRequest {
     CANCELURL: string;
     // SHA Signature
     SHASIGN: string;
+    BRAND?: 'MasterCard' | 'JCB' | 'Maestro' | 'VISA';
 }
 
 interface BarclaysEPDQPaymentFeedback {

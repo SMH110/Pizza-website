@@ -1,0 +1,40 @@
+h4 {
+    margin-top: 30px;
+
+    &:first-child {
+        margin-top: 0;
+    }
+}
+
+.base-selection,
+.topping-selection {
+    display: flex;
+
+    .btn {
+        flex: 1 0 auto;
+
+        &:first-child {
+            margin-right: 10px;
+        }
+
+        &:last-child {
+            margin-left: 10px;
+        }
+    }
+}
+
+.table {
+    .quantity {
+        text-align: center;
+        width: 180px;
+    }
+
+    .quantity > span {
+        display: inline-block;
+        width: 30px;
+    }
+
+    .remove {
+        width: 1%;
+    }
+}

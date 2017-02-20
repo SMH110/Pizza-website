@@ -6,11 +6,11 @@ import { FormsModule } from '@angular/forms';
 
 // Components
 import { AppComponent } from './app.component';
-import { PizzaComponent } from './items/pizza.component';
-import { SidesComponent } from './items/sides.component';
+import { PizzaComponent } from './items/pizza/pizza.component';
+import { SidesComponent } from './items/sides/sides.component';
 import { AddPizzaModalComponent } from './add-pizza-modal/add-pizza-modal.component';
-import { DrinksComponent } from './items/drinks.component';
-import { ItemComponent } from './items/item.component';
+import { DrinksComponent } from './items/drinks/drinks.component';
+import { ItemComponent } from './items/item/item.component';
 import { CheckDeliveryAreaComponent } from './checking-delivery-area/check-delivery-area.component'
 import { AboutUsComponent } from './footer/about-us.component';
 import { TermsAndConditionsComponent } from './footer/terms-and-conditions.component';
@@ -30,6 +30,7 @@ import { CalzoneComponent } from './items/calzone/calzone.component';
 import { PastaComponent } from './items/pasta/pasta.component';
 import { SaladsComponent } from './items/salads/salads.component';
 import { DessertsComponent } from './items/desserts/desserts.component';
+import { IceCreamComponent } from './items/ice-cream/ice-cream.component';
 
 
 // Services
@@ -75,7 +76,8 @@ import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
         CalzoneComponent,
         PastaComponent,
         SaladsComponent,
-        DessertsComponent
+        DessertsComponent,
+        IceCreamComponent
     ],
     providers:
     [

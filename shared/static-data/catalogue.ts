@@ -1,28 +1,48 @@
 const catalogue: Item[] = [
     {
         name: 'Tuna Salad',
-        price: 5.99,
+        price: {
+            'No dressing': 5.99,
+            'Balsamic vinegar & extra virgin olive oil': 5.99,
+            'Caesar dressing': 5.99,
+            'Both dressings': 5.99
+        },
         description: 'Tomatoes, mixed leaves, tuna, anchovies and red onion',
         imageName: null,
         tags: ['salad']
     },
     {
         name: 'Chicken Caesar',
-        price: 5.99,
-        description: 'Chicken, lettuce, parmesan cheese and croutons with original caesar dressing',
+        price: {
+            'No dressing': 5.99,
+            'Balsamic vinegar & extra virgin olive oil': 5.99,
+            'Caesar dressing': 5.99,
+            'Both dressings': 5.99
+        },
+        description: 'Chicken, lettuce, parmesan cheese and croutons',
         imageName: null,
         tags: ['salad']
     },
     {
         name: 'Greek Salad',
-        price: 5.99,
+        price: {
+            'No dressing': 5.99,
+            'Balsamic vinegar & extra virgin olive oil': 5.99,
+            'Caesar dressing': 5.99,
+            'Both dressings': 5.99
+        },
         description: 'Feta cheese, olives, tomatoes, cucumber and mixed leaves',
         imageName: null,
         tags: ['salad']
     },
     {
         name: 'Mixed Salad',
-        price: 5.99,
+        price: {
+            'No dressing': 5.99,
+            'Balsamic vinegar & extra virgin olive oil': 5.99,
+            'Caesar dressing': 5.99,
+            'Both dressings': 5.99
+        },
         description: 'Mixed leaves, tomatoes, cucumber, red onions',
         imageName: null,
         tags: ['salad']
@@ -33,28 +53,44 @@ const catalogue: Item[] = [
             'No dressing': 5.50,
             'Balsamic vinegar & extra virgin olive oil': 5.50,
             'Caesar dressing': 5.50,
+            'Both dressings': 5.50
         },
-        description: 'Rocket leaves with shaved parmesan, cherry tomatoes and a dressing of your choice',
+        description: 'Rocket leaves with shaved parmesan and cherry tomatoes',
         imageName: null,
         tags: ['salad']
     },
     {
         name: 'Mixed Seafood Salad',
-        price: 5.99,
-        description: 'Selection of mixed seafood, mixed leaves, fresh tomatoes, onions & black olives',
+        price: {
+            'No dressing': 5.99,
+            'Balsamic vinegar & extra virgin olive oil': 5.99,
+            'Caesar dressing': 5.99,
+            'Both dressings': 5.99
+        },
+        description: 'Selection of mixed seafood, mixed leaves, fresh tomatoes, onions and black olives',
         imageName: null,
         tags: ['salad']
     },
     {
         name: 'Nicoise Salad',
-        price: 5.99,
+        price: {
+            'No dressing': 5.99,
+            'Balsamic vinegar & extra virgin olive oil': 5.99,
+            'Caesar dressing': 5.99,
+            'Both dressings': 5.99
+        },
         description: 'Tuna anchovies, egg, olive, capers tomatoes and mixed leaves',
         imageName: null,
         tags: ['salad']
     },
     {
         name: 'Tricolore Salad',
-        price: 5.99,
+        price: {
+            'No dressing': 5.99,
+            'Balsamic vinegar & extra virgin olive oil': 5.99,
+            'Caesar dressing': 5.99,
+            'Both dressings': 5.99
+        },
         description: 'Buffalo mozzarella, fresh tomatoes, fresh basil and mixed leaves',
         imageName: null,
         tags: ['salad']
@@ -88,18 +124,46 @@ const catalogue: Item[] = [
         tags: ['dessert']
     },
     {
-        name: 'Haagen-Dazs',
-        price: {
-            'Vanilla': 4.99,
-            'Strawberry Cheese Cake': 4.99,
-            'Pralines & Cream': 4.99,
-            'Cookies & Cream': 4.99,
-            'Baileys': 4.99,
-            'Belgian Chocolate': 4.99
-        },
+        name: 'Haagen-Dazs Vanilla',
+        price: 4.99,
         description: null,
         imageName: null,
-        tags: ['dessert']
+        tags: ['ice cream']
+    },
+    {
+        name: 'Haagen-Dazs Strawberry Cheese Cake',
+        price: 4.99,
+        description: null,
+        imageName: null,
+        tags: ['ice cream']
+    },
+    {
+        name: 'Haagen-Dazs Pralines & Cream',
+        price: 4.99,
+        description: null,
+        imageName: null,
+        tags: ['ice cream']
+    },
+    {
+        name: 'Haagen-Dazs Cookies & Cream',
+        price: 4.99,
+        description: null,
+        imageName: null,
+        tags: ['ice cream']
+    },
+    {
+        name: 'Haagen-Dazs Baileys',
+        price: 4.99,
+        description: null,
+        imageName: null,
+        tags: ['ice cream']
+    },
+    {
+        name: 'Haagen-Dazs Belgian Chocolate',
+        price: 4.99,
+        description: null,
+        imageName: null,
+        tags: ['ice cream']
     },
     {
         name: 'Can of Drink',
@@ -443,21 +507,11 @@ const catalogue: Item[] = [
     {
         name: 'Garlic Bread',
         description: null,
-        price: 3.00,
-        imageName: null,
-        tags: ['side']
-    },
-    {
-        name: 'Garlic Bread with Cheese',
-        description: null,
-        price: 3.50,
-        imageName: null,
-        tags: ['side']
-    },
-    {
-        name: 'Spicy Garlic Bread with chilli and cheese',
-        description: null,
-        price: 4.00,
+        price: {
+            'Only garlic': 3.00,
+            'With cheese': 3.50,
+            'With chilli and cheese': 4.00
+        },
         imageName: null,
         tags: ['side']
     },
@@ -490,9 +544,9 @@ const catalogue: Item[] = [
         tags: ['side']
     },
     {
-        name: 'Potato Skins with your favourite topping',
+        name: 'Potato Skins',
         price: 4.99,
-        description: null,
+        description: 'with your favourite topping',
         imageName: null,
         tags: ['side']
     },
@@ -504,7 +558,7 @@ const catalogue: Item[] = [
         tags: ['side']
     },
     {
-        name: 'Onion Rings ',
+        name: 'Onion Rings',
         price: 3.49,
         description: '10 pieces',
         imageName: null,

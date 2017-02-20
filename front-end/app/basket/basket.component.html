@@ -2,37 +2,50 @@
     <div class="row">
         <div class="col-md-12">
             <h2>Basket</h2>
+            <p *ngIf='basket.items.length > 0'>We automatically choose the best discount for you so you can be sure you're getting the best price.</p>
+            <p *ngIf='basket.items.length === 0'>Your basket is empty.</p>
             <table class="table table-striped" *ngIf='basket.items.length > 0'>
                 <thead>
                     <tr>
-                        <th>Item</th>
-                        <th>Price</th>
-                        <th>Quantity</th>
-                        <th>Remove</th>
+                        <th class="item">Item</th>
+                        <th class="quantity">Quantity</th>
+                        <th class="price">Price</th>
+                        <th class="remove"></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let item of basket.items">
-                        <td>{{ getDescription(item) }}</td>
-                        <td>£{{item.price | number:'1.2-2'}}</td>
-                        <td>{{item.quantity}}
-                            <button class="btn btn-primary increase" (click)='basket.increase(item)'><span class="glyphicon glyphicon-plus"></span></button>
-                            <button class="btn btn-warning decrease" [disabled]="item.quantity < 2" (click)='basket.decrease(item)'><span class="glyphicon glyphicon-minus"></span></button>
+                    <tr *ngFor="let item of basket.items" class="item-row">
+                        <td class="item">{{ getDescription(item) }}</td>
+                        <td class="quantity">
+                            <button class="btn btn-info btn-sm decrease" [disabled]="item.quantity < 2" (click)='basket.decrease(item)'><span class="glyphicon glyphicon-minus"></span></button>
+                            <span>{{item.quantity}}</span>
+                            <button class="btn btn-info btn-sm increase" (click)='basket.increase(item)'><span class="glyphicon glyphicon-plus"></span></button>
                         </td>
-                        <td>
-                            <button class="btn btn-danger" (click)="basket.removeItem(item)"><span class="glyphicon glyphicon-remove"></span></button>
-                        </td>
+                        <td class="price">£{{item.price * item.quantity | number:'1.2-2'}}</td>
+                        <td class="remove"><button class="btn btn-primary btn-sm" (click)="basket.removeItem(item)"><span class="glyphicon glyphicon-remove"></span></button></td>
+                    </tr>
+                    <tr class="total-row" *ngIf="basket.getDiscount() > 0">
+                        <th class="price-label" colspan="2">Sub-total</th>
+                        <th class="order-total price">£{{basket.getTotalPrice() | number:'1.2-2'}}</th>
+                        <th class="remove"></th>
+                    </tr>
+                    <tr class="total-row text-success" *ngIf="basket.getDiscount() > 0">
+                        <th class="price-label" colspan="2">20% discount on orders over £25</th>
+                        <th class="discount price">-£{{basket.getDiscount() | number:'1.2-2'}}</th>
+                        <th class="remove"></th>
+                    </tr>
+                    <tr class="total-row">
+                        <th class="price-label" colspan="2">Total</th>
+                        <th class="total-payable price">£{{basket.getTotalPayable() | number:'1.2-2'}}</th>
+                        <th class="remove"></th>
                     </tr>
                 </tbody>
             </table>
-            <hr>
-            <h3 *ngIf='basket.getDiscount() > 0'>Total: £{{basket.getTotalPrice() | number:'1.2-2'}}</h3>
-            <h3 *ngIf='basket.getDiscount() > 0'>Discount: £{{basket.getDiscount() | number:'1.2-2'}}</h3>
-            <h3 class="text-success" *ngIf='basket.items.length > 0'>Total Payable: £{{basket.getTotalPayable() | number:'1.2-2'}}</h3>
 
-            <button class="btn btn-default next" *ngIf='basket.items.length > 0' [routerLink]="['/checkout']"> Next <span class="glyphicon glyphicon-chevron-right"></span></button>
-            <button class="btn btn-danger" *ngIf='basket.items.length > 0' (click)="basket.removeAll()">Clear Basket</button>
-            <h2 class="text-danger" *ngIf='basket.items.length < 1'>No Item in the Basket</h2>
+            <div class="actions" *ngIf='basket.items.length > 0'>
+                <button class="btn btn-primary" (click)="basket.removeAll()">Clear Basket</button>
+                <button class="btn btn-success next pull-right" [routerLink]="['/checkout']">Checkout</button>
+            </div>
         </div>
     </div>
 </div>

@@ -1,15 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { BasketService } from '../service/basket.service';
-import { NotificationService } from '../service/notification.service';
-import { ModalService } from '../service/modal.service';
-import { AddPizzaModalComponent } from '../add-pizza-modal/add-pizza-modal.component';
+import { BasketService } from '../../service/basket.service';
+import { NotificationService } from '../../service/notification.service';
+import { ModalService } from '../../service/modal.service';
+import { AddPizzaModalComponent } from '../../add-pizza-modal/add-pizza-modal.component';
 
 @Component({
     selector: 'item',
     templateUrl: `./item.component.html`,
-    styles: [`
-    `]
+    styleUrls: [`./item.component.scss`]
 })
 export class ItemComponent implements OnInit {
     @Input()
@@ -40,5 +39,12 @@ export class ItemComponent implements OnInit {
         } else {
             return [];
         }
+    }
+
+    getPrice(): number {
+        if (typeof this.item.price === 'object') {
+            return this.item.price[this.selectedVersion];
+        }
+        return this.item.price;
     }
 }
