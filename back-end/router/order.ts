@@ -6,6 +6,8 @@ import { errorHandler, IRequest, IResponse } from './router-utils';
 import { getPaymentGateway, getAvailablePaymentMethods } from '../payment-gateways/factory';
 import { BasketService } from '../../shared/services/basket-service';
 import { validateOrderRequest } from '../../shared/validation/place-order-request-validator';
+import { isDeliveryAddressRequired } from '../../shared/business-rules/delivery-address-required-rule';
+import { isBillingAddressRequired } from '../../shared/business-rules/billing-address-required-rule';
 
 router.post('/place-order', errorHandler(async (req: IRequest<PlaceOrderRequest>, res: IResponse<PaymentRedirectDetails>) => {
     console.log('Received order - constructing order')
@@ -13,11 +15,11 @@ router.post('/place-order', errorHandler(async (req: IRequest<PlaceOrderRequest>
     for (let item of req.body.orderItems) {
         basketService.addToBasket(item);
     }
-    
+
     let order: Order = {
         buyer: Object.assign({}, req.body.buyer),
-        deliveryAddress: req.body.deliveryAddress,
-        billingAddress: ['MasterCard', 'JCB', 'Maestro', 'VISA'].indexOf(req.body.paymentMethod) !== -1 ? req.body.billingAddress : null,
+        deliveryAddress: isDeliveryAddressRequired(req.body) ? req.body.deliveryAddress : null,
+        billingAddress: isBillingAddressRequired(req.body) ? req.body.billingAddress : null,
         date: new Date(),
         deliveryMethod: req.body.deliveryMethod,
         paymentMethod: req.body.paymentMethod,

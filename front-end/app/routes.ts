@@ -1,6 +1,6 @@
-import { PizzaComponent } from './items/pizza.component';
-import { SidesComponent } from './items/sides.component';
-import { DrinksComponent } from './items/drinks.component';
+import { PizzaComponent } from './items/pizza/pizza.component';
+import { SidesComponent } from './items/sides/sides.component';
+import { DrinksComponent } from './items/drinks/drinks.component';
 import { AboutUsComponent } from './footer/about-us.component';
 import { TermsAndConditionsComponent } from './footer/terms-and-conditions.component';
 import { ContactUsComponent } from './footer/contact-us.component';
@@ -16,6 +16,7 @@ import { CalzoneComponent } from './items/calzone/calzone.component';
 import { PastaComponent } from './items/pasta/pasta.component';
 import { SaladsComponent } from './items/salads/salads.component';
 import { DessertsComponent } from './items/desserts/desserts.component';
+import { IceCreamComponent } from './items/ice-cream/ice-cream.component';
 
 
 import { Routes } from '@angular/router';
@@ -27,6 +28,7 @@ export default [
     { path: 'sides', component: SidesComponent },
     { path: 'salads', component: SaladsComponent },
     { path: 'desserts', component: DessertsComponent },
+    { path: 'ice-cream', component: IceCreamComponent },
     { path: 'drinks', component: DrinksComponent },
     { path: 'delivery-areas', component: CheckDeliveryAreaComponent },
     { path: 'about-us', component: AboutUsComponent },

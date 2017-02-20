@@ -1,0 +1,18 @@
+<div class="thumbnail">
+    <div class="product-image">
+        <img src="{{item.imageName}}" alt="{{item.name}}" class="img-responsive">
+    </div>
+    <div class="details">
+        <h3>{{item.name}}</h3>
+        <div class="description">
+            <p *ngIf="item.description !== null">{{item.description}}</p>
+        </div>
+        <div class="actions">
+            <select class="form-control" [(ngModel)]="selectedVersion" *ngIf="versions !== undefined">
+                <option *ngFor='let version of versions' value="{{version}}">{{version}}</option>
+            </select>
+            <h4 class="price">£{{ getPrice() | number:'1.2-2' }}</h4>
+            <button (click)='addToBasket()' class="btn btn-primary btn-success">Add to Basket</button>
+        </div>
+    </div>
+</div>

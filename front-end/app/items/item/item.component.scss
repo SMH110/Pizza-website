@@ -1,0 +1,61 @@
+:host {
+    display: flex;
+    padding-left: 8px;
+    padding-right: 8px;
+    vertical-align: top;
+    width: 50%;
+
+    .thumbnail {
+        display: flex;
+        margin-bottom: 16px;
+        padding: 20px;
+        position: relative;
+
+        .details {
+            display: flex;
+            flex-direction: column;
+            width: 50%;
+
+            .actions {
+                display: flex;
+                flex-wrap: wrap;
+
+                .btn-primary {
+                    width: 60%;
+                }
+
+                .price {
+                    display: block;
+                    font-size: 18px;
+                    width: 40%;
+                }
+
+                select {
+                    margin-bottom: 10px;
+                }
+            }
+
+            .description {
+                flex: 1 0 auto;
+            }
+
+            h3 {
+                margin-top: 0;
+            }
+        }
+
+        .product-image {
+            width: 50%;
+
+            img {
+                border-radius: 4px;
+                padding-right: 20px;
+            }
+        }
+    }
+}
+@media (max-width: 767px) {
+    :host {
+        width: auto;
+    }
+}

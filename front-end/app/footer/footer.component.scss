@@ -1,0 +1,24 @@
+.footer {
+    background-color: #ffffff;
+    border-color: #dbdbdb;
+    border-top: 1px solid;
+    margin-top: 50px;
+    padding-bottom: 30px;
+    width: 100%;
+}
+
+.footer .nav > li > a:focus,
+.footer .nav > li > a:hover {
+    background-color: #ffffff;
+}
+
+.footer a,
+.footer a:focus,
+.footer a:hover {
+    color: #000000;
+    text-decoration: underline;
+}
+
+li:first-child a {
+    padding-left: 0;
+}

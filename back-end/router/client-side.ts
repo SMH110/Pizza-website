@@ -12,6 +12,7 @@ router.get('/sides', serveIndex);
 router.get('/salads', serveIndex);
 router.get('/drinks', serveIndex);
 router.get('/desserts', serveIndex);
+router.get('/ice-cream', serveIndex);
 router.get('/delivery-areas', serveIndex);
 router.get('/about-us', serveIndex);
 router.get('/terms-and-conditions', serveIndex);

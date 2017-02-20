@@ -61,6 +61,6 @@ interface PaymentRedirectDetails {
 }
 
 type DeliveryMethod = 'Collection' | 'Delivery';
-type PaymentMethod = 'PayPal' | 'MasterCard' | 'JCB' | 'Maestro' | 'VISA' | 'Cash';
-type Tag = 'salad' | 'dessert' | 'drink' | 'pizza' | 'calzone' | 'pasta' | 'side' | 'hot' | 'vegetarian';
+type PaymentMethod = 'PayPal' | 'Credit / Debit Card' | 'Cash';
+type Tag = 'salad' | 'dessert' | 'ice cream' | 'drink' | 'pizza' | 'calzone' | 'pasta' | 'side' | 'hot' | 'vegetarian';
 type ToppingCategory = 'Cheese' | 'Vegetable' | 'Meat' | 'Seafood' | 'Other';

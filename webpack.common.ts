@@ -52,14 +52,14 @@ export default {
                 loader: 'html-loader'
             },
             {
-                test: /\.css$/,
+                test: /\.[s]?css$/,
                 exclude: root('front-end', 'app'),
-                loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: 'css-loader?sourceMap' })
+                loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: 'css-loader?sourceMap!sass-loader' })
             },
             {
-                test: /\.css$/,
+                test: /\.[s]?css$/,
                 include: root('front-end', 'app'),
-                loader: 'raw-loader'
+                loader: 'raw-loader!sass-loader'
             }
         ]
     }

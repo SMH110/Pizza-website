@@ -1,20 +1,18 @@
 <nav class="navbar navbar-default header-component">
     <div class="container">
-        <!-- Brand and toggle get grouped for better mobile display -->
         <div class="logo">
-            <h1>Logo</h1>
+            <img class="img-responsive" src="/images/logo.png">
         </div>
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navigation">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
         </div>
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <div class="collapse navbar-collapse" id="navigation">
             <ul class="nav navbar-nav">
                 <li [routerLinkActive]="['active']"><a [routerLink]="['/pizza']">Pizza</a></li>
                 <li [routerLinkActive]="['active']"><a [routerLink]="['/calzone']">Calzone</a></li>
@@ -22,17 +20,13 @@
                 <li [routerLinkActive]="['active']"><a [routerLink]="['/sides']">Sides</a></li>
                 <li [routerLinkActive]="['active']"><a [routerLink]="['/salads']">Salads</a></li>
                 <li [routerLinkActive]="['active']"><a [routerLink]="['/desserts']">Desserts</a></li>
+                <li [routerLinkActive]="['active']"><a [routerLink]="['/ice-cream']">Ice Cream</a></li>
                 <li [routerLinkActive]="['active']"><a [routerLink]="['/drinks']">Drinks</a></li>
                 <li [routerLinkActive]="['active']"><a [routerLink]="['/delivery-areas']">Areas we deliver</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><span class="glyphicon glyphicon-earphone phone"></span> <span class="phone"> +441632960727 </span></li>
-                <li><a [routerLink]="['/basket']"><span class="badge">{{basket.getTotalQuantity()}}</span> Basket </a><span></span></li>
+                <li [routerLinkActive]="['active']" class="basket-link"><a [routerLink]="['/basket']">{{ getBasketText() }}</a></li>
             </ul>
-
         </div>
-        <!-- /.navbar-collapse -->
     </div>
-    <!-- /.container-fluid -->
 </nav>
-<!--End of Header-->

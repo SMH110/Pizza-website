@@ -4,20 +4,14 @@ import { createValidOrders, createValidOrder, PAYMENT_METHODS } from './order-he
 
 describe('Minimum Order Values', () => {
     it('When the total amount spent on pizza is less than 10 - Should return the expected results', () => {
-        let testCases = [
+        let testCases: TestCase[] = [
             { deliveryMethod: 'Delivery', paymentMethod: 'Cash', expectedErrors: ['A minimum spend of £10 is required on pizza or calzone for delivery orders.'] },
-            { deliveryMethod: 'Delivery', paymentMethod: 'JCB', expectedErrors: ['A minimum spend of £10 is required on pizza or calzone for delivery orders.'] },
-            { deliveryMethod: 'Delivery', paymentMethod: 'Maestro', expectedErrors: ['A minimum spend of £10 is required on pizza or calzone for delivery orders.'] },
-            { deliveryMethod: 'Delivery', paymentMethod: 'MasterCard', expectedErrors: ['A minimum spend of £10 is required on pizza or calzone for delivery orders.'] },
+            { deliveryMethod: 'Delivery', paymentMethod: 'Credit / Debit Card', expectedErrors: ['A minimum spend of £10 is required on pizza or calzone for delivery orders.'] },
             { deliveryMethod: 'Delivery', paymentMethod: 'PayPal', expectedErrors: ['A minimum spend of £10 is required on pizza or calzone for delivery orders.'] },
-            { deliveryMethod: 'Delivery', paymentMethod: 'VISA', expectedErrors: ['A minimum spend of £10 is required on pizza or calzone for delivery orders.'] },
             { deliveryMethod: 'Collection', paymentMethod: 'Cash', expectedErrors: [] },
-            { deliveryMethod: 'Collection', paymentMethod: 'JCB', expectedErrors: ['A minimum spend of £10 is required on pizza or calzone for JCB orders.'] },
-            { deliveryMethod: 'Collection', paymentMethod: 'Maestro', expectedErrors: ['A minimum spend of £10 is required on pizza or calzone for Maestro orders.'] },
-            { deliveryMethod: 'Collection', paymentMethod: 'MasterCard', expectedErrors: ['A minimum spend of £10 is required on pizza or calzone for MasterCard orders.'] },
-            { deliveryMethod: 'Collection', paymentMethod: 'PayPal', expectedErrors: ['A minimum spend of £10 is required on pizza or calzone for PayPal orders.'] },
-            { deliveryMethod: 'Collection', paymentMethod: 'VISA', expectedErrors: ['A minimum spend of £10 is required on pizza or calzone for VISA orders.'] },
-        ] as TestCase[];
+            { deliveryMethod: 'Collection', paymentMethod: 'Credit / Debit Card', expectedErrors: ['A minimum spend of £10 is required on pizza or calzone for Credit / Debit Card orders.'] },
+            { deliveryMethod: 'Collection', paymentMethod: 'PayPal', expectedErrors: ['A minimum spend of £10 is required on pizza or calzone for PayPal orders.'] }
+        ];
 
         for (let testCase of testCases) {
             let order = createValidOrder(testCase.deliveryMethod, testCase.paymentMethod);
@@ -28,20 +22,14 @@ describe('Minimum Order Values', () => {
     });
 
     it('When the total amount spent on calzone is less than 10 - Should return the expected results', () => {
-        let testCases = [
+        let testCases: TestCase[] = [
             { deliveryMethod: 'Delivery', paymentMethod: 'Cash', expectedErrors: ['A minimum spend of £10 is required on pizza or calzone for delivery orders.'] },
-            { deliveryMethod: 'Delivery', paymentMethod: 'JCB', expectedErrors: ['A minimum spend of £10 is required on pizza or calzone for delivery orders.'] },
-            { deliveryMethod: 'Delivery', paymentMethod: 'Maestro', expectedErrors: ['A minimum spend of £10 is required on pizza or calzone for delivery orders.'] },
-            { deliveryMethod: 'Delivery', paymentMethod: 'MasterCard', expectedErrors: ['A minimum spend of £10 is required on pizza or calzone for delivery orders.'] },
+            { deliveryMethod: 'Delivery', paymentMethod: 'Credit / Debit Card', expectedErrors: ['A minimum spend of £10 is required on pizza or calzone for delivery orders.'] },
             { deliveryMethod: 'Delivery', paymentMethod: 'PayPal', expectedErrors: ['A minimum spend of £10 is required on pizza or calzone for delivery orders.'] },
-            { deliveryMethod: 'Delivery', paymentMethod: 'VISA', expectedErrors: ['A minimum spend of £10 is required on pizza or calzone for delivery orders.'] },
             { deliveryMethod: 'Collection', paymentMethod: 'Cash', expectedErrors: [] },
-            { deliveryMethod: 'Collection', paymentMethod: 'JCB', expectedErrors: ['A minimum spend of £10 is required on pizza or calzone for JCB orders.'] },
-            { deliveryMethod: 'Collection', paymentMethod: 'Maestro', expectedErrors: ['A minimum spend of £10 is required on pizza or calzone for Maestro orders.'] },
-            { deliveryMethod: 'Collection', paymentMethod: 'MasterCard', expectedErrors: ['A minimum spend of £10 is required on pizza or calzone for MasterCard orders.'] },
-            { deliveryMethod: 'Collection', paymentMethod: 'PayPal', expectedErrors: ['A minimum spend of £10 is required on pizza or calzone for PayPal orders.'] },
-            { deliveryMethod: 'Collection', paymentMethod: 'VISA', expectedErrors: ['A minimum spend of £10 is required on pizza or calzone for VISA orders.'] },
-        ] as TestCase[];
+            { deliveryMethod: 'Collection', paymentMethod: 'Credit / Debit Card', expectedErrors: ['A minimum spend of £10 is required on pizza or calzone for Credit / Debit Card orders.'] },
+            { deliveryMethod: 'Collection', paymentMethod: 'PayPal', expectedErrors: ['A minimum spend of £10 is required on pizza or calzone for PayPal orders.'] }
+        ];
 
         for (let testCase of testCases) {
             let order = createValidOrder(testCase.deliveryMethod, testCase.paymentMethod);
@@ -52,20 +40,14 @@ describe('Minimum Order Values', () => {
     });
 
     it('When the total amount is greater than 10, but not on calzone/pizza - Should return the expected results', () => {
-        let testCases = [
+        let testCases: TestCase[] = [
             { deliveryMethod: 'Delivery', paymentMethod: 'Cash', expectedErrors: ['A minimum spend of £10 is required on pizza or calzone for delivery orders.'] },
-            { deliveryMethod: 'Delivery', paymentMethod: 'JCB', expectedErrors: ['A minimum spend of £10 is required on pizza or calzone for delivery orders.'] },
-            { deliveryMethod: 'Delivery', paymentMethod: 'Maestro', expectedErrors: ['A minimum spend of £10 is required on pizza or calzone for delivery orders.'] },
-            { deliveryMethod: 'Delivery', paymentMethod: 'MasterCard', expectedErrors: ['A minimum spend of £10 is required on pizza or calzone for delivery orders.'] },
+            { deliveryMethod: 'Delivery', paymentMethod: 'Credit / Debit Card', expectedErrors: ['A minimum spend of £10 is required on pizza or calzone for delivery orders.'] },
             { deliveryMethod: 'Delivery', paymentMethod: 'PayPal', expectedErrors: ['A minimum spend of £10 is required on pizza or calzone for delivery orders.'] },
-            { deliveryMethod: 'Delivery', paymentMethod: 'VISA', expectedErrors: ['A minimum spend of £10 is required on pizza or calzone for delivery orders.'] },
             { deliveryMethod: 'Collection', paymentMethod: 'Cash', expectedErrors: [] },
-            { deliveryMethod: 'Collection', paymentMethod: 'JCB', expectedErrors: ['A minimum spend of £10 is required on pizza or calzone for JCB orders.'] },
-            { deliveryMethod: 'Collection', paymentMethod: 'Maestro', expectedErrors: ['A minimum spend of £10 is required on pizza or calzone for Maestro orders.'] },
-            { deliveryMethod: 'Collection', paymentMethod: 'MasterCard', expectedErrors: ['A minimum spend of £10 is required on pizza or calzone for MasterCard orders.'] },
-            { deliveryMethod: 'Collection', paymentMethod: 'PayPal', expectedErrors: ['A minimum spend of £10 is required on pizza or calzone for PayPal orders.'] },
-            { deliveryMethod: 'Collection', paymentMethod: 'VISA', expectedErrors: ['A minimum spend of £10 is required on pizza or calzone for VISA orders.'] },
-        ] as TestCase[];
+            { deliveryMethod: 'Collection', paymentMethod: 'Credit / Debit Card', expectedErrors: ['A minimum spend of £10 is required on pizza or calzone for Credit / Debit Card orders.'] },
+            { deliveryMethod: 'Collection', paymentMethod: 'PayPal', expectedErrors: ['A minimum spend of £10 is required on pizza or calzone for PayPal orders.'] }
+        ];
 
         for (let testCase of testCases) {
             let order = createValidOrder(testCase.deliveryMethod, testCase.paymentMethod);

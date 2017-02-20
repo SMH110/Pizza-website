@@ -5,9 +5,11 @@ import { BasketService } from '../service/basket.service';
 import { OrderService } from '../service/order.service';
 import { ErrorService } from '../service/error.service';
 import { validateOrderRequest } from '../../../shared/validation/place-order-request-validator';
+import { isDeliveryAddressRequired } from '../../../shared/business-rules/delivery-address-required-rule';
+import { isBillingAddressRequired } from '../../../shared/business-rules/billing-address-required-rule';
 @Component({
     templateUrl: `./checkout.component.html`,
-    styleUrls: ['./checkout.component.css']
+    styleUrls: ['./checkout.component.scss']
 })
 export class CheckoutComponent {
 
@@ -17,10 +19,11 @@ export class CheckoutComponent {
 
     buyer: Buyer = {} as any;
     deliveryAddress: Address = {} as any;
-    deliveryMethod: DeliveryMethod = 'Delivery';
-    paymentMethod: PaymentMethod = 'Cash';
+    deliveryMethod: DeliveryMethod = null;
+    paymentMethod: PaymentMethod = null;
     billingAddress: Address = {} as any;
     orderNotes: string;
+    billingAddressSameAsDeliveryAddress = false;
 
     constructor(public basket: BasketService, private router: Router, private orderService: OrderService, private errorService: ErrorService) {
         this.orderService.getAvailablePaymentMethods()
@@ -33,7 +36,7 @@ export class CheckoutComponent {
         let orderDetail = {
             buyer: this.buyer,
             deliveryAddress: this.deliveryAddress,
-            billingAddress: this.billingAddress,
+            billingAddress: this.billingAddressSameAsDeliveryAddress ? this.deliveryAddress : this.billingAddress,
             orderItems: this.basket.items,
             deliveryMethod: this.deliveryMethod,
             paymentMethod: this.paymentMethod,
@@ -65,11 +68,42 @@ export class CheckoutComponent {
         });
     }
 
-    isBillingAddressRequired() {
-        return ['MasterCard', 'JCB', 'Maestro', 'VISA'].indexOf(this.paymentMethod) !== -1;
+    selectDeliveryMethod(deliveryMethod: DeliveryMethod) {
+        this.deliveryMethod = deliveryMethod;
     }
 
-    isAddressRequired(): boolean {
-        return this.deliveryMethod === "Delivery" || (this.deliveryMethod === "Collection" && this.paymentMethod === "Cash");
+    selectPaymentMethod(paymentMethod: PaymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
+
+    isPaymentMethodDisplayed(): boolean {
+        return this.deliveryMethod !== null;
+    }
+
+    isDisplayPaymentSurchargeMessage(): boolean {
+        return this.paymentMethod === 'Credit / Debit Card';
+    }
+
+    isAddressDisplayed(): boolean {
+        return this.paymentMethod !== null && isDeliveryAddressRequired(this);
+    }
+
+    isBillingAddressDisplayed() {
+        return isBillingAddressRequired(this);
+    }
+
+    getTotalPrice(): number {
+        return this.basket.getTotalPayable() + (this.paymentMethod === 'Credit / Debit Card' ? 0.50 : 0)
+    }
+
+    getOrderButtonText(): string {
+        if (this.paymentMethod === 'Cash' || this.paymentMethod === null) {
+            return 'Place order';
+        }
+        return 'Continue to payment';
+    }
+
+    isOrderButtonDisplayed(): boolean {
+        return this.deliveryMethod !== null && this.paymentMethod !== null;
     }
 }
