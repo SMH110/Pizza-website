@@ -45,27 +45,54 @@ function validateItems(orderItems: OrderItemValidationObject[]): string[] {
 }
 
 function validateOptions(orderItems: OrderItemValidationObject[]): string[] {
-    let errors = [];
+    let errors: string[] = [];
+
     for (let item of orderItems) {
-        if (item.options.length > 0) {
-            if (item.tags.indexOf('pizza') !== -1) {
-                const toppings = item.options.filter(option => option !== "BBQ base");
-                for (let option of toppings) {
-                    if (Toppings.find(topping => topping.name === option) === undefined) {
-                        errors.push(`${option} is not a valid option for pizzas`);
-                    }
-                }
-                if (item.name === "BBQ Pizza" && item.options.indexOf("BBQ base") !== -1) {
-                    errors.push(`BBQ base cannot be added to BBQ Pizza`);
-                }
-                if (item.name !== "BBQ Pizza" && item.options.indexOf("BBQ base") !== item.options.lastIndexOf("BBQ base")) {
-                    errors.push(`BBQ base cannot be added more than once with ${item.name}`);
-                }
-            } else {
+        if (item.tags.indexOf("pizza") !== -1) {
+            errors.push.apply(errors, validatePizzaOptions(item));
+        } else if (item.name === "Potato Skins with your favourite topping") {
+            errors.push.apply(errors, validatePotatoSkinOptions(item));
+        } else {
+            if (item.options.length > 0) {
                 errors.push(`Options cannot be added to ${item.name}`);
             }
         }
     }
+
+    return errors;
+}
+
+function validatePizzaOptions(orderItem: OrderItemValidationObject): string[] {
+    let errors = [];
+    if (orderItem.options.length < 1) return;
+
+    const toppings = orderItem.options.filter(option => option !== "BBQ base");
+    for (let option of toppings) {
+        if (Toppings.find(topping => topping.name === option) === undefined) {
+            errors.push(`${option} is not a valid option for pizzas`);
+        }
+    }
+    if (orderItem.name === "BBQ Pizza" && orderItem.options.indexOf("BBQ base") !== -1) {
+        errors.push(`BBQ base cannot be added to BBQ Pizza`);
+    }
+    if (orderItem.name !== "BBQ Pizza" && orderItem.options.indexOf("BBQ base") !== orderItem.options.lastIndexOf("BBQ base")) {
+        errors.push(`BBQ base cannot be added more than once with ${orderItem.name}`);
+    }
+
+    return errors;
+}
+
+function validatePotatoSkinOptions(orderItem: OrderItemValidationObject): string[] {
+    let errors: string[] = [];
+    if (orderItem.options.length < 1) {
+        errors.push(`1 topping at least must be added to ${orderItem.name}`)
+    }
+    for (let option of orderItem.options) {
+        if (Toppings.find(topping => topping.name === option) === undefined) {
+            errors.push(`${option} is not a valid topping for ${orderItem.name}`);
+        }
+    }
+
     return errors;
 }
 
