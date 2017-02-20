@@ -31,6 +31,7 @@ import { PastaComponent } from './items/pasta/pasta.component';
 import { SaladsComponent } from './items/salads/salads.component';
 import { DessertsComponent } from './items/desserts/desserts.component';
 import { IceCreamComponent } from './items/ice-cream/ice-cream.component';
+import { PotatoSkinsModalComponent } from './potato-skins-modal/potato-skins-modal.component';
 
 
 // Services
@@ -77,7 +78,8 @@ import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
         PastaComponent,
         SaladsComponent,
         DessertsComponent,
-        IceCreamComponent
+        IceCreamComponent,
+        PotatoSkinsModalComponent
     ],
     providers:
     [
@@ -97,7 +99,8 @@ import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
     ],
     bootstrap: [AppComponent],
     entryComponents: [
-        AddPizzaModalComponent
+        AddPizzaModalComponent,
+        PotatoSkinsModalComponent
     ]
 })
 export class AppModule { }

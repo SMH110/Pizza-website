@@ -4,6 +4,7 @@ import { BasketService } from '../../service/basket.service';
 import { NotificationService } from '../../service/notification.service';
 import { ModalService } from '../../service/modal.service';
 import { AddPizzaModalComponent } from '../../add-pizza-modal/add-pizza-modal.component';
+import { PotatoSkinsModalComponent } from '../../potato-skins-modal/potato-skins-modal.component';
 
 @Component({
     selector: 'item',
@@ -36,6 +37,8 @@ export class ItemComponent implements OnInit {
     private async getOptions() {
         if (this.item.tags.indexOf('pizza') !== -1) {
             return this.modalService.open(AddPizzaModalComponent, { data: { item: this.item, version: this.selectedVersion } });
+        } else if (this.item.name === "Potato Skins with your favourite topping") {
+            return this.modalService.open(PotatoSkinsModalComponent, { data: { item: this.item } });
         } else {
             return [];
         }
