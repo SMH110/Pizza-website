@@ -22,7 +22,7 @@
                             <button class="btn btn-info btn-sm increase" (click)='basket.increase(item)'><span class="glyphicon glyphicon-plus"></span></button>
                         </td>
                         <td class="price">£{{item.price * item.quantity | number:'1.2-2'}}</td>
-                        <td class="remove"><button class="btn btn-primary btn-sm" (click)="basket.removeItem(item)"><span class="glyphicon glyphicon-remove"></span></button></td>
+                        <td class="remove"><button class="btn btn-primary btn-sm" (click)="removeItems(item)"><span class="glyphicon glyphicon-remove"></span></button></td>
                     </tr>
                     <tr class="total-row" *ngIf="basket.getDiscount() > 0">
                         <th class="price-label" colspan="2">Sub-total</th>
@@ -43,7 +43,7 @@
             </table>
 
             <div class="actions" *ngIf='basket.items.length > 0'>
-                <button class="btn btn-primary" (click)="basket.removeAll()">Clear Basket</button>
+                <button class="btn btn-primary" (click)="clearBasket()">Clear Basket</button>
                 <button class="btn btn-success next pull-right" [routerLink]="['/checkout']">Checkout</button>
             </div>
         </div>
