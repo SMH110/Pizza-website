@@ -37,7 +37,7 @@ export class ItemComponent implements OnInit {
     private async getOptions() {
         if (this.item.tags.indexOf('pizza') !== -1) {
             return this.modalService.open(AddPizzaModalComponent, { data: { item: this.item, version: this.selectedVersion } });
-        } else if (this.item.name === "Potato Skins with your favourite topping") {
+        } else if (this.item.name === "Potato Skins") {
             return this.modalService.open(PotatoSkinsModalComponent, { data: { item: this.item } });
         } else {
             return [];
