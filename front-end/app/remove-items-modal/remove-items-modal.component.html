@@ -1,0 +1,14 @@
+<modal>
+    <modal-header>
+        <h4 *ngIf="data">Remove item</h4>
+        <h4 *ngIf="!data">Clear basket</h4>
+    </modal-header>
+    <modal-body>
+        <h3 *ngIf="data">Are you sure to remove this item?</h3>
+        <h3 *ngIf="!data">Are you sure you want to clear your basket?</h3>
+    </modal-body>
+    <modal-footer>
+        <button class="btn btn-primary" (click)="removeItem()">Yes</button>
+        <button class="btn btn-danger" (click)="cancel()">No</button>
+    </modal-footer>
+</modal>
