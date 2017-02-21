@@ -5,7 +5,7 @@ import potatoSkinsPricingRule from './potato-skins-pricing-rule';
 export function getPricingRule(catalogueItem: Item): PricingRule {
     if (catalogueItem.tags.indexOf('pizza') !== -1) {
         return pizzaPricingRule;
-    } else if (catalogueItem.name === "Potato Skins with your favourite topping") {
+    } else if (catalogueItem.name === "Potato Skins") {
        return potatoSkinsPricingRule;
     }
     return genericPricingRule;

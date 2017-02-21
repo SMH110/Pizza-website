@@ -50,7 +50,7 @@ function validateOptions(orderItems: OrderItemValidationObject[]): string[] {
     for (let item of orderItems) {
         if (item.tags.indexOf("pizza") !== -1) {
             errors.push.apply(errors, validatePizzaOptions(item));
-        } else if (item.name === "Potato Skins with your favourite topping") {
+        } else if (item.name === "Potato Skins") {
             errors.push.apply(errors, validatePotatoSkinOptions(item));
         } else {
             if (item.options.length > 0) {

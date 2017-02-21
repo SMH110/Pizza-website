@@ -43,11 +43,11 @@ describe("Item options", () => {
         }
     });
 
-    it('Can not add "Potato Skins with your favourite topping" side without any topping', () => {
+    it('Can not add "Potato Skins" side without any topping', () => {
         for (let order of createValidOrders()) {
             order.orderItems.push(createPotatoSkinSide());
             order.orderItems[1].options = [];
-            expect(validateOrderRequest(order, PAYMENT_METHODS)).to.deep.equal(["1 topping at least must be added to Potato Skins with your favourite topping"]);
+            expect(validateOrderRequest(order, PAYMENT_METHODS)).to.deep.equal(["1 topping at least must be added to Potato Skins"]);
         }
     });
 
@@ -55,13 +55,13 @@ describe("Item options", () => {
         for (let order of createValidOrders()) {
             order.orderItems.push(createPotatoSkinSide());
             order.orderItems[1].options.push("Blah blah")
-            expect(validateOrderRequest(order, PAYMENT_METHODS)).to.deep.equal(["Blah blah is not a valid topping for Potato Skins with your favourite topping"]);
+            expect(validateOrderRequest(order, PAYMENT_METHODS)).to.deep.equal(["Blah blah is not a valid topping for Potato Skins"]);
         }
     });
 });
 
 function createPotatoSkinSide(): OrderItemValidationObject {
-    let potatoSkin = Catalogue.find(item => item.name === "Potato Skins with your favourite topping");
+    let potatoSkin = Catalogue.find(item => item.name === "Potato Skins");
     return {
         name: potatoSkin.name,
         options: ["Gorgonzola"],
