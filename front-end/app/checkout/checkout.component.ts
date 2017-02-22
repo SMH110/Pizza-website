@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component} from '@angular/core';
 import { Router } from '@angular/router';
 
 import { BasketService } from '../service/basket.service';
@@ -34,7 +34,7 @@ export class CheckoutComponent {
         let orderDetail = {
             buyer: this.buyer,
             deliveryAddress: this.deliveryAddress,
-            billingAddress: this.billingAddressSameAsDeliveryAddress ? this.deliveryAddress : this.billingAddress,
+            billingAddress: this.isAddressDisplayed() && this.billingAddressSameAsDeliveryAddress ? this.deliveryAddress : this.billingAddress,
             orderItems: this.basket.items,
             deliveryMethod: this.basket.deliveryMethod,
             paymentMethod: this.basket.paymentMethod,
@@ -68,10 +68,16 @@ export class CheckoutComponent {
 
     selectDeliveryMethod(deliveryMethod: DeliveryMethod) {
         this.basket.deliveryMethod = deliveryMethod;
+        if (this.deliveryMethod === "Collection" && this.paymentMethod === "Credit / Debit Card") {
+            this.billingAddressSameAsDeliveryAddress = false;
+        }
     }
 
     selectPaymentMethod(paymentMethod: PaymentMethod) {
         this.basket.paymentMethod = paymentMethod;
+        if (this.deliveryMethod === "Collection" && this.paymentMethod === "Credit / Debit Card") {
+            this.billingAddressSameAsDeliveryAddress = false;
+        }
     }
 
     isPaymentMethodDisplayed(): boolean {
