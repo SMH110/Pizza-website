@@ -12,6 +12,7 @@ import { isBillingAddressRequired } from '../../shared/business-rules/billing-ad
 router.post('/place-order', errorHandler(async (req: IRequest<PlaceOrderRequest>, res: IResponse<PaymentRedirectDetails>) => {
     console.log('Received order - constructing order')
     let basketService = new BasketService();
+    basketService.deliveryMethod = req.body.deliveryMethod;
     for (let item of req.body.orderItems) {
         basketService.addToBasket(item);
     }

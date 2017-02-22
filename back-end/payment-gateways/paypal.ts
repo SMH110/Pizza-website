@@ -106,10 +106,10 @@ function getOrderItems(order: Order) {
         currency: "GBP",
         quantity: item.quantity
     } as PayPalLineItem));
-    if (order.discount > 0) {
+    if (order.discount !== null) {
         items.push({
-            name: "Discount",
-            price: -order.discount,
+            name: order.discount.name,
+            price: order.discount.amount * -1,
             currency: "GBP",
             quantity: 1
         });

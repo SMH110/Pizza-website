@@ -60,6 +60,11 @@ interface PaymentRedirectDetails {
     isFullPageRedirect: boolean;
 }
 
+interface Discount {
+    name: string;
+    amount: number;
+}
+
 type DeliveryMethod = 'Collection' | 'Delivery';
 type PaymentMethod = 'PayPal' | 'Credit / Debit Card' | 'Cash';
 type Tag = 'salad' | 'dessert' | 'ice cream' | 'drink' | 'pizza' | 'calzone' | 'pasta' | 'side' | 'hot' | 'vegetarian';

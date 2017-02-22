@@ -1,9 +1,11 @@
-import { discountCalculator } from '../discount-calculator'
 import catalog from '../static-data/catalogue';
 import { getPricingRule } from '../business-rules/pricing-rule-factory';
+import { discounts } from '../business-rules/discounts/discounts';
 
 export class BasketService {
     items: OrderLineItem[] = [];
+    deliveryMethod: DeliveryMethod = null;
+    paymentMethod: PaymentMethod = null;
 
     addToBasket(item: BasketItem): void {
         let existingItem = this.getExistingItem(item);
@@ -51,12 +53,24 @@ export class BasketService {
         return this.items.reduce((totalQuantity, item) => totalQuantity += item.quantity, 0);
     }
 
-    getDiscount(): number {
-        return this.normalise(discountCalculator(this.getTotalPrice()));
+    getDiscount(): Discount {
+        return discounts
+            .map(x => ({
+                name: x.name,
+                amount: this.normalise(x.calculate({
+                    totalPrice: this.getTotalPrice(),
+                    deliveryMethod: this.deliveryMethod,
+                    items: this.items
+                }))
+            }))
+            .filter(x => x.amount > 0)
+            .sort((x, y) => y.amount - x.amount)[0] || null;
     }
 
     getTotalPayable(): number {
-        return this.normalise(this.getTotalPrice() - this.getDiscount());
+        let discount = this.getDiscount();
+        let discountAmount = discount !== null ? discount.amount : 0;
+        return this.normalise(this.getTotalPrice() - discountAmount);
     }
 
     private normalise(value: number): number {

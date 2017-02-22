@@ -12,7 +12,7 @@ interface Order {
     paymentId: string;
     paymentFeedback: any[];
     total: number;
-    discount: number;
+    discount: Discount;
     totalPayment: number;
     note: string | null;
     // TODO - specify other statuses here
@@ -26,6 +26,6 @@ interface OrderLineItem {
     version: string;
     imageName: string;
     description: string;
-    tags: string[];
+    tags: Tag[];
     options: string[];
 }
