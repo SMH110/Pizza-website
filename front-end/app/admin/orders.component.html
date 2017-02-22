@@ -15,7 +15,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <ng-container *ngFor="let order of orders">
+                    <ng-container *ngFor="let order of orders; trackBy: trackByOrderId">
                         <tr class="order-summary" [id]="order._id">
                             <td class="status"><span [style.color]='order.status==="Outstanding" ? "#ED7118" : order.status==="Awaiting Payment" ? "#FF0000" : "#0EA603" '>{{order.status}}</span></td>
                             <td class="date">{{ getOrderDate(order) }}</td>

@@ -50,6 +50,7 @@ export class OrdersComponent implements OnInit {
             .subscribe(response => {
                 this.orders = response.sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf());
                 this.orders = this.orders.map(order => {
+
                     return Object.assign({ isExpanded: order.status === 'Outstanding' ? true : false }, order)
                 })
             }, error => this.handleError(error, 'There was an unexpected error refreshing the orders. Please try again.'));
@@ -92,6 +93,10 @@ export class OrdersComponent implements OnInit {
 
     getDescription(item: BasketItem) {
         return BasketService.getDescription(item);
+    }
+
+    trackByOrderId(order: OrderViewModel) {
+        return order._id
     }
 }
 
