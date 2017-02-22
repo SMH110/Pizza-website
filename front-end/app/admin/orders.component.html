@@ -49,13 +49,13 @@
                                             <td class="quantity">{{item.quantity}}</td>
                                             <td class="price">£{{item.price | number:'1.2-2'}}</td>
                                         </tr>
-                                        <tr *ngIf="order.discount > 0">
+                                        <tr *ngIf="order.discount !== null">
                                             <th colspan="2">Total before discount</th>
                                             <td class="order-total">£{{order.total | number:'1.2-2'}}</td>
                                         </tr>
-                                        <tr *ngIf="order.discount > 0">
-                                            <th colspan="2">Discount amount</th>
-                                            <td class="discount">£{{order.discount | number:'1.2-2'}}</td>
+                                        <tr *ngIf="order.discount !== null">
+                                            <th colspan="2">{{order.discount.name}}</th>
+                                            <td class="discount">£{{order.discount.amount | number:'1.2-2'}}</td>
                                         </tr>
                                         <tr>
                                             <th colspan="2">Total payment</th>

@@ -19,8 +19,6 @@ export class CheckoutComponent {
 
     buyer: Buyer = {} as any;
     deliveryAddress: Address = {} as any;
-    deliveryMethod: DeliveryMethod = null;
-    paymentMethod: PaymentMethod = null;
     billingAddress: Address = {} as any;
     orderNotes: string;
     billingAddressSameAsDeliveryAddress = false;
@@ -38,8 +36,8 @@ export class CheckoutComponent {
             deliveryAddress: this.deliveryAddress,
             billingAddress: this.billingAddressSameAsDeliveryAddress ? this.deliveryAddress : this.billingAddress,
             orderItems: this.basket.items,
-            deliveryMethod: this.deliveryMethod,
-            paymentMethod: this.paymentMethod,
+            deliveryMethod: this.basket.deliveryMethod,
+            paymentMethod: this.basket.paymentMethod,
             note: this.orderNotes,
             date: new Date()
         };
@@ -69,41 +67,41 @@ export class CheckoutComponent {
     }
 
     selectDeliveryMethod(deliveryMethod: DeliveryMethod) {
-        this.deliveryMethod = deliveryMethod;
+        this.basket.deliveryMethod = deliveryMethod;
     }
 
     selectPaymentMethod(paymentMethod: PaymentMethod) {
-        this.paymentMethod = paymentMethod;
+        this.basket.paymentMethod = paymentMethod;
     }
 
     isPaymentMethodDisplayed(): boolean {
-        return this.deliveryMethod !== null;
+        return this.basket.deliveryMethod !== null;
     }
 
     isDisplayPaymentSurchargeMessage(): boolean {
-        return this.paymentMethod === 'Credit / Debit Card';
+        return this.basket.paymentMethod === 'Credit / Debit Card';
     }
 
     isAddressDisplayed(): boolean {
-        return this.paymentMethod !== null && isDeliveryAddressRequired(this);
+        return this.basket.paymentMethod !== null && isDeliveryAddressRequired(this.basket);
     }
 
     isBillingAddressDisplayed() {
-        return isBillingAddressRequired(this);
+        return isBillingAddressRequired(this.basket);
     }
 
     getTotalPrice(): number {
-        return this.basket.getTotalPayable() + (this.paymentMethod === 'Credit / Debit Card' ? 0.50 : 0)
+        return this.basket.getTotalPayable() + (this.basket.paymentMethod === 'Credit / Debit Card' ? 0.50 : 0)
     }
 
     getOrderButtonText(): string {
-        if (this.paymentMethod === 'Cash' || this.paymentMethod === null) {
+        if (this.basket.paymentMethod === 'Cash' || this.basket.paymentMethod === null) {
             return 'Place order';
         }
         return 'Continue to payment';
     }
 
     isOrderButtonDisplayed(): boolean {
-        return this.deliveryMethod !== null && this.paymentMethod !== null;
+        return this.basket.deliveryMethod !== null && this.basket.paymentMethod !== null;
     }
 }

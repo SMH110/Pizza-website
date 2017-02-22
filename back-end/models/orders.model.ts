@@ -37,7 +37,10 @@ export default model<PersistedOrder>('orders', new Schema({
     paymentId: String,
     paymentFeedback: Array,
     total: Number,
-    discount: Number,
+    discount: {
+        name: String,
+        amount: Number
+    },
     totalPayment: Number,
     status: String
 }));

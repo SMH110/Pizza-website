@@ -24,16 +24,18 @@
                         <td class="price">£{{item.price * item.quantity | number:'1.2-2'}}</td>
                         <td class="remove"><button class="btn btn-primary btn-sm" (click)="removeItems(item)"><span class="glyphicon glyphicon-remove"></span></button></td>
                     </tr>
-                    <tr class="total-row" *ngIf="basket.getDiscount() > 0">
-                        <th class="price-label" colspan="2">Sub-total</th>
-                        <th class="order-total price">£{{basket.getTotalPrice() | number:'1.2-2'}}</th>
-                        <th class="remove"></th>
-                    </tr>
-                    <tr class="total-row text-success" *ngIf="basket.getDiscount() > 0">
-                        <th class="price-label" colspan="2">20% discount on orders over £25</th>
-                        <th class="discount price">-£{{basket.getDiscount() | number:'1.2-2'}}</th>
-                        <th class="remove"></th>
-                    </tr>
+                    <ng-container *ngIf="basket.getDiscount() !== null">
+                        <tr class="total-row">
+                            <th class="price-label" colspan="2">Sub-total</th>
+                            <th class="order-total price">£{{basket.getTotalPrice() | number:'1.2-2'}}</th>
+                            <th class="remove"></th>
+                        </tr>
+                        <tr class="total-row text-success">
+                            <th class="price-label" colspan="2">{{ basket.getDiscount().name }}</th>
+                            <th class="discount price">-£{{ basket.getDiscount().amount | number:'1.2-2' }}</th>
+                            <th class="remove"></th>
+                        </tr>
+                    </ng-container>
                     <tr class="total-row">
                         <th class="price-label" colspan="2">Total</th>
                         <th class="total-payable price">£{{basket.getTotalPayable() | number:'1.2-2'}}</th>

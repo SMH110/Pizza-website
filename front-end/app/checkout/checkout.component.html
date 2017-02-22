@@ -34,20 +34,20 @@
             <div>
                 <h3>Delivery method</h3>
                 <div class="delivery-methods">
-                    <button class="btn btn-default" [ngClass]="{ 'btn-success': deliveryMethod === method }" *ngFor="let method of deliveryMethods" (click)="selectDeliveryMethod(method)">{{method}}</button>
+                    <button class="btn btn-default" [ngClass]="{ 'btn-success': basket.deliveryMethod === method }" *ngFor="let method of deliveryMethods" (click)="selectDeliveryMethod(method)">{{method}}</button>
                 </div>
             </div>
 
             <div *ngIf="isPaymentMethodDisplayed()">
                 <h3>Payment method</h3>
                 <div class="payment-methods">
-                    <button class="btn btn-default" [ngClass]="{ 'btn-success': paymentMethod === method }" *ngFor="let method of paymentMethods" (click)="selectPaymentMethod(method)">{{method}}</button>
+                    <button class="btn btn-default" [ngClass]="{ 'btn-success': basket.paymentMethod === method }" *ngFor="let method of paymentMethods" (click)="selectPaymentMethod(method)">{{method}}</button>
                 </div>
                 <p class="text-danger" *ngIf="isDisplayPaymentSurchargeMessage()">A 50p surcharge applies to Credit / Debit card payments</p>
             </div>
 
             <div class="address-section" *ngIf="isAddressDisplayed()">
-                <h3>{{ deliveryMethod === "Delivery" ? "Delivery address" : "Your address" }}</h3>
+                <h3>{{ basket.deliveryMethod === "Delivery" ? "Delivery address" : "Your address" }}</h3>
                 <div class="form-group">
                     <label for="delivery_address1" class="col-sm-2 control-label required">Address 1</label>
                     <div class="col-sm-10">
