@@ -9,6 +9,7 @@ export class BasketService extends SharedBasketService {
         super();
         this.loadItems();
     }
+    orderNotes: string
 
     addToBasket(item: BasketItem): void {
         this.loadItems();
@@ -46,7 +47,7 @@ export class BasketService extends SharedBasketService {
         this.saveItems();
     }
 
-    selectPaymentMethod(paymentMethod: PaymentMethod){
+    selectPaymentMethod(paymentMethod: PaymentMethod) {
         this.loadItems();
         super.selectPaymentMethod(paymentMethod);
         this.saveItems();
@@ -60,15 +61,24 @@ export class BasketService extends SharedBasketService {
                 this.items = basket.items;
                 this.deliveryMethod = basket.deliveryMethod;
                 this.paymentMethod = basket.paymentMethod;
+                this.orderNotes = basket.orderNotes;
             }
         }
     }
+    clearOrderNotes() {
+        let basket = JSON.parse(localStorage.getItem(STORAGE_KEY) || null);
+        if (basket !== null) {
+            this.orderNotes = null;
+        }
+        this.saveItems();
+    }
 
-    private saveItems(): void {
+     saveItems(): void {
         localStorage.setItem(STORAGE_KEY, JSON.stringify({
             items: this.items,
             deliveryMethod: this.deliveryMethod,
             paymentMethod: this.paymentMethod,
+            orderNotes: this.orderNotes,
             date: Date.now()
         }));
     }

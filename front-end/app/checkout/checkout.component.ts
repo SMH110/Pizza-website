@@ -8,8 +8,6 @@ import { validateOrderRequest } from '../../../shared/validation/place-order-req
 import { isDeliveryAddressRequired } from '../../../shared/business-rules/delivery-address-required-rule';
 import { isBillingAddressRequired } from '../../../shared/business-rules/billing-address-required-rule';
 
-const STORAGE_KEY = "orderNotes";
-
 @Component({
     templateUrl: `./checkout.component.html`,
     styleUrls: ['./checkout.component.scss']
@@ -23,11 +21,9 @@ export class CheckoutComponent {
     buyer: Buyer = {} as any;
     deliveryAddress: Address = {} as any;
     billingAddress: Address = {} as any;
-    orderNotes: string;
     billingAddressSameAsDeliveryAddress = false;
 
     constructor(public basket: BasketService, private router: Router, private orderService: OrderService, private errorService: ErrorService) {
-        this.loadOrderNotes()
         this.orderService.getAvailablePaymentMethods()
             .subscribe(paymentMethods => this.paymentMethods = paymentMethods);
     }
@@ -42,7 +38,7 @@ export class CheckoutComponent {
             orderItems: this.basket.items,
             deliveryMethod: this.basket.deliveryMethod,
             paymentMethod: this.basket.paymentMethod,
-            note: this.orderNotes,
+            note: this.basket.orderNotes,
             date: new Date()
         };
 
@@ -117,15 +113,7 @@ export class CheckoutComponent {
     }
 
     saveOrderNotes() {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(this.orderNotes));
+        this.basket.saveItems();
     }
-
-    loadOrderNotes() {
-        const orderNotes = JSON.parse(localStorage.getItem(STORAGE_KEY));
-        if (orderNotes !== undefined) {
-            this.orderNotes = orderNotes
-        }
-    }
-
 
 }

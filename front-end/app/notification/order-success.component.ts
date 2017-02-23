@@ -14,6 +14,6 @@ import { BasketService } from '../service/basket.service';
 export class OrderSuccessComponent {
     constructor(private basketService: BasketService) {
         this.basketService.removeAll();
-        localStorage.removeItem("orderNotes");
+        this.basketService.clearOrderNotes();
     }
 }
