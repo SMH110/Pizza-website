@@ -12,7 +12,7 @@ if (!process.env.PORT) {
 
     // PayPal
     process.env.PAYPAL_ENABLED = "TRUE";
-    process.env.PAYPAL_ENVIRONMENT_NAME = "api.sandbox.paypal.com";
+    process.env.IS_PAYPAL_SANDBOX = "TRUE";
     process.env.PAYPAL_CLIENT_ID = "AWIevBHnu9162GxBPIu9kqyNU-EB2YItx6jF6fEqQrRlqZ9I9G49tNePR_4q0IMJCRPw3XYUZbMrLEjx";
     process.env.PAYPAL_SECRET = "EHFGmfZjwI5n70O9Uo73MEIIyzd0hv3mGEo0NyErBEeNXJfXOyiwa57NN4gPrQ9HA5L7EmphXyU7Vr9r";
 

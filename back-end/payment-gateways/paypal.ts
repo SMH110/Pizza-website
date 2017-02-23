@@ -5,6 +5,7 @@ import { PaymentGateway } from './interfaces';
 import { sendConfirmationEmails } from '../services/confirmation-sender'
 import { BasketService } from '../../shared/services/basket-service';
 export const IsPayPalEnabled = process.env.PAYPAL_ENABLED === "TRUE";
+const PAYPAL_ENVIRONMENT_NAME = process.env.IS_PAYPAL_SANDBOX === "TRUE" ? "api.sandbox.paypal.com" : "api.paypal.com";
 
 export default class PayPal implements PaymentGateway {
     constructor(private baseReturnAddress: string) {
@@ -37,7 +38,7 @@ export default class PayPal implements PaymentGateway {
             json: true
         };
         console.log('Requesting PayPal payment', JSON.stringify(options, null, 4));
-        let response = await rp.post(`https://${process.env.PAYPAL_ENVIRONMENT_NAME}/v1/payments/payment`, options);
+        let response = await rp.post(`https://${PAYPAL_ENVIRONMENT_NAME}/v1/payments/payment`, options);
         console.log('PayPal payment successfully requested. Updating order.', JSON.stringify(response, null, 4));
         order.paymentId = response.id;
         order.save()
@@ -57,7 +58,7 @@ async function getPayPalAuthToken() {
         form: { grant_type: 'client_credentials' },
         json: true
     };
-    let response = await rp.post(`https://${process.env.PAYPAL_ENVIRONMENT_NAME}/v1/oauth2/token`, options);
+    let response = await rp.post(`https://${PAYPAL_ENVIRONMENT_NAME}/v1/oauth2/token`, options);
     return response.access_token;
 }
 
@@ -76,7 +77,7 @@ export function initialisePayPalEndpoints(application: Application) {
                 json: true
             };
             console.log(`Executing payment ${paymentId} for ${payerId}`);
-            let response = await rp.post(`https://${process.env.PAYPAL_ENVIRONMENT_NAME}/v1/payments/payment/${paymentId}/execute/`, options);
+            let response = await rp.post(`https://${PAYPAL_ENVIRONMENT_NAME}/v1/payments/payment/${paymentId}/execute/`, options);
             if (response.state !== 'approved') {
                 throw new Error(`Payment ${paymentId} for ${payerId} was NOT approved`);
             }
