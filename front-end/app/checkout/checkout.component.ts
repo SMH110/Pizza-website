@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { BasketService } from '../service/basket.service';
@@ -68,14 +68,14 @@ export class CheckoutComponent {
 
     selectDeliveryMethod(deliveryMethod: DeliveryMethod) {
         this.basket.deliveryMethod = deliveryMethod;
-        if (this.deliveryMethod === "Collection" && this.paymentMethod === "Credit / Debit Card") {
+        if (this.basket.deliveryMethod === "Collection" && this.basket.paymentMethod === "Credit / Debit Card") {
             this.billingAddressSameAsDeliveryAddress = false;
         }
     }
 
     selectPaymentMethod(paymentMethod: PaymentMethod) {
         this.basket.paymentMethod = paymentMethod;
-        if (this.deliveryMethod === "Collection" && this.paymentMethod === "Credit / Debit Card") {
+        if (this.basket.deliveryMethod === "Collection" && this.basket.paymentMethod === "Credit / Debit Card") {
             this.billingAddressSameAsDeliveryAddress = false;
         }
     }
