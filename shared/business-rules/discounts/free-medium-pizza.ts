@@ -10,6 +10,6 @@ export const freeMediumPizza = {
         }
 
         let pizzas = sortByPrice(flatten(getBasePrices(basket.items.filter(x => x.tags.indexOf('pizza') !== -1 && x.version === 'Medium'))));
-        return pizzas[0].price;
+        return pizzas.length > 0 ? pizzas[0].price : 0;
     }
 }
