@@ -7,6 +7,9 @@ import { ErrorService } from '../service/error.service';
 import { validateOrderRequest } from '../../../shared/validation/place-order-request-validator';
 import { isDeliveryAddressRequired } from '../../../shared/business-rules/delivery-address-required-rule';
 import { isBillingAddressRequired } from '../../../shared/business-rules/billing-address-required-rule';
+
+const STORAGE_KEY = "orderNotes";
+
 @Component({
     templateUrl: `./checkout.component.html`,
     styleUrls: ['./checkout.component.scss']
@@ -24,6 +27,7 @@ export class CheckoutComponent {
     billingAddressSameAsDeliveryAddress = false;
 
     constructor(public basket: BasketService, private router: Router, private orderService: OrderService, private errorService: ErrorService) {
+        this.loadOrderNotes()
         this.orderService.getAvailablePaymentMethods()
             .subscribe(paymentMethods => this.paymentMethods = paymentMethods);
     }
@@ -67,14 +71,15 @@ export class CheckoutComponent {
     }
 
     selectDeliveryMethod(deliveryMethod: DeliveryMethod) {
-        this.basket.deliveryMethod = deliveryMethod;
+        this.basket.selectDeliveryMethod(deliveryMethod);
+
         if (this.basket.deliveryMethod === "Collection" && this.basket.paymentMethod === "Credit / Debit Card") {
             this.billingAddressSameAsDeliveryAddress = false;
         }
     }
 
     selectPaymentMethod(paymentMethod: PaymentMethod) {
-        this.basket.paymentMethod = paymentMethod;
+        this.basket.selectPaymentMethod(paymentMethod);
         if (this.basket.deliveryMethod === "Collection" && this.basket.paymentMethod === "Credit / Debit Card") {
             this.billingAddressSameAsDeliveryAddress = false;
         }
@@ -110,4 +115,17 @@ export class CheckoutComponent {
     isOrderButtonDisplayed(): boolean {
         return this.basket.deliveryMethod !== null && this.basket.paymentMethod !== null;
     }
+
+    saveOrderNotes() {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(this.orderNotes));
+    }
+
+    loadOrderNotes() {
+        const orderNotes = JSON.parse(localStorage.getItem(STORAGE_KEY));
+        if (orderNotes !== undefined) {
+            this.orderNotes = orderNotes
+        }
+    }
+
+
 }

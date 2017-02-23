@@ -86,6 +86,14 @@ export class BasketService {
         );
     }
 
+    selectDeliveryMethod(deliveryMethod: DeliveryMethod) {
+        this.deliveryMethod = deliveryMethod;
+    }
+
+    selectPaymentMethod(paymentMethod: PaymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
+
     static getDescription(item: BasketItem) {
         return [
             item.name,

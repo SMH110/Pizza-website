@@ -11,27 +11,44 @@ export class BasketService extends SharedBasketService {
     }
 
     addToBasket(item: BasketItem): void {
+        this.loadItems();
         super.addToBasket(item);
         this.saveItems();
     }
 
     increase(item: OrderLineItem) {
+        this.loadItems();
         super.increase(item);
         this.saveItems();
     }
 
     decrease(item: OrderLineItem) {
+        this.loadItems();
         super.decrease(item);
         this.saveItems();
     }
 
     removeItem(item: OrderLineItem): void {
+        this.loadItems();
         super.removeItem(item);
         this.saveItems();
     }
 
     removeAll(): void {
+        this.loadItems();
         super.removeAll();
+        this.saveItems();
+    }
+
+    selectDeliveryMethod(deliveryMethod: DeliveryMethod) {
+        this.loadItems();
+        super.selectDeliveryMethod(deliveryMethod);
+        this.saveItems();
+    }
+
+    selectPaymentMethod(paymentMethod: PaymentMethod){
+        this.loadItems();
+        super.selectPaymentMethod(paymentMethod);
         this.saveItems();
     }
 
@@ -41,6 +58,8 @@ export class BasketService extends SharedBasketService {
         if (basket !== null) {
             if (Date.now() - basket.date <= 6 * HOUR) {
                 this.items = basket.items;
+                this.deliveryMethod = basket.deliveryMethod;
+                this.paymentMethod = basket.paymentMethod;
             }
         }
     }
@@ -48,6 +67,8 @@ export class BasketService extends SharedBasketService {
     private saveItems(): void {
         localStorage.setItem(STORAGE_KEY, JSON.stringify({
             items: this.items,
+            deliveryMethod: this.deliveryMethod,
+            paymentMethod: this.paymentMethod,
             date: Date.now()
         }));
     }
