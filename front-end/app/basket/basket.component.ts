@@ -22,6 +22,6 @@ export class BasketComponent {
 
     async clearBasket() {
         await this.modalService.open(RemoveItemsModalComponent);
-        this.basket.removeAll();
+        this.basket.reset();
     }
 }

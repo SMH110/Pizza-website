@@ -49,7 +49,7 @@ export class CheckoutComponent {
         }
         this.isShowSpinner = true
         this.orderService.placeOrder(orderDetail).subscribe(response => {
-            this.basket.removeAll();
+            this.basket.reset();
             if (response.isFullPageRedirect) {
                 window.location.assign(response.url);
             } else {
@@ -67,15 +67,14 @@ export class CheckoutComponent {
     }
 
     selectDeliveryMethod(deliveryMethod: DeliveryMethod) {
-        this.basket.selectDeliveryMethod(deliveryMethod);
-
+        this.basket.deliveryMethod = deliveryMethod;
         if (this.basket.deliveryMethod === "Collection" && this.basket.paymentMethod === "Credit / Debit Card") {
             this.billingAddressSameAsDeliveryAddress = false;
         }
     }
 
     selectPaymentMethod(paymentMethod: PaymentMethod) {
-        this.basket.selectPaymentMethod(paymentMethod);
+        this.basket.paymentMethod = paymentMethod;
         if (this.basket.deliveryMethod === "Collection" && this.basket.paymentMethod === "Credit / Debit Card") {
             this.billingAddressSameAsDeliveryAddress = false;
         }
@@ -111,9 +110,4 @@ export class CheckoutComponent {
     isOrderButtonDisplayed(): boolean {
         return this.basket.deliveryMethod !== null && this.basket.paymentMethod !== null;
     }
-
-    saveOrderNotes() {
-        this.basket.saveItems();
-    }
-
 }

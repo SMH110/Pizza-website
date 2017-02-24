@@ -5,75 +5,100 @@ const STORAGE_KEY = 'basket';
 
 @Injectable()
 export class BasketService extends SharedBasketService {
+    private hasBaseConstructorRun = true;
+
     constructor() {
         super();
-        this.loadItems();
+        this.load();
     }
-    orderNotes: string
+
+    private _orderNotes: string = null;
+    private _deliveryMethod: DeliveryMethod = null;
+    private _paymentMethod: PaymentMethod = null;
+
+    get orderNotes() {
+        return this._orderNotes;
+    }
+
+    set orderNotes(orderNotes: string) {
+        this.load();
+        this._orderNotes = orderNotes;
+        this.save();
+    }
+    
+    get deliveryMethod() {
+        return this._deliveryMethod;
+    }
+
+    set deliveryMethod(deliveryMethod: DeliveryMethod) {
+        this.load();
+        this._deliveryMethod = deliveryMethod;
+        this.save();
+    }
+
+    get paymentMethod() {
+        return this._paymentMethod;
+    }
+
+    set paymentMethod(paymentMethod: PaymentMethod) {
+        this.load();
+        this._paymentMethod = paymentMethod;
+        this.save();
+    }
 
     addToBasket(item: BasketItem): void {
-        this.loadItems();
+        this.load();
         super.addToBasket(item);
-        this.saveItems();
+        this.save();
     }
 
     increase(item: OrderLineItem) {
-        this.loadItems();
+        this.load();
         super.increase(item);
-        this.saveItems();
+        this.save();
     }
 
     decrease(item: OrderLineItem) {
-        this.loadItems();
+        this.load();
         super.decrease(item);
-        this.saveItems();
+        this.save();
     }
 
     removeItem(item: OrderLineItem): void {
-        this.loadItems();
+        this.load();
         super.removeItem(item);
-        this.saveItems();
+        this.save();
     }
 
-    removeAll(): void {
-        this.loadItems();
-        super.removeAll();
-        this.saveItems();
+    reset(): void {
+        this.load();
+        super.reset();
+        this._orderNotes = null;
+        this.save();
     }
 
-    selectDeliveryMethod(deliveryMethod: DeliveryMethod) {
-        this.loadItems();
-        super.selectDeliveryMethod(deliveryMethod);
-        this.saveItems();
-    }
+    private load(): void {
+        if (this.hasBaseConstructorRun !== true) {
+            return;
+        }
 
-    selectPaymentMethod(paymentMethod: PaymentMethod) {
-        this.loadItems();
-        super.selectPaymentMethod(paymentMethod);
-        this.saveItems();
-    }
-
-    private loadItems(): void {
         let basket = JSON.parse(localStorage.getItem(STORAGE_KEY) || null);
         const HOUR = 60 * 60 * 1000;
         if (basket !== null) {
             if (Date.now() - basket.date <= 6 * HOUR) {
                 this.items = basket.items;
-                this.deliveryMethod = basket.deliveryMethod;
-                this.paymentMethod = basket.paymentMethod;
-                this.orderNotes = basket.orderNotes;
+                this._deliveryMethod = basket.deliveryMethod;
+                this._paymentMethod = basket.paymentMethod;
+                this._orderNotes = basket.orderNotes;
             }
         }
     }
-    clearOrderNotes() {
-        let basket = JSON.parse(localStorage.getItem(STORAGE_KEY) || null);
-        if (basket !== null) {
-            this.orderNotes = null;
-        }
-        this.saveItems();
-    }
 
-     saveItems(): void {
+    private save(): void {
+        if (this.hasBaseConstructorRun !== true) {
+            return;
+        }
+
         localStorage.setItem(STORAGE_KEY, JSON.stringify({
             items: this.items,
             deliveryMethod: this.deliveryMethod,
