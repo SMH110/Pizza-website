@@ -41,8 +41,10 @@ export class BasketService {
         this.items.splice(this.items.indexOf(item), 1);
     }
 
-    removeAll(): void {
+    reset(): void {
         this.items = [];
+        this.deliveryMethod = null;
+        this.paymentMethod = null;
     }
 
     getTotalPrice(): number {
@@ -77,7 +79,7 @@ export class BasketService {
         return Math.round(value * 100) / 100
     }
 
-    getExistingItem(item: BasketItem): OrderLineItem {
+    private getExistingItem(item: BasketItem): OrderLineItem {
         return this.items.find(x => {
             return x.name === item.name &&
                 x.version === item.version &&

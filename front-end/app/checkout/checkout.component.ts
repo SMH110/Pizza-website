@@ -7,6 +7,7 @@ import { ErrorService } from '../service/error.service';
 import { validateOrderRequest } from '../../../shared/validation/place-order-request-validator';
 import { isDeliveryAddressRequired } from '../../../shared/business-rules/delivery-address-required-rule';
 import { isBillingAddressRequired } from '../../../shared/business-rules/billing-address-required-rule';
+
 @Component({
     templateUrl: `./checkout.component.html`,
     styleUrls: ['./checkout.component.scss']
@@ -20,7 +21,6 @@ export class CheckoutComponent {
     buyer: Buyer = {} as any;
     deliveryAddress: Address = {} as any;
     billingAddress: Address = {} as any;
-    orderNotes: string;
     billingAddressSameAsDeliveryAddress = false;
 
     constructor(public basket: BasketService, private router: Router, private orderService: OrderService, private errorService: ErrorService) {
@@ -38,7 +38,7 @@ export class CheckoutComponent {
             orderItems: this.basket.items,
             deliveryMethod: this.basket.deliveryMethod,
             paymentMethod: this.basket.paymentMethod,
-            note: this.orderNotes,
+            note: this.basket.orderNotes,
             date: new Date()
         };
 
@@ -49,7 +49,7 @@ export class CheckoutComponent {
         }
         this.isShowSpinner = true
         this.orderService.placeOrder(orderDetail).subscribe(response => {
-            this.basket.removeAll();
+            this.basket.reset();
             if (response.isFullPageRedirect) {
                 window.location.assign(response.url);
             } else {
