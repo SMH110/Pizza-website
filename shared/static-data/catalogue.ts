@@ -126,42 +126,42 @@ const catalogue: Item[] = [
     {
         name: 'Haagen-Dazs Vanilla',
         price: 4.99,
-        description: null,
+        description: '1 pint tub (568ml)',
         imageName: 'images/ice-cream/haagen-dazs-vanilla.jpg',
         tags: ['ice cream']
     },
     {
         name: 'Haagen-Dazs Strawberry Cheesecake',
         price: 4.99,
-        description: null,
+        description: '1 pint tub (568ml)',
         imageName: 'images/ice-cream/haagen-dazs-strawberry-cheesecake.jpg',
         tags: ['ice cream']
     },
     {
         name: 'Haagen-Dazs Pralines & Cream',
         price: 4.99,
-        description: null,
+        description: '1 pint tub (568ml)',
         imageName: 'images/ice-cream/haagen-dazs-pralines-and-cream.jpg',
         tags: ['ice cream']
     },
     {
         name: 'Haagen-Dazs Cookies & Cream',
         price: 4.99,
-        description: null,
+        description: '1 pint tub (568ml)',
         imageName: 'images/ice-cream/haagen-dazs-cookies-and-cream.jpg',
         tags: ['ice cream']
     },
     {
         name: 'Haagen-Dazs Baileys',
         price: 4.99,
-        description: null,
+        description: '1 pint tub (568ml)',
         imageName: 'images/ice-cream/haagen-dazs-baileys.jpg',
         tags: ['ice cream']
     },
     {
         name: 'Haagen-Dazs Belgian Chocolate',
         price: 4.99,
-        description: null,
+        description: '1 pint tub (568ml)',
         imageName: 'images/ice-cream/haagen-dazs-belgian-chocolate.jpg',
         tags: ['ice cream']
     },
@@ -222,11 +222,11 @@ const catalogue: Item[] = [
         tags: ['drink', 'bottle']
     },
     {
-        name: 'Water',
-        description: '500ml bottle',
+        name: 'Bottle of Water',
+        description: '500ml',
         price: 0.70,
         imageName: 'images/drink/bottle-of-water.jpg',
-        tags: ['drink']
+        tags: ['drink', 'can']
     },
     {
         name: 'Margherita',
@@ -342,7 +342,7 @@ const catalogue: Item[] = [
     },
     {
         name: 'Pepperoni Plus',
-        description: 'Double Pepperoni & Double Cheese',
+        description: 'Double mozzarella, Tomato Sauce and Double Pepperoni',
         imageName: 'images/pizza/pepperoni-plus.jpg',
         price: { 'Medium': 10.99, 'Large': 12.99, 'Extra Large': 14.99 },
         tags: ['pizza']

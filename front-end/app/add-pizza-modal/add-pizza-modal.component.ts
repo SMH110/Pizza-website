@@ -58,6 +58,10 @@ export class AddPizzaModalComponent extends BaseModalComponent<AddPizzaModalDto,
         return this.data.item.name !== "BBQ Pizza";
     }
 
+    getBaseName() {
+        return this.data.item.name === 'Garlic Meat Lover' ? 'Garlic sauce' : 'Tomato sauce';
+    }
+
     private getSelectedOptions(): string[] {
         let options = [];
         if (this.isBBQBaseSelected) {
