@@ -166,57 +166,57 @@ const catalogue: Item[] = [
         tags: ['ice cream']
     },
     {
-        name: 'Coca Cola',
-        description: '330ml can',
+        name: 'Can of Coca Cola',
+        description: '330ml',
         price: 0.70,
         imageName: 'images/drink/coca-cola-can.jpg',
         tags: ['drink', 'can']
     },
     {
-        name: 'Diet Coke',
-        description: '330ml can',
+        name: 'Can of Diet Coke',
+        description: '330ml',
         price: 0.70,
         imageName: 'images/drink/diet-coke-can.jpg',
         tags: ['drink', 'can']
     },
     {
-        name: 'Fanta',
-        description: '330ml can',
+        name: 'Can of Fanta',
+        description: '330ml',
         price: 0.70,
         imageName: 'images/drink/fanta-can.jpg',
         tags: ['drink', 'can']
     },
     {
-        name: '7UP',
-        description: '330ml can',
+        name: 'Can of 7UP',
+        description: '330ml',
         price: 0.70,
         imageName: 'images/drink/7up-can.jpg',
         tags: ['drink', 'can']
     },
     {
-        name: 'Coca Cola',
-        description: '1.5 litre bottle',
+        name: 'Bottle of Coca Cola',
+        description: '1.5 litre',
         price: 1.99,
         imageName: 'images/drink/coca-cola-bottle.jpg',
         tags: ['drink', 'bottle']
     },
     {
-        name: 'Diet Coke',
-        description: '1.5 litre bottle',
+        name: 'Bottle of Diet Coke',
+        description: '1.5 litre',
         price: 1.99,
         imageName: 'images/drink/diet-coke-bottle.jpg',
         tags: ['drink', 'bottle']
     },
     {
-        name: 'Fanta',
-        description: '1.5 litre bottle',
+        name: 'Bottle of Fanta',
+        description: '1.5 litre',
         price: 1.99,
         imageName: 'images/drink/fanta-bottle.jpg',
         tags: ['drink', 'bottle']
     },
     {
-        name: '7UP',
-        description: '1.5 litre bottle',
+        name: 'Bottle of 7UP',
+        description: '1.5 litre',
         price: 1.99,
         imageName: 'images/drink/7up-bottle.jpg',
         tags: ['drink', 'bottle']
