@@ -67,5 +67,5 @@ interface Discount {
 
 type DeliveryMethod = 'Collection' | 'Delivery';
 type PaymentMethod = 'PayPal' | 'Credit / Debit Card' | 'Cash';
-type Tag = 'salad' | 'dessert' | 'ice cream' | 'drink' | 'pizza' | 'calzone' | 'pasta' | 'side' | 'hot' | 'vegetarian';
+type Tag = 'salad' | 'dessert' | 'ice cream' | 'drink' | 'pizza' | 'calzone' | 'pasta' | 'side' | 'hot' | 'vegetarian' | 'bottle' | 'can';
 type ToppingCategory = 'Cheese' | 'Vegetable' | 'Meat' | 'Seafood' | 'Other';

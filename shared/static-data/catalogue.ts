@@ -127,73 +127,105 @@ const catalogue: Item[] = [
         name: 'Haagen-Dazs Vanilla',
         price: 4.99,
         description: null,
-        imageName: null,
+        imageName: 'images/ice-cream/haagen-dazs-vanilla.jpg',
         tags: ['ice cream']
     },
     {
-        name: 'Haagen-Dazs Strawberry Cheese Cake',
+        name: 'Haagen-Dazs Strawberry Cheesecake',
         price: 4.99,
         description: null,
-        imageName: null,
+        imageName: 'images/ice-cream/haagen-dazs-strawberry-cheesecake.jpg',
         tags: ['ice cream']
     },
     {
         name: 'Haagen-Dazs Pralines & Cream',
         price: 4.99,
         description: null,
-        imageName: null,
+        imageName: 'images/ice-cream/haagen-dazs-pralines-and-cream.jpg',
         tags: ['ice cream']
     },
     {
         name: 'Haagen-Dazs Cookies & Cream',
         price: 4.99,
         description: null,
-        imageName: null,
+        imageName: 'images/ice-cream/haagen-dazs-cookies-and-cream.jpg',
         tags: ['ice cream']
     },
     {
         name: 'Haagen-Dazs Baileys',
         price: 4.99,
         description: null,
-        imageName: null,
+        imageName: 'images/ice-cream/haagen-dazs-baileys.jpg',
         tags: ['ice cream']
     },
     {
         name: 'Haagen-Dazs Belgian Chocolate',
         price: 4.99,
         description: null,
-        imageName: null,
+        imageName: 'images/ice-cream/haagen-dazs-belgian-chocolate.jpg',
         tags: ['ice cream']
     },
     {
-        name: 'Can of Drink',
-        description: '330ml',
-        price: {
-            'Coca Cola': 0.70,
-            'Diet Coke': 0.70,
-            'Fanta': 0.70,
-            '7UP': 0.70
-        },
-        imageName: null,
-        tags: ['drink']
-    },
-    {
-        name: 'Bottle of Drink',
-        description: '1.5 litre',
-        price: {
-            'Coca Cola': 1.99,
-            'Diet Coke': 1.99,
-            'Fanta': 1.99,
-            '7UP': 1.99
-        },
-        imageName: null,
-        tags: ['drink']
-    },
-    {
-        name: 'Bottle of Still Water',
-        description: '500ml',
+        name: 'Coca Cola',
+        description: '330ml can',
         price: 0.70,
-        imageName: null,
+        imageName: 'images/drink/coca-cola-can.jpg',
+        tags: ['drink', 'can']
+    },
+    {
+        name: 'Diet Coke',
+        description: '330ml can',
+        price: 0.70,
+        imageName: 'images/drink/diet-coke-can.jpg',
+        tags: ['drink', 'can']
+    },
+    {
+        name: 'Fanta',
+        description: '330ml can',
+        price: 0.70,
+        imageName: 'images/drink/fanta-can.jpg',
+        tags: ['drink', 'can']
+    },
+    {
+        name: '7UP',
+        description: '330ml can',
+        price: 0.70,
+        imageName: 'images/drink/7up-can.jpg',
+        tags: ['drink', 'can']
+    },
+    {
+        name: 'Coca Cola',
+        description: '1.5 litre bottle',
+        price: 1.99,
+        imageName: 'images/drink/coca-cola-bottle.jpg',
+        tags: ['drink', 'bottle']
+    },
+    {
+        name: 'Diet Coke',
+        description: '1.5 litre bottle',
+        price: 1.99,
+        imageName: 'images/drink/diet-coke-bottle.jpg',
+        tags: ['drink', 'bottle']
+    },
+    {
+        name: 'Fanta',
+        description: '1.5 litre bottle',
+        price: 1.99,
+        imageName: 'images/drink/fanta-bottle.jpg',
+        tags: ['drink', 'bottle']
+    },
+    {
+        name: '7UP',
+        description: '1.5 litre bottle',
+        price: 1.99,
+        imageName: 'images/drink/7up-bottle.jpg',
+        tags: ['drink', 'bottle']
+    },
+    {
+        name: 'Water',
+        description: '500ml bottle',
+        price: 0.70,
+        imageName: 'images/drink/bottle-of-water.jpg',
         tags: ['drink']
     },
     {
