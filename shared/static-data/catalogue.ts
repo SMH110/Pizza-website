@@ -199,231 +199,231 @@ const catalogue: Item[] = [
     {
         name: 'Margherita',
         description: 'Mozzarella & Tomato Sauce',
-        imageName: null,
+        imageName: 'images/pizza/margherita.jpg',
         price: { 'Medium': 7.50, 'Large': 8.50, 'Extra Large': 10.00 },
         tags: ['pizza', 'vegetarian']
     },
     {
         name: 'Tutto Formaggi',
         description: 'Mozzarella, Tomato Sauce, Gorgonzola Cheese, Parmesan Cheese, Ricotta Cheese',
-        imageName: null,
+        imageName: 'images/pizza/tutto-formaggi.jpg',
         price: { 'Medium': 10.99, 'Large': 12.99, 'Extra Large': 14.99 },
         tags: ['pizza', 'vegetarian']
     },
     {
         name: 'Spinaci',
         description: 'Mozzarella, Tomato Sauce, Spinach, Feta Cheese, Black Olives, Oregano, Garlic',
-        imageName: null,
+        imageName: 'images/pizza/spinaci.jpg',
         price: { 'Medium': 10.99, 'Large': 12.99, 'Extra Large': 14.99 },
         tags: ['pizza', 'vegetarian']
     },
     {
         name: 'Florentina',
         description: 'Mozzarella, Tomato Sauce, Spinach, Mushroom, Soft Egg, Parmesan Cheese, Garlic',
-        imageName: null,
+        imageName: 'images/pizza/florentina.jpg',
         price: { 'Medium': 10.99, 'Large': 12.99, 'Extra Large': 14.99 },
         tags: ['pizza', 'vegetarian']
     },
     {
         name: 'Ortolana',
         description: 'Mozzarella, Tomato Sauce, Roasted Courgette, Roasted Aubergines, Mixed Peppers, Fresh Basil',
-        imageName: null,
+        imageName: 'images/pizza/ortolana.jpg',
         price: { 'Medium': 10.99, 'Large': 12.99, 'Extra Large': 14.99 },
         tags: ['pizza', 'vegetarian']
     },
     {
         name: 'Bufalina',
         description: 'Mozzarella, Tomato Sauce, Italian Buffalo Mozzarella, Cherry Tomatoes, Roasted Aubergines',
-        imageName: null,
+        imageName: 'images/pizza/bufalina.jpg',
         price: { 'Medium': 10.99, 'Large': 12.99, 'Extra Large': 14.99 },
         tags: ['pizza', 'vegetarian']
     },
     {
         name: 'Vegetarian',
         description: 'Mozzarella, Tomato Sauce, Roasted Onions, Roasted Mushroom, Roasted Mixed Peppers, Sweetcorn, Black Olives',
-        imageName: null,
+        imageName: 'images/pizza/vegetarian.jpg',
         price: { 'Medium': 10.99, 'Large': 12.99, 'Extra Large': 14.99 },
         tags: ['pizza', 'vegetarian']
     },
     {
         name: 'Vegetarian Piccante',
         description: 'Mozzarella, Tomato Sauce, Roasted Mushroom, Roasted Onions, Roasted Mixed Peppers, Jalapeno Peppers, Green Chillies',
-        imageName: null,
+        imageName: 'images/pizza/vegetarian-piccante.jpg',
         price: { 'Medium': 10.99, 'Large': 12.99, 'Extra Large': 14.99 },
         tags: ['pizza', 'vegetarian']
     },
     {
         name: 'Funghi',
         description: 'Mozzarella, Tomato Sauce, Roasted Mushroom',
-        imageName: null,
+        imageName: 'images/pizza/funghi.jpg',
         price: { 'Medium': 10.99, 'Large': 12.99, 'Extra Large': 14.99 },
         tags: ['pizza', 'vegetarian']
     },
     {
         name: 'Americana',
         description: 'Mozzarella, Tomato Sauce, Spicy Pepperoni, Roasted Mixed Pepper, Roasted Onions, Jalepeno Pepper, Chopped Tomatoes',
-        imageName: null,
+        imageName: 'images/pizza/americana.jpg',
         price: { 'Medium': 10.99, 'Large': 12.99, 'Extra Large': 14.99 },
         tags: ['pizza', 'hot']
     },
     {
         name: 'Parma',
         description: 'Mozzarella, Tomato Sauce, Parma Ham, Rocket Salad, Parmesan Cheese',
-        imageName: null,
+        imageName: 'images/pizza/parma.jpg',
         price: { 'Medium': 10.99, 'Large': 12.99, 'Extra Large': 14.99 },
         tags: ['pizza']
     },
     {
         name: 'Classica',
         description: 'Mozzarella, Tomato Sauce, Smoked Ham, Roasted Mushroom',
-        imageName: null,
+        imageName: 'images/pizza/classica.jpg',
         price: { 'Medium': 10.99, 'Large': 12.99, 'Extra Large': 14.99 },
         tags: ['pizza']
     },
     {
         name: 'Hawaiian',
         description: 'Mozzarella, Tomato Sauce, Smoked Ham & Pineapple',
-        imageName: null,
+        imageName: 'images/pizza/hawaiian.jpg',
         price: { 'Medium': 10.99, 'Large': 12.99, 'Extra Large': 14.99 },
         tags: ['pizza']
     },
     {
         name: 'Caprino',
         description: 'Mozzarella, Tomato Sauce, Chicken, Roasted Mushrooms, Cherry Tomatoes, Black Olives',
-        imageName: null,
+        imageName: 'images/pizza/caprino.jpg',
         price: { 'Medium': 10.99, 'Large': 12.99, 'Extra Large': 14.99 },
         tags: ['pizza']
     },
     {
         name: 'Capricciosa',
         description: 'Mozzarella, Tomato Sauce, Spicy Salami, Smoked Ham, Artichokes & Boiled Egg',
-        imageName: null,
+        imageName: 'images/pizza/capricciosa.jpg',
         price: { 'Medium': 10.99, 'Large': 12.99, 'Extra Large': 14.99 },
         tags: ['pizza']
     },
     {
         name: 'Pepperoni Deluxe',
         description: 'Mozzarella, Tomato Sauce, Spicy Pepperoni, Roasted Mushrooms, Roasted Mixed Peppers, Black Olives',
-        imageName: null,
+        imageName: 'images/pizza/pepperoni-deluxe.jpg',
         price: { 'Medium': 10.99, 'Large': 12.99, 'Extra Large': 14.99 },
         tags: ['pizza']
     },
     {
         name: 'Pepperoni Plus',
         description: 'Double Pepperoni & Double Cheese',
-        imageName: null,
+        imageName: 'images/pizza/pepperoni-plus.jpg',
         price: { 'Medium': 10.99, 'Large': 12.99, 'Extra Large': 14.99 },
         tags: ['pizza']
     },
     {
         name: 'Mexicana',
         description: 'Mozzarella, Tomato Sauce, Pepperoni, Spicy Beef, Roasted Mixed Peppers & Green Chillies',
-        imageName: null,
+        imageName: 'images/pizza/mexicana.jpg',
         price: { 'Medium': 10.99, 'Large': 12.99, 'Extra Large': 14.99 },
         tags: ['pizza', 'hot']
     },
     {
         name: 'Regina',
         description: 'Mozzarella, Tomato Sauce, Pepperoni, Roasted Mixed Peppers, Green Chillies, Roasted Onions',
-        imageName: null,
+        imageName: 'images/pizza/regina.jpg',
         price: { 'Medium': 10.99, 'Large': 12.99, 'Extra Large': 14.99 },
         tags: ['pizza', 'hot']
     },
     {
         name: 'Meat Feast',
         description: 'Mozzarella, Tomato Sauce, Pepperoni, Smoked Ham, Spicy Beef, Spicy Pork',
-        imageName: null,
+        imageName: 'images/pizza/meat-feast.jpg',
         price: { 'Medium': 10.99, 'Large': 12.99, 'Extra Large': 14.99 },
         tags: ['pizza']
     },
     {
         name: 'BBQ Pizza',
         description: 'BBQ Sauce, Mozarella Cheese, Spring Onions, Chicken, Bacon, Chopped Tomatoes',
-        imageName: null,
+        imageName: 'images/pizza/bbq-pizza.jpg',
         price: { 'Medium': 10.99, 'Large': 12.99, 'Extra Large': 14.99 },
         tags: ['pizza']
     },
     {
         name: 'Napolitana',
         description: 'Mozzarella, Tomato Sauce, Anchovies, Capers, Black Olives, Chopped Tomatoes',
-        imageName: null,
+        imageName: 'images/pizza/napolitana.jpg',
         price: { 'Medium': 10.99, 'Large': 12.99, 'Extra Large': 14.99 },
         tags: ['pizza']
     },
     {
         name: 'Seafood',
         description: 'Mozzarella, Tomato Sauce, Calamari, Prawns, Clams',
-        imageName: null,
+        imageName: 'images/pizza/seafood.jpg',
         price: { 'Medium': 10.99, 'Large': 12.99, 'Extra Large': 14.99 },
         tags: ['pizza']
     },
     {
         name: 'Torino',
         description: 'Mozzarella, Tomato Sauce, Tuna, Prawns, Anchovies, Chopped Tomatoes',
-        imageName: null,
+        imageName: 'images/pizza/torino.jpg',
         price: { 'Medium': 10.99, 'Large': 12.99, 'Extra Large': 14.99 },
         tags: ['pizza']
     },
     {
         name: 'Tutto Le Carni',
         description: 'Mozzarella, Tomato Sauce, Chicken, Italian Salami, Italian Ham, Black Olives',
-        imageName: null,
+        imageName: 'images/pizza/tutto-le-carni.jpg',
         price: { 'Medium': 10.99, 'Large': 12.99, 'Extra Large': 14.99 },
         tags: ['pizza']
     },
     {
         name: 'Sofia',
         description: 'Mozzarella, Tomato Sauce, Chicken, Pepperoni, Ham, Roasted Mushroom',
-        imageName: null,
+        imageName: 'images/pizza/sofia.jpg',
         price: { 'Medium': 10.99, 'Large': 12.99, 'Extra Large': 14.99 },
         tags: ['pizza']
     },
     {
         name: 'Garlic Meat Lover',
         description: 'Mozzarella, Garlic Sauce, Pepperoni, Beef, Ham, Bacon',
-        imageName: null,
+        imageName: 'images/pizza/garlic-meat-lover.jpg',
         price: { 'Medium': 10.99, 'Large': 12.99, 'Extra Large': 14.99 },
         tags: ['pizza']
     },
     {
         name: 'Godfather Special',
         description: 'Mozzarella, Tomato Sauce, Pepperoni, Ham, Beef, Salami, Mushroom, Mixed Peppers',
-        imageName: null,
+        imageName: 'images/pizza/godfather-special.jpg',
         price: { 'Medium': 10.99, 'Large': 12.99, 'Extra Large': 14.99 },
         tags: ['pizza']
     },
     {
         name: 'Gamberoni',
         description: 'Mozzarella, Tomato Sauce, Prawns, Chilli, Cherry Tomatoes',
-        imageName: null,
+        imageName: 'images/pizza/gamberoni.jpg',
         price: { 'Medium': 10.99, 'Large': 12.99, 'Extra Large': 14.99 },
         tags: ['pizza', 'hot']
     },
     {
         name: 'Free Choice',
         description: 'Mozzarella, Tomato Sauce and five other toppings of your choice',
-        imageName: null,
+        imageName: 'images/pizza/free-choice.jpg',
         price: { 'Medium': 10.99, 'Large': 12.99, 'Extra Large': 14.99 },
         tags: ['pizza']
     },
     {
         name: 'Indiana',
-        description: 'Mozzarella, Tomato Sauce, Tandoori chicken, Roasted Green Chilies, Roasted Mushrooms, Mixed Peppers',
-        imageName: null,
+        description: 'Mozzarella, Tomato Sauce, Tandoori chicken, Roasted Green Chillies, Roasted Mushrooms, Mixed Peppers',
+        imageName: 'images/pizza/indiana.jpg',
         price: { 'Medium': 10.99, 'Large': 12.99, 'Extra Large': 14.99 },
         tags: ['pizza', 'hot']
     },
     {
         name: 'Inferno',
         description: 'Mozzarella, Tomato Sauce, Sun-dried Tomato, Olives, Mushroom, Sweetcorn, Red Onion, Chilli',
-        imageName: null,
+        imageName: 'images/pizza/inferno.jpg',
         price: { 'Medium': 10.99, 'Large': 12.99, 'Extra Large': 14.99 },
         tags: ['pizza', 'hot', 'vegetarian']
     },
     {
         name: 'Freddo',
         description: 'Mozzarella, Tomato Sauce, Beef, Fresh Garlic, Rosted Mushroom, Olives, Sundried tomatoes',
-        imageName: null,
+        imageName: 'images/pizza/freddo.jpg',
         price: { 'Medium': 10.99, 'Large': 12.99, 'Extra Large': 14.99 },
         tags: ['pizza']
     },
