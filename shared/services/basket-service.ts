@@ -29,24 +29,6 @@ export class BasketService {
         }
     }
 
-    increase(item: OrderLineItem) {
-        item.quantity++;
-    }
-
-    decrease(item: OrderLineItem) {
-        item.quantity--;
-    }
-
-    removeItem(item: OrderLineItem): void {
-        this.items.splice(this.items.indexOf(item), 1);
-    }
-
-    reset(): void {
-        this.items = [];
-        this.deliveryMethod = null;
-        this.paymentMethod = null;
-    }
-
     getTotalPrice(): number {
         return this.normalise(this.items.reduce((totalPrice, item) => totalPrice += item.price * item.quantity, 0));
     }

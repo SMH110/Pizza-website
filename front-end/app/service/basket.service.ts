@@ -25,7 +25,7 @@ export class BasketService extends SharedBasketService {
         this._orderNotes = orderNotes;
         this.save();
     }
-    
+
     get deliveryMethod() {
         return this._deliveryMethod;
     }
@@ -53,26 +53,24 @@ export class BasketService extends SharedBasketService {
     }
 
     increase(item: OrderLineItem) {
-        this.load();
-        super.increase(item);
+        item.quantity++;
         this.save();
     }
 
     decrease(item: OrderLineItem) {
-        this.load();
-        super.decrease(item);
+        item.quantity--;
         this.save();
     }
 
     removeItem(item: OrderLineItem): void {
-        this.load();
-        super.removeItem(item);
+        this.items.splice(this.items.indexOf(item), 1);
         this.save();
     }
 
     reset(): void {
-        this.load();
-        super.reset();
+        this.items = [];
+        this._deliveryMethod = null;
+        this._paymentMethod = null;
         this._orderNotes = null;
         this.save();
     }
