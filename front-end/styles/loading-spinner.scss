@@ -1,0 +1,47 @@
+.loading {
+    background-color: #282423;
+    height: 100vh;
+    text-align: center;
+    width: 100%;
+
+    .wrapper {
+        bottom: 0;
+        height: 180px;
+        left: 0;
+        margin: auto;
+        position: fixed;
+        right: 0;
+        top: 0;
+        width: 180px;
+
+        .spinner {
+            animation: spin 1.1s linear infinite;
+            border: 6px solid #5a524f;
+            border-radius: 100%;
+            border-top-color: #eee;
+            height: 100px;
+            margin: 0 auto;
+            width: 100px;
+        }
+
+        h2 {
+            color: #eee;
+            margin-bottom: 10px;
+        }
+    }
+
+    img {
+        height: auto;
+        margin-top: 150px;
+        width: 40%;
+    }
+}
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
