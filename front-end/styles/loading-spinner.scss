@@ -16,24 +16,25 @@
 
         .spinner {
             animation: spin 1.1s linear infinite;
-            border: 6px solid #5a524f;
+            border: 5px solid #5a524f;
             border-radius: 100%;
             border-top-color: #eee;
-            height: 100px;
+            height: 90px;
             margin: 0 auto;
-            width: 100px;
+            width: 90px;
         }
 
         h2 {
             color: #eee;
+            font-size: 1.2em;
             margin-bottom: 10px;
         }
     }
 
     img {
         height: auto;
-        margin-top: 150px;
-        width: 40%;
+        margin-top: 130px;
+        width: 70%;
     }
 }
 @keyframes spin {
@@ -43,5 +44,47 @@
 
     to {
         transform: rotate(360deg);
+    }
+}
+@media screen and (min-width: 950px) {
+    .loading {
+        .wrapper {
+            .spinner {
+                border: 6px solid #5a524f;
+                border-top-color: #eee;
+                height: 100px;
+                width: 100px;
+            }
+
+            h2 {
+                font-size: 1.6em;
+            }
+        }
+
+        img {
+            margin-top: 200px;
+            width: 30%;
+        }
+    }
+}
+@media screen and (max-height: 480px) {
+    .loading {
+        .wrapper {
+            .spinner {
+                border: 4px solid #5a524f;
+                border-top-color: #eee;
+                height: 75px;
+                width: 75px;
+            }
+
+            h2 {
+                font-size: 1em;
+            }
+        }
+
+        img {
+            margin-top: 10px;
+            width: 25%;
+        }
     }
 }
