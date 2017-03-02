@@ -91,8 +91,8 @@ export function initialisePayPalEndpoints(application: Application) {
             await order.save();
             console.log(`Updated order for ${paymentId}`);
             res.redirect('/order/success');
-            sendConfirmationEmails(order)
-
+            sendConfirmationEmails(order);
+            
         } catch (error) {
             console.error('Error in /paypal/execute', error);
             return res.redirect('/order/failure');
@@ -107,7 +107,8 @@ function getOrderItems(order: Order) {
         currency: "GBP",
         quantity: item.quantity
     } as PayPalLineItem));
-    if (order.discount !== null) {
+    let discount = order.discount as any;
+    if (discount && discount.name) {
         items.push({
             name: order.discount.name,
             price: order.discount.amount * -1,
