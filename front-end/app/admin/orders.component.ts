@@ -8,23 +8,10 @@ import * as moment from 'moment';
 
 @Component({
     templateUrl: './orders.component.html',
-    styles: [`
-h4 {
-    display: inline-block;
-}
-
-.more-details{
-    min-width: 400px;
-    margin-top:20px;
-}
-
-.remove-right-border{
-    border-right: 0;
-}
-    `]
+    styleUrls: [`./orders.component.scss`]
 })
 export class OrdersComponent implements OnInit {
-    orders: OrderViewModel[];
+    orders: OrderViewModel[] = [];
     isOrderExpandedOverride: { [orderId: string]: boolean } = {};
 
     constructor(private orderService: OrderService, private errorService: ErrorService, private router: Router) {
@@ -97,6 +84,14 @@ export class OrdersComponent implements OnInit {
 
     trackByOrderId(order: OrderViewModel) {
         return order._id
+    }
+
+    isShowCustomerAddress(order: OrderViewModel) {
+        return order.deliveryMethod === 'Collection' && order.paymentMethod === 'Cash';
+    }
+
+    ordersToShow() {
+        return this.orders.filter(x => x.status !== 'Awaiting Payment');
     }
 }
 

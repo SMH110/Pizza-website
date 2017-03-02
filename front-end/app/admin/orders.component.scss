@@ -1,0 +1,22 @@
+.container {
+    background-color: #ffffff;
+}
+
+.table.orders,
+.order-summary,
+.more-details {
+    border: 2px solid #333;
+}
+
+.order-summary {
+    border-bottom: none;
+}
+
+.more-details {
+    border-top: none;
+}
+
+.table-bordered.orders > thead > tr > th,
+.table-bordered.orders > thead > tr > td {
+    border-bottom: 2px solid #333;
+}
