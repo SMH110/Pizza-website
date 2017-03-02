@@ -1,28 +1,47 @@
-<modal>
-    <modal-header [show-close]="true">
-        <h4>Side Options</h4>
+<modal class="potato-skins-modal">
+    <modal-header>
+        <h3 class="modal-title">Potato Skins</h3>
     </modal-header>
     <modal-body>
-        <h3>Toppings</h3>
-        <span>The first topping is free, Additional toppings are £0.90 each.</span>
-        <select name="" id="" class="form-control" [(ngModel)]="selectedTopping">
-            <option *ngFor="let topping of toppings" [ngValue]="topping">{{ topping.name }}</option>
-        </select>
-        <button class="btn btn-default" (click)="addTopping()">Add topping</button>
-        <div *ngIf="selectedOptions.length > 0">
-            <h4>Selected options</h4>
-            <ul class="list-group">
-                <li class="list-group-item clearfix" *ngFor="let topping of selectedOptions"> {{topping}}
-                    <button class="btn btn-danger pull-right" (click)="removeOption(topping)"><span class="glyphicon glyphicon-remove"></span></button>
-                </li>
-            </ul>
-            <strong>Total price:</strong> £ {{ getTotalPrice() | number:'1.2-2' }}
+        <h4>Toppings</h4>
+        <span>The first topping is free.</span>
+        <span>Additional toppings are 90p each.</span>
+
+        <div class="topping-selection">
+            <select class="form-control" [(ngModel)]="toppingToAdd">
+                <option *ngFor="let topping of availableToppings" [ngValue]="topping">{{topping.name}}</option>
+            </select>
+            <button class="btn btn-success" (click)="addSelectedTopping()">Add topping</button>
         </div>
-        <hr>
-        <p>You can also request for existing toppings to be removed or swapped in the Order Notes part of the checkout</p>
+
+        <div *ngIf="selectedToppings.length > 0">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Selected topping</th>
+                        <th class="quantity">Quantity</th>
+                        <th class="remove"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let topping of selectedToppings">
+                        <td>{{topping.name}}</td>
+                        <td class="quantity">
+                            <button class="btn btn-info btn-sm decrease" [disabled]="topping.quantity < 2" (click)='decreaseQuantity(topping)'><span class="glyphicon glyphicon-minus"></span></button>
+                            <span>{{topping.quantity}}</span>
+                            <button class="btn btn-info btn-sm increase" (click)='increaseQuantity(topping)'><span class="glyphicon glyphicon-plus"></span></button>
+                        </td>
+                        <td class="remove">
+                            <button class="btn btn-primary btn-sm" (click)="removeTopping(topping)"><span class="glyphicon glyphicon-remove"></span></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </modal-body>
+
     <modal-footer>
-        <button (click)="cancel()" class="btn btn-danger">Cancel</button>
-        <button (click)="addToBasketWithToppings()" class="btn btn-primary" [disabled]="selectedOptions.length < 1">Add with toppings</button>
+        <button (click)="cancel()" class="btn btn-primary pull-left">Cancel</button>
+        <button (click)="addToBasket()" class="btn btn-success">Add to Basket (£{{ getTotalPrice() | number:'1.2-2' }})</button>
     </modal-footer>
 </modal>

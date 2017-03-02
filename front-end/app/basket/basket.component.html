@@ -22,7 +22,7 @@
                             <button class="btn btn-info btn-sm increase" (click)='basket.increase(item)'><span class="glyphicon glyphicon-plus"></span></button>
                         </td>
                         <td class="price">£{{item.price * item.quantity | number:'1.2-2'}}</td>
-                        <td class="remove"><button class="btn btn-primary btn-sm" (click)="removeItems(item)"><span class="glyphicon glyphicon-remove"></span></button></td>
+                        <td class="remove"><button class="btn btn-primary btn-sm" (click)="removeItem(item)"><span class="glyphicon glyphicon-remove"></span></button></td>
                     </tr>
                     <ng-container *ngIf="basket.getDiscount() !== null">
                         <tr class="total-row">
