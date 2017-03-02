@@ -8,11 +8,11 @@ const catalogue: Item[] = [
             'Both dressings': 5.99
         },
         description: 'Tomatoes, mixed leaves, tuna, anchovies and red onion',
-        imageName: null,
+        imageName: 'images/salad/tuna-salad.jpg',
         tags: ['salad']
     },
     {
-        name: 'Chicken Caesar',
+        name: 'Chicken Caesar Salad',
         price: {
             'No dressing': 5.99,
             'Balsamic vinegar & extra virgin olive oil': 5.99,
@@ -20,7 +20,7 @@ const catalogue: Item[] = [
             'Both dressings': 5.99
         },
         description: 'Chicken, lettuce, parmesan cheese and croutons',
-        imageName: null,
+        imageName: 'images/salad/chicken-caesar-salad.jpg',
         tags: ['salad']
     },
     {
@@ -32,7 +32,7 @@ const catalogue: Item[] = [
             'Both dressings': 5.99
         },
         description: 'Feta cheese, olives, tomatoes, cucumber and mixed leaves',
-        imageName: null,
+        imageName: 'images/salad/greek-salad.jpg',
         tags: ['salad']
     },
     {
@@ -44,7 +44,7 @@ const catalogue: Item[] = [
             'Both dressings': 5.99
         },
         description: 'Mixed leaves, tomatoes, cucumber, red onions',
-        imageName: null,
+        imageName: 'images/salad/mixed-salad.jpg',
         tags: ['salad']
     },
     {
@@ -56,7 +56,7 @@ const catalogue: Item[] = [
             'Both dressings': 5.50
         },
         description: 'Rocket leaves with shaved parmesan and cherry tomatoes',
-        imageName: null,
+        imageName: 'images/salad/rocket-salad.jpg',
         tags: ['salad']
     },
     {
@@ -68,7 +68,7 @@ const catalogue: Item[] = [
             'Both dressings': 5.99
         },
         description: 'Selection of mixed seafood, mixed leaves, fresh tomatoes, onions and black olives',
-        imageName: null,
+        imageName: 'images/salad/mixed-seafood-salad.jpg',
         tags: ['salad']
     },
     {
@@ -79,8 +79,8 @@ const catalogue: Item[] = [
             'Caesar dressing': 5.99,
             'Both dressings': 5.99
         },
-        description: 'Tuna anchovies, egg, olive, capers tomatoes and mixed leaves',
-        imageName: null,
+        description: 'Tuna, anchovies, egg, olive, capers tomatoes and mixed leaves',
+        imageName: 'images/salad/nicoise-salad.jpg',
         tags: ['salad']
     },
     {
@@ -92,35 +92,35 @@ const catalogue: Item[] = [
             'Both dressings': 5.99
         },
         description: 'Buffalo mozzarella, fresh tomatoes, fresh basil and mixed leaves',
-        imageName: null,
+        imageName: 'images/salad/tricolore-salad.jpg',
         tags: ['salad']
     },
     {
         name: 'Tiramisu',
         price: 2.99,
         description: null,
-        imageName: null,
+        imageName: 'images/desserts/tiramisu.jpg',
         tags: ['dessert']
     },
     {
         name: 'Chocolate Fudge Cake',
         price: 2.99,
         description: null,
-        imageName: null,
+        imageName: 'images/desserts/chocolate-fudge-cake.jpg',
         tags: ['dessert']
     },
     {
         name: 'Strawberry Cheesecake',
         price: 2.99,
         description: null,
-        imageName: null,
+        imageName: 'images/desserts/strawberry-cheesecake.jpg',
         tags: ['dessert']
     },
     {
         name: 'Banoffee Pie',
         price: 2.99,
         description: null,
-        imageName: null,
+        imageName: 'images/desserts/banoffee-pie.jpg',
         tags: ['dessert']
     },
     {
@@ -463,77 +463,77 @@ const catalogue: Item[] = [
         name: 'Calzone Vegetariano',
         price: { 'Medium': 10.99, 'Large': 12.99, 'Extra Large': 14.99 },
         description: 'Tomato sauce, mozzarella, roasted aubergine, roasted mushrooms, roasted green peppers, roasted courgettes & onions',
-        imageName: null,
+        imageName: 'images/calzone/calzone.jpg',
         tags: ['calzone']
     },
     {
         name: 'Calzone Meat',
         price: { 'Medium': 10.99, 'Large': 12.99, 'Extra Large': 14.99 },
         description: 'Tomato sauce, mozzarella, Italian ham, beef, pepperoni & salami',
-        imageName: null,
+        imageName: 'images/calzone/calzone.jpg',
         tags: ['calzone']
     },
     {
         name: 'Calzone Misto',
         price: { 'Medium': 10.99, 'Large': 12.99, 'Extra Large': 14.99 },
         description: 'Mozzarella, tomato, beef, garlic, chilli and meat balls',
-        imageName: null,
+        imageName: 'images/calzone/calzone.jpg',
         tags: ['calzone']
     },
     {
         name: 'Fish Calzone',
         price: { 'Medium': 10.99, 'Large': 12.99, 'Extra Large': 14.99 },
         description: 'Mozzarella, tomato, prawn, tuna and black olive',
-        imageName: null,
+        imageName: 'images/calzone/calzone.jpg',
         tags: ['calzone']
     },
     {
         name: 'Spaghetti Bolognese',
         price: 6.99,
         description: 'Spaghetti, meat, bolognese sauce & onion',
-        imageName: null,
+        imageName: 'images/pasta/spaghetti-bolognese.jpg',
         tags: ['pasta']
     },
     {
         name: 'Meat Lasagne',
         price: 6.99,
         description: 'Layers of pasta with meat, tomato sauce & mozzarella gently cooked in a wood fired oven',
-        imageName: null,
+        imageName: 'images/pasta/meat-lasagne.jpg',
         tags: ['pasta']
     },
     {
         name: 'Vegetable Lasagne',
         price: 6.99,
         description: 'Layers of pasta with a mix of oven roasted vegetables with tomato sauce, gently cooked in a wood fire oven',
-        imageName: null,
+        imageName: 'images/pasta/vegetable-lasagne.jpg',
         tags: ['pasta']
     },
     {
         name: 'Spaghetti Carbonara',
         price: 6.99,
         description: 'Spaghetti, cheese sauce, bacon & extra virgin olive oil',
-        imageName: null,
+        imageName: 'images/pasta/spaghetti-carbonara.jpg',
         tags: ['pasta']
     },
     {
         name: 'Chicken & Mushroom Pasta',
         price: 6.99,
         description: 'Chicken & Mushroom Pasta',
-        imageName: null,
+        imageName: 'images/pasta/chicken-mushroom-pasta.jpg',
         tags: ['pasta']
     },
     {
         name: 'Festa del Bosco',
         description: 'Mushrooms in a tomato sauce with mozzarella, garlic and olive oil',
         price: 4.99,
-        imageName: null,
+        imageName: 'images/sides/festa-del-bosco.jpg',
         tags: ['side']
     },
     {
         name: 'Cheesy chips',
         description: null,
         price: 4.00,
-        imageName: null,
+        imageName: 'images/sides/cheesy-chips.jpg',
         tags: ['side']
     },
     {
@@ -544,21 +544,21 @@ const catalogue: Item[] = [
             'With cheese': 3.50,
             'With chilli and cheese': 4.00
         },
-        imageName: null,
+        imageName: 'images/sides/garlic-bread.jpg',
         tags: ['side']
     },
     {
         name: 'Bruschetta Pizza',
         description: 'Dough topped with cherry tomatoes, garlic, fresh basil, Cheese and olive oil',
         price: 4.00,
-        imageName: null,
+        imageName: 'images/sides/bruschetta-pizza.jpg',
         tags: ['side']
     },
     {
         name: 'Breaded Mozzarella Sticks',
         price: 4.99,
         description: '7 pieces',
-        imageName: null,
+        imageName: 'images/sides/breaded-mozzarella-sticks.jpg',
         tags: ['side']
     },
     {
@@ -572,28 +572,28 @@ const catalogue: Item[] = [
         name: 'Potato Skins with Cheese',
         price: 4.49,
         description: '5 pieces',
-        imageName: null,
+        imageName: 'images/sides/potato-skins-with-cheese.jpg',
         tags: ['side']
     },
     {
         name: 'Potato Skins',
         price: 4.99,
         description: 'with your favourite topping',
-        imageName: null,
+        imageName: 'images/sides/potato-skins.jpg',
         tags: ['side']
     },
     {
         name: 'Jalapeno Cream Cheese',
         price: 4.99,
         description: '6 pieces',
-        imageName: null,
+        imageName: 'images/sides/jalapeno-cream-cheese.jpg',
         tags: ['side']
     },
     {
         name: 'Onion Rings',
         price: 3.49,
         description: '10 pieces',
-        imageName: null,
+        imageName: 'images/sides/onion-rings.jpg',
         tags: ['side']
     },
     {
@@ -607,14 +607,14 @@ const catalogue: Item[] = [
         name: 'BBQ Wings',
         price: 4.99,
         description: '8 pieces',
-        imageName: null,
+        imageName: 'images/sides/bbq-wings.jpg',
         tags: ['side']
     },
     {
         name: 'BBQ Spare Ribs',
         price: 5.99,
         description: 'Half rack',
-        imageName: null,
+        imageName: 'images/sides/bbq-spare-ribs.jpg',
         tags: ['side']
     },
     {
@@ -633,7 +633,7 @@ const catalogue: Item[] = [
             'Chilli': 0.50
         },
         description: null,
-        imageName: null,
+        imageName: 'images/sides/dips.jpg',
         tags: ['side']
     }
 ];
