@@ -632,7 +632,7 @@ const catalogue: Item[] = [
             'Garlic & Herb': 0.50,
             'Chilli': 0.50
         },
-        description: null,
+        description: 'Choose your favourite dip. Please note that dips are not included in the 2 Extra Large pizzas deal.',
         imageName: 'images/sides/dips.jpg',
         tags: ['side']
     }

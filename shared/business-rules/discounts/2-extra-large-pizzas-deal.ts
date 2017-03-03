@@ -6,7 +6,7 @@ export const _2ExtraLargePizzas = {
     name: 'Any 2 Extra Large pizzas for £18.99 (collection only, or add a side for delivery)',
     calculate(basket: DiscountCalculationDto) {
         let pizzas = sortByPrice(flatten(getBasePrices(basket.items.filter(x => x.tags.indexOf('pizza') !== -1 && x.version === 'Extra Large'))));
-        let sides = sortByPrice(flatten(basket.items.filter(x => x.tags.indexOf('side') !== -1)));
+        let sides = sortByPrice(flatten(basket.items.filter(x => x.tags.indexOf('side') !== -1 && x.name !== 'Dips')));
         // The discount is displayed on the basket screen before the delivery method has been selected.
         // This will be shown for all orders where there are 2 Extra Large pizzas, regardless of whether there are any sides.
         // This would probably act as an "upsell" message to those who want their order delivered and haven't added a side.
