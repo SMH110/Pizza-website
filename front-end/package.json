@@ -25,6 +25,7 @@
   "devDependencies": {
     "@types/bootstrap": "^3.3.32",
     "@types/google.analytics": "0.0.28",
-    "@types/jquery": "^2.0.40"
+    "@types/jquery": "^2.0.40",
+    "@types/node": "^7.0.5"
   }
 }

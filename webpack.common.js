@@ -1,19 +1,19 @@
-import * as webpack from 'webpack';
-import * as HtmlWebpackPlugin from 'html-webpack-plugin';
-import * as ExtractTextPlugin from 'extract-text-webpack-plugin';
-import * as CopyWebpackPlugin from 'copy-webpack-plugin';
-import { root } from './webpack-helpers';
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const root = require('./webpack-helpers');
 
-export default {
+module.exports = {
     entry: {
-        polyfills: './front-end/polyfills.js',
-        vendor: './front-end/vendor.js',
-        app: './front-end/main.js',
+        polyfills: './front-end/polyfills.ts',
+        vendor: './front-end/vendor.ts',
+        app: './front-end/main.ts',
         analytics: './front-end/analytics.js',
-        styles: './front-end/styles.js'
+        styles: './front-end/styles.ts'
     },
     resolve: {
-        extensions: ['.js']
+        extensions: ['.ts', '.js']
     },
     plugins: [
         new webpack.ProvidePlugin({
@@ -40,7 +40,14 @@ export default {
     module: {
         rules: [
             {
-                test: /\.component\.js$/,
+                test: /\.ts$/,
+                loaders: [{
+                    loader: 'awesome-typescript-loader',
+                    options: { configFileName: root('front-end', 'compile.json') }
+                }]
+            },
+            {
+                test: /\.component\.ts$/,
                 loaders: ['angular2-template-loader']
             },
             {

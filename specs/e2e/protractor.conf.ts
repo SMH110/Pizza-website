@@ -3,7 +3,7 @@ export let config = {
   baseUrl: "http://localhost:3000",
   framework: "mocha",
   specs: [
-    "./**/*.specs.js"
+    "./**/*.specs.ts"
   ],
   capabilities: {
     browserName: "chrome"

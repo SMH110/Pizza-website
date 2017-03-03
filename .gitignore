@@ -204,6 +204,8 @@ FakesAssemblies/
 *.js
 *.js.map
 !front-end/analytics.js
+!wallaby.conf.js
+!webpack*.js
 
 # Webpack generated
 dist

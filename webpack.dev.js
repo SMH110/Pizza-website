@@ -1,8 +1,8 @@
-import * as webpackMerge from 'webpack-merge';
-import * as ExtractTextPlugin from 'extract-text-webpack-plugin';
-import commonConfig from './webpack.common';
+const webpackMerge = require('webpack-merge');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const commonConfig = require('./webpack.common');
 
-export = webpackMerge(commonConfig, {
+module.exports = webpackMerge(commonConfig, {
     devtool: 'inline-source-map',
 
     output: {
