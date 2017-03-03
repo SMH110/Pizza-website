@@ -1,5 +1,4 @@
 import { Strategy, ExtractJwt } from 'passport-jwt';
-import User from '../models/user.model';
 import * as passport from 'passport';
 
 var options = {
@@ -7,15 +6,14 @@ var options = {
     secretOrKey: process.env.PASSPORT_SECRET
 };
 
-passport.use(new Strategy(options, async (jwtPayLoad, done) => {
-    try {
-        let user = await User.findOne({ id: jwtPayLoad.id });
-        if (user) {
-            done(null, user);
-        } else {
-            done(null, false);
-        }
-    } catch (error) {
-        done(error);
+passport.use(new Strategy(options, async (jwtPayLoad: JwtPayload, done) => {
+    if (jwtPayLoad.username === process.env.ADMIN_USERNAME) {
+        done(null, true);
+    } else {
+        done(null, false);
     }
 }));
+
+export interface JwtPayload {
+    username: string;
+}

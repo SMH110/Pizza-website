@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-12">
             <h2>Areas we deliver</h2>
-            <form action="" (submit)="validPostcode()">
+            <form (submit)="validPostcode()">
                 <div class="form-group">
                     <p>Enter your postcode below to check if we deliver to your area</p>
                     <input type="text" class="form-control" placeholder="i.e. CR0 1AS" [(ngModel)]='postcode' name="postcode" (blur)="validPostcode()">
