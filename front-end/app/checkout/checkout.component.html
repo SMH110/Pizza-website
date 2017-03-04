@@ -34,14 +34,19 @@
             <div>
                 <h3>Delivery method</h3>
                 <div class="delivery-methods">
-                    <button class="btn btn-default" [ngClass]="{ 'btn-success': basket.deliveryMethod === method }" *ngFor="let method of deliveryMethods" (click)="selectDeliveryMethod(method)">{{method}}</button>
+                    <button class="btn btn-default" [ngClass]="{ 'btn-success': basket.deliveryMethod === method }" *ngFor="let method of deliveryMethods"
+                        (click)="selectDeliveryMethod(method)">{{method}}</button>
                 </div>
             </div>
 
             <div *ngIf="isPaymentMethodDisplayed()">
                 <h3>Payment method</h3>
+                <div *ngIf="paymentMethods.length < 1">
+                    <div class="loop"></div>
+                </div>
                 <div class="payment-methods">
-                    <button class="btn btn-default" [ngClass]="{ 'btn-success': basket.paymentMethod === method }" *ngFor="let method of paymentMethods" (click)="selectPaymentMethod(method)">{{method}}</button>
+                    <button class="btn btn-default" [ngClass]="{ 'btn-success': basket.paymentMethod === method }" *ngFor="let method of paymentMethods"
+                        (click)="selectPaymentMethod(method)">{{method}}</button>
                 </div>
                 <p class="text-danger" *ngIf="isDisplayPaymentSurchargeMessage()">A 50p surcharge applies to Credit / Debit card payments</p>
             </div>
@@ -116,6 +121,6 @@
         </div>
     </div>
     <div class="spinner" *ngIf="isShowSpinner">
-        <h2>Processing</h2> <img src="/images/ring.gif" alt="">
+        <h2>Processing</h2>  <div class="loop"></div>
     </div>
 </div>
