@@ -1,5 +1,4 @@
-import { browser, by, element, ElementFinder, ExpectedConditions as EC } from "protractor";
-import { doInsideIFrame, urlShouldBecome, whenClickable, whenAnyVisible, whenNotPresent, whenVisible, waitForAngularToLoad, UI_READY_TIMEOUT, whenVisibleAndNotMoving } from './utils';
+import { browser, by, element, ElementFinder, ExpectedConditions as EC } from "protractor";import {  doInsideIFrame ,  urlShouldBecome,  whenClickable, whenAnyVisible, whenNotPresent, whenVisible, waitForAngularToLoad, UI_READY_TIMEOUT, whenVisibleAndNotMoving } from './utils';
 import { randomBytes } from 'crypto';
 import { expect } from 'chai';
 
@@ -10,7 +9,7 @@ describe("E2E Tests", () => {
         await browser.driver.manage().window().setSize(1280, 1024);
     });
 
-    it("I can add 2 pizzas, a side and a drink to the basket and check out using PayPal", async () => {
+    it("I can add 3 pizzas, a side and a drink to the basket and check out using PayPal", async () => {
         await browser.get('/');
 
         // Add a pizza
@@ -24,7 +23,7 @@ describe("E2E Tests", () => {
 
         // Add a drink
         await element(by.linkText('Drinks')).click();
-        await addProduct('Bottle of Still Water');
+        await addProduct('Bottle of Water');
 
         // Go to the basket and checkout
         await element(by.partialLinkText('Basket')).click();
@@ -33,22 +32,24 @@ describe("E2E Tests", () => {
         // Enter personal details and continue
         let firstName = 'John ' + getRandomString();
         let lastName = 'Smith';
-        await whenVisible(by.id('firstName'), firstNameInput => firstNameInput.sendKeys(firstName));
-        await element(by.id('lastName')).sendKeys(lastName);
-        await element(by.id('email')).sendKeys('john-smith@test.com');
-        await element(by.id('phone')).sendKeys('01234567890');
-        await element(by.id('delivery_address1')).sendKeys('1 The Street');
-        await element(by.id('delivery_town')).sendKeys('Foo Town');
-        await element(by.id('delivery_postcode')).sendKeys('CR7 2GB');
-        await element(by.id('order_notes')).sendKeys('Some test order notes');
+        await whenVisible(by.name('firstName'), firstNameInput => firstNameInput.sendKeys(firstName));
+        await element(by.name('lastName')).sendKeys(lastName);
+        await element(by.name('email')).sendKeys('john-smith@test.com');
+        await element(by.name('phone')).sendKeys('01234567890');
+        await element(by.name('order_notes')).sendKeys('Some test order notes');
+        await element(by.buttonText('Delivery')).click();
+        // Select PayPal
+        await element(by.buttonText('PayPal')).click();
+        // Enter Delivery Address
+        await element(by.name('delivery_address1')).sendKeys('1 The Street');
+        await element(by.name('delivery_town')).sendKeys('Foo Town');
+        await element(by.name('delivery_postcode')).sendKeys('CR7 2GB');
 
-        // Select PayPal and place the order.
-        await whenVisible(by.id('PayPal'), paypalOption => paypalOption.click());
-        await element(by.buttonText('Order Now')).click();
+        // place the order.
+        await element(by.buttonText('Continue to payment')).click();
 
         // Wait for PayPal to load
         await urlShouldBecome(url => /sandbox\.paypal\.com/.test(url));
-
         // Enter details and pay
         await doInsideIFrame(by.name('injectedUl'), async () => {
             await whenVisible(by.id('email'), email => email.sendKeys('csharpandsons-buyer@gmail.com'))
@@ -73,8 +74,8 @@ describe("E2E Tests", () => {
         await waitForAngularToLoad();
 
         // Log into Admin site
-        await whenVisible(by.id('email'), email => email.sendKeys('test@test.com'));
-        await element(by.id('password')).sendKeys('test');
+        await whenVisible(by.name('username'), email => email.sendKeys('admin'));
+        await element(by.name('password')).sendKeys('test');
         await element(by.buttonText('Sign in')).click();
 
         // Look for order
@@ -102,10 +103,10 @@ describe("E2E Tests", () => {
         expect(await orderItems[0].element(by.className('name')).getText()).to.equal('Margherita - Medium');
         expect(await orderItems[0].element(by.className('quantity')).getText()).to.equal('3');
         expect(await orderItems[0].element(by.className('price')).getText()).to.equal('£7.50');
-        expect(await orderItems[1].element(by.className('name')).getText()).to.equal('Garlic Bread');
+        expect(await orderItems[1].element(by.className('name')).getText()).to.equal('Garlic Bread - Only garlic');
         expect(await orderItems[1].element(by.className('quantity')).getText()).to.equal('1');
         expect(await orderItems[1].element(by.className('price')).getText()).to.equal('£3.00');
-        expect(await orderItems[2].element(by.className('name')).getText()).to.equal('Bottle of Still Water');
+        expect(await orderItems[2].element(by.className('name')).getText()).to.equal('Bottle of Water');
         expect(await orderItems[2].element(by.className('quantity')).getText()).to.equal('1');
         expect(await orderItems[2].element(by.className('price')).getText()).to.equal('£0.70');
 
@@ -131,26 +132,31 @@ describe("E2E Tests", () => {
         // Enter personal details and continue
         let firstName = 'John ' + getRandomString();
         let lastName = 'Smith';
-        await whenVisible(by.id('firstName'), firstNameInput => firstNameInput.sendKeys(firstName));
-        await element(by.id('lastName')).sendKeys(lastName);
-        await element(by.id('email')).sendKeys('john-smith@test.com');
-        await element(by.id('phone')).sendKeys('01234567890');
-        await element(by.id('delivery_address1')).sendKeys('1 The Street');
-        await element(by.id('delivery_town')).sendKeys('Foo Town');
-        await element(by.id('delivery_postcode')).sendKeys('CR7 2GB');
-        await element(by.id('order_notes')).sendKeys('Some test order notes');
+        await whenVisible(by.name('firstName'), firstNameInput => firstNameInput.sendKeys(firstName));
+        await element(by.name('lastName')).sendKeys(lastName);
+        await element(by.name('email')).sendKeys('john-smith@test.com');
+        await element(by.name('phone')).sendKeys('01234567890');
+        await element(by.name('order_notes')).sendKeys('Some test order notes');
+        await element(by.buttonText('Delivery')).click();
+        // Select EPDQ
+        await element(by.buttonText('Credit / Debit Card')).click();
 
-        // Select VISA, fill out billing address and place the order.
-        await whenVisible(by.id('VISA'), visaOption => visaOption.click());
-        await element(by.id('billing_address1')).sendKeys('2 The Road');
-        await element(by.id('billing_town')).sendKeys('Some Town');
-        await element(by.id('billing_postcode')).sendKeys('AB1 2CD');
-        await element(by.buttonText('Order Now')).click();
+        // Enter Delivery address
+        await element(by.name('delivery_address1')).sendKeys('1 The Street');
+        await element(by.name('delivery_town')).sendKeys('Foo Town');
+        await element(by.name('delivery_postcode')).sendKeys('CR7 2GB');
 
-        // Wait for PayPal to load
+        await element(by.name('billing_address1')).sendKeys('2 The Road');
+        await element(by.name('billing_town')).sendKeys('Some Town');
+        await element(by.name('billing_postcode')).sendKeys('AB1 2CD');
+        // place the order.
+        await element(by.buttonText('Continue to payment')).click();
+
+        // Wait for EPDQ to load
         await urlShouldBecome(url => /mdepayments\.epdq\.co\.uk/.test(url));
 
-        await whenVisible(by.id('Ecom_Payment_Card_Number'), cardNumber => cardNumber.sendKeys('4111111111111111'));
+        await whenVisible(by.name('VISA_brand'), VisaBrand => VisaBrand.click());
+        await whenVisible(by.id('Ecom_Payment_Card_Number'), CardNumber => CardNumber.sendKeys('4111111111111111'));
         await element(by.id('Ecom_Payment_Card_ExpDate_Month')).sendKeys('01');
         await element(by.id('Ecom_Payment_Card_ExpDate_Year')).sendKeys('2022');
         await element(by.id('Ecom_Payment_Card_Verification')).sendKeys('123');
@@ -168,8 +174,8 @@ describe("E2E Tests", () => {
         await waitForAngularToLoad();
 
         // Log into Admin site
-        await whenVisible(by.id('email'), email => email.sendKeys('test@test.com'));
-        await element(by.id('password')).sendKeys('test');
+        await whenVisible(by.name('username'), email => email.sendKeys('admin'));
+        await element(by.name('password')).sendKeys('test');
         await element(by.buttonText('Sign in')).click();
 
         // Look for order
@@ -181,7 +187,7 @@ describe("E2E Tests", () => {
         expect(await orderSummary.element(by.className('status')).getText()).to.equal('Outstanding');
         expect(await orderSummary.element(by.className('address')).getText()).to.equal('1 The Street, Foo Town, CR7 2GB');
         expect(await orderSummary.element(by.className('phone')).getText()).to.equal('01234567890');
-        expect(await orderSummary.element(by.className('total-payment')).getText()).to.equal('£15.49 (VISA)');
+        expect(await orderSummary.element(by.className('total-payment')).getText()).to.equal('£15.49 (Credit / Debit Card)');
 
         // Test order details are visible as expected
         let orderId = await orderSummary.getAttribute('id');
@@ -189,7 +195,6 @@ describe("E2E Tests", () => {
         expect(await orderDetails.isDisplayed()).to.be.true;
         expect(await orderDetails.element(by.className('email')).getText()).to.equal('john-smith@test.com');
         expect(await orderDetails.element(by.className('payment-reference')).getText()).to.not.equal('');
-        expect(await orderDetails.element(by.className('billing-address')).getText()).to.equal('2 The Road, Some Town, AB1 2CD');
         expect(await orderDetails.element(by.className('order-notes')).getText()).to.equal('Some test order notes');
         expect(await orderDetails.element(by.className('order-total')).isPresent()).to.be.false;
         expect(await orderDetails.element(by.className('discount')).isPresent()).to.be.false;
@@ -224,20 +229,22 @@ describe("E2E Tests", () => {
 
         // Enter personal details and continue
         let firstName = `John ${getRandomString()}`;
-        let lastName = `Smith`;
-        await whenVisible(by.id("firstName"), firstNameInput => firstNameInput.sendKeys(firstName));
-        await element(by.id("lastName")).sendKeys(lastName);
-        await element(by.id("email")).sendKeys("john-smith@test.com");
-        await element(by.id("phone")).sendKeys("01234567890");
-        await element(by.id("Collection")).click();
-        await element(by.id('delivery_address1')).sendKeys('1 The Street');
-        await element(by.id('delivery_town')).sendKeys('Foo Town');
-        await element(by.id('delivery_postcode')).sendKeys('CR7 2GB');
-        await element(by.id("order_notes")).sendKeys("Cash order test notes");
+        let lastName = 'Smith';
+        await whenVisible(by.name('firstName'), firstNameInput => firstNameInput.sendKeys(firstName));
+        await element(by.name('lastName')).sendKeys(lastName);
+        await element(by.name('email')).sendKeys('john-smith@test.com');
+        await element(by.name('phone')).sendKeys('01234567890');
+        await element(by.name('order_notes')).sendKeys('Cash order test notes');
+        await element(by.buttonText('Collection')).click();
+        // Select Cash
+        await element(by.buttonText('Cash')).click();
+        // Enter Delivery Address
+        await element(by.name('delivery_address1')).sendKeys('1 The Street');
+        await element(by.name('delivery_town')).sendKeys('Foo Town');
+        await element(by.name('delivery_postcode')).sendKeys('CR7 2GB');
 
-        // Select Cash and place the order.
-        await whenVisible(by.id("Cash"), cashOption => cashOption.click());
-        await element(by.buttonText("Order Now")).click();
+        // place the order.
+        await element(by.buttonText('Place order')).click();
 
         // Ensure we are routed to /order/success
         await urlShouldBecome(url => /\/order\/success/.test(url));
@@ -250,9 +257,9 @@ describe("E2E Tests", () => {
         await waitForAngularToLoad();
 
         // Log into Admin site
-        await whenVisible(by.id("email"), email => email.sendKeys("test@test.com"));
-        await element(by.id("password")).sendKeys("test");
-        await element(by.buttonText("Sign in")).click();
+        await whenVisible(by.name('username'), email => email.sendKeys('admin'));
+        await element(by.name('password')).sendKeys('test');
+        await element(by.buttonText('Sign in')).click();
 
         // Test order details are visible as expected
         let fullName = `${firstName} ${lastName}`;
@@ -298,15 +305,15 @@ async function addPizza(name: string, version: string, ...options: string[]) {
             await modal.element(by.css('.topping select')).sendKeys(option);
             await modal.element(by.buttonText('Add topping')).click();
         }
-        await modal.element(by.buttonText('Add with toppings')).click();
+        await modal.element(by.partialButtonText('Add to Basket')).click();
     } else {
-        await modal.element(by.buttonText('No extra toppings')).click();
+        await modal.element(by.partialButtonText('Add to Basket')).click();
     }
     await whenNotPresent(by.className('add-pizza-modal'));
 }
 
 async function addProduct(name: string, version?: string) {
-    let product = await whenAnyVisible(by.className('product'), async products => {
+    let product = await whenAnyVisible(by.className('thumbnail'), async products => {
         return products.filter(async (x: ElementFinder) => await x.element(by.tagName('h3')).getText() === name).first();
     });
     if (version !== undefined) {
