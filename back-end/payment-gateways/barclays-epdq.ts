@@ -7,6 +7,10 @@ import { sendConfirmationEmails } from '../services/confirmation-sender'
 
 export const IsBarclaysEPDQEnabled = process.env.BARCLAYS_EPDQ_ENABLED === "TRUE";
 
+const GATEWAY_ADDRESS = process.env.BARCLAYS_EPDQ_ENVIRONMENT_NAME === 'test' ?
+    'https://mdepayments.epdq.co.uk/ncol/test/orderstandard_utf8.asp' :
+    'https://payments.epdq.co.uk/ncol/prod/orderstandard_utf8.asp';
+
 export default class BarclaysEPDQ implements PaymentGateway {
     constructor(private baseReturnAddress: string) { }
 
@@ -14,7 +18,7 @@ export default class BarclaysEPDQ implements PaymentGateway {
         await addCardFeeToOrder(order);
 
         let redirectParameters = getPaymentRedirectParameters(order, this.baseReturnAddress);
-        let redirectUrl = `https://mdepayments.epdq.co.uk/ncol/${process.env.BARCLAYS_EPDQ_ENVIRONMENT_NAME}/orderstandard_utf8.asp?${stringifyQS(redirectParameters)}`;
+        let redirectUrl = `${GATEWAY_ADDRESS}?${stringifyQS(redirectParameters)}`;
         console.log(`Barclays ePDQ redirect URL: ${redirectUrl}`);
 
         return {
