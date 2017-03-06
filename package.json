@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "shippable-typescript-compile": "tsc",
+    "shippable-unit": "mocha --compilers ts:ts-node/register --reporter mocha-junit-reporter --reporter-options mochaFile=./shippable/testresults/unit.xml specs/unit/**/*.specs.ts",
+    "shippable-integration": "mocha --compilers ts:ts-node/register --reporter mocha-junit-reporter --reporter-options mochaFile=./shippable/testresults/integration.xml specs/integration/**/*.specs.ts",
+    "shippable-e2e": "webdriver-manager update && ts-node node_modules/protractor/bin/protractor specs/e2e/protractor.shippable.conf.ts",
     "heroku-prebuild": "cd back-end && npm install && cd ../front-end && npm install && cd ..",
     "heroku-postbuild": "npm run package",
     "unit": "mocha --compilers ts:ts-node/register specs/unit/**/*.specs.ts",
@@ -43,6 +47,7 @@
     "@types/selenium-webdriver": "^2.53.39",
     "chai": "^3.5.0",
     "mocha": "^3.2.0",
+    "mocha-junit-reporter": "^1.13.0",
     "protractor": "5.0.0"
   }
 }
