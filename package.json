@@ -10,7 +10,7 @@
     "install": "npm run install-back-end && npm run install-front-end && npm run package",
     "unit": "mocha --compilers ts:ts-node/register specs/unit/**/*.specs.ts",
     "integration": "mocha --compilers ts:ts-node/register specs/integration/**/*.specs.ts",
-    "e2e": "webdriver-manager update && ts-node --project specs/compile.json node_modules/protractor/bin/protractor specs/e2e/protractor.conf.ts",
+    "e2e": "webdriver-manager update && ts-node node_modules/protractor/bin/protractor specs/e2e/protractor.conf.ts",
     "test": "npm run unit && npm run integration",
     "start": "ts-node --project back-end/compile.json back-end/app.ts"
   },
