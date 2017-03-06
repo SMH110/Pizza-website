@@ -1,0 +1,32 @@
+# Language setting
+language: node_js
+
+# Version number
+node_js:
+    - 4.2.3
+
+services:
+    - selenium
+
+build:
+
+    ci:
+        - nvm install node
+        - npm install
+        - cd back-end && npm install && cd ..
+        - cd front-end && npm install && cd ..
+        - npm run shippable-typescript-compile
+        - export TS_NODE_DISABLE_WARNINGS="TRUE" # Temporary measure as ts-node doesn't seem to use typeRoots correctly (https://github.com/TypeStrong/ts-node/issues/216)
+        - npm run shippable-unit
+        - npm run shippable-integration
+        - npm run package
+
+        # START INSTALL GOOGLE CHROME
+        - sudo apt-get install libxss1 libappindicator1 libindicator7
+        - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+        - sudo dpkg -i google-chrome*.deb || sudo apt-get install -f && sudo dpkg -i google-chrome*.deb
+        
+        # Start Node JS server in background and run E2E tests
+        - npm start &
+        - export DISPLAY=:99.0
+        - xvfb-run --server-args="-ac" npm run shippable-e2e
