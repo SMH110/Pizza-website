@@ -3,39 +3,32 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "watch": "webpack --config webpack.dev.js --watch",
-    "package": "webpack --config webpack.prod.js",
-    "install-front-end": "cd front-end && npm install --production && npm install --only=development && cd ..",
-    "install-back-end": "cd back-end && npm install --production && npm install --only=development && cd ..",
-    "install": "npm run install-back-end && npm run install-front-end && npm run package",
+    "heroku-prebuild": "cd back-end && npm install && cd ../front-end && npm install && cd ..",
+    "heroku-postbuild": "npm run package",
     "unit": "mocha --compilers ts:ts-node/register specs/unit/**/*.specs.ts",
     "integration": "mocha --compilers ts:ts-node/register specs/integration/**/*.specs.ts",
     "e2e": "webdriver-manager update && ts-node node_modules/protractor/bin/protractor specs/e2e/protractor.conf.ts",
     "test": "npm run unit && npm run integration",
+    "watch": "webpack --config webpack.dev.js --watch",
+    "package": "webpack --config webpack.prod.js",
     "start": "ts-node --project back-end/compile.json back-end/app.ts"
   },
   "dependencies": {
-    "@types/chai": "^3.4.34",
     "@types/copy-webpack-plugin": "^4.0.0",
     "@types/extract-text-webpack-plugin": "^2.0.0",
     "@types/html-webpack-plugin": "^2.11.2",
-    "@types/mocha": "^2.2.38",
     "@types/node": "^7.0.0",
-    "@types/selenium-webdriver": "^2.53.39",
     "@types/webpack": "^2.2.6",
     "@types/webpack-merge": "0.0.4",
     "angular2-template-loader": "^0.6.0",
     "awesome-typescript-loader": "^3.0.8",
-    "chai": "^3.5.0",
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.26.1",
     "extract-text-webpack-plugin": "2.0.0-beta.5",
     "file-loader": "^0.9.0",
     "html-loader": "^0.4.3",
     "html-webpack-plugin": "^2.16.1",
-    "mocha": "^3.2.0",
     "node-sass": "^4.5.0",
-    "protractor": "5.0.0",
     "raw-loader": "^0.5.1",
     "sass-loader": "^6.0.1",
     "style-loader": "^0.13.1",
@@ -44,5 +37,12 @@
     "webpack": "^2.2.1",
     "webpack-merge": "^2.4.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@types/chai": "^3.4.34",
+    "@types/mocha": "^2.2.38",
+    "@types/selenium-webdriver": "^2.53.39",
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0",
+    "protractor": "5.0.0"
+  }
 }
