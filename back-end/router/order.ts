@@ -1,7 +1,6 @@
 import { Router } from 'express';
 const router = Router();
 import Order, { PersistedOrder } from '../models/orders.model';
-import { authenticate } from 'passport';
 import { errorHandler, IRequest, IResponse } from './router-utils';
 import { getPaymentGateway, getAvailablePaymentMethods } from '../payment-gateways/factory';
 import { BasketService } from '../../shared/services/basket-service';
@@ -52,15 +51,6 @@ router.post('/place-order', errorHandler(async (req: IRequest<PlaceOrderRequest>
     res.json(paymentRedirectDetails);
 }));
 
-// TODO: Move to admin.ts
-router.get('/get-orders', authenticate('jwt', { session: false }), errorHandler(async (_req, res: IResponse<Order[]>) => {
-    res.json(await Order.find());
-}));
 
-// TODO: Move to admin.ts
-router.post('/mark-as-complete', authenticate('jwt', { session: false }), errorHandler(async (req: IRequest<MarkAsCompleteRequest>, res) => {
-    await Order.update({ _id: req.body.orderId }, { status: "Complete" });
-    res.send();
-}));
 
 export default router;

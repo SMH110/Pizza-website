@@ -5,26 +5,24 @@ import { ErrorService } from '../service/error.service';
 @Component({
     selector: 'notifications',
     templateUrl: 'notifications.component.html',
-    styles: [`
-ul {
-    padding-left: 30px;
-}
-`]
-
+    styleUrls: ['notifications.component.scss']
 })
 export class NotificationsComponent {
     notifications: string[] = [];
 
     constructor(private notificationService: NotificationService, public errorService: ErrorService) {
         this.notificationService.itemAdded.asObservable().subscribe(item => {
-            this.notify(item);
+            this.notify(`${item.name} added to your basket`);
+        });
+
+        this.notificationService.signedOut.asObservable().subscribe(() => {
+            this.notify("You have been successfully signed out.");
         });
     }
 
-    notify(item: Item) {
-        let notification = `${item.name} added to your basket`;
+    notify(notification: string) {
         this.notifications.push(notification);
-        // This code should not be in this service. It's a view concern.
+        
         setTimeout(() => {
             let errorList = document.getElementById('notificationList');
             if (errorList['scrollIntoViewIfNeeded'] !== undefined) {
@@ -33,6 +31,7 @@ export class NotificationsComponent {
                 errorList.scrollIntoView(false/*Align to bottom of view*/);
             }
         });
+        
         setTimeout(() => {
             this.notifications.splice(this.notifications.indexOf(notification), 1);
         }, 3000);
