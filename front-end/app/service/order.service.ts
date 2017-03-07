@@ -21,6 +21,12 @@ export class OrderService {
         return this.http.get('/api/payment/methods').map(x => x.json() as PaymentMethod[]);
     }
 
+    signOut() {
+        const headers = new Headers();
+        let options = new RequestOptions({ headers: headers });
+        return this.http.get("/api/admin//sign-out", options);
+    }
+
     markOrderAsComplete(request: MarkAsCompleteRequest) {
         const headers = new Headers();
         let options = new RequestOptions({ headers: headers });

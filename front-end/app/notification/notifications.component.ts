@@ -19,10 +19,14 @@ export class NotificationsComponent {
         this.notificationService.itemAdded.asObservable().subscribe(item => {
             this.notify(item);
         });
+
+        this.notificationService.signedOut.asObservable().subscribe(message => {
+            this.notify(message);
+        })
     }
 
-    notify(item: Item) {
-        let notification = `${item.name} added to your basket`;
+    notify(notificationSubject: any) {
+        let notification = typeof notificationSubject === "string" ? notificationSubject : `${notificationSubject.name} added to your basket`;
         this.notifications.push(notification);
         // This code should not be in this service. It's a view concern.
         setTimeout(() => {

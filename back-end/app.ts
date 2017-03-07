@@ -25,7 +25,8 @@ app.use(express.static(path.join(__dirname, '..', 'dist')));
 app.use(bodyParser.json())
 
 // Session
-app.use(session({ secret: process.env.PASSPORT_SECRET, resave: false, saveUninitialized: false }));
+const MINUTE = 60 * 1000;
+app.use(session({ secret: process.env.PASSPORT_SECRET, resave: false, saveUninitialized: false, cookie: { maxAge: 30 * MINUTE  }, rolling: true })); 
 
 // Register Routes
 app.use('/api/order', nocache(), order);

@@ -2,9 +2,9 @@
     background-color: #ffffff;
 }
 
-.table.orders,
+.more-details,
 .order-summary,
-.more-details {
+.table.orders {
     border: 2px solid #333;
 }
 
@@ -16,7 +16,11 @@
     border-top: none;
 }
 
-.table-bordered.orders > thead > tr > th,
-.table-bordered.orders > thead > tr > td {
+.table-bordered.orders > thead > tr > td,
+.table-bordered.orders > thead > tr > th {
     border-bottom: 2px solid #333;
+}
+
+.sign-out {
+    margin-bottom: 20px;
 }

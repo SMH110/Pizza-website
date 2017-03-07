@@ -26,6 +26,14 @@ router.post('/mark-as-complete', ensureLoggedIn, errorHandler(async (req: IReque
     res.send();
 }));
 
+router.get('/sign-out', errorHandler(async (req: IRequest<void>, res: IResponse<void>) => {
+    req.session.destroy(error => {
+        console.error('Error destroying session');
+        console.error(error);
+    });
+    res.sendStatus(200);
+}));
+
 export default router;
 
 function ensureLoggedIn(req: IRequest<void>, res: IResponse<void>, next: (err?: any) => void) {
