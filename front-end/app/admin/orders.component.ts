@@ -15,7 +15,7 @@ export class OrdersComponent implements OnInit {
     orders: OrderViewModel[] = [];
     isOrderExpandedOverride: { [orderId: string]: boolean } = {};
 
-    constructor(private orderService: OrderService, private errorService: ErrorService, private router: Router, private signOutNotificationService: NotificationService) {
+    constructor(private orderService: OrderService, private errorService: ErrorService, private router: Router, private notificationService: NotificationService) {
     }
 
     ngOnInit() {
@@ -52,14 +52,16 @@ export class OrdersComponent implements OnInit {
             this.errorService.displayErrors([genericErrorMessage]);
         }
     }
+
     signOut() {
         this.orderService.signOut().subscribe(() => {
             this.router.navigateByUrl("/admin/sign-in");
-            this.signOutNotificationService.signedOut.emit("You have been successfully signed out.");
+            this.notificationService.signedOut.emit();
         }, error => {
             this.handleError(error, 'There was an unexpected error signing you out. Please try again.')
         })
     }
+
     toggleIsExpanded(order: OrderViewModel): void {
         this.isOrderExpandedOverride[order._id] = !this.isOrderExpanded(order);
     }

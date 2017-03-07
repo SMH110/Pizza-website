@@ -51,10 +51,6 @@ interface AuthRequest {
     password: string;
 }
 
-interface AuthResponse {
-    token: string;
-}
-
 interface PaymentRedirectDetails {
     url: string;
     isFullPageRedirect: boolean;

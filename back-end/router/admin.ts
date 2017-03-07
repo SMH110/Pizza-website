@@ -4,7 +4,7 @@ import { errorHandler, IRequest, IResponse } from './router-utils';
 
 const router = Router();
 
-router.post('/sign-in', errorHandler(async (req: IRequest<AuthRequest>, res: IResponse<any>) => {
+router.post('/sign-in', errorHandler(async (req: IRequest<AuthRequest>, res) => {
     if (req.body.username !== process.env.ADMIN_USERNAME) {
         console.log(`Username ${req.body.username} incorrect. Attempt from IP Address: ${req.ip}.`);
         return res.sendStatus(401);
@@ -26,7 +26,7 @@ router.post('/mark-as-complete', ensureLoggedIn, errorHandler(async (req: IReque
     res.send();
 }));
 
-router.get('/sign-out', errorHandler(async (req: IRequest<void>, res: IResponse<void>) => {
+router.get('/sign-out', errorHandler(async (req, res) => {
     req.session.destroy(error => {
         console.error('Error destroying session');
         console.error(error);
