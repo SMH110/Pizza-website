@@ -12,9 +12,9 @@ export class OrderService {
     }
 
     getOrders() {
-        const headers = new Headers({ "Authorization": localStorage.getItem('get-orders-token') });
+        const headers = new Headers();
         let options = new RequestOptions({ headers: headers });
-        return this.http.get('/api/order/get-orders', options).map(x => x.json() as Order[]);
+        return this.http.get('/api/admin/get-orders', options).map(x => x.json() as Order[]);
     }
 
     getAvailablePaymentMethods() {
@@ -22,8 +22,8 @@ export class OrderService {
     }
 
     markOrderAsComplete(request: MarkAsCompleteRequest) {
-        const headers = new Headers({ "Authorization": localStorage.getItem('get-orders-token') });
+        const headers = new Headers();
         let options = new RequestOptions({ headers: headers });
-        return this.http.post('/api/order/mark-as-complete', request, options);
+        return this.http.post('/api/admin/mark-as-complete', request, options);
     }
 }

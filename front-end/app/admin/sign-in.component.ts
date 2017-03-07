@@ -20,8 +20,7 @@ export class SignInComponent {
         this.signInService.signIn({
             username: this.username,
             password: this.password
-        }).subscribe(response => {
-            localStorage.setItem('get-orders-token', response.token);
+        }).subscribe(() => {
             this.router.navigate(['/admin/get-orders']);
         }, error => {
             if (error.status === 401) {

@@ -4,11 +4,10 @@ import './startup/initialise-mongoose';
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as path from 'path';
-import * as passport from 'passport';
+import * as session from 'express-session';
+
 import { initialisePayPalEndpoints } from './payment-gateways/paypal';
 import { initialiseBarclaysEPDQEndpoints } from './payment-gateways/barclays-epdq';
-
-import './config/passport.config';
 
 import clientSide from './router/client-side';
 import order from './router/order';
@@ -25,8 +24,8 @@ app.use(express.static(path.join(__dirname, '..', 'dist')));
 // JSON Requests
 app.use(bodyParser.json())
 
-// Initialize passport
-app.use(passport.initialize());
+// Session
+app.use(session({ secret: process.env.PASSPORT_SECRET, resave: false, saveUninitialized: false }));
 
 // Register Routes
 app.use('/api/order', nocache(), order);
