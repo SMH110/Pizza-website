@@ -13,7 +13,7 @@ router.post('/sign-in', errorHandler(async (req: IRequest<AuthRequest>, res) => 
         console.log(`Password ${req.body.password} incorrect. Attempt from IP Address: ${req.ip}.`);
         return res.sendStatus(401);
     }
-    req.session.isAuthenticated = true;
+    req.session["isAuthenticated"] = true;
     return res.sendStatus(200);
 }));
 
@@ -37,7 +37,7 @@ router.get('/sign-out', errorHandler(async (req, res) => {
 export default router;
 
 function ensureLoggedIn(req: IRequest<void>, res: IResponse<void>, next: (err?: any) => void) {
-    if (req.session.isAuthenticated) {
+    if (req.session["isAuthenticated"]) {
         next();
     } else {
         res.sendStatus(401);
