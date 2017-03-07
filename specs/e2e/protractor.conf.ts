@@ -1,3 +1,5 @@
+import { cpus } from 'os';
+
 export let config = {
     allScriptsTimeout: 30000,
     baseUrl: "http://localhost:3000",
@@ -7,8 +9,8 @@ export let config = {
     ],
     capabilities: {
         browserName: "chrome",
-        shardTestFiles: true,
-        maxInstances: 3,
+        shardTestFiles: process.env.SHARDING_DISABLED ? false : true,
+        maxInstances: process.env.SHARDING_DISABLED ? 1 : cpus().length,
         chromeOptions: {
             args: ['--test-type', '--no-sandbox']
         }
