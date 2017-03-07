@@ -72,6 +72,10 @@ export function initialiseBarclaysEPDQEndpoints(application: Application) {
             console.log(`Barclays ePDQ feedback received. Locating order ${feedback.ORDERID}.`);
             let order = await Order.findOne({ _id: feedback.ORDERID });
 
+            if (order === null) {
+                throw new Error(`Order ${feedback.ORDERID} not found.`);
+            }
+
             console.log(`Updating order ${feedback.ORDERID}.`);
             order.paymentId = feedback.PAYID;
             order.paymentFeedback.push(feedback);
