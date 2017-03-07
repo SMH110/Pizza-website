@@ -3,13 +3,16 @@ export let config = {
     baseUrl: "http://localhost:3000",
     framework: "mocha",
     specs: [
-        "./**/*.specs.ts"
+        "./ordering-cash.specs.ts", "./ordering-epdq.specs.ts", "ordering-paypal.specs.ts"
     ],
     capabilities: {
         browserName: "chrome",
+        shardTestFiles: true,
+        maxInstances: 3,
         chromeOptions: {
             args: ['--test-type', '--no-sandbox']
         }
+
     },
     mochaOpts: {
         reporter: 'spec',

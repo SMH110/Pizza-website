@@ -1,5 +1,7 @@
-import { browser, element, ElementArrayFinder, ElementFinder, ExpectedConditions as EC } from "protractor";
+import { browser, by, element, ElementArrayFinder, ElementFinder, ExpectedConditions as EC } from "protractor";
 import { By } from "selenium-webdriver";
+import { randomBytes } from 'crypto';
+
 export const UI_READY_TIMEOUT = 15000;
 export const URL_CHANGE_TIMEOUT = 20000;
 
@@ -96,4 +98,33 @@ export async function doInsideIFrame<T>(locator: By, action: () => T) {
     } finally {
         browser.switchTo().defaultContent();
     }
+}
+
+export async function addPizza(name: string, version: string, ...options: string[]) {
+    await addProduct(name, version);
+    let modal = await whenVisibleAndNotMoving(by.className('add-pizza-modal'));
+    if (options.length > 0) {
+        for (let option of options) {
+            await modal.element(by.css('.topping select')).sendKeys(option);
+            await modal.element(by.buttonText('Add topping')).click();
+        }
+        await modal.element(by.partialButtonText('Add to Basket')).click();
+    } else {
+        await modal.element(by.partialButtonText('Add to Basket')).click();
+    }
+    await whenNotPresent(by.className('add-pizza-modal'));
+}
+
+export async function addProduct(name: string, version?: string) {
+    let product = await whenAnyVisible(by.className('thumbnail'), async products => {
+        return products.filter(async (x: ElementFinder) => await x.element(by.tagName('h3')).getText() === name).first();
+    });
+    if (version !== undefined) {
+        await product.element(by.tagName('select')).sendKeys(version);
+    }
+    await product.element(by.className('btn-primary')).click();
+}
+
+export function getRandomString() {
+    return randomBytes(4).toString('hex');
 }
