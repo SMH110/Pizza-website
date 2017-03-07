@@ -3,7 +3,7 @@ export let config = {
     baseUrl: "http://localhost:3000",
     framework: "mocha",
     specs: [
-        "./ordering-cash.specs.ts", "./ordering-epdq.specs.ts", "ordering-paypal.specs.ts"
+        "./**/*.spec.ts"
     ],
     capabilities: {
         browserName: "chrome",
@@ -12,7 +12,6 @@ export let config = {
         chromeOptions: {
             args: ['--test-type', '--no-sandbox']
         }
-
     },
     mochaOpts: {
         reporter: 'spec',
