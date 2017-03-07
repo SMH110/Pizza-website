@@ -8,12 +8,12 @@ module.exports = function (wallaby) {
     return {
         files: [
             // Application code
-            { pattern: '*/**/*.ts', load: false },
-            '!*/node_modules/**',
-            '!specs/unit/**/*.specs.ts'
+            { pattern: '**/*.ts', load: false },
+            '!**/node_modules/**',
+            '!specs/**/*.spec.ts'
         ],
         tests: [
-            'specs/unit/**/*.specs.ts'
+            'specs/unit/**/*.spec.ts'
         ],
         env: {
             type: 'node'

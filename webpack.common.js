@@ -35,7 +35,11 @@ module.exports = {
         }),
         new CopyWebpackPlugin([
             { from: root('front-end', 'images'), to: 'images' }
-        ])
+        ]),
+        new webpack.EnvironmentPlugin({
+            'ENV': 'development',
+            'IS_TEST_ENVIRONMENT': 'FALSE'
+        })
     ],
     module: {
         rules: [
