@@ -166,6 +166,10 @@ function isNullOrWhitespace(input: string) {
 }
 
 function isShopOpen(date: Date): boolean {
+    if (process.env.IS_TEST_ENVIRONMENT === 'TRUE') {
+        return true;
+    }
+
     let day = date.getDay();
     let time = (date.getHours() * 100) + date.getMinutes();
     if (day < 5 && time > 100 && time < 1200) {

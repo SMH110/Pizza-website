@@ -26,5 +26,8 @@ if (!process.env.PORT) {
     // Outlook
     process.env.SMTP_EMAIL = "pizza-delivery-website-test@outlook.com";
     process.env.SMTP_PASSWORD = "^yO*#A30$4(x01H";
+
+    // Test environment
+    process.env.IS_TEST_ENVIRONMENT = "TRUE";
 }
 

@@ -8,25 +8,47 @@ node_js:
 services:
     - selenium
 
+notifications:
+    - integrationName: email
+      type: email
+      on_success: never
+      on_failure: never
+      on_pull_request: never
+
 build:
 
     ci:
+        # Get latest version of Node JS
         - nvm install node
+
+        # Install all NPM dependencies
         - npm install
         - cd back-end && npm install && cd ..
         - cd front-end && npm install && cd ..
-        - npm run shippable-typescript-compile
-        - export TS_NODE_DISABLE_WARNINGS="TRUE" # Temporary measure as ts-node doesn't seem to use typeRoots correctly (https://github.com/TypeStrong/ts-node/issues/216)
-        - npm run shippable-unit
-        - npm run shippable-integration
+
+        # Ensure TypeScript compiles
+        - node node_modules/typescript/bin/tsc
+
+        # Run unit/integration tests
+        - mkdir -p shippable/testresults
+        - export TS_NODE_DISABLE_WARNINGS=TRUE # Temporary measure as ts-node doesn't seem to use typeRoots correctly (https://github.com/TypeStrong/ts-node/issues/216)
+        - XUNIT_FILE=shippable/testresults/unit.xml npm run unit -- --reporter xunit-file
+        - XUNIT_FILE=shippable/testresults/integration.xml npm run integration -- --reporter xunit-file
+
+        # Create production package to run E2E tests against
+        - export IS_TEST_ENVIRONMENT=TRUE # Ensure that the environment is treated as a test environment
         - npm run package
 
-        # START INSTALL GOOGLE CHROME
+        # Install latest Google Chrome
         - sudo apt-get install libxss1 libappindicator1 libindicator7
         - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-        - sudo dpkg -i google-chrome*.deb || sudo apt-get install -f && sudo dpkg -i google-chrome*.deb
-        
-        # Start Node JS server in background and run E2E tests
+        - sudo dpkg -i google-chrome*.deb || (sudo apt-get install -f && sudo dpkg -i google-chrome*.deb)
+
+        # Start Node JS server in background
         - npm start &
+
+        # Run E2E tests
         - export DISPLAY=:99.0
-        - xvfb-run --server-args="-ac" npm run shippable-e2e
+        - export XUNIT_FILE=shippable/testresults/e2e.xml
+        - export SHARDING_DISABLED=TRUE
+        - xvfb-run --server-args="-ac" npm run e2e -- --mochaOpts.reporter="xunit-file"
