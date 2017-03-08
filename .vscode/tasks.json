@@ -6,8 +6,7 @@
     "isShellCommand": true,
     "args": [
         "node_modules/typescript/bin/tsc",
-        "-w",
-        "--noEmit"
+        "-w"
     ],
     "showOutput": "silent",
     "isBackground": true,
