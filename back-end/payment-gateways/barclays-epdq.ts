@@ -59,9 +59,7 @@ export function initialiseBarclaysEPDQEndpoints(application: Application) {
             }
 
             let feedback = Object.keys(req.query).reduce((result, key) => {
-                // TODO - Unit test this with the following code:
-                // http://localhost:3000/barclays-epdq/feedback?orderID=58bf3316241f850b389ef68f&currency=GBP&amount=15%2E5&PM=&ACCEPTANCE=&STATUS=1&CARDNO=&ED=&CN=dsa+asd&TRXDATE=03%2F07%2F17&PAYID=3017438266&PAYIDSUB=0&NCERROR=&BRAND=&IPCTY=GB&CCCTY=&ECI=&CVCCheck=&AAVCheck=&VC=&AAVADDRESS=NO&IP=212%2E159%2E77%2E232&SHASIGN=BC2D93135167B02A95CD985C9EB6C67AE9A5C58113A080476589F23F16D2544F6B88936BC75920C5E72163ECBBB83FE7744A272E65090BE2866384FD5472AFC2
-                if (key.toUpperCase() !== 'SHASIGN' && req.query[key]) {
+                if (key.toUpperCase() !== 'SHASIGN') {
                     result[key.toUpperCase()] = req.query[key];
                 }
                 return result;
@@ -133,7 +131,9 @@ function getPaymentRedirectParameters(order: PersistedOrder, baseReturnAddress: 
 function getSHASIGN(data: any, shaSecret: string) {
     let string = '';
     for (let key of Object.keys(data).sort()) {
-        string += `${key}=${data[key]}${shaSecret}`;
+        if (data[key] && data[key].length > 0) {
+            string += `${key}=${data[key]}${shaSecret}`;
+        }
     }
     return createHash('sha512').update(string).digest('hex').toUpperCase();
 }
