@@ -33,8 +33,10 @@ router.post('/mark-as-complete', ensureLoggedIn, errorHandler(async (req: IReque
 
 router.get('/sign-out', errorHandler(async (req, res) => {
     req.session.destroy(error => {
-        console.error('Error destroying session');
-        console.error(error);
+        if (error) {
+            console.error('Error destroying session');
+            console.error(error);
+        }
     });
     res.sendStatus(200);
 }));
