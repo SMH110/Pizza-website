@@ -4,7 +4,6 @@ import './startup/initialise-mongoose';
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as path from 'path';
-import * as session from 'express-session';
 
 import { initialisePayPalEndpoints } from './payment-gateways/paypal';
 import { initialiseBarclaysEPDQEndpoints } from './payment-gateways/barclays-epdq';
@@ -23,10 +22,6 @@ app.use(express.static(path.join(__dirname, '..', 'dist')));
 
 // JSON Requests
 app.use(bodyParser.json())
-
-// Session
-const MINUTE = 60 * 1000;
-app.use(session({ secret: process.env.PASSPORT_SECRET, resave: false, saveUninitialized: false, cookie: { maxAge: 30 * MINUTE  }, rolling: true })); 
 
 // Register Routes
 app.use('/api/order', nocache(), order);

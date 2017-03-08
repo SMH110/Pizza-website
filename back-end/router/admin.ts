@@ -1,8 +1,13 @@
 import { Router } from 'express';
+import * as session from 'express-session';
 import Order from '../models/orders.model';
 import { errorHandler, IRequest, IResponse } from './router-utils';
 
 const router = Router();
+
+// Session
+const MINUTE = 60 * 1000;
+router.use(session({ secret: process.env.PASSPORT_SECRET, resave: false, saveUninitialized: false, cookie: { maxAge: 30 * MINUTE }, rolling: true }));
 
 router.post('/sign-in', errorHandler(async (req: IRequest<AuthRequest>, res) => {
     if (req.body.username !== process.env.ADMIN_USERNAME) {
