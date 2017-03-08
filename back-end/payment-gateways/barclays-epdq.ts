@@ -131,7 +131,7 @@ function getPaymentRedirectParameters(order: PersistedOrder, baseReturnAddress: 
 function getSHASIGN(data: any, shaSecret: string) {
     let string = '';
     for (let key of Object.keys(data).sort()) {
-        if (data[key].length > 0) {
+        if (data[key] && data[key].length > 0) {
             string += `${key}=${data[key]}${shaSecret}`;
         }
     }
