@@ -18,9 +18,8 @@ const app = express();
 const nocache = require('nocache');
 
 // Static Files
-app.use((req, res, next) => {
-    // Using If statement to use the req, otherwise the typescript will complain (req declared but not used)
-    if (req) { res.setHeader('Cache-Control', 'public, max-age=31557600'); }
+app.use((_req, res, next) => {
+    res.setHeader('Cache-Control', 'public, max-age=31557600')
     next();
 }, express.static(path.join(__dirname, '..', 'dist')));
 
