@@ -6,25 +6,25 @@
             <div class="form-group">
                 <label for="firstName" class="col-sm-2 control-label required">First Name</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name="firstName" [(ngModel)]="buyer.firstName">
+                    <input type="text" class="form-control" name="firstName" [(ngModel)]="userDetailsService.firstName">
                 </div>
             </div>
             <div class="form-group">
                 <label for="lastName" class="col-sm-2 control-label required">Last Name</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name="lastName" [(ngModel)]="buyer.lastName">
+                    <input type="text" class="form-control" name="lastName" [(ngModel)]="userDetailsService.lastName">
                 </div>
             </div>
             <div class="form-group">
                 <label for="email" class="col-sm-2 control-label required">E-mail</label>
                 <div class="col-sm-10">
-                    <input type="email" class="form-control" name="email" [(ngModel)]="buyer.email">
+                    <input type="email" class="form-control" name="email" [(ngModel)]="userDetailsService.email">
                 </div>
             </div>
             <div class="form-group">
                 <label for="phone" class="col-sm-2 control-label required">Phone</label>
                 <div class="col-sm-10">
-                    <input type="tel" class="form-control" name="phone" [(ngModel)]="buyer.phone">
+                    <input type="tel" class="form-control" name="phone" [(ngModel)]="userDetailsService.phone">
                 </div>
             </div>
 
@@ -56,25 +56,25 @@
                 <div class="form-group">
                     <label for="delivery_address1" class="col-sm-2 control-label required">Address 1</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="delivery_address1" [(ngModel)]="deliveryAddress.line1">
+                        <input type="text" class="form-control" name="delivery_address1" [(ngModel)]="userDetailsService.deliveryAddressLine1">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="delivery_address2" class="col-sm-2 control-label">Address 2</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="delivery_address2" [(ngModel)]="deliveryAddress.line2">
+                        <input type="text" class="form-control" name="delivery_address2" [(ngModel)]="userDetailsService.deliveryAddressLine2">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="delivery_town" class="col-sm-2 control-label required">Town/City</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="delivery_town" [(ngModel)]="deliveryAddress.town">
+                        <input type="text" class="form-control" name="delivery_town" [(ngModel)]="userDetailsService.deliveryAddressTown">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="delivery_postcode" class="col-sm-2 control-label required">Postcode</label>
                     <div class="col-sm-5">
-                        <input type="text" class="form-control" name="delivery_postcode" [(ngModel)]="deliveryAddress.postcode">
+                        <input type="text" class="form-control" name="delivery_postcode" [(ngModel)]="userDetailsService.deliveryAddressPostcode">
                     </div>
                 </div>
             </div>
@@ -83,44 +83,51 @@
                 <h3>Billing address</h3>
                 <div class="form-group" *ngIf="isAddressDisplayed()">
                     <div class="col-sm-10 col-sm-offset-2 checkbox">
-                        <label><input type="checkbox" name="billing_address_same_as_delivery" [(ngModel)]="billingAddressSameAsDeliveryAddress">My billing address is the same as the address above</label>
+                        <label><input type="checkbox" name="billing_address_same_as_delivery" [(ngModel)]="userDetailsService.billingAddressSameAsDeliveryAddress">My billing address is the same as the address above</label>
                     </div>
+
                 </div>
-                <div *ngIf="!billingAddressSameAsDeliveryAddress">
+
+                <div *ngIf="!userDetailsService.billingAddressSameAsDeliveryAddress">
                     <div class="form-group">
                         <label for="billing_address1" class="col-sm-2 control-label required">Address 1</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="billing_address1" [(ngModel)]="billingAddress.line1">
+                            <input type="text" class="form-control" name="billing_address1" [(ngModel)]="userDetailsService.billingAddressLine1">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="billing_address2" class="col-sm-2 control-label">Address 2</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="billing_address2" [(ngModel)]="billingAddress.line2">
+                            <input type="text" class="form-control" name="billing_address2" [(ngModel)]="userDetailsService.billingAddressLine2">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="billing_town" class="col-sm-2 control-label required">Town/City</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="billing_town" [(ngModel)]="billingAddress.town">
+                            <input type="text" class="form-control" name="billing_town" [(ngModel)]="userDetailsService.billingAddressTown">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="billing_postcode" class="col-sm-2 control-label required">Postcode</label>
                         <div class="col-sm-5">
-                            <input type="text" class="form-control" name="billing_postcode" [(ngModel)]="billingAddress.postcode">
+                            <input type="text" class="form-control" name="billing_postcode" [(ngModel)]="userDetailsService.billingAddressPostcode">
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="form-group">
+                <div class="col-sm-10 col-sm-offset-2 checkbox">
+                    <label><input type="checkbox" name="dont-save-my-details" [(ngModel)]="doNotRememberMyDetails" >Click here if you do not want the details on this page to be remembered on this device/computer.</label>
+                </div>
+            </div>
         </form>
-
         <div class="actions">
             <button class="btn btn-success pull-right" (click)="order()" *ngIf="isOrderButtonDisplayed()">{{ getOrderButtonText() }}</button>
             <h4 class="total">Total: £{{getTotalPrice() | number:"1.2-2"}}</h4><span class="text-danger" *ngIf="isDisplayPaymentSurchargeMessage()">(50p Credit / Debit card surchage included)</span>
         </div>
     </div>
     <div class="spinner" *ngIf="isShowSpinner">
-        <h2>Processing</h2>  <div class="loop"></div>
+        <h2>Processing</h2>
+        <div class="loop"></div>
     </div>
 </div>
