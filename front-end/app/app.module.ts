@@ -41,7 +41,7 @@ import { OrderService } from './service/order.service';
 import { SignInService } from './service/sign-in.service';
 import { NotificationService } from './service/notification.service';
 import { ModalService } from './service/modal.service';
-
+import { UserDetailsService } from './service/user-details.service';
 // Guards
 import { CheckoutGuard } from './guards/checkout.guard';
 
@@ -91,6 +91,7 @@ import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
         SignInService,
         NotificationService,
         ModalService,
+        UserDetailsService,
 
         // Guards
         CheckoutGuard,

@@ -7,6 +7,7 @@ import { ErrorService } from '../service/error.service';
 import { validateOrderRequest } from '../../../shared/validation/place-order-request-validator';
 import { isDeliveryAddressRequired } from '../../../shared/business-rules/delivery-address-required-rule';
 import { isBillingAddressRequired } from '../../../shared/business-rules/billing-address-required-rule';
+import { UserDetailsService } from '../service/user-details.service';
 
 @Component({
     templateUrl: `./checkout.component.html`,
@@ -18,12 +19,9 @@ export class CheckoutComponent {
     deliveryMethods: DeliveryMethod[] = ['Delivery', 'Collection'];
     paymentMethods: PaymentMethod[] = [];
 
-    buyer: Buyer = {} as any;
-    deliveryAddress: Address = {} as any;
-    billingAddress: Address = {} as any;
-    billingAddressSameAsDeliveryAddress = false;
+    doNotRememberMyDetails: boolean = false;
 
-    constructor(public basket: BasketService, private router: Router, private orderService: OrderService, private errorService: ErrorService) {
+    constructor(public basket: BasketService, private router: Router, private orderService: OrderService, private errorService: ErrorService, public userDetailsService: UserDetailsService) {
         this.orderService.getAvailablePaymentMethods()
             .subscribe(paymentMethods => this.paymentMethods = paymentMethods);
     }
@@ -32,9 +30,9 @@ export class CheckoutComponent {
         this.errorService.clearErrors();
 
         let orderDetail = {
-            buyer: this.buyer,
-            deliveryAddress: this.deliveryAddress,
-            billingAddress: this.isAddressDisplayed() && this.billingAddressSameAsDeliveryAddress ? this.deliveryAddress : this.billingAddress,
+            buyer: this.userDetailsService.buyer,
+            deliveryAddress: this.userDetailsService.deliveryAddress,
+            billingAddress: this.isAddressDisplayed() && this.userDetailsService.billingAddressSameAsDeliveryAddress ? this.userDetailsService.deliveryAddress : this.userDetailsService.billingAddress,
             orderItems: this.basket.items,
             deliveryMethod: this.basket.deliveryMethod,
             paymentMethod: this.basket.paymentMethod,
@@ -43,9 +41,13 @@ export class CheckoutComponent {
         };
 
         let validationErrors = validateOrderRequest(orderDetail, this.paymentMethods);
+
         if (validationErrors.length > 0) {
             this.errorService.displayErrors(validationErrors);
             return;
+        }
+        if (this.doNotRememberMyDetails !== true) {
+            this.userDetailsService.saveUserDetailsInLocalStorage();
         }
         this.isShowSpinner = true
         this.orderService.placeOrder(orderDetail).subscribe(response => {
@@ -68,14 +70,14 @@ export class CheckoutComponent {
     selectDeliveryMethod(deliveryMethod: DeliveryMethod) {
         this.basket.deliveryMethod = deliveryMethod;
         if (this.basket.deliveryMethod === "Collection" && this.basket.paymentMethod === "Credit / Debit Card") {
-            this.billingAddressSameAsDeliveryAddress = false;
+            this.userDetailsService.billingAddressSameAsDeliveryAddress = false;
         }
     }
 
     selectPaymentMethod(paymentMethod: PaymentMethod) {
         this.basket.paymentMethod = paymentMethod;
         if (this.basket.deliveryMethod === "Collection" && this.basket.paymentMethod === "Credit / Debit Card") {
-            this.billingAddressSameAsDeliveryAddress = false;
+            this.userDetailsService.billingAddressSameAsDeliveryAddress = false;
         }
     }
 
