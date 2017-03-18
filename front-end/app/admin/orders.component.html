@@ -26,7 +26,7 @@
                             </td>
                             <td class="phone">{{order.buyer.phone}}</td>
                             <td class="total-payment">£{{order.totalPayment | number:'1.2-2' }} ({{order.paymentMethod}})</td>
-                            <td><button class="btn btn-info" (click)='toggleIsExpanded(order)'>{{ isOrderExpanded(order) ? 'Collapse' : 'Expand' }}</button></td>
+                            <td><button class="btn btn-info toggle-expanded" (click)='toggleIsExpanded(order)'>{{ isOrderExpanded(order) ? 'Collapse' : 'Expand' }}</button></td>
                         </tr>
                         <tr *ngIf='isOrderExpanded(order)' class="more-details" [id]="'details_' + order._id">
                             <td colspan="7">
