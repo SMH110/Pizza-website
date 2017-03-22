@@ -1,11 +1,11 @@
-import { browser, by, element, ElementArrayFinder, ElementFinder, ExpectedConditions as EC } from "protractor";
+import { browser, element, ElementArrayFinder, ElementFinder, ExpectedConditions as EC } from "protractor";
 import { By } from "selenium-webdriver";
-import { randomBytes } from 'crypto';
 
 export const UI_READY_TIMEOUT = 15000;
 export const URL_CHANGE_TIMEOUT = 20000;
 
 export async function urlShouldBecome(predicate: (url: string) => boolean) {
+    console.log('Waiting for URL to match', predicate.toString());
     let lastUrl;
     try {
         await browser.wait(async () => {
@@ -23,9 +23,14 @@ export async function whenVisible(locator: By): Promise<ElementFinder>;
 export async function whenVisible<T>(locator: By, action: (element: ElementFinder) => T): Promise<T>;
 export async function whenVisible<T>(locator: By, action?: (element: ElementFinder) => T): Promise<T | ElementFinder> {
     let theElement = element(locator);
+    console.log('Waiting for visibility of element');
     await browser.wait(EC.visibilityOf(theElement), UI_READY_TIMEOUT);
+    console.log('Element is now visible');
     if (action !== undefined) {
-        return action(theElement);
+        console.log('whenVisible - Performing an action');
+        let result = await action(theElement);
+        console.log('whenVisible - Successfully performed action');
+        return result;
     } else {
         return theElement;
     }
@@ -34,7 +39,9 @@ export async function whenVisible<T>(locator: By, action?: (element: ElementFind
 export async function whenVisibleAndNotMoving(locator: By): Promise<ElementFinder>;
 export async function whenVisibleAndNotMoving<T>(locator: By, action: (element: ElementFinder) => T): Promise<T>;
 export async function whenVisibleAndNotMoving<T>(locator: By, action?: (element: ElementFinder) => T): Promise<T | ElementFinder> {
+    console.log('whenVisibleAndNotMoving called');
     return whenVisible(locator, async element => {
+        console.log('whenVisibleAndNotMoving - Element visible... waiting for element to stop moving');
         let previousLocation = await element.getLocation();
         let attempts = 0;
         while (true) {
@@ -49,8 +56,12 @@ export async function whenVisibleAndNotMoving<T>(locator: By, action?: (element:
                 }
             }
         }
+        console.log('whenVisibleAndNotMoving - Element has stopped moving');
         if (action !== undefined) {
-            return action(element);
+            console.log('whenVisibleAndNotMoving - Performing an action...');
+            let result = await action(element);
+            console.log('whenVisibleAndNotMoving - Successfully performed action');
+            return result;
         } else {
             return element;
         }
@@ -88,43 +99,24 @@ export async function whenNotPresent(locator: By): Promise<ElementFinder> {
 }
 
 export async function waitForAngularToLoad() {
+    console.log('Waiting for Angular to be available...');
     await browser.wait(async () => await browser.executeScript("return window.getAngularTestability !== undefined;"), URL_CHANGE_TIMEOUT);
+    console.log('Angular is available');
 }
 
 export async function doInsideIFrame<T>(locator: By, action: () => T) {
-    browser.switchTo().frame(browser.driver.findElement(locator));
+    console.log('Waiting for iframe to appear');
+    await browser.driver.wait(async () => (await browser.driver.findElements(locator)).length > 0, UI_READY_TIMEOUT);
+    console.log('iframe is present. Switching into iframe...');
+    await browser.switchTo().frame(await browser.driver.findElement(locator));
+    console.log('Successfully switched to iframe...');
     try {
+        console.log('Performing action inside iframe...');
         await action();
+        console.log('Successfully performed action inside iframe');
     } finally {
+        console.log('Switching back out of iframe...');
         browser.switchTo().defaultContent();
+        console.log('Successfully switched back out of iframe');
     }
-}
-
-export async function addPizza(name: string, version: string, ...options: string[]) {
-    await addProduct(name, version);
-    let modal = await whenVisibleAndNotMoving(by.className('add-pizza-modal'));
-    if (options.length > 0) {
-        for (let option of options) {
-            await modal.element(by.css('.topping select')).sendKeys(option);
-            await modal.element(by.buttonText('Add topping')).click();
-        }
-        await modal.element(by.partialButtonText('Add to Basket')).click();
-    } else {
-        await modal.element(by.partialButtonText('Add to Basket')).click();
-    }
-    await whenNotPresent(by.className('add-pizza-modal'));
-}
-
-export async function addProduct(name: string, version?: string) {
-    let product = await whenAnyVisible(by.className('thumbnail'), async products => {
-        return products.filter(async (x: ElementFinder) => await x.element(by.tagName('h3')).getText() === name).first();
-    });
-    if (version !== undefined) {
-        await product.element(by.tagName('select')).sendKeys(version);
-    }
-    await product.element(by.className('btn-primary')).click();
-}
-
-export function getRandomString() {
-    return randomBytes(4).toString('hex');
 }
