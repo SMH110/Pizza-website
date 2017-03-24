@@ -44,6 +44,7 @@ interface Address {
 
 interface MarkAsCompleteRequest {
     orderId: string;
+    readyInMinutes: number;
 }
 
 interface AuthRequest {

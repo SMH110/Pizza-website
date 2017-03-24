@@ -62,7 +62,7 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                                <button class="btn btn-success mark-complete" *ngIf="order.status === 'Outstanding'" (click)='markAsComplete(order)'>Mark as complete</button>
+                                <button class="btn btn-success mark-complete" *ngIf="order.status === 'Outstanding'" (click)='confirmOrder(order)'>Confirm order</button>
                             </td>
                         </tr>
                     </ng-container>

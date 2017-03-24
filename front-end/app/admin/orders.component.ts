@@ -6,6 +6,8 @@ import { ErrorService } from '../service/error.service';
 import { BasketService } from '../service/basket.service';
 import { NotificationService } from '../service/notification.service';
 import * as moment from 'moment';
+import { ConfirmOrderModalComponent } from '../confirm-order-modal/confirm-order-modal.component';
+import { ModalService } from './../service/modal.service';
 
 @Component({
     templateUrl: './orders.component.html',
@@ -15,7 +17,7 @@ export class OrdersComponent implements OnInit {
     orders: OrderViewModel[] = [];
     isOrderExpandedOverride: { [orderId: string]: boolean } = {};
 
-    constructor(private orderService: OrderService, private errorService: ErrorService, private router: Router, private notificationService: NotificationService) {
+    constructor(private orderService: OrderService, private errorService: ErrorService, private router: Router, private notificationService: NotificationService, private modalService: ModalService) {
     }
 
     ngOnInit() {
@@ -23,13 +25,14 @@ export class OrdersComponent implements OnInit {
         setInterval(this.refreshOrders.bind(this), 60000);
     }
 
-    markAsComplete(order: OrderViewModel) {
+    async confirmOrder(order: OrderViewModel) {
         this.errorService.clearErrors();
-        this.orderService.markOrderAsComplete({ orderId: order._id })
+        const readyInMinutes = await this.modalService.open(ConfirmOrderModalComponent, { data: order.deliveryMethod });
+        this.orderService.confirmOrder({ orderId: order._id, readyInMinutes: readyInMinutes })
             .subscribe(() => {
                 this.refreshOrders();
                 delete this.isOrderExpandedOverride[order._id];
-            }, error => this.handleError(error, 'There was an unexpected error marking the order as complete. Please try again.'));
+            }, error => this.handleError(error, 'There was an unexpected error confirming the order. Please try again.'));
     }
 
     private refreshOrders() {

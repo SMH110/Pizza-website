@@ -2,7 +2,7 @@ import * as rp from 'request-promise';
 import { Application } from 'express';
 import Order, { PersistedOrder } from '../models/orders.model';
 import { PaymentGateway } from './interfaces';
-import { sendConfirmationEmails } from '../services/confirmation-sender'
+import { sendOrderPlacedEmail } from '../services/email-service'
 import { BasketService } from '../../shared/services/basket-service';
 export const IsPayPalEnabled = process.env.PAYPAL_ENABLED === "TRUE";
 const PAYPAL_ENVIRONMENT_NAME = process.env.IS_PAYPAL_SANDBOX === "TRUE" ? "api.sandbox.paypal.com" : "api.paypal.com";
@@ -91,8 +91,8 @@ export function initialisePayPalEndpoints(application: Application) {
             await order.save();
             console.log(`Updated order for ${paymentId}`);
             res.redirect('/order/success');
-            sendConfirmationEmails(order);
-            
+            sendOrderPlacedEmail(order);
+
         } catch (error) {
             console.error('Error in /paypal/execute', error);
             return res.redirect('/order/failure');

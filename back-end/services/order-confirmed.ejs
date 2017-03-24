@@ -1,0 +1,40 @@
+<html>
+
+<body style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:14px;line-height:1.42857143;color:#333;background-color:#fff;">
+    <div style="max-width: 900px">
+        <% if (order.deliveryMethod === "Collection")  { %>
+            <% if (readyInMinutes === 0) { %>
+                <p style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;line-height:12px;">Great news, your order is now ready to collect!</p>
+            <% } else { %>
+                <p style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;line-height:12px;">Your order will be ready to collect in approximately <%= readyInText %>.</p>
+            <%  } %>
+        <% } else { %>
+            <p style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;line-height:12px;">Your order will be delivered in approximately <%= readyInText %>.</p>
+        <% } %>
+
+        <% if (order.deliveryMethod === "Delivery") { %>
+            <h4 style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;color:#5b7da0;font-weight:bold;margin-top:20px;">Delivery Address</h4>
+            <p style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;line-height:12px;">
+                <%= order.buyer.firstName %>  <%= order.buyer.lastName %>
+            </p>
+            <p style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;line-height:12px;">
+                <%= order.deliveryAddress.line1 %> <%=order.deliveryAddress.line2 %>
+            </p>
+            <p style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;line-height:12px;">
+                <%= order.deliveryAddress.town %>
+            </p>
+            <p style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;line-height:12px;">
+                <%= order.deliveryAddress.postcode %>
+            </p>
+        <%  } else { %>
+            <strong style="line-height:10px;">Collect From</strong></br>
+            <p style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;line-height:9px;">Godfather Pizza Wood Oven</p>
+            <p style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;line-height:9px;">152 Norwood Road</p>
+            <p style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;line-height:9px;">Lambeth</p>
+            <p style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;line-height:9px;">London</p>
+            <p style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;line-height:9px;">SE27 9AZ</p>
+        <% } %>
+    </div>
+</body>
+
+</html>

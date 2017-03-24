@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions } from '@angular/http';
+import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 @Injectable()
@@ -12,9 +12,7 @@ export class OrderService {
     }
 
     getOrders() {
-        const headers = new Headers();
-        let options = new RequestOptions({ headers: headers });
-        return this.http.get('/api/admin/get-orders', options).map(x => x.json() as Order[]);
+        return this.http.get('/api/admin/get-orders').map(x => x.json() as Order[]);
     }
 
     getAvailablePaymentMethods() {
@@ -22,14 +20,10 @@ export class OrderService {
     }
 
     signOut() {
-        const headers = new Headers();
-        let options = new RequestOptions({ headers: headers });
-        return this.http.get("/api/admin//sign-out", options);
+        return this.http.get("/api/admin/sign-out");
     }
 
-    markOrderAsComplete(request: MarkAsCompleteRequest) {
-        const headers = new Headers();
-        let options = new RequestOptions({ headers: headers });
-        return this.http.post('/api/admin/mark-as-complete', request, options);
+    confirmOrder(request: MarkAsCompleteRequest) {
+        return this.http.post('/api/admin/confirm-order', request);
     }
 }
