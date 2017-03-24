@@ -34,6 +34,7 @@ import { ClearBasketModalComponent } from './clear-basket-modal/clear-basket-mod
 import { IceCreamComponent } from './items/ice-cream/ice-cream.component';
 import { PotatoSkinsModalComponent } from './potato-skins-modal/potato-skins-modal.component';
 import { ConfirmOrderModalComponent } from './confirm-order-modal/confirm-order-modal.component';
+import { SpecialOffersComponent } from "./special-offers/special-offers.component";
 
 // Services
 import { ErrorService } from './service/error.service';
@@ -71,6 +72,7 @@ import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
         HeaderComponent,
         OrdersComponent,
         SignInComponent,
+        SpecialOffersComponent,
         NotificationsComponent,
         ItemComponent,
         AddPizzaModalComponent,

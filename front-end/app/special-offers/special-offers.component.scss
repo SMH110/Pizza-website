@@ -1,0 +1,24 @@
+.discounts {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -8px;
+    margin-right: -8px;
+
+    &::after,
+    &::before {
+        content: none;
+    }
+
+    .discount {
+        padding-left: 8px;
+        padding-right: 8px;
+        width: 50%;
+    }
+}
+@media (max-width: 991px) {
+    .discounts {
+        .discount {
+            width: 100%;
+        }
+    }
+}

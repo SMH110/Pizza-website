@@ -1,0 +1,14 @@
+<div class="container">
+    <h2>Special Offers</h2>
+    <p class="alert alert-info">The best special offer for your order is automatically chosen for you at the basket/checkout. They are listed here for you so that you can know what offers are currently available.</p>
+    <div class="discounts">
+        <div *ngFor='let discount of discounts' class="discount">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{ discount.name }} <span class="pull-right">£{{ discount.price | number: '1.0-2' }}</span></h3>
+                </div>
+                <div class="panel-body">{{ discount.description }}</div>
+            </div>
+        </div>
+    </div>
+</div>
