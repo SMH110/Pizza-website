@@ -17,6 +17,7 @@ import { PastaComponent } from './items/pasta/pasta.component';
 import { SaladsComponent } from './items/salads/salads.component';
 import { DessertsComponent } from './items/desserts/desserts.component';
 import { IceCreamComponent } from './items/ice-cream/ice-cream.component';
+import { SpecialOffersComponent } from "./special-offers/special-offers.component";
 
 
 import { Routes } from '@angular/router';
@@ -31,6 +32,7 @@ export default [
     { path: 'ice-cream', component: IceCreamComponent },
     { path: 'drinks', component: DrinksComponent },
     { path: 'delivery-areas', component: CheckDeliveryAreaComponent },
+    { path: 'special-offers', component: SpecialOffersComponent },
     { path: 'about-us', component: AboutUsComponent },
     { path: 'terms-and-conditions', component: TermsAndConditionsComponent },
     { path: 'contact-us', component: ContactUsComponent },
