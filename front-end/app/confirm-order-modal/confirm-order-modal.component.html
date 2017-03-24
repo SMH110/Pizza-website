@@ -1,0 +1,35 @@
+<modal>
+    <modal-header>
+        <h3>Confirm Order</h3>
+    </modal-header>
+    <modal-body>
+        <div class="collection" *ngIf="data === 'Collection'">
+            <p>When will the order be ready for collection?</p>
+            <select class="form-control" [(ngModel)]="readyInMinutes">
+                <option [ngValue]="0">Now</option>
+                <option [ngValue]="5">In 5 minutes</option>
+                <option [ngValue]="10">In 10 minutes</option>
+                <option [ngValue]="15">In 15 minutes</option>
+                <option [ngValue]="20">In 20 minutes</option>
+                <option [ngValue]="30">In 30 minutes</option>
+                <option [ngValue]="45">In 45 minutes</option>
+            </select>
+        </div>
+        <div class="delivery" *ngIf="data === 'Delivery'">
+            <p>When will the order be delivered?</p>
+            <select class="form-control" [(ngModel)]="readyInMinutes">
+                <option [ngValue]="10">In 10 minutes</option>
+                <option [ngValue]="20">In 20 minutes</option>
+                <option [ngValue]="30">In 30 minutes</option>
+                <option [ngValue]="45">In 45 minutes</option>
+                <option [ngValue]="60">In 1 hour</option>
+                <option [ngValue]="75">In 1 hour 15 minutes</option>
+                <option [ngValue]="90">In 1 hour 30 minutes</option>
+            </select>
+        </div>
+    </modal-body>
+    <modal-footer>
+        <button (click)="cancel()" class="btn btn-primary pull-left">Cancel</button>
+        <button class="btn btn-success" (click)="confirm()">Confirm</button>
+    </modal-footer>
+</modal>

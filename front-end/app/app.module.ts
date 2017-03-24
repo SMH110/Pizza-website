@@ -33,6 +33,7 @@ import { DessertsComponent } from './items/desserts/desserts.component';
 import { ClearBasketModalComponent } from './clear-basket-modal/clear-basket-modal.component';
 import { IceCreamComponent } from './items/ice-cream/ice-cream.component';
 import { PotatoSkinsModalComponent } from './potato-skins-modal/potato-skins-modal.component';
+import { ConfirmOrderModalComponent } from './confirm-order-modal/confirm-order-modal.component';
 
 // Services
 import { ErrorService } from './service/error.service';
@@ -80,7 +81,8 @@ import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
         DessertsComponent,
         IceCreamComponent,
         ClearBasketModalComponent,
-        PotatoSkinsModalComponent
+        PotatoSkinsModalComponent,
+        ConfirmOrderModalComponent
     ],
     providers:
     [
@@ -103,7 +105,8 @@ import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
     entryComponents: [
         AddPizzaModalComponent,
         PotatoSkinsModalComponent,
-        ClearBasketModalComponent
+        ClearBasketModalComponent,
+        ConfirmOrderModalComponent
     ]
 })
 export class AppModule { }

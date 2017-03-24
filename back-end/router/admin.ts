@@ -2,6 +2,7 @@ import { Router } from 'express';
 import * as session from 'express-session';
 import Order from '../models/orders.model';
 import { errorHandler, IRequest, IResponse } from './router-utils';
+import { sendOrderConfirmedEmail } from '../services/email-service';
 
 const router = Router();
 
@@ -26,8 +27,13 @@ router.get('/get-orders', ensureLoggedIn, errorHandler(async (_req, res: IRespon
     res.json(await Order.find());
 }));
 
-router.post('/mark-as-complete', ensureLoggedIn, errorHandler(async (req: IRequest<MarkAsCompleteRequest>, res) => {
-    await Order.update({ _id: req.body.orderId }, { status: "Complete" });
+router.post('/confirm-order', ensureLoggedIn, errorHandler(async (req: IRequest<MarkAsCompleteRequest>, res) => {
+    let order = await Order.findById(req.body.orderId);
+    // Wait for the order confirmed email to be sent
+    await sendOrderConfirmedEmail(order, req.body.readyInMinutes)
+    //  Mark the order as complete
+    order.status = 'Complete';
+    await order.save();
     res.send();
 }));
 
