@@ -29,7 +29,7 @@
             </div>
 
             <h3>Order notes</h3>
-            <textarea class="form-control" rows="3" name="order_notes" [(ngModel)]="basket.orderNotes" placeholder="Enter any special instructions for your order. For example swapping/removing a pizzas toppings or instructing that you would like to place an order to be delivered at a specific time."></textarea>
+            <textarea class="form-control" rows="3" name="order_notes" [(ngModel)]="basket.orderNotes" placeholder="Enter any special instructions for your order. For example swapping/removing a pizza's toppings or instructing that you would like to place an order to be delivered at a specific time."></textarea>
 
             <div>
                 <h3>Delivery method</h3>
@@ -82,7 +82,7 @@
             <div class="address-section" *ngIf="isBillingAddressDisplayed()">
                 <h3>Billing address</h3>
                 <div class="form-group" *ngIf="isAddressDisplayed()">
-                    <div class="col-sm-10 col-sm-offset-2 checkbox">
+                    <div class="col-sm-12 checkbox">
                         <label><input type="checkbox" name="billing_address_same_as_delivery" [(ngModel)]="userDetailsService.billingAddressSameAsDeliveryAddress">My billing address is the same as the address above</label>
                     </div>
 
