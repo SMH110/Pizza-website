@@ -1,7 +1,7 @@
 export interface DiscountRule {
     name: string;
     calculate(basket: DiscountCalculationDto): number;
-    description?: string;
+    description: string;
 }
 
 export interface DiscountCalculationDto {
