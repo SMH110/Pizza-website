@@ -6,10 +6,10 @@
             <% if (readyInMinutes === 0) { %>
                 <p style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;line-height:12px;">Great news, your order is now ready to collect!</p>
             <% } else { %>
-                <p style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;line-height:12px;">Your order will be ready to collect in approximately <%= readyInText %>.</p>
+                <p style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;line-height:12px;">Your order will be ready to collect <%= readyInText %> approximately.</p>
             <%  } %>
         <% } else { %>
-            <p style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;line-height:12px;">Your order will be delivered in approximately <%= readyInText %>.</p>
+            <p style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;line-height:12px;">Your order will be delivered <%= readyInText %> approximately.</p>
         <% } %>
 
         <% if (order.deliveryMethod === "Delivery") { %>
