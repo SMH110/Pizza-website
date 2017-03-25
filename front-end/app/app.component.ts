@@ -1,27 +1,48 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
-  selector: 'app',
-  templateUrl: `./app.component.html`
+    selector: 'app',
+    templateUrl: `./app.component.html`
 })
 export class AppComponent {
-  constructor(private router: Router) {
-  }
+    private navigationEndEventsToProcess: NavigationEnd[] = [];
 
-  isHeaderShown(): boolean {
-    if (this.router.url === "/admin/get-orders" || this.router.url === "/admin/sign-in" || this.router.url === "/admin/failure") {
-      return false
+    constructor(private router: Router) {
+        router.events.subscribe(event => {
+            if (event instanceof NavigationEnd) {
+                this.navigationEndEventsToProcess.push(event);
+                this.processNavigationEndEvents();
+            }
+        });
     }
 
-    return true
-  }
+    isHeaderShown(): boolean {
+        if (this.router.url === "/admin/get-orders" || this.router.url === "/admin/sign-in" || this.router.url === "/admin/failure") {
+            return false
+        }
 
-  isFooterShown(): boolean {
-    if (this.router.url === "/admin/get-orders" || this.router.url === "/admin/sign-in" || this.router.url === "/admin/failure") {
-      return false
+        return true
     }
 
-    return true
-  }
+    isFooterShown(): boolean {
+        if (this.router.url === "/admin/get-orders" || this.router.url === "/admin/sign-in" || this.router.url === "/admin/failure") {
+            return false
+        }
+
+        return true
+    }
+
+    private processNavigationEndEvents() {
+        if (typeof ga !== 'undefined') {
+            while (this.navigationEndEventsToProcess.length > 0) {
+                let event = this.navigationEndEventsToProcess.shift();
+                ga('set', 'page', event.urlAfterRedirects);
+                ga('send', 'pageview');
+            }
+        } else {
+            // Google analytics not yet loaded. Try again later.
+            setTimeout(() => this.processNavigationEndEvents(), 5);
+        }
+    }
 }
