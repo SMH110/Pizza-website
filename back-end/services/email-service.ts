@@ -11,7 +11,7 @@ export async function sendOrderPlacedEmail(order: Order) {
 }
 
 export async function sendOrderConfirmedEmail(order: Order, readyInMinutes: number) {
-    let readyInText = moment(Date.now()).add(readyInMinutes, 'minutes').toNow();
+    let readyInText = moment(Date.now()).add(readyInMinutes, 'minutes').fromNow();
     let html = await renderEjsTemplate(__dirname + "/order-confirmed.ejs", { order, readyInMinutes, readyInText });
     await sendEmail(order.buyer.email, "Your order has been confirmed", html);
 }
