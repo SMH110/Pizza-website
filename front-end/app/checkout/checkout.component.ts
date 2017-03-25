@@ -23,7 +23,7 @@ export class CheckoutComponent {
 
     constructor(public basket: BasketService, private router: Router, private orderService: OrderService, private errorService: ErrorService, public userDetailsService: UserDetailsService) {
         this.orderService.getAvailablePaymentMethods()
-            .subscribe(paymentMethods => this.paymentMethods = paymentMethods);
+            .subscribe(paymentMethods => this.paymentMethods = paymentMethods, () => this.errorService.displayErrors(['An error occurred trying to load the available payment methods. Please refresh your browser to try again.']));
     }
 
     order() {
