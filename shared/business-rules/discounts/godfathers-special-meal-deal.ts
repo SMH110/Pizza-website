@@ -1,19 +1,17 @@
 import { DiscountCalculationDto, DiscountRule } from './interfaces';
 import { flatten, getBasePrices, sortByPrice, sum } from './helpers';
 
-export const specialMealDeal1: DiscountRule = {
+export const godfatherSpecialMealDealLarge: DiscountRule = {
     name: "Godfather's Special Meal Deal - Large",
-    price: 27.99,
-    description: '2 x Large pizzas, 1 x Spicy Wings (8 pieces), 1 x Pizza Garlic Bread and 1 x Bottle of Soft Drink for £27.99',
+    description: '2 x Large pizzas, 1 x Spicy Wings (8 pieces), 1 x Garlic Bread and 1 x Bottle of Soft Drink for £27.99',
     calculate(basket: DiscountCalculationDto) {
         return calculate(basket, 'Large', 27.99);
     }
 }
 
-export const specialMealDeal2: DiscountRule = {
+export const godfatherSpecialMealDealExtraLarge: DiscountRule = {
     name: "Godfather's Special Meal Deal - Extra Large",
-    price: 29.99,
-    description: '2 x Extra Large pizzas, 1 x Spicy Wings (8 pieces), 1 x Pizza Garlic Bread and 1 x Bottle of Soft Drink for £29.99',
+    description: '2 x Extra Large pizzas, 1 x Spicy Wings (8 pieces), 1 x Garlic Bread and 1 x Bottle of Soft Drink for £29.99',
     calculate(basket: DiscountCalculationDto) {
         return calculate(basket, 'Extra Large', 29.99);
     }

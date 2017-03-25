@@ -3,9 +3,8 @@ import { flatten, getBasePrices, sortByPrice } from './helpers';
 
 // TODO: Can this be applied multiple times?
 export const freeMediumPizza: DiscountRule = {
-    name: 'Free medium pizza',
-    price: 30,
-    description: 'On orders over £30',
+    name: 'Free medium pizza on orders over £30',
+    description: 'If your order total is £30 or more then the cheapest medium pizza in your basket will be free.',
     calculate(basket: DiscountCalculationDto) {
         if (basket.totalPrice < 30) {
             return 0;

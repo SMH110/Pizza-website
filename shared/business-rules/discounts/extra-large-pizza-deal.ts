@@ -3,7 +3,6 @@ import { flatten, getBasePrices, sortByPrice, sum } from './helpers';
 
 export const _extraLargePizza: DiscountRule = {
     name: 'Any Extra Large pizza for £12.99',
-    price: 12.99,
     description: 'Any Extra Large pizza for £12.99 (collection only, or add a side for delivery)',
     calculate(basket: DiscountCalculationDto) {
         let pizzas = sortByPrice(flatten(getBasePrices(basket.items.filter(x => x.tags.indexOf('pizza') !== -1 && x.version === 'Extra Large'))));
