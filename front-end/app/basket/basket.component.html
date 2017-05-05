@@ -2,7 +2,6 @@
     <div class="row">
         <div class="col-md-12">
             <h2>Basket</h2>
-            <p *ngIf='basket.items.length > 0'>We automatically choose the best discount for you so you can be sure you're getting the best deal.</p>
             <p *ngIf='basket.items.length === 0'>Your basket is empty.</p>
             <table class="table table-striped" *ngIf='basket.items.length > 0'>
                 <thead>
@@ -17,17 +16,17 @@
                     <tr *ngFor="let item of basket.items" class="item-row">
                         <td class="item">{{ getDescription(item) }}</td>
                         <td class="quantity">
-                            <button class="btn btn-info btn-sm decrease" [disabled]="item.quantity < 2" (click)='basket.decrease(item)'><span class="glyphicon glyphicon-minus"></span></button>
-                            <span>{{item.quantity}}</span>
-                            <button class="btn btn-info btn-sm increase" (click)='basket.increase(item)'><span class="glyphicon glyphicon-plus"></span></button>
+                            <button class="btn btn-info btn-sm decrease" [disabled]="item.quantity < 2" (click)='decrease(item)'><span class="glyphicon glyphicon-minus"></span></button>
+                            <span>{{ item.quantity }}</span>
+                            <button class="btn btn-info btn-sm increase" (click)='increase(item)'><span class="glyphicon glyphicon-plus"></span></button>
                         </td>
-                        <td class="price">£{{item.price * item.quantity | number:'1.2-2'}}</td>
+                        <td class="price">£{{ item.price * item.quantity | number:'1.2-2' }}</td>
                         <td class="remove"><button class="btn btn-primary btn-sm" (click)="removeItem(item)"><span class="glyphicon glyphicon-remove"></span></button></td>
                     </tr>
                     <ng-container *ngIf="basket.getDiscount() !== null">
                         <tr class="total-row">
                             <th class="price-label" colspan="2">Sub-total</th>
-                            <th class="order-total price">£{{basket.getTotalPrice() | number:'1.2-2'}}</th>
+                            <th class="order-total price">£{{ basket.getTotalPrice() | number:'1.2-2' }}</th>
                             <th class="remove"></th>
                         </tr>
                         <tr class="total-row text-success">
@@ -38,11 +37,28 @@
                     </ng-container>
                     <tr class="total-row">
                         <th class="price-label" colspan="2">Total</th>
-                        <th class="total-payable price">£{{basket.getTotalPayable() | number:'1.2-2'}}</th>
+                        <th class="total-payable price">£{{ basket.getTotalPayable() | number:'1.2-2' }}</th>
                         <th class="remove"></th>
                     </tr>
                 </tbody>
             </table>
+
+            <div *ngIf='basket.items.length > 0'>
+                <form class="form-horizontal">
+                    <h3>Discount code</h3>
+                    <p>If you've been given a specific discount code you'd like to use then please enter it here. If you leave this box blank then we'll automatically pick the best discount for you from the ones listed on our <a [routerLink]="['/special-offers']">Special Offers</a> page.</p>
+                    <div class="form-group">
+                        <label for="discount_code" class="col-sm-2 control-label">Discount code</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" name="discount_code" [(ngModel)]="discountCode" [readonly]="isValidCodeApplied()">
+                        </div>
+                        <div class="col-sm-3">
+                            <button class="btn btn-info" (click)="applyCode()" *ngIf="!isValidCodeApplied()">Apply</button>
+                            <button class="btn btn-primary clear" (click)="clearCode()" *ngIf="isValidCodeApplied()">Clear Discount</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
 
             <div class="actions" *ngIf='basket.items.length > 0'>
                 <button class="btn btn-primary" (click)="clearBasket()">Clear Basket</button>

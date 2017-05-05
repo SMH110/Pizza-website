@@ -15,6 +15,7 @@ export class BasketService extends SharedBasketService {
     private _orderNotes: string = null;
     private _deliveryMethod: DeliveryMethod = null;
     private _paymentMethod: PaymentMethod = null;
+    private _discountCode: string = null;
 
     get orderNotes() {
         return this._orderNotes;
@@ -23,6 +24,16 @@ export class BasketService extends SharedBasketService {
     set orderNotes(orderNotes: string) {
         this.load();
         this._orderNotes = orderNotes;
+        this.save();
+    }
+
+    get discountCode() {
+        return this._discountCode;
+    }
+
+    set discountCode(discountCode: string) {
+        this.load();
+        this._discountCode = discountCode;
         this.save();
     }
 
@@ -72,6 +83,7 @@ export class BasketService extends SharedBasketService {
         this._deliveryMethod = null;
         this._paymentMethod = null;
         this._orderNotes = null;
+        this._discountCode = null;
         this.save();
     }
 
@@ -88,6 +100,7 @@ export class BasketService extends SharedBasketService {
                 this._deliveryMethod = basket.deliveryMethod;
                 this._paymentMethod = basket.paymentMethod;
                 this._orderNotes = basket.orderNotes;
+                this._discountCode = basket.discountCode;
             }
         }
     }
@@ -102,6 +115,7 @@ export class BasketService extends SharedBasketService {
             deliveryMethod: this.deliveryMethod,
             paymentMethod: this.paymentMethod,
             orderNotes: this.orderNotes,
+            discountCode: this.discountCode,
             date: Date.now()
         }));
     }

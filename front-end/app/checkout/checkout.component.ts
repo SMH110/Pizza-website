@@ -36,6 +36,7 @@ export class CheckoutComponent {
             orderItems: this.basket.items,
             deliveryMethod: this.basket.deliveryMethod,
             paymentMethod: this.basket.paymentMethod,
+            discountCode: this.basket.discountCode,
             note: this.basket.orderNotes,
             date: new Date()
         };

@@ -6,6 +6,8 @@ export class BasketService {
     items: OrderLineItem[] = [];
     deliveryMethod: DeliveryMethod = null;
     paymentMethod: PaymentMethod = null;
+    discountCode: string = null;
+    orderNotes: string = null;
 
     addToBasket(item: BasketItem): void {
         let existingItem = this.getExistingItem(item);
@@ -39,6 +41,7 @@ export class BasketService {
 
     getDiscount(): Discount {
         return discounts
+            .filter(x => this.discountCode ? x.discountCode === this.discountCode.toUpperCase() : x.discountCode === undefined)
             .map(x => ({
                 name: x.name,
                 amount: this.normalise(x.calculate({
@@ -66,8 +69,7 @@ export class BasketService {
             return x.name === item.name &&
                 x.version === item.version &&
                 x.options.slice().sort().join() === item.options.slice().sort().join()
-        }
-        );
+        });
     }
 
     static getDescription(item: BasketItem) {

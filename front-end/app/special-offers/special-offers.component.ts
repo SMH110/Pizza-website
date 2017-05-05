@@ -6,5 +6,5 @@ import { discounts } from "../../../shared/business-rules/discounts/discounts";
     styleUrls: [`./special-offers.component.scss`]
 })
 export class SpecialOffersComponent {
-    public discounts = discounts;
+    public discounts = discounts.filter(x => x.discountCode === undefined);
 }
