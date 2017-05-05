@@ -1,5 +1,5 @@
 import { DiscountRule } from './interfaces';
-import { _extraLargePizza } from "./extra-large-pizza-deal";
+import { _extraLargePizzaDeal1, _extraLargePizzaDeal2 } from "./extra-large-pizza-deal";
 import { _2ExtraLargePizzas } from './2-extra-large-pizzas-deal';
 import { _20PercentOff } from './20-percent-off-discount';
 import { familyDealExtraLarge, familyDealLarge, familyDealMedium } from './family-deal';
@@ -10,7 +10,8 @@ import { venetianDealExtraLarge, venetianDealLarge, venetianDealMedium } from '.
 export const discounts: DiscountRule[] = [
     _20PercentOff,
     freeMediumPizza,
-    _extraLargePizza,
+    _extraLargePizzaDeal1,
+    _extraLargePizzaDeal2,
     _2ExtraLargePizzas,
     godfatherSpecialMealDealExtraLarge,
     godfatherSpecialMealDealLarge,
