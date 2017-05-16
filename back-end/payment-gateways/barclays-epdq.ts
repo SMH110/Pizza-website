@@ -60,7 +60,7 @@ export function initialiseBarclaysEPDQEndpoints(application: Application) {
 
             let feedback = Object.keys(req.query).reduce((result, key) => {
                 if (key.toUpperCase() !== 'SHASIGN') {
-                    result[key.toUpperCase()] = req.query[key];
+                    (result as any)[key.toUpperCase()] = req.query[key];
                 }
                 return result;
             }, {}) as BarclaysEPDQPaymentFeedback;

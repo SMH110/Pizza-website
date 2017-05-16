@@ -52,7 +52,7 @@ function createValidOrderItems(): OrderItemValidationObject[] {
     let margherita = Catalogue.find(x => x.name === 'Margherita');
     return [{
         name: margherita.name,
-        price: margherita.price['Extra Large'],
+        price: (margherita.price as { [version: string]: number })['Extra Large'],
         quantity: 1,
         version: 'Extra Large',
         tags: margherita.tags,
