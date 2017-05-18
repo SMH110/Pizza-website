@@ -23,8 +23,8 @@ export class ErrorService {
         // This code should not be in this service. It's a view concern.
         setTimeout(() => {
             let errorList = document.getElementById('errorList');
-            if (errorList['scrollIntoViewIfNeeded'] !== undefined) {
-                errorList['scrollIntoViewIfNeeded'](true/*Align to center of view*/);
+            if ((errorList as any).scrollIntoViewIfNeeded !== undefined) {
+                (errorList as any).scrollIntoViewIfNeeded(true/*Align to center of view*/);
             } else {
                 errorList.scrollIntoView(false/*Align to bottom of view*/);
             }

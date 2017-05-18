@@ -22,16 +22,16 @@ export class NotificationsComponent {
 
     notify(notification: string) {
         this.notifications.push(notification);
-        
+
         setTimeout(() => {
             let errorList = document.getElementById('notificationList');
-            if (errorList['scrollIntoViewIfNeeded'] !== undefined) {
-                errorList['scrollIntoViewIfNeeded'](true/*Align to center of view*/);
+            if ((errorList as any).scrollIntoViewIfNeeded !== undefined) {
+                (errorList as any).scrollIntoViewIfNeeded(true/*Align to center of view*/);
             } else {
                 errorList.scrollIntoView(false/*Align to bottom of view*/);
             }
         });
-        
+
         setTimeout(() => {
             this.notifications.splice(this.notifications.indexOf(notification), 1);
         }, 3000);

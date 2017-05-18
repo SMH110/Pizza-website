@@ -14,12 +14,6 @@
     "start": "ts-node --project back-end/compile.json back-end/app.ts"
   },
   "dependencies": {
-    "@types/copy-webpack-plugin": "^4.0.0",
-    "@types/extract-text-webpack-plugin": "^2.0.0",
-    "@types/html-webpack-plugin": "^2.11.2",
-    "@types/node": "^7.0.0",
-    "@types/webpack": "^2.2.6",
-    "@types/webpack-merge": "0.0.4",
     "angular2-template-loader": "^0.6.0",
     "awesome-typescript-loader": "^3.0.8",
     "copy-webpack-plugin": "^4.0.1",
