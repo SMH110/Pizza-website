@@ -1,3 +1,5 @@
+export const MARGHERITA = 'Margherita';
+
 const catalogue: Item[] = [
     {
         name: 'Tuna Salad',
@@ -229,7 +231,7 @@ const catalogue: Item[] = [
         tags: ['drink', 'can']
     },
     {
-        name: 'Margherita',
+        name: MARGHERITA,
         description: 'Mozzarella & Tomato Sauce',
         imageName: 'images/pizza/margherita.jpg',
         price: { 'Medium': 7.50, 'Large': 8.50, 'Extra Large': 10.00 },

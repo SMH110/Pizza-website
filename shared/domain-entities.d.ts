@@ -12,6 +12,7 @@ interface Order {
     paymentId: string;
     paymentFeedback: any[];
     total: number;
+    discountCode: string;
     discount: Discount;
     totalPayment: number;
     note: string | null;

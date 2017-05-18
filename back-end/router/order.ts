@@ -12,6 +12,8 @@ router.post('/place-order', errorHandler(async (req: IRequest<PlaceOrderRequest>
     console.log('Received order - constructing order')
     let basketService = new BasketService();
     basketService.deliveryMethod = req.body.deliveryMethod;
+    basketService.paymentMethod = req.body.paymentMethod;
+    basketService.discountCode = req.body.discountCode;
     for (let item of req.body.orderItems) {
         basketService.addToBasket(item);
     }
@@ -27,6 +29,7 @@ router.post('/place-order', errorHandler(async (req: IRequest<PlaceOrderRequest>
         note: req.body.note ? req.body.note : null,
         status: 'Awaiting Payment',
         orderItems: basketService.items,
+        discountCode: req.body.discountCode ? req.body.discountCode : null,
         discount: basketService.getDiscount(),
         total: basketService.getTotalPrice(),
         totalPayment: basketService.getTotalPayable(),

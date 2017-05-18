@@ -19,6 +19,7 @@ interface PlaceOrderRequest {
     deliveryMethod: DeliveryMethod;
     paymentMethod: PaymentMethod;
     note: string | null
+    discountCode: string;
 }
 
 interface BasketItem {

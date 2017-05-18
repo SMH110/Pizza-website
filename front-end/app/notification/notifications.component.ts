@@ -18,6 +18,10 @@ export class NotificationsComponent {
         this.notificationService.signedOut.asObservable().subscribe(() => {
             this.notify("You have been successfully signed out.");
         });
+
+        this.notificationService.discountSuccessfullyApplied.asObservable().subscribe(() => {
+            this.notify("The discount code you have entered has been successfully applied to your order.");
+        });
     }
 
     notify(notification: string) {
