@@ -172,10 +172,13 @@ function isShopOpen(date: Date): boolean {
 
     let day = date.getDay();
     let time = (date.getHours() * 100) + date.getMinutes();
-    if (day < 5 && time > 100 && time < 1200) {
+    if (day === 0 && (time < 300 || time >= 1200)) {
+        return true;
+    }
+    if (day <= 4 && time >= 30 && time < 1630) {
         return false;
     }
-    if (day > 4 && time > 330 && time < 1200) {
+    if (day >= 5 && time >= 300 && time < 1200) {
         return false;
     }
     return true;
