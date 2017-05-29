@@ -165,9 +165,36 @@ function isNullOrWhitespace(input: string) {
     return !input || input.replace(/\s/g, '').length < 1;
 }
 
+const openingTimeExceptions: OpeningTimeException[] = [
+    { openingTime: new Date(2017, 4, 29, 12, 0, 0), closingTime: new Date(2017, 4, 30, 3, 0, 0), reason: "Spring bank holiday" },
+    { openingTime: new Date(2017, 7, 28, 12, 0, 0), closingTime: new Date(2017, 7, 29, 3, 0, 0), reason: "Summer bank holiday" },
+    // No Christmas Day
+    { openingTime: new Date(2017, 11, 26, 12, 0, 0), closingTime: new Date(2017, 11, 27, 3, 0, 0), reason: "Boxing Day" },
+    { openingTime: new Date(2018, 0, 1, 12, 0, 0), closingTime: new Date(2018, 0, 2, 3, 0, 0), reason: "New Year's Day" },
+    { openingTime: new Date(2018, 2, 30, 12, 0, 0), closingTime: new Date(2018, 2, 31, 3, 0, 0), reason: "Good Friday" },
+    { openingTime: new Date(2018, 3, 2, 12, 0, 0), closingTime: new Date(2018, 3, 3, 3, 0, 0), reason: "Easter Monday" },
+    { openingTime: new Date(2018, 4, 7, 12, 0, 0), closingTime: new Date(2018, 4, 8, 3, 0, 0), reason: "Early May bank holiday" },
+    { openingTime: new Date(2018, 4, 28, 12, 0, 0), closingTime: new Date(2018, 4, 29, 3, 0, 0), reason: "Spring bank holiday" },
+    { openingTime: new Date(2018, 7, 27, 12, 0, 0), closingTime: new Date(2017, 7, 28, 3, 0, 0), reason: "Summer bank holiday" },
+    // No Christmas Day
+    { openingTime: new Date(2018, 11, 26, 12, 0, 0), closingTime: new Date(2017, 11, 27, 3, 0, 0), reason: "Boxing Day" }
+];
+
+interface OpeningTimeException {
+    openingTime: Date;
+    closingTime: Date;
+    reason: string;
+}
+
 function isShopOpen(date: Date): boolean {
     if (process.env.IS_TEST_ENVIRONMENT === 'TRUE') {
         return true;
+    }
+
+    for (let exception of openingTimeExceptions) {
+        if (date >= exception.openingTime && date < exception.closingTime) {
+            return true;
+        }
     }
 
     let day = date.getDay();

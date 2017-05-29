@@ -206,4 +206,32 @@ describe('Shop Opening Times validation', () => {
             expect(validateOrderRequest(order, PAYMENT_METHODS)).to.deep.equal(['Sorry, the shop is now closed.']);
         }
     });
+
+    it('When the shop is closed at 11:59 on Spring bank holiday', () => {
+        for (let order of createValidOrders()) {
+            order.date = new Date(2017, 4, 29, 11, 59, 0);
+            expect(validateOrderRequest(order, PAYMENT_METHODS)).to.deep.equal(['Sorry, the shop is now closed.']);
+        }
+    });
+
+    it('When the shop is open at 12:00 on Spring bank holiday', () => {
+        for (let order of createValidOrders()) {
+            order.date = new Date(2017, 4, 29, 12, 0, 0);
+            expect(validateOrderRequest(order, PAYMENT_METHODS)).to.deep.equal([]);
+        }
+    });
+
+    it('When the shop is open at 02:59 the day after Spring bank holiday', () => {
+        for (let order of createValidOrders()) {
+            order.date = new Date(2017, 4, 30, 2, 59, 0);
+            expect(validateOrderRequest(order, PAYMENT_METHODS)).to.deep.equal([]);
+        }
+    });
+
+    it('When the shop is closed at 03:00 the day after Spring bank holiday', () => {
+        for (let order of createValidOrders()) {
+            order.date = new Date(2017, 4, 30, 3, 0, 0);
+            expect(validateOrderRequest(order, PAYMENT_METHODS)).to.deep.equal(['Sorry, the shop is now closed.']);
+        }
+    });
 });
