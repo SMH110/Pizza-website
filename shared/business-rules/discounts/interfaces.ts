@@ -8,5 +8,6 @@ export interface DiscountRule {
 export interface DiscountCalculationDto {
     totalPrice: number;
     deliveryMethod: DeliveryMethod;
+    date: Date;
     items: OrderLineItem[];
 }

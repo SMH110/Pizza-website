@@ -46,6 +46,7 @@ export class BasketService {
                 name: x.name,
                 amount: this.normalise(x.calculate({
                     totalPrice: this.getTotalPrice(),
+                    date: new Date(),
                     deliveryMethod: this.deliveryMethod,
                     items: this.items
                 }))
