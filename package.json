@@ -36,8 +36,10 @@
     "@types/mocha": "^2.2.38",
     "@types/selenium-webdriver": "^2.53.39",
     "chai": "^3.5.0",
+    "electron": "^1.6.11",
     "mocha": "^3.2.0",
     "protractor": "5.0.0",
+    "wallaby-webpack": "0.0.38",
     "xunit-file": "^1.0.0"
   }
 }

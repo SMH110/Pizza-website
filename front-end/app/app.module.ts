@@ -52,8 +52,8 @@ import ErrorReporter from './error-reporter';
 import Routes from './routes';
 import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
 
-@NgModule({
-    imports: [BrowserModule, HttpModule, FormsModule, RouterModule.forRoot(Routes), Ng2Bs3ModalModule],
+export const AppModuleDeclaration = {
+    imports: [RouterModule.forRoot(Routes), BrowserModule, HttpModule, FormsModule, Ng2Bs3ModalModule],
     declarations: [
         AppComponent,
         PizzaComponent,
@@ -110,5 +110,7 @@ import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
         ClearBasketModalComponent,
         ConfirmOrderModalComponent
     ]
-})
+};
+
+@NgModule(AppModuleDeclaration)
 export class AppModule { }

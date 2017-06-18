@@ -204,6 +204,7 @@ FakesAssemblies/
 *.js
 *.js.map
 !front-end/analytics.js
+!wallaby-front-end.conf.js
 !wallaby.conf.js
 !webpack*.js
 
