@@ -3,25 +3,25 @@ import { flatten, getBasePrices, sortByPrice, sum } from './helpers';
 
 export const venetianDealExtraLarge: DiscountRule = {
     name: 'Venetian Deal - Extra Large',
-    description: 'Any 2 x Extra Large Pizzas and 1 Bottle of Soft Drink for £22.99',
+    description: 'Any 2 x Extra Large Pizzas and 1 Bottle of Soft Drink for £21.99',
     calculate(basket: DiscountCalculationDto) {
-        return calculate(basket, 'Extra Large', 'bottle', 1, 22.99);
+        return calculate(basket, 'Extra Large', 'bottle', 1, 21.99);
     }
 }
 
 export const venetianDealLarge: DiscountRule = {
     name: 'Venetian Deal - Large',
-    description: 'Any 2 x Large Pizzas and 2 Cans of Soft Drink for £19.99',
+    description: 'Any 2 x Large Pizzas and 2 Cans of Soft Drink for £18.99',
     calculate(basket: DiscountCalculationDto) {
-        return calculate(basket, 'Large', 'can', 2, 19.99);
+        return calculate(basket, 'Large', 'can', 2, 18.99);
     }
 }
 
 export const venetianDealMedium: DiscountRule = {
     name: 'Venetian Deal - Medium',
-    description: 'Any 2 x Medium Pizzas and 2 Cans of Soft Drink for £17.99',
+    description: 'Any 2 x Medium Pizzas and 2 Cans of Soft Drink for £16.99',
     calculate(basket: DiscountCalculationDto) {
-        return calculate(basket, 'Medium', 'can', 2, 17.99);
+        return calculate(basket, 'Medium', 'can', 2, 16.99);
     }
 }
 
