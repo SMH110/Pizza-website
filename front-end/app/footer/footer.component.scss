@@ -17,8 +17,17 @@
 .footer a:hover {
     color: #000000;
     text-decoration: underline;
-}
 
-li:first-child a {
-    padding-left: 0;
+    &.phone-number-link {
+        text-decoration: none;
+
+        .phone-number {
+            text-decoration: underline;
+        }
+    }
+}
+@media (min-width: 768px) {
+    li:first-child a {
+        padding-left: 0;
+    }
 }

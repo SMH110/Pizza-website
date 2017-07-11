@@ -49,3 +49,13 @@
         transform: rotate(360deg);
     }
 }
+@media (max-width: 767px) {
+    .payment-methods {
+        display: block;
+
+        button {
+            margin: 0 0 10px;
+            width: 100%;
+        }
+    }
+}
