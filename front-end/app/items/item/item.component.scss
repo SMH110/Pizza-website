@@ -58,5 +58,51 @@
 @media (max-width: 767px) {
     :host {
         width: auto;
+
+        .thumbnail {
+            display: block;
+
+            .details {
+                width: auto;
+            }
+
+            .product-image {
+                margin: 0 auto 20px;
+                width: 200px;
+
+                img {
+                    padding-right: 0;
+                }
+            }
+        }
+    }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+    :host {
+        .thumbnail {
+            display: block;
+            position: relative;
+
+            .details {
+                width: auto;
+                padding-bottom: 90px;
+
+                .actions {
+                    bottom: 20px;
+                    padding-right: 40px;
+                    position: absolute;
+                    width: 100%;
+                }
+            }
+
+            .product-image {
+                margin: 0 auto 20px;
+                width: 200px;
+
+                img {
+                    padding-right: 0;
+                }
+            }
+        }
     }
 }

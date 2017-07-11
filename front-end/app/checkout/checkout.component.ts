@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewChecked } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { BasketService } from '../service/basket.service';
@@ -13,7 +13,7 @@ import { UserDetailsService } from '../service/user-details.service';
     templateUrl: `./checkout.component.html`,
     styleUrls: ['./checkout.component.scss']
 })
-export class CheckoutComponent {
+export class CheckoutComponent implements AfterViewChecked {
 
     isShowSpinner: boolean = false;
     deliveryMethods: DeliveryMethod[] = ['Delivery', 'Collection'];
@@ -24,6 +24,15 @@ export class CheckoutComponent {
     constructor(public basket: BasketService, private router: Router, private orderService: OrderService, private errorService: ErrorService, public userDetailsService: UserDetailsService) {
         this.orderService.getAvailablePaymentMethods()
             .subscribe(paymentMethods => this.paymentMethods = paymentMethods, () => this.errorService.displayErrors(['An error occurred trying to load the available payment methods. Please refresh your browser to try again.']));
+    }
+
+    ngAfterViewChecked() {
+        let checkoutHeading = document.getElementById('checkoutHeading');
+        if ((checkoutHeading as any).scrollIntoViewIfNeeded !== undefined) {
+            (checkoutHeading as any).scrollIntoViewIfNeeded(true/*Align to center of view*/);
+        } else {
+            checkoutHeading.scrollIntoView(false/*Align to bottom of view*/);
+        }
     }
 
     order() {

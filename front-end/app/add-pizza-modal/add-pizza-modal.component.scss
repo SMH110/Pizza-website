@@ -38,3 +38,28 @@ h4 {
         width: 1%;
     }
 }
+@media (max-width: 767px) {
+    .base-selection,
+    .topping-selection {
+        display: block;
+
+        .btn {
+            width: 100%;
+
+            &:first-child {
+                margin-right: 0;
+            }
+
+            &:last-child {
+                margin-left: 0;
+                margin-top: 10px;
+            }
+        }
+    }
+
+    .table {
+        .btn-sm {
+            padding: 5px 8px;
+        }
+    }
+}

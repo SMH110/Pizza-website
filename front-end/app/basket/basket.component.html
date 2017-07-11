@@ -26,18 +26,18 @@
                     <ng-container *ngIf="basket.getDiscount() !== null">
                         <tr class="total-row">
                             <th class="price-label" colspan="2">Sub-total</th>
-                            <th class="order-total price">£{{ basket.getTotalPrice() | number:'1.2-2' }}</th>
+                            <th class="price order-total">£{{ basket.getTotalPrice() | number:'1.2-2' }}</th>
                             <th class="remove"></th>
                         </tr>
                         <tr class="total-row text-success">
                             <th class="price-label" colspan="2">{{ basket.getDiscount().name }}</th>
-                            <th class="discount price">-£{{ basket.getDiscount().amount | number:'1.2-2' }}</th>
+                            <th class="price discount">-£{{ basket.getDiscount().amount | number:'1.2-2' }}</th>
                             <th class="remove"></th>
                         </tr>
                     </ng-container>
                     <tr class="total-row">
                         <th class="price-label" colspan="2">Total</th>
-                        <th class="total-payable price">£{{ basket.getTotalPayable() | number:'1.2-2' }}</th>
+                        <th class="price total-payable">£{{ basket.getTotalPayable() | number:'1.2-2' }}</th>
                         <th class="remove"></th>
                     </tr>
                 </tbody>
@@ -47,12 +47,12 @@
                 <form class="form-horizontal">
                     <h3>Discount code</h3>
                     <p>If you've been given a specific discount code you'd like to use then please enter it here. If you leave this box blank then we'll automatically pick the best discount for you from the ones listed on our <a [routerLink]="['/special-offers']">Special Offers</a> page.</p>
-                    <div class="form-group">
-                        <label for="discount_code" class="col-sm-2 control-label">Discount code</label>
-                        <div class="col-sm-3">
+                    <div class="form-group discount-code">
+                        <label for="discount_code" class="col-md-2 col-sm-3 control-label">Discount code</label>
+                        <div class="col-sm-3 col-xs-8">
                             <input type="text" class="form-control" name="discount_code" [(ngModel)]="discountCode" [readonly]="isValidCodeApplied()">
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-3 col-xs-4 action">
                             <button class="btn btn-info" (click)="applyCode()" *ngIf="!isValidCodeApplied()">Apply</button>
                             <button class="btn btn-primary clear" (click)="clearCode()" *ngIf="isValidCodeApplied()">Clear Discount</button>
                         </div>
