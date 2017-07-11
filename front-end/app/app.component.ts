@@ -15,6 +15,11 @@ export class AppComponent {
                 this.processNavigationEndEvents();
             }
         });
+        router.events.subscribe(event => {
+            if (event instanceof NavigationEnd) {
+                this.scrollToTopAndCloseMobileNavMenu();
+            }
+        });
     }
 
     isHeaderShown(): boolean {
@@ -44,5 +49,13 @@ export class AppComponent {
             // Google analytics not yet loaded. Try again later.
             setTimeout(() => this.processNavigationEndEvents(), 5);
         }
+    }
+
+    private scrollToTopAndCloseMobileNavMenu() {
+        window.scrollTo(null, 0);
+        if (document.getElementsByClassName('navbar-collapse')[0].classList.contains('in')) {
+            (document.getElementsByClassName('mobile-menu-toggle')[0] as HTMLElement).click()
+        }
+
     }
 }
