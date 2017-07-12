@@ -6,7 +6,8 @@ class OrdersPageObject {
         let fullName = `${firstName} ${lastName}`;
         console.log(`Getting order for ${fullName}`);
         let orderSummary = await whenAnyVisible(by.className('order-summary'),
-            orderSummaries => orderSummaries.filter(async (summary: ElementFinder) => await summary.element(by.className('name')).getText() === fullName).first());
+            // TODO - Remove the any cast here
+            orderSummaries => orderSummaries.filter((async (summary: ElementFinder) => await summary.element(by.className('name')).getText() === fullName) as any).first());
         return new OrderSummaryObject(orderSummary);
     }
 }

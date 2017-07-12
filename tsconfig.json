@@ -17,7 +17,8 @@
             "node_modules/@types",
             "back-end/node_modules/@types",
             "front-end/node_modules/@types"
-        ]
+        ],
+        "noStrictGenericChecks": true
     },
     "exclude": [
         "node_modules",
