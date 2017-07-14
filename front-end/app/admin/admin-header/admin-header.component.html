@@ -1,0 +1,25 @@
+<nav class="navbar navbar-default">
+    <div class="container">
+        <div class="logo">
+            <img class="img-responsive" src="/images/godfather-pizza-logo.png">
+        </div>
+        <div class="navbar-header">
+            <button type="button" class="mobile-menu-toggle navbar-toggle collapsed" data-toggle="collapse" data-target=".admin-navigation">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+
+        <div class="collapse navbar-collapse admin-navigation" *ngIf="isSignInScreen() === false">
+            <ul class="nav navbar-nav">
+                <li [routerLinkActive]="['active']"><a [routerLink]="['/admin/get-orders']">Orders</a></li>
+                <li [routerLinkActive]="['active']"><a [routerLink]="['/admin/view-customers']">Customers</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right hidden-xs">
+                <li><button (click)="signOut()" class="btn btn-primary sign-out">Log Out</button></li>
+            </ul>
+        </div>
+    </div>
+</nav>

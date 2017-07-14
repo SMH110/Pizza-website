@@ -29,6 +29,10 @@
     margin-right: auto;
     width: 330px;
 }
+
+.sign-out {
+    font-weight: bold;
+}
 @media (min-width: 768px) {
     .navbar-collapse {
         padding-left: 0;
@@ -46,24 +50,7 @@
     }
 }
 @media (max-width: 767px) {
-    .mobile-basket-button {
-        float: left;
-        margin-left: 15px;
-        margin-top: 15px;
-    }
-
     .mobile-menu-toggle {
         padding: 12px 10px;
-    }
-}
-
-.basket-link a {
-    background-color: #22b24c;
-    text-align: center;
-    width: 160px;
-
-    &:hover {
-        background-color: #1a873a;
-        border-color: #187f36;
     }
 }

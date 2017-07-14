@@ -1,0 +1,12 @@
+import { Document, Schema, model } from 'mongoose';
+
+// TODO: Why are we using mongoose? What value do we get from maintaining these schemas?
+export default model<PersistedVoucher>('vouchers', new Schema({
+    code: String,
+    email: String,
+    amount: Number,
+    dateIssued: Date,
+    dateUsed: Date
+}));
+
+export type PersistedVoucher = Voucher & Document;

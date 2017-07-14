@@ -22,20 +22,12 @@ export class AppComponent {
         });
     }
 
-    isHeaderShown(): boolean {
-        if (this.router.url === "/admin/get-orders" || this.router.url === "/admin/sign-in" || this.router.url === "/admin/failure") {
-            return false
+    isCustomerHeaderShown(): boolean {
+        if (this.router.url.indexOf("/admin/") === 0) {
+            return false;
         }
 
-        return true
-    }
-
-    isFooterShown(): boolean {
-        if (this.router.url === "/admin/get-orders" || this.router.url === "/admin/sign-in" || this.router.url === "/admin/failure") {
-            return false
-        }
-
-        return true
+        return true;
     }
 
     private processNavigationEndEvents() {
@@ -53,9 +45,9 @@ export class AppComponent {
 
     private scrollToTopAndCloseMobileNavMenu() {
         window.scrollTo(null, 0);
-        if (document.getElementsByClassName('navbar-collapse')[0].classList.contains('in')) {
-            (document.getElementsByClassName('mobile-menu-toggle')[0] as HTMLElement).click()
+        let collapsableMenu = document.querySelector('.navbar-collapse');
+        if (collapsableMenu !== null && collapsableMenu.classList.contains('in')) {
+            (document.querySelector('.mobile-menu-toggle') as HTMLElement).click();
         }
-
     }
 }

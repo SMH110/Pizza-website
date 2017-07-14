@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { SignInService } from '../service/sign-in.service';
-import { ErrorService } from '../service/error.service';
+import { SignInService } from '../../service/sign-in.service';
+import { ErrorService } from '../../service/error.service';
 
 @Component({
     templateUrl: 'sign-in.component.html'

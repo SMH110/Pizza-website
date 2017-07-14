@@ -9,8 +9,9 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { OrderSuccessComponent } from './notification/order-success.component';
 import { OrderFailureComponent } from './notification/order-failure.component';
 import { CheckoutGuard } from './guards/checkout.guard';
-import { OrdersComponent } from './admin/orders.component';
-import { SignInComponent } from './admin/sign-in.component';
+import { OrdersComponent } from './admin/orders/orders.component';
+import { CustomersComponent } from "./admin/customers/customers.component";
+import { SignInComponent } from './admin/sign-in/sign-in.component';
 import { CheckDeliveryAreaComponent } from './checking-delivery-area/check-delivery-area.component';
 import { CalzoneComponent } from './items/calzone/calzone.component';
 import { PastaComponent } from './items/pasta/pasta.component';
@@ -40,6 +41,7 @@ export default [
     { path: 'checkout', canActivate: [CheckoutGuard], component: CheckoutComponent },
     { path: 'order/success', component: OrderSuccessComponent },
     { path: 'order/failure', component: OrderFailureComponent },
+    { path: 'admin/view-customers', component: CustomersComponent },
     { path: 'admin/get-orders', component: OrdersComponent },
     { path: 'admin/sign-in', component: SignInComponent },
     { path: '', redirectTo: 'pizza', pathMatch: 'full' }

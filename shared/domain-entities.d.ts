@@ -30,3 +30,11 @@ interface OrderLineItem {
     tags: Tag[];
     options: string[];
 }
+
+interface Voucher {
+    code: string;
+    email: string;
+    amount: number;
+    dateIssued: Date;
+    dateUsed: Date;
+}

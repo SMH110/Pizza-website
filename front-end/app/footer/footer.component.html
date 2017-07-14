@@ -1,12 +1,12 @@
 <footer class="footer">
     <div class="container">
-        <ul class="nav navbar-nav">
+        <ul class="nav navbar-nav" *ngIf="isLinksShown()">
             <li><a [routerLink]="['/about-us']">About us</a></li>
             <li><a [routerLink]="['/terms-and-conditions']">Terms &amp; conditions</a></li>
             <li><a [routerLink]="['/contact-us']">Contact us</a></li>
             <li><a [routerLink]="['/delivery-areas']">Areas we deliver</a></li>
         </ul>
-        <ul class="nav navbar-nav navbar-right">
+        <ul class="nav navbar-nav navbar-right" *ngIf="isLinksShown()">
             <li>
                 <a href="tel:020 8674 2000" class="phone-number-link">
                     <span class="glyphicon glyphicon-earphone phone"></span>

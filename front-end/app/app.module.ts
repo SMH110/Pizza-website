@@ -22,8 +22,10 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { OrderSuccessComponent } from './notification/order-success.component';
 import { OrderFailureComponent } from './notification/order-failure.component';
 import { HeaderComponent } from './header/header.component';
-import { OrdersComponent } from './admin/orders.component';
-import { SignInComponent } from './admin/sign-in.component';
+import { AdminHeaderComponent } from "./admin/admin-header/admin-header.component";
+import { OrdersComponent } from './admin/orders/orders.component';
+import { SignInComponent } from './admin/sign-in/sign-in.component';
+import { CustomersComponent } from "./admin/customers/customers.component";
 import { NotificationsComponent } from './notification/notifications.component';
 import { ModalHostComponent } from './modal-host/modal-host.component';
 import { CalzoneComponent } from './items/calzone/calzone.component';
@@ -40,6 +42,7 @@ import { SpecialOffersComponent } from "./special-offers/special-offers.componen
 import { ErrorService } from './service/error.service';
 import { BasketService } from './service/basket.service';
 import { OrderService } from './service/order.service';
+import { AdminService } from "./service/admin.service";
 import { SignInService } from './service/sign-in.service';
 import { NotificationService } from './service/notification.service';
 import { ModalService } from './service/modal.service';
@@ -69,8 +72,10 @@ import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
         CheckoutComponent,
         OrderSuccessComponent,
         OrderFailureComponent,
+        AdminHeaderComponent,
         HeaderComponent,
         OrdersComponent,
+        CustomersComponent,
         SignInComponent,
         SpecialOffersComponent,
         NotificationsComponent,
@@ -90,6 +95,7 @@ import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
     [
         // Services
         OrderService,
+        AdminService,
         ErrorService,
         BasketService,
         SignInService,

@@ -1,5 +1,6 @@
-<my-header *ngIf='isHeaderShown()'></my-header>
+<my-header *ngIf='isCustomerHeaderShown()'></my-header>
+<admin-header *ngIf='!isCustomerHeaderShown()'></admin-header>
 <notifications></notifications>
 <router-outlet></router-outlet>
 <modal-host></modal-host>
-<my-footer *ngIf='isFooterShown()'></my-footer>
+<my-footer></my-footer>

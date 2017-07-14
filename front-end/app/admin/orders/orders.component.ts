@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { OrderService } from '../service/order.service';
-import { ErrorService } from '../service/error.service';
-import { BasketService } from '../service/basket.service';
-import { NotificationService } from '../service/notification.service';
+import { AdminService } from '../../service/admin.service';
+import { ErrorService } from '../../service/error.service';
+import { BasketService } from '../../service/basket.service';
 import * as moment from 'moment';
-import { ConfirmOrderModalComponent } from '../confirm-order-modal/confirm-order-modal.component';
-import { ModalService } from './../service/modal.service';
+import { ConfirmOrderModalComponent } from '../../confirm-order-modal/confirm-order-modal.component';
+import { ModalService } from '../../service/modal.service';
 
 @Component({
     templateUrl: './orders.component.html',
@@ -17,7 +16,7 @@ export class OrdersComponent implements OnInit {
     orders: OrderViewModel[] = [];
     isOrderExpandedOverride: { [orderId: string]: boolean } = {};
 
-    constructor(private orderService: OrderService, private errorService: ErrorService, private router: Router, private notificationService: NotificationService, private modalService: ModalService) {
+    constructor(private adminService: AdminService, private errorService: ErrorService, private router: Router, private modalService: ModalService) {
     }
 
     ngOnInit() {
@@ -28,7 +27,7 @@ export class OrdersComponent implements OnInit {
     async confirmOrder(order: OrderViewModel) {
         this.errorService.clearErrors();
         const readyInMinutes = await this.modalService.open(ConfirmOrderModalComponent, { data: order.deliveryMethod });
-        this.orderService.confirmOrder({ orderId: order._id, readyInMinutes: readyInMinutes })
+        this.adminService.confirmOrder({ orderId: order._id, readyInMinutes: readyInMinutes })
             .subscribe(() => {
                 this.refreshOrders();
                 delete this.isOrderExpandedOverride[order._id];
@@ -37,8 +36,8 @@ export class OrdersComponent implements OnInit {
 
     private refreshOrders() {
         this.errorService.clearErrors();
-        this.orderService.getOrders()
-            .subscribe(response => {
+        this.adminService.getOrders()
+            .then(response => {
                 this.orders = response.sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf());
                 this.orders = this.orders.map(order => {
 
@@ -54,15 +53,6 @@ export class OrdersComponent implements OnInit {
         if (error.status === 500) {
             this.errorService.displayErrors([genericErrorMessage]);
         }
-    }
-
-    signOut() {
-        this.orderService.signOut().subscribe(() => {
-            this.router.navigateByUrl("/admin/sign-in");
-            this.notificationService.signedOut.emit();
-        }, error => {
-            this.handleError(error, 'There was an unexpected error signing you out. Please try again.')
-        })
     }
 
     toggleIsExpanded(order: OrderViewModel): void {

@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import * as session from 'express-session';
 import Order from '../models/orders.model';
+import Voucher from '../models/vouchers.model';
 import { errorHandler, IRequest, IResponse } from './router-utils';
 import { sendOrderConfirmedEmail } from '../services/email-service';
 
@@ -35,6 +36,10 @@ router.post('/confirm-order', ensureLoggedIn, errorHandler(async (req: IRequest<
     order.status = 'Complete';
     await order.save();
     res.send();
+}));
+
+router.get('/vouchers', ensureLoggedIn, errorHandler(async (_req, res: IResponse<Voucher[]>) => {
+    res.json(await Voucher.find())
 }));
 
 router.get('/sign-out', errorHandler(async (req, res) => {
