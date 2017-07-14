@@ -18,7 +18,7 @@ export class CustomersComponent {
         let ordersPromise = this.adminService.getOrders();
         let vouchersPromise = this.adminService.getVouchers();
 
-        let orders = await ordersPromise;
+        let orders = (await ordersPromise).filter(x => x.status === "Complete");
         let ordersByEmailAddress: { [email: string]: Order[] } = {};
         for (let order of orders) {
             if (ordersByEmailAddress[order.buyer.email] === undefined) {
