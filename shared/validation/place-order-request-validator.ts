@@ -214,12 +214,12 @@ function isShopOpen(date: Date): boolean {
 function isMinimumOrderSatisfied(order: PlaceOrderRequestValidationObject): string[] {
     let totalAmountOfPizzaOrCalzone = order.orderItems.filter(x => x.tags.indexOf('pizza') !== -1 || x.tags.indexOf('calzone') !== -1).reduce((x, y) => x + y.price * y.quantity, 0);
 
-    if (order.deliveryMethod === 'Delivery' && totalAmountOfPizzaOrCalzone < 10) {
-        return ["A minimum spend of £10 is required on pizza or calzone for delivery orders."];
+    if (order.deliveryMethod === 'Delivery' && totalAmountOfPizzaOrCalzone < 9.99) {
+        return ["A minimum spend of £9.99 is required on pizza or calzone for delivery orders."];
     }
 
-    if (order.paymentMethod !== 'Cash' && totalAmountOfPizzaOrCalzone < 10) {
-        return [`A minimum spend of £10 is required on pizza or calzone for ${order.paymentMethod} orders.`];
+    if (order.paymentMethod !== 'Cash' && totalAmountOfPizzaOrCalzone < 9.99) {
+        return [`A minimum spend of £9.99 is required on pizza or calzone for ${order.paymentMethod} orders.`];
     }
 
     return [];
