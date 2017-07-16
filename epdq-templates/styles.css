@@ -1,0 +1,133 @@
+/* MAIN */
+html {
+    background-color: #ffffff;
+}
+
+body {
+    background-color: #efeded;
+    overflow-y: scroll;
+}
+
+/* NAVBAR */
+.navbar-default {
+    background-color: #282423;
+}
+
+.logo {
+    color: #666;
+    padding-bottom: 20px;
+    padding-top: 10px;
+}
+
+.logo img {
+    margin-left: auto;
+    margin-right: auto;
+    width: 330px;
+}
+
+/* FOOTER */
+.footer {
+    background-color: #ffffff;
+    border-color: #dbdbdb;
+    border-top: 1px solid;
+    margin-top: 50px;
+    padding-bottom: 30px;
+    width: 100%;
+}
+
+/* BARCLAYS CONTENT */
+table {
+    display: block;
+    width: auto !important;
+}
+
+tbody,
+td,
+th,
+thead,
+tr {
+    display: block;
+    text-align: left;
+    width: auto;
+}
+
+.ncoltxtl,
+.ncoltxtr {
+    display: inline;
+}
+
+.ncoltxtl {
+    font-weight: bold;
+}
+
+small {
+    font-size: inherit;
+}
+
+.ncolline1 small {
+    /* Card: SSL secured transaction */
+    display: none;
+}
+
+.NCOLINIM {
+    /* Card type logo */
+    display: block;
+    margin: 0 0 10px !important;
+    width: 80px;
+}
+
+.ncolline2:first-child {
+    /* Empty row above Maestro */
+    display: none;
+}
+
+.NCOLINIM + small {
+    /* Can I actually pay with my Maestro card? */
+    display: none;
+}
+
+.ncollogoc img {
+    /* Barclays Logo at bottom */
+    border: 20px solid #ffffff;
+}
+
+.ncollogoc .ncollogoc {
+    /* Back / Cancel button containers*/
+    display: inline-block;
+}
+
+#Ecom_Payment_Card_ExpDate_Month {
+    display: inline-block;
+    width: 70px;
+}
+
+#Ecom_Payment_Card_ExpDate_Year {
+    display: inline-block;
+    width: 90px;
+}
+
+#Ecom_Payment_Card_Verification {
+    display: inline-block;
+    width: 80px;
+}
+
+small label {
+    margin-top: 10px;
+}
+
+#submit3 {
+    margin-top: 15px;
+}
+
+.ncollogoc + .ncollogoc #ncol_cancel {
+    margin-left: 10px;
+}
+
+#WaitMsgId {
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+}

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Godfather Pizza Wood Oven - Payment</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="$$$TP RESOURCES URL$$$/vendor.css">
+    <link rel="stylesheet" type="text/css" href="$$$TP RESOURCES URL$$$/styles.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <div class="logo">
+                <img class="img-responsive" src="$$$TP RESOURCES URL$$$/godfather-pizza-logo.png">
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h2>Payment</h2>
+        $$$PAYMENT ZONE$$$
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+        </div>
+    </footer>
+
+    <script>
+        window.addEventListener("load", function load(event) {
+            window.removeEventListener("load", load, false);
+            addClassStringToMatchingElements('.NCOLINIM', 'img-thumbnail');
+            addClassStringToMatchingElements('.ncolinput img', 'img-thumbnail');
+            addClassStringToMatchingElements('#ncol_cancel', 'btn btn-primary');
+            addClassStringToMatchingElements('#btn_Back', 'btn btn-info');
+            addClassStringToMatchingElements('#btn_BackToMerchantHome', 'btn btn-info');
+            addClassStringToMatchingElements('.ncoltxtc input.ncol', 'btn btn-info');
+            addClassStringToMatchingElements('#submit3', 'btn btn-success');
+            addClassStringToMatchingElements('.ncolh1 small', 'h3');
+            addClassStringToMatchingElements('input[type="text"]', 'form-control');
+            addClassStringToMatchingElements('#Ecom_Payment_Card_ExpDate_Month', 'form-control');
+            addClassStringToMatchingElements('#Ecom_Payment_Card_ExpDate_Year', 'form-control');
+        }, false);
+
+        function addClassStringToMatchingElements(selector, classString) {
+            [].slice.apply(document.querySelectorAll(selector)).forEach(function (element) {
+                element.className += ' ' + classString;
+            });
+        }
+    </script>
+</body>
+
+</html>
