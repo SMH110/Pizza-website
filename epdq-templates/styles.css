@@ -87,8 +87,8 @@ small {
 }
 
 .ncollogoc img {
-    /* Barclays Logo at bottom */
-    border: 20px solid #ffffff;
+    /* Barclays Logo and Verified by VISA etc at bottom */
+    display: none;
 }
 
 .ncollogoc .ncollogoc {
