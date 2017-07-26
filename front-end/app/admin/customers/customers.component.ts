@@ -34,7 +34,7 @@ export class CustomersComponent {
         for (let customer of customers) {
             customer.vouchers = vouchers.filter(x => x.email === customer.email);
         }
-        this.customers = customers;
+        this.customers = customers.sort((a, b) => this.compareCustomers(a, b));
     }
 
     getNames(customer: Customer) {
@@ -98,6 +98,15 @@ export class CustomersComponent {
 
     getUsedVouchers(customer: Customer) {
         return customer.vouchers.filter(x => x.dateUsed !== null).length;
+    }
+
+    compareCustomers(a: Customer, b: Customer): number {
+        let aOrders = this.getOrdersCountAll(a);
+        let bOrders = this.getOrdersCountAll(b);
+        if (bOrders !== aOrders) {
+            return bOrders - aOrders;
+        }
+        return this.getOrdersCount30d(b) - this.getOrdersCount30d(a);
     }
 }
 
