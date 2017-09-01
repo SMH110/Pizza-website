@@ -209,3 +209,4 @@ FakesAssemblies/
 
 # Webpack generated
 dist
+package-lock.json
