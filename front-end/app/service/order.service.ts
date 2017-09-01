@@ -8,10 +8,10 @@ export class OrderService {
     }
 
     placeOrder(order: PlaceOrderRequest) {
-        return this.http.post('/api/order/place-order', order).map(x => x.json() as PaymentRedirectDetails);
+        return this.http.post('/api/order/place-order', order).toPromise().then(x => x.json() as PaymentRedirectDetails);
     }
 
     getAvailablePaymentMethods() {
-        return this.http.get('/api/payment/methods').map(x => x.json() as PaymentMethod[]);
+        return this.http.get('/api/payment/methods').toPromise().then(x => x.json() as PaymentMethod[]);
     }
 }

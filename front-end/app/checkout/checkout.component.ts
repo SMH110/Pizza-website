@@ -22,11 +22,18 @@ export class CheckoutComponent {
     doNotRememberMyDetails: boolean = false;
 
     constructor(public basket: BasketService, private router: Router, private orderService: OrderService, private errorService: ErrorService, public userDetailsService: UserDetailsService) {
-        this.orderService.getAvailablePaymentMethods()
-            .subscribe(paymentMethods => this.paymentMethods = paymentMethods, () => this.errorService.displayErrors(['An error occurred trying to load the available payment methods. Please refresh your browser to try again.']));
+        this.initialise();
     }
 
-    order() {
+    private async initialise() {
+        try {
+            this.paymentMethods = await this.orderService.getAvailablePaymentMethods();
+        } catch (e) {
+            this.errorService.displayErrors(['An error occurred trying to load the available payment methods. Please refresh your browser to try again.']);
+        }
+    }
+
+    async order() {
         this.errorService.clearErrors();
 
         let orderDetail = {
@@ -37,6 +44,7 @@ export class CheckoutComponent {
             deliveryMethod: this.basket.deliveryMethod,
             paymentMethod: this.basket.paymentMethod,
             discountCode: this.basket.discountCode,
+            voucherCode: this.basket.voucherCode,
             note: this.basket.orderNotes,
             date: new Date()
         };
@@ -51,13 +59,15 @@ export class CheckoutComponent {
             this.userDetailsService.saveUserDetailsInLocalStorage();
         }
         this.isShowSpinner = true
-        this.orderService.placeOrder(orderDetail).subscribe(response => {
+
+        try {
+            var response = await this.orderService.placeOrder(orderDetail);
             if (response.isFullPageRedirect) {
                 window.location.assign(response.url);
             } else {
                 this.router.navigateByUrl(`${response.url}`);
             }
-        }, error => {
+        } catch (error) {
             if (error.status === 400) {
                 this.isShowSpinner = false;
                 let validationErrors = error.json();
@@ -65,7 +75,7 @@ export class CheckoutComponent {
             } else {
                 this.router.navigateByUrl('/order/failure');
             }
-        });
+        }
     }
 
     selectDeliveryMethod(deliveryMethod: DeliveryMethod) {

@@ -3,10 +3,10 @@ const router = Router();
 import Order, { PersistedOrder } from '../models/orders.model';
 import { errorHandler, IRequest, IResponse } from './router-utils';
 import { getPaymentGateway, getAvailablePaymentMethods } from '../payment-gateways/factory';
-import { BasketService } from '../../shared/services/basket-service';
 import { validateOrderRequest } from '../../shared/validation/place-order-request-validator';
 import { isDeliveryAddressRequired } from '../../shared/business-rules/delivery-address-required-rule';
 import { isBillingAddressRequired } from '../../shared/business-rules/billing-address-required-rule';
+import { BasketService } from "../services/basket-service";
 
 router.post('/place-order', errorHandler(async (req: IRequest<PlaceOrderRequest>, res: IResponse<PaymentRedirectDetails>) => {
     console.log('Received order - constructing order')
@@ -14,6 +14,15 @@ router.post('/place-order', errorHandler(async (req: IRequest<PlaceOrderRequest>
     basketService.deliveryMethod = req.body.deliveryMethod;
     basketService.paymentMethod = req.body.paymentMethod;
     basketService.discountCode = req.body.discountCode;
+
+    if (req.body.voucherCode) {
+        try {
+            await basketService.setVoucherCode(req.body.voucherCode);
+        } catch (e) {
+            return res.status(400).json(["The voucher code you entered is not valid"]);
+        }
+    }
+
     for (let item of req.body.orderItems) {
         basketService.addToBasket(item);
     }
@@ -31,6 +40,8 @@ router.post('/place-order', errorHandler(async (req: IRequest<PlaceOrderRequest>
         orderItems: basketService.items,
         discountCode: req.body.discountCode ? req.body.discountCode : null,
         discount: basketService.getDiscount(),
+        voucher: basketService.voucher,
+        voucherCode: basketService.voucherCode,
         total: basketService.getTotalPrice(),
         totalPayment: basketService.getTotalPayable(),
         paymentId: null

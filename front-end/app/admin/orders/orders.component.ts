@@ -27,11 +27,13 @@ export class OrdersComponent implements OnInit {
     async confirmOrder(order: OrderViewModel) {
         this.errorService.clearErrors();
         const readyInMinutes = await this.modalService.open(ConfirmOrderModalComponent, { data: order.deliveryMethod });
-        this.adminService.confirmOrder({ orderId: order._id, readyInMinutes: readyInMinutes })
-            .subscribe(() => {
-                this.refreshOrders();
-                delete this.isOrderExpandedOverride[order._id];
-            }, error => this.handleError(error, 'There was an unexpected error confirming the order. Please try again.'));
+        try {
+            await this.adminService.confirmOrder({ orderId: order._id, readyInMinutes: readyInMinutes });
+            delete this.isOrderExpandedOverride[order._id];
+            this.refreshOrders();
+        } catch (error) {
+            this.handleError(error, 'There was an unexpected error confirming the order. Please try again.')
+        }
     }
 
     private refreshOrders() {

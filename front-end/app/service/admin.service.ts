@@ -20,6 +20,10 @@ export class AdminService {
     }
 
     confirmOrder(request: MarkAsCompleteRequest) {
-        return this.http.post('/api/admin/confirm-order', request);
+        return this.http.post('/api/admin/confirm-order', request).toPromise();
+    }
+
+    createVoucher(request: CreateVoucherRequest) {
+        return this.http.post('/api/admin/vouchers', request).toPromise();
     }
 }

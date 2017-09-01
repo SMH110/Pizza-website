@@ -22,6 +22,10 @@ export class NotificationsComponent {
         this.notificationService.discountSuccessfullyApplied.asObservable().subscribe(() => {
             this.notify("The discount code you have entered has been successfully applied to your order.");
         });
+
+        this.notificationService.voucherSuccessfullyApplied.asObservable().subscribe(() => {
+            this.notify("The voucher code you have entered has been successfully applied to your order.");
+        });
     }
 
     notify(notification: string) {

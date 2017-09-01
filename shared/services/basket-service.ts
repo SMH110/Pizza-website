@@ -1,13 +1,16 @@
 import catalog from '../static-data/catalogue';
 import { getPricingRule } from '../business-rules/pricing-rule-factory';
 import { discounts } from '../business-rules/discounts/discounts';
-
-export class BasketService {
+export abstract class BasketService {
     items: OrderLineItem[] = [];
     deliveryMethod: DeliveryMethod = null;
     paymentMethod: PaymentMethod = null;
     discountCode: string = null;
+    voucherCode: string = null;
+    voucher: Voucher = null;
     orderNotes: string = null;
+
+    constructor() { }
 
     addToBasket(item: BasketItem): void {
         let existingItem = this.getExistingItem(item);
@@ -58,7 +61,26 @@ export class BasketService {
     getTotalPayable(): number {
         let discount = this.getDiscount();
         let discountAmount = discount !== null ? discount.amount : 0;
-        return this.normalise(this.getTotalPrice() - discountAmount);
+        let voucherAmount = this.voucher !== null ? this.voucher.amount : 0;
+        return this.normalise(this.getTotalPrice() - discountAmount - voucherAmount);
+    }
+
+    abstract getVoucher(code: string): Promise<Voucher>;
+
+    async setVoucherCode(code: string) {
+        if (!code) {
+            this.voucher = null;
+            this.voucherCode = null;
+            return;
+        }
+        try {
+            this.voucher = await this.getVoucher(code);
+            this.voucherCode = code;
+        } catch (e) {
+            this.voucher = null;
+            this.voucherCode = null;
+            throw e;
+        }
     }
 
     private normalise(value: number): number {

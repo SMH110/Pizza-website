@@ -20,6 +20,7 @@ interface PlaceOrderRequest {
     paymentMethod: PaymentMethod;
     note: string | null
     discountCode: string;
+    voucherCode: string;
 }
 
 interface BasketItem {
@@ -60,6 +61,11 @@ interface PaymentRedirectDetails {
 
 interface Discount {
     name: string;
+    amount: number;
+}
+
+interface CreateVoucherRequest {
+    email: string;
     amount: number;
 }
 

@@ -4,6 +4,7 @@ import Order, { PersistedOrder } from '../models/orders.model';
 import { PaymentGateway } from './interfaces';
 import { sendOrderPlacedEmail } from '../services/email-service'
 import { BasketService } from '../../shared/services/basket-service';
+import { updateVoucherIfNecessary } from "../services/basket-service";
 export const IsPayPalEnabled = process.env.PAYPAL_ENABLED === "TRUE";
 const PAYPAL_ENVIRONMENT_NAME = process.env.IS_PAYPAL_SANDBOX === "TRUE" ? "api.sandbox.paypal.com" : "api.paypal.com";
 
@@ -41,7 +42,7 @@ export default class PayPal implements PaymentGateway {
         let response = await rp.post(`https://${PAYPAL_ENVIRONMENT_NAME}/v1/payments/payment`, options);
         console.log('PayPal payment successfully requested. Updating order.', JSON.stringify(response, null, 4));
         order.paymentId = response.id;
-        order.save()
+        await order.save();
         console.log('Order successfully updated.', JSON.stringify(options, null, 4));
         return {
             url: response.links.find((obj: any) => obj.rel === 'approval_url').href,
@@ -89,6 +90,7 @@ export function initialisePayPalEndpoints(application: Application) {
             order.status = "Outstanding";
             order.paymentFeedback.push(response);
             await order.save();
+            await updateVoucherIfNecessary(order);
             console.log(`Updated order for ${paymentId}`);
             res.redirect('/order/success');
             sendOrderPlacedEmail(order);

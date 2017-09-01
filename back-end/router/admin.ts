@@ -3,7 +3,7 @@ import * as session from 'express-session';
 import Order from '../models/orders.model';
 import Voucher from '../models/vouchers.model';
 import { errorHandler, IRequest, IResponse } from './router-utils';
-import { sendOrderConfirmedEmail } from '../services/email-service';
+import { sendOrderConfirmedEmail, sendVoucherCode } from '../services/email-service';
 
 const router = Router();
 
@@ -40,6 +40,19 @@ router.post('/confirm-order', ensureLoggedIn, errorHandler(async (req: IRequest<
 
 router.get('/vouchers', ensureLoggedIn, errorHandler(async (_req, res: IResponse<Voucher[]>) => {
     res.json(await Voucher.find())
+}));
+
+router.post('/vouchers', ensureLoggedIn, errorHandler(async (req: IRequest<CreateVoucherRequest>, res: IResponse<void>) => {
+    let voucher = {
+        email: req.body.email,
+        amount: req.body.amount,
+        dateIssued: new Date(),
+        dateUsed: null,
+        code: require('crypto').randomBytes(6).toString('hex')
+    } as Voucher;
+    await new Voucher(voucher).save();
+    await sendVoucherCode(voucher);
+    res.sendStatus(200);
 }));
 
 router.get('/sign-out', errorHandler(async (req, res) => {

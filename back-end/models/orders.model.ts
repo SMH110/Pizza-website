@@ -42,6 +42,14 @@ export default model<PersistedOrder>('orders', new Schema({
         name: String,
         amount: Number
     },
+    voucherCode: String,
+    voucher: {
+        code: String,
+        email: String,
+        amount: Number,
+        dateIssued: Date,
+        dateUsed: Date
+    },
     totalPayment: Number,
     status: String
 }));
