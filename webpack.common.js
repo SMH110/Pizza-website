@@ -65,7 +65,7 @@ module.exports = {
             {
                 test: /\.[s]?css$/,
                 exclude: root('front-end', 'app'),
-                loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: 'css-loader?sourceMap!sass-loader' })
+                loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use: 'css-loader?sourceMap!sass-loader' })
             },
             {
                 test: /\.[s]?css$/,
