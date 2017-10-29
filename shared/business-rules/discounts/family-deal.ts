@@ -3,25 +3,25 @@ import { flatten, getBasePrices, sortByPrice, sum } from './helpers';
 
 export const familyDealExtraLarge: DiscountRule = {
     name: 'Family Deal - Extra Large',
-    description: 'Any 3 x Extra Large pizzas and either a portion of Cheesy Chips or a Bottle of Drink or a portion of Garlic Bread for £32.99',
+    description: 'Any 3 x Extra Large pizzas and either a portion of Cheesy Chips or a Bottle of Drink or a portion of Garlic Bread for £33.99',
     calculate(basket: DiscountCalculationDto) {
-        return calculate(basket, 'Extra Large', 32.99);
+        return calculate(basket, 'Extra Large', 33.99);
     }
 }
 
 export const familyDealLarge: DiscountRule = {
     name: 'Family Deal - Large',
-    description: 'Any 3 x Large pizzas and either a portion of Cheesy Chips or a Bottle of Drink or a portion of Garlic Bread for £27.99',
+    description: 'Any 3 x Large pizzas and either a portion of Cheesy Chips or a Bottle of Drink or a portion of Garlic Bread for £28.99',
     calculate(basket: DiscountCalculationDto) {
-        return calculate(basket, 'Large', 27.99);
+        return calculate(basket, 'Large', 28.99);
     }
 }
 
 export const familyDealMedium: DiscountRule = {
     name: 'Family Deal - Medium',
-    description: 'Any 3 x Medium pizzas and a portion of Cheesy Chips or a Bottle of Drink or a portion of Garlic Bread for £23.99',
+    description: 'Any 3 x Medium pizzas and a portion of Cheesy Chips or a Bottle of Drink or a portion of Garlic Bread for £24.99',
     calculate(basket: DiscountCalculationDto) {
-        return calculate(basket, 'Medium', 23.99);
+        return calculate(basket, 'Medium', 24.99);
     }
 }
 
