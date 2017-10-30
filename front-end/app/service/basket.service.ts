@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BasketService as SharedBasketService } from '../../../shared/services/basket-service';
+import { Http } from "@angular/http";
 
 const STORAGE_KEY = 'basket';
 
@@ -7,7 +8,7 @@ const STORAGE_KEY = 'basket';
 export class BasketService extends SharedBasketService {
     private hasBaseConstructorRun = true;
 
-    constructor() {
+    constructor(private http: Http) {
         super();
         this.load();
     }
@@ -16,6 +17,11 @@ export class BasketService extends SharedBasketService {
     private _deliveryMethod: DeliveryMethod = null;
     private _paymentMethod: PaymentMethod = null;
     private _discountCode: string = null;
+    private _voucherCode: string = null;
+
+    getVoucher(code: string) {
+        return this.http.get(`/api/voucher/${code}`).toPromise().then(x => x.json() as Voucher);
+    }
 
     get orderNotes() {
         return this._orderNotes;
@@ -34,6 +40,22 @@ export class BasketService extends SharedBasketService {
     set discountCode(discountCode: string) {
         this.load();
         this._discountCode = discountCode;
+        this.save();
+    }
+
+    get voucherCode() {
+        return this._voucherCode;
+    }
+
+    set voucherCode(voucherCode: string) {
+        this.load();
+        this._voucherCode = voucherCode;
+        this.save();
+    }
+
+    async setVoucherCode(voucherCode: string) {
+        this.load();
+        await super.setVoucherCode(voucherCode);
         this.save();
     }
 
@@ -84,6 +106,8 @@ export class BasketService extends SharedBasketService {
         this._paymentMethod = null;
         this._orderNotes = null;
         this._discountCode = null;
+        this._voucherCode = null;
+        this.voucher = null;
         this.save();
     }
 
@@ -101,6 +125,7 @@ export class BasketService extends SharedBasketService {
                 this._paymentMethod = basket.paymentMethod;
                 this._orderNotes = basket.orderNotes;
                 this._discountCode = basket.discountCode;
+                this._voucherCode = basket.voucherCode;
             }
         }
     }
@@ -116,6 +141,7 @@ export class BasketService extends SharedBasketService {
             paymentMethod: this.paymentMethod,
             orderNotes: this.orderNotes,
             discountCode: this.discountCode,
+            voucherCode: this.voucherCode,
             date: Date.now()
         }));
     }

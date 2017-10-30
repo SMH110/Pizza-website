@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { AdminService } from "../../service/admin.service";
+import { ErrorService } from '../../service/error.service';
+import * as moment from 'moment';
 
 @Component({
     templateUrl: './customers.component.html',
@@ -9,8 +12,11 @@ export class CustomersComponent {
     customers: Customer[] = [];
     isDetailsExpanded: { [customerEmail: string]: boolean } = {};
     isVouchersExpanded: { [customerEmail: string]: boolean } = {};
+    MIN_VOUCHER_AMOUNT = 2;
+    MAX_VOUCHER_AMOUNT = 5;
+    voucherAmount: number = this.MIN_VOUCHER_AMOUNT;
 
-    constructor(private adminService: AdminService) {
+    constructor(private adminService: AdminService, private errorService: ErrorService, private router: Router) {
         this.initialise();
     }
 
@@ -18,23 +24,58 @@ export class CustomersComponent {
         let ordersPromise = this.adminService.getOrders();
         let vouchersPromise = this.adminService.getVouchers();
 
-        let orders = (await ordersPromise).filter(x => x.status === "Complete");
-        let ordersByEmailAddress: { [email: string]: Order[] } = {};
-        for (let order of orders) {
-            if (ordersByEmailAddress[order.buyer.email] === undefined) {
-                ordersByEmailAddress[order.buyer.email] = [];
+        try {
+            let orders = (await ordersPromise).filter(x => x.status === "Complete");
+            let ordersByEmailAddress: { [email: string]: Order[] } = {};
+            for (let order of orders) {
+                if (ordersByEmailAddress[order.buyer.email] === undefined) {
+                    ordersByEmailAddress[order.buyer.email] = [];
+                }
+                ordersByEmailAddress[order.buyer.email].push(order);
             }
-            ordersByEmailAddress[order.buyer.email].push(order);
-        }
 
-        let customers = Object.keys(ordersByEmailAddress)
-            .map<Customer>(x => ({ email: x, orders: ordersByEmailAddress[x], vouchers: [] }));
+            let customers = Object.keys(ordersByEmailAddress)
+                .map<Customer>(x => ({ email: x, orders: ordersByEmailAddress[x], vouchers: [] }));
 
-        let vouchers = await vouchersPromise;
-        for (let customer of customers) {
-            customer.vouchers = vouchers.filter(x => x.email === customer.email);
+            let vouchers = await vouchersPromise;
+            for (let customer of customers) {
+                customer.vouchers = vouchers.filter(x => x.email === customer.email);
+            }
+            this.customers = customers.sort((a, b) => this.compareCustomers(a, b));
+        } catch (error) {
+            this.handleError(error, 'There was an unexpected error refreshing the customers. Please try again.')
         }
-        this.customers = customers.sort((a, b) => this.compareCustomers(a, b));
+    }
+
+    private handleError(error: any, genericErrorMessage: string) {
+        if (error.status === 401) {
+            this.router.navigateByUrl('/admin/sign-in');
+        }
+        if (error.status === 500) {
+            this.errorService.displayErrors([genericErrorMessage]);
+        }
+    }
+
+    async sendVoucher(customer: Customer) {
+        this.errorService.clearErrors();
+        if (this.voucherAmount < this.MIN_VOUCHER_AMOUNT) {
+            this.errorService.displayErrors([`You can't send a voucher less than £${this.MIN_VOUCHER_AMOUNT}`]);
+            return;
+        }
+        if (this.voucherAmount > this.MAX_VOUCHER_AMOUNT) {
+            this.errorService.displayErrors([`You can't send a voucher more than £${this.MAX_VOUCHER_AMOUNT}`]);
+            return;
+        }
+        if (!window.confirm("Are you sure you want to send this voucher?")) {
+            return;
+        }
+        try {
+            await this.adminService.createVoucher({ amount: this.voucherAmount, email: customer.email });
+            this.voucherAmount = this.MIN_VOUCHER_AMOUNT;
+            await this.initialise();
+        } catch (error) {
+            this.handleError(error, "There was an error creating the voucher. Please try again.");
+        }
     }
 
     getNames(customer: Customer) {
@@ -107,6 +148,14 @@ export class CustomersComponent {
             return bOrders - aOrders;
         }
         return this.getOrdersCount30d(b) - this.getOrdersCount30d(a);
+    }
+
+    getDateIssued(voucher: Voucher) {
+        return moment(voucher.dateIssued).format('dddd Do MMM, HH:mm');
+    }
+
+    getDateUsed(voucher: Voucher) {
+        return voucher.dateUsed ? moment(voucher.dateUsed).format('dddd Do MMM, HH:mm') : "Not yet used";
     }
 }
 

@@ -4,6 +4,7 @@ import { Application } from 'express';
 import Order, { PersistedOrder } from '../models/orders.model';
 import { PaymentGateway } from './interfaces';
 import { sendOrderPlacedEmail } from '../services/email-service'
+import { updateVoucherIfNecessary } from "../services/basket-service";
 
 export const IsBarclaysEPDQEnabled = process.env.BARCLAYS_EPDQ_ENABLED === "TRUE";
 
@@ -84,6 +85,7 @@ export function initialiseBarclaysEPDQEndpoints(application: Application) {
             if (status === 'ACCEPTED') {
                 order.status = 'Outstanding';
                 await order.save();
+                await updateVoucherIfNecessary(order);
                 console.log(`Payment accepted for order. Order ${feedback.ORDERID} updated.`);
                 res.redirect('/order/success');
                 sendOrderPlacedEmail(order);

@@ -14,20 +14,18 @@ export class SignInComponent {
     constructor(private signInService: SignInService, private errorService: ErrorService, private router: Router) {
     }
 
-    signIn() {
+    async signIn() {
         this.errorService.clearErrors();
 
-        this.signInService.signIn({
-            username: this.username,
-            password: this.password
-        }).subscribe(() => {
-            this.router.navigate(['/admin/get-orders']);
-        }, error => {
+        try {
+        await this.signInService.signIn({username: this.username,password: this.password});
+        this.router.navigate(['/admin/get-orders']);
+        } catch (error) {
             if (error.status === 401) {
                 this.errorService.displayErrors(["The username or password is incorrect."]);
             } else {
                 this.errorService.displayErrors(["There was an error trying to sign in. Please try again."]);
             }
-        })
+        }
     }
 }

@@ -12,11 +12,23 @@ import { NotificationService } from "../service/notification.service";
 })
 export class BasketComponent {
     discountCode: string = this.basket.discountCode || '';
+    voucherCode: string = this.basket.voucherCode || '';
 
     constructor(public basket: BasketService,
         private modalService: ModalService,
         private errorService: ErrorService,
         private notificationService: NotificationService) {
+            this.initialise();
+    }
+
+    async initialise() {
+        if (this.basket.voucherCode !== null && this.basket.voucher === null) {
+            try {
+                await this.basket.setVoucherCode(this.voucherCode.trim() || null);
+            } catch (e) {
+                this.voucherCode = '';
+            }
+        }
     }
 
     getDescription(item: OrderLineItem) {
@@ -33,7 +45,7 @@ export class BasketComponent {
         this.removeDiscountIfNoLongerValid();
     }
 
-    async removeItem(item: OrderLineItem) {
+    removeItem(item: OrderLineItem) {
         this.basket.removeItem(item);
         this.removeDiscountIfNoLongerValid();
     }
@@ -45,8 +57,7 @@ export class BasketComponent {
 
     applyCode(): void {
         this.errorService.clearErrors();
-        // https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/String/trim
-        this.basket.discountCode = this.discountCode.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '') || null;
+        this.basket.discountCode = this.discountCode.trim() || null;
         if (this.basket.discountCode !== null) {
             if (this.basket.getDiscount() === null) {
                 this.errorService.displayErrors(["The discount code you have entered is not valid for your order."]);
@@ -71,5 +82,24 @@ export class BasketComponent {
             this.basket.discountCode = null;
             this.discountCode = '';
         }
+    }
+
+    async applyVoucher() {
+        this.errorService.clearErrors();
+        try {
+            await this.basket.setVoucherCode(this.voucherCode.trim() || null);
+            this.notificationService.voucherSuccessfullyApplied.emit();
+        } catch (e) {
+            this.errorService.displayErrors(["The voucher code you have entered is not valid."]);
+        }
+    }
+
+    async clearVoucher() {
+        this.voucherCode = '';
+        await this.basket.setVoucherCode(null);
+    }
+
+    isValidVoucherApplied(): boolean {
+        return this.basket.voucher !== null;
     }
 }

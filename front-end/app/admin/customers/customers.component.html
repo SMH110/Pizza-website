@@ -2,47 +2,6 @@
     <div class="row">
         <div class="col-md-12">
             <h1>Customers</h1>
-            <!--
-1) A way of telling who has been a valuable customer
-2) A way of sending a voucher to the valuable customer
-3) A way of tracking how many vouchers he's sent to that valuable customer
-
-What defines a valuable customer?
-- Number of orders of a customer
-- Total value of all orders
-- Average value of order
-These figures should be repeated over the following periods:
-- All Time
-- 3 Months
-- 1 Month
-
-History of vouchers sent
-
-
-Loyal Customer = number of orders in 1 month / total
-
-
-
-Look into importing old orders
-
-
-2 types of email / voucher
-- We miss you
-- Thank you for being a loyal customer
-
-
-1) Who hasn't placed an order in the past month (for customer retention)
-2) Who has placed 2 or more orders in the past month (for loyalty scheme)
-
-Button to send voucher for customer retention
-Button to send voucher for loyalty scheme
-
-
-Loyalty Scheme -> What was their total spend this month and how many orders?
-
-Customer retention -> He will decide himself...
-
-            -->
             <table class="table table-bordered customers">
                 <thead>
                     <tr>
@@ -81,6 +40,19 @@ Customer retention -> He will decide himself...
                         </tr>
                         <tr *ngIf="isShowVouchers(customer)" class="voucher-details">
                             <td colspan="8">
+                                <div class="row">
+                                    <div class="form-group send-voucher">
+                                        <div class="col-sm-3 col-xs-6">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">£</span>
+                                                <input type="number" class="form-control" name="amount" [(ngModel)]="voucherAmount" [min]="MIN_VOUCHER_AMOUNT" [max]="MAX_VOUCHER_AMOUNT" step="1">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3 col-xs-6 action">
+                                            <button class="btn btn-info" (click)="sendVoucher(customer)">Send voucher</button>
+                                        </div>
+                                    </div>
+                                </div>
                                 <p *ngIf="customer.vouchers.length === 0">This customer has never been sent any vouchers.</p>
                                 <table class="table table-striped table-bordered" *ngIf="customer.vouchers.length > 0">
                                     <thead>
@@ -93,10 +65,10 @@ Customer retention -> He will decide himself...
                                     </thead>
                                     <tbody>
                                         <tr *ngFor="let voucher of customer.vouchers">
-                                            <td>Voucher code</td>
-                                            <td>Amount</td>
-                                            <td>Date issued</td>
-                                            <td>Date used</td>
+                                            <td>{{voucher.code}}</td>
+                                            <td>{{voucher.amount}}</td>
+                                            <td>{{getDateIssued(voucher)}}</td>
+                                            <td>{{getDateUsed(voucher)}}</td>
                                         </tr>
                                     </tbody>
                                 </table>

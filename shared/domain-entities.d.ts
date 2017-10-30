@@ -14,6 +14,8 @@ interface Order {
     total: number;
     discountCode: string;
     discount: Discount;
+    voucher: Voucher;
+    voucherCode: string;
     totalPayment: number;
     note: string | null;
     // TODO - specify other statuses here

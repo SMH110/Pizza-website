@@ -27,6 +27,7 @@ export function createValidOrder(deliveryMethod: DeliveryMethod, paymentMethod: 
         orderItems: createValidOrderItems(),
         paymentMethod: paymentMethod,
         discountCode: null,
+        voucherCode: null,
         note: null
     };
 }

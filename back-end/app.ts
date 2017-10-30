@@ -10,6 +10,7 @@ import { initialiseBarclaysEPDQEndpoints } from './payment-gateways/barclays-epd
 
 import clientSide from './router/client-side';
 import order from './router/order';
+import voucher from './router/voucher';
 import admin from './router/admin';
 import health from './router/health';
 import payment from './router/payment';
@@ -28,6 +29,7 @@ app.use(bodyParser.json())
 
 // Register Routes
 app.use('/api/order', nocache(), order);
+app.use('/api/voucher', nocache(), voucher);
 app.use('/api/admin', nocache(), admin);
 app.use('/api/payment', nocache(), payment);
 app.use('/health', nocache(), health);

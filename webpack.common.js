@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const root = require('./webpack-helpers');
+const path = require('path');
 
 module.exports = {
     entry: {
@@ -13,6 +14,10 @@ module.exports = {
         styles: './front-end/styles.ts'
     },
     resolve: {
+        modules: [
+            path.join(__dirname, 'node_modules'),
+            path.join(__dirname, 'front-end', 'node_modules')
+        ],
         extensions: ['.ts', '.js']
     },
     plugins: [
@@ -65,7 +70,7 @@ module.exports = {
             {
                 test: /\.[s]?css$/,
                 exclude: root('front-end', 'app'),
-                loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: 'css-loader?sourceMap!sass-loader' })
+                loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use: 'css-loader?sourceMap!sass-loader' })
             },
             {
                 test: /\.[s]?css$/,

@@ -7,6 +7,6 @@ export class SignInService {
     }
 
     signIn(credential: AuthRequest) {
-        return this.http.post('/api/admin/sign-in', credential);
+        return this.http.post('/api/admin/sign-in', credential).toPromise();
     }
 }

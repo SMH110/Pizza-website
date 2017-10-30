@@ -16,6 +16,12 @@ export async function sendOrderConfirmedEmail(order: Order, readyInMinutes: numb
     await sendEmail(order.buyer.email, "Your order has been confirmed", html);
 }
 
+export async function sendVoucherCode(voucher: Voucher) {
+    let subject = `£${voucher.amount} off your next order at Godfather Pizza Wood Oven`;
+    let html = await renderEjsTemplate(__dirname + "/voucher-code.ejs", { voucher });
+    await sendEmail(voucher.email, subject, html);
+}
+
 async function sendPlaceOrderEmailToStore(order: Order) {
     let subject = `New order placed - £${order.totalPayment} - ${order.buyer.firstName} ${order.buyer.lastName}`;
     let html = await renderEjsTemplate(__dirname + "/order-placed.ejs", { order, isStoreCopy: true, getDescription: BasketService.getDescription });
