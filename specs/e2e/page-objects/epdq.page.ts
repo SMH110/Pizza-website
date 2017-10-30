@@ -19,3 +19,8 @@ class EPDQPageObject {
 }
 
 export const EPDQPage = new EPDQPageObject();
+
+// Card number: 4111111111111111
+// Expiry Month: 01
+// Expiry Year: 2022
+// Security Code: 123
