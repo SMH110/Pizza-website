@@ -6,7 +6,7 @@ import { isBillingAddressRequired } from '../business-rules/billing-address-requ
 
 export function validateOrderRequest(request: PlaceOrderRequestValidationObject, availablePaymentMethods: string[]): string[] {
     if (isShopOpen(request.date) === false) {
-        return ['Sorry, the shop is now closed.'];
+        // return ['Sorry, the shop is now closed.'];
     }
 
     let errors: string[] = [];
