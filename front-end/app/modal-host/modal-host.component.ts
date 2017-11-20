@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'modal-host',
-    template: '<template #modalPlaceholder></template>'
+    template: '<ng-template #modalPlaceholder></ng-template>'
 })
 export class ModalHostComponent implements OnDestroy {
     @ViewChild('modalPlaceholder', { read: ViewContainerRef })
