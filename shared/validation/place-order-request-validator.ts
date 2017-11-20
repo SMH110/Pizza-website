@@ -4,6 +4,9 @@ import Catalogue from '../static-data/catalogue';
 import { isDeliveryAddressRequired } from '../business-rules/delivery-address-required-rule';
 import { isBillingAddressRequired } from '../business-rules/billing-address-required-rule';
 
+const PHONE_REGEX = /^(((\+44\s?\d{4}|\(?0\d{4}\)?)\s?\d{3}\s?\d{3})|((\+44\s?\d{3}|\(?0\d{3}\)?)\s?\d{3}\s?\d{4})|((\+44\s?\d{2}|\(?0\d{2}\)?)\s?\d{4}\s?\d{4}))(\s?\#(\d{4}|\d{3}))?$/;
+const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
 export function validateOrderRequest(request: PlaceOrderRequestValidationObject, availablePaymentMethods: string[]): string[] {
     if (isShopOpen(request.date) === false) {
         return ['Sorry, the shop is now closed.'];
@@ -107,13 +110,19 @@ function validateBuyerDetails(request: PlaceOrderRequestValidationObject): strin
     if (request.buyer && isNullOrWhitespace(request.buyer.lastName)) {
         errors.push('Last name is required');
     }
-    // TODO - Shall we bother with phone number regex?
     if (request.buyer && isNullOrWhitespace(request.buyer.phone)) {
         errors.push('Phone is required');
+    } else {
+        if (PHONE_REGEX.test(request.buyer.phone) === false) {
+            errors.push(`${request.buyer.phone} is not a valid phone number. We need your phone number in case we need to contact you about your order.`);
+        }
     }
-    // TODO - Shall we bother with email address regex?
     if (request.buyer && isNullOrWhitespace(request.buyer.email)) {
         errors.push('Email is required');
+    } else {
+        if (EMAIL_REGEX.test(request.buyer.email) === false) {
+            errors.push(`${request.buyer.email} is not a valid email address. We need a valid email address to send you your order confirmation and expected delivery time.`);
+        }
     }
     return errors;
 }

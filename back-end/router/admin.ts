@@ -12,38 +12,67 @@ const router = Router();
 const MINUTE = 60 * 1000;
 router.use(session({ secret: process.env.PASSPORT_SECRET, resave: false, saveUninitialized: false, cookie: { maxAge: 30 * MINUTE }, rolling: true }));
 
-router.post('/sign-in', errorHandler(async (req: IRequest<AuthRequest>, res) => {
-    if (req.body.username !== process.env.ADMIN_USERNAME) {
+router.post('/sign-in', errorHandler(async (req: IRequest<AuthRequest>, res: IResponse<CurrentUser>) => {
+    if (req.body.username !== process.env.ADMIN_USERNAME && req.body.username !== process.env.SUPER_ADMIN_USERNAME) {
         console.log(`Username ${req.body.username} incorrect. Attempt from IP Address: ${req.ip}.`);
         return res.sendStatus(401);
     }
-    if (req.body.password !== process.env.ADMIN_PASSWORD) {
-        console.log(`Password ${req.body.password} incorrect. Attempt from IP Address: ${req.ip}.`);
-        return res.sendStatus(401);
+    if (req.body.username === process.env.ADMIN_USERNAME && req.body.password === process.env.ADMIN_PASSWORD) {
+        req.session["isAdmin"] = true;
+        return res.json({ type: "Admin" });
     }
-    req.session["isAuthenticated"] = true;
-    return res.sendStatus(200);
+    if (req.body.username === process.env.SUPER_ADMIN_USERNAME && req.body.password === process.env.SUPER_ADMIN_PASSWORD) {
+        req.session["isAdmin"] = true;
+        req.session["isSuperAdmin"] = true;
+        return res.json({ type: "SuperAdmin" });
+    }
+    console.log(`Password ${req.body.password} incorrect for ${req.body.username} user. Attempt from IP Address: ${req.ip}.`);
+    return res.sendStatus(401);
 }));
 
-router.get('/get-orders', ensureLoggedIn, errorHandler(async (_req, res: IResponse<Order[]>) => {
-    res.json(await Order.find());
+router.get('/current-user', ensureLoggedIn, errorHandler(async (req: IRequest<void>, res: IResponse<CurrentUser>) => {
+    if (req.session["isSuperAdmin"]) {
+        return res.json({ type: "SuperAdmin" });
+    }
+    return res.json({ type: "Admin" });
+}));
+
+router.get('/get-recent-orders', ensureLoggedIn, errorHandler(async (_req, res: IResponse<Order[]>) => {
+    res.json((await Order.find()).filter(x => moment().diff(moment(x.date), 'days') < 14));
+}));
+
+router.get('/get-orders', ensureLoggedIn, ensureSuperAdmin, errorHandler(async (_req, res: IResponse<Order[]>) => {
+    return res.json(await Order.find());
 }));
 
 router.post('/confirm-order', ensureLoggedIn, errorHandler(async (req: IRequest<MarkAsCompleteRequest>, res) => {
     let order = await Order.findById(req.body.orderId);
+    // Create and save voucher
+    let voucher = {
+        email: order.buyer.email,
+        amount: parseFloat((order.totalPayment * 0.1).toFixed(2)),
+        dateIssued: new Date(),
+        dateUsed: null,
+        expiryDate: moment(new Date()).add(28, 'days').toDate(),
+        code: require('crypto').randomBytes(6).toString('hex')
+    } as Voucher;
+    await new Voucher(voucher).save();
+
     // Wait for the order confirmed email to be sent
-    await sendOrderConfirmedEmail(order, req.body.readyInMinutes)
+    await sendOrderConfirmedEmail(order, voucher, req.body.readyInMinutes);
+
     //  Mark the order as complete
     order.status = 'Complete';
+
     await order.save();
     res.send();
 }));
 
-router.get('/vouchers', ensureLoggedIn, errorHandler(async (_req, res: IResponse<Voucher[]>) => {
+router.get('/vouchers', ensureLoggedIn, ensureSuperAdmin, errorHandler(async (_req, res: IResponse<Voucher[]>) => {
     res.json(await Voucher.find())
 }));
 
-router.post('/vouchers', ensureLoggedIn, errorHandler(async (req: IRequest<CreateVoucherRequest>, res: IResponse<void>) => {
+router.post('/vouchers', ensureLoggedIn, ensureSuperAdmin, errorHandler(async (req: IRequest<CreateVoucherRequest>, res: IResponse<void>) => {
     let voucher = {
         email: req.body.email,
         amount: req.body.amount,
@@ -70,9 +99,17 @@ router.get('/sign-out', errorHandler(async (req, res) => {
 export default router;
 
 function ensureLoggedIn(req: IRequest<void>, res: IResponse<void>, next: (err?: any) => void) {
-    if (req.session["isAuthenticated"]) {
+    if (req.session["isAdmin"]) {
         next();
     } else {
         res.sendStatus(401);
+    }
+}
+
+function ensureSuperAdmin(req: IRequest<void>, res: IResponse<void>, next: (err?: any) => void) {
+    if (req.session["isSuperAdmin"]) {
+        next();
+    } else {
+        res.sendStatus(403);
     }
 }

@@ -4,13 +4,21 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class AdminService {
-    public isSuperAdmin = false;
+    public isSuperAdmin: boolean = null;
 
     constructor(private http: Http) {
     }
 
-    getOrders() {
-        return this.http.get('/api/admin/get-orders').toPromise().then(x => x.json() as Order[]);
+    async initialise() {
+        if (this.isSuperAdmin === null) {
+            let user = await this.http.get('/api/admin/current-user').toPromise().then(x => x.json() as CurrentUser);
+            this.isSuperAdmin = user.type === "SuperAdmin";
+        }
+    }
+
+    async getOrders() {
+        await this.initialise();
+        return this.http.get(this.isSuperAdmin ? '/api/admin/get-orders' : '/api/admin/get-recent-orders').toPromise().then(x => x.json() as Order[]);
     }
 
     getVouchers() {
@@ -18,21 +26,13 @@ export class AdminService {
     }
 
     async signIn(credential: AuthRequest) {
-        try {
-            let username = credential.username;
-            if (username === "superadmin") {
-                credential.username = "admin";
-            }
-            await this.http.post('/api/admin/sign-in', credential).toPromise();
-            this.isSuperAdmin = username === "superadmin";
-        } catch {
-            this.isSuperAdmin = false;
-        }
+        let user = await this.http.post('/api/admin/sign-in', credential).toPromise().then(x => x.json() as CurrentUser);
+        this.isSuperAdmin = user.type === "SuperAdmin";
     }
 
-    signOut() {
-        this.isSuperAdmin = false;
-        return this.http.get("/api/admin/sign-out").toPromise();
+    async signOut() {
+        await this.http.get("/api/admin/sign-out").toPromise();
+        this.isSuperAdmin = null;
     }
 
     confirmOrder(request: MarkAsCompleteRequest) {

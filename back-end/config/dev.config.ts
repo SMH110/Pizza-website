@@ -9,6 +9,8 @@ if (!process.env.PORT) {
     process.env.CONNECTION_STRING = "mongodb://GodfatherDev:GodfatherDev123@ds127948.mlab.com:27948/pizza-delivery";
     process.env.ADMIN_USERNAME = "admin";
     process.env.ADMIN_PASSWORD = "test";
+    process.env.SUPER_ADMIN_USERNAME = "superadmin";
+    process.env.SUPER_ADMIN_PASSWORD = "supertest";
 
     // PayPal
     process.env.PAYPAL_ENABLED = "TRUE";

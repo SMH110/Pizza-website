@@ -10,10 +10,11 @@ export async function sendOrderPlacedEmail(order: Order) {
     await sendPlaceOrderEmailToUser(order);
 }
 
-export async function sendOrderConfirmedEmail(order: Order, readyInMinutes: number) {
+export async function sendOrderConfirmedEmail(order: Order, voucher: Voucher, readyInMinutes: number) {
     let readyInText = moment(Date.now()).add(readyInMinutes, 'minutes').fromNow();
-    let html = await renderEjsTemplate(__dirname + "/order-confirmed.ejs", { order, readyInMinutes, readyInText });
-    await sendEmail(order.buyer.email, "Your order has been confirmed", html);
+    let expiresOn = moment(voucher.expiryDate).format('dddd Do MMM [at] HH:mm');
+    let html = await renderEjsTemplate(__dirname + "/order-confirmed.ejs", { order, voucher, readyInMinutes, readyInText, expiresOn });
+    await sendEmail(order.buyer.email, "Your order has been confirmed + 10% off when you next order!", html);
 }
 
 export async function sendVoucherCode(voucher: Voucher) {

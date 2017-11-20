@@ -34,6 +34,10 @@
             <p style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;line-height:9px;">London</p>
             <p style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;line-height:9px;">SE27 9AZ</p>
         <% } %>
+        <h4 style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;color:#5b7da0;font-weight:bold;margin-top:20px;">Loyalty scheme - Get 10% of this order back when you next order!</h4>
+        <p style="-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;line-height:20px;">
+            Order again within 28 days and we'll give you an additional discount worth 10% of the order you just placed. It's our way of saying thanks for being a valued Godfather Pizza customer. Simply enter the voucher code <strong><%= voucher.code %></strong> at the basket to receive your additional discount of <strong>£<%= voucher.amount.toFixed(2) %></strong>. The voucher expires on <%= expiresOn %>.
+        </p>
     </div>
 </body>
 

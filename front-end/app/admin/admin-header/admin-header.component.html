@@ -17,6 +17,7 @@
                 <li [routerLinkActive]="['active']"><a [routerLink]="['/admin/orders']">Orders</a></li>
                 <li [routerLinkActive]="['active']" *ngIf="isSuperAdmin"><a [routerLink]="['/admin/customers']">Customers</a></li>
                 <li [routerLinkActive]="['active']" *ngIf="isSuperAdmin"><a [routerLink]="['/admin/reporting']">Reporting</a></li>
+                <li class="visible-xs"><a (click)="signOut()">Log out</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right hidden-xs">
                 <li><button (click)="signOut()" class="btn btn-primary sign-out">Log Out</button></li>

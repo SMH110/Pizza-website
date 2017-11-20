@@ -51,6 +51,9 @@ export class CustomersComponent {
         if (error.status === 401) {
             this.router.navigateByUrl('/admin/sign-in');
         }
+        if (error.status === 403) {
+            this.router.navigateByUrl('/admin/orders');
+        }
         if (error.status === 500) {
             this.errorService.displayErrors([genericErrorMessage]);
         }
