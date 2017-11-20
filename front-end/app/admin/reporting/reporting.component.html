@@ -1,0 +1,39 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="progress progress-striped legend">
+                <div class="progress-bar progress-bar-success">Payments received</div>
+                <div class="progress-bar progress-bar-warning">Vouchers used</div>
+                <div class="progress-bar progress-bar-danger">Discount given</div>
+            </div>
+            <h1>Orders by month</h1>
+            <table class="periods">
+                <tr *ngFor='let period of monthlyData' class="period">
+                    <td class="period-label">{{ period.label }}</td>
+                    <td>
+                        <div class="progress progress-striped" [style.width]="period.totalOrderValue / bestMonthlyTotalOrderValue * 100 + '%'">
+                            <div class="progress-bar progress-bar-success" title="£{{ period.totalPaymentValue | number: '1.2-2' }} payments received" [style.width]="period.totalPaymentValue / period.totalOrderValue * 100 + '%'">£{{ period.totalPaymentValue | number: '1.2-2' }}</div>
+                            <div class="progress-bar progress-bar-warning" title="£{{ period.totalVoucherValue | number: '1.2-2' }} vouchers used" [style.width]="period.totalVoucherValue / period.totalOrderValue * 100 + '%'">£{{ period.totalVoucherValue | number: '1.2-2' }}</div>
+                            <div class="progress-bar progress-bar-danger" title="£{{ period.totalDiscountValue | number: '1.2-2' }} discounts given" [style.width]="period.totalDiscountValue / period.totalOrderValue * 100 + '%'">£{{ period.totalDiscountValue | number: '1.2-2' }}</div>
+                        </div>
+                    </td>
+                    <td class="number-orders-placed">{{ period.numberOfOrders }} orders</td>
+                </tr>
+            </table>
+            <h1>Orders by week</h1>
+            <table class="periods">
+                <tr *ngFor='let period of weeklyData' class="period">
+                    <td class="period-label">{{ period.label }}</td>
+                    <td>
+                        <div class="progress progress-striped" [style.width]="period.totalOrderValue / bestWeeklyTotalOrderValue * 100 + '%'">
+                            <div class="progress-bar progress-bar-success" title="£{{ period.totalPaymentValue | number: '1.2-2' }} in payments" [style.width]="period.totalPaymentValue / period.totalOrderValue * 100 + '%'">£{{ period.totalPaymentValue | number: '1.2-2' }}</div>
+                            <div class="progress-bar progress-bar-warning" title="£{{ period.totalVoucherValue | number: '1.2-2' }} in vouchers" [style.width]="period.totalVoucherValue / period.totalOrderValue * 100 + '%'">£{{ period.totalVoucherValue | number: '1.2-2' }}</div>
+                            <div class="progress-bar progress-bar-danger" title="£{{ period.totalDiscountValue | number: '1.2-2' }} in discounts" [style.width]="period.totalDiscountValue / period.totalOrderValue * 100 + '%'">£{{ period.totalDiscountValue | number: '1.2-2' }}</div>
+                        </div>
+                    </td>
+                    <td class="number-orders-placed">{{ period.numberOfOrders }} orders</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

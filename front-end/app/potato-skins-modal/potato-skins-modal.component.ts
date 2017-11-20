@@ -5,7 +5,7 @@ import Toppings from '../../../shared/static-data/toppings';
 import calculatePrice from '../../../shared/business-rules/potato-skins-pricing-rule';
 
 @Component({
-    templateUrl: "potato-skins-modal.component.html",
+    templateUrl: "./potato-skins-modal.component.html",
     styleUrls: [`./potato-skins-modal.component.scss`]
 })
 export class PotatoSkinsModalComponent extends BaseModalComponent<AddSideModalDto, string[]> {
