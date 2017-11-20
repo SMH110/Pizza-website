@@ -40,9 +40,11 @@ export class OrdersComponent implements OnInit {
         this.errorService.clearErrors();
         this.adminService.getOrders()
             .then(response => {
-                this.orders = response.sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf());
-                this.orders = this.orders.map(order => {
+                this.orders = response
+                    .filter(x => this.adminService.isSuperAdmin || (moment().diff(moment(x.date), 'days') < 28))
+                    .sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf());
 
+                this.orders = this.orders.map(order => {
                     return Object.assign({ isExpanded: order.status === 'Outstanding' ? true : false }, order)
                 })
             }, error => this.handleError(error, 'There was an unexpected error refreshing the orders. Please try again.'));

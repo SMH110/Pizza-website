@@ -1,0 +1,40 @@
+.container {
+    background-color: #ffffff;
+    padding-bottom: 20px;
+    padding-top: 20px;
+}
+
+.periods {
+    margin-top: 20px;
+    width: 100%;
+}
+
+.legend {
+    width: 400px;
+
+    .progress-bar {
+        width: 33.33333%;
+    }
+}
+
+.period {
+    .number-orders-placed {
+        padding-left: 10px;
+        white-space: nowrap;
+        width: .5%;
+    }
+
+    .period-label {
+        padding-right: 10px;
+        white-space: nowrap;
+        width: .5%;
+    }
+
+    .progress {
+        margin-bottom: 0;
+    }
+
+    td {
+        padding-bottom: 10px;
+    }
+}

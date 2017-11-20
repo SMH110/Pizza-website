@@ -43,7 +43,6 @@ import { ErrorService } from './service/error.service';
 import { BasketService } from './service/basket.service';
 import { OrderService } from './service/order.service';
 import { AdminService } from "./service/admin.service";
-import { SignInService } from './service/sign-in.service';
 import { NotificationService } from './service/notification.service';
 import { ModalService } from './service/modal.service';
 import { UserDetailsService } from './service/user-details.service';
@@ -54,6 +53,7 @@ import ErrorReporter from './error-reporter';
 
 import Routes from './routes';
 import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
+import { ReportingComponent } from './admin/reporting/reporting.component';
 
 @NgModule({
     imports: [BrowserModule, HttpModule, FormsModule, RouterModule.forRoot(Routes), Ng2Bs3ModalModule],
@@ -76,6 +76,7 @@ import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
         HeaderComponent,
         OrdersComponent,
         CustomersComponent,
+        ReportingComponent,
         SignInComponent,
         SpecialOffersComponent,
         NotificationsComponent,
@@ -98,7 +99,6 @@ import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
         AdminService,
         ErrorService,
         BasketService,
-        SignInService,
         NotificationService,
         ModalService,
         UserDetailsService,

@@ -15,7 +15,7 @@ class AdminSignInPageObject {
         await element(by.name('password')).sendKeys('test');
         await element(by.buttonText('Sign in')).click();
         console.log('Sign in clicked...');
-        await urlShouldBecome(url => /\/get-orders/.test(url));
+        await urlShouldBecome(url => /\/orders/.test(url));
         console.log('Successfully signed in, now on orders page');
     }
 }

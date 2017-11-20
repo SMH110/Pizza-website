@@ -26,6 +26,10 @@ export class AdminHeaderComponent {
         })
     }
 
+    get isSuperAdmin() {
+        return this.adminService.isSuperAdmin;
+    }
+
     private handleError(error: any, genericErrorMessage: string) {
         if (error.status === 401) {
             this.router.navigateByUrl('/admin/sign-in');

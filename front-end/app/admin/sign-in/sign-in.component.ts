@@ -1,25 +1,25 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { SignInService } from '../../service/sign-in.service';
 import { ErrorService } from '../../service/error.service';
+import { AdminService } from '../../service/admin.service';
 
 @Component({
-    templateUrl: 'sign-in.component.html'
+    templateUrl: './sign-in.component.html'
 })
 export class SignInComponent {
     username: string;
     password: string;
 
-    constructor(private signInService: SignInService, private errorService: ErrorService, private router: Router) {
+    constructor(private adminService: AdminService, private errorService: ErrorService, private router: Router) {
     }
 
     async signIn() {
         this.errorService.clearErrors();
 
         try {
-        await this.signInService.signIn({username: this.username,password: this.password});
-        this.router.navigate(['/admin/get-orders']);
+        await this.adminService.signIn({username: this.username,password: this.password});
+        this.router.navigate(['/admin/orders']);
         } catch (error) {
             if (error.status === 401) {
                 this.errorService.displayErrors(["The username or password is incorrect."]);

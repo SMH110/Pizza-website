@@ -22,6 +22,7 @@ import { SpecialOffersComponent } from "./special-offers/special-offers.componen
 
 
 import { Routes } from '@angular/router';
+import { ReportingComponent } from './admin/reporting/reporting.component';
 
 export default [
     { path: 'pizza', component: PizzaComponent },
@@ -41,8 +42,9 @@ export default [
     { path: 'checkout', canActivate: [CheckoutGuard], component: CheckoutComponent },
     { path: 'order/success', component: OrderSuccessComponent },
     { path: 'order/failure', component: OrderFailureComponent },
-    { path: 'admin/view-customers', component: CustomersComponent },
-    { path: 'admin/get-orders', component: OrdersComponent },
+    { path: 'admin/customers', component: CustomersComponent },
+    { path: 'admin/reporting', component: ReportingComponent },
+    { path: 'admin/orders', component: OrdersComponent },
     { path: 'admin/sign-in', component: SignInComponent },
     { path: '', redirectTo: 'pizza', pathMatch: 'full' }
 ] as Routes;

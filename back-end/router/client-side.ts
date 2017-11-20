@@ -21,8 +21,9 @@ router.get('/contact-us', serveIndex);
 router.get('/checkout', serveIndex);
 router.get('/order/success', serveIndex);
 router.get('/order/failure', serveIndex);
-router.get('/admin/get-orders', serveIndex);
-router.get('/admin/view-customers', serveIndex);
+router.get('/admin/orders', serveIndex);
+router.get('/admin/customers', serveIndex);
+router.get('/admin/reporting', serveIndex);
 router.get('/admin/sign-in', serveIndex);
 
 function serveIndex(_req: Request, res: Response) {

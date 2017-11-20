@@ -14,8 +14,9 @@
 
         <div class="collapse navbar-collapse admin-navigation" *ngIf="isSignInScreen() === false">
             <ul class="nav navbar-nav">
-                <li [routerLinkActive]="['active']"><a [routerLink]="['/admin/get-orders']">Orders</a></li>
-                <li [routerLinkActive]="['active']"><a [routerLink]="['/admin/view-customers']">Customers</a></li>
+                <li [routerLinkActive]="['active']"><a [routerLink]="['/admin/orders']">Orders</a></li>
+                <li [routerLinkActive]="['active']" *ngIf="isSuperAdmin"><a [routerLink]="['/admin/customers']">Customers</a></li>
+                <li [routerLinkActive]="['active']" *ngIf="isSuperAdmin"><a [routerLink]="['/admin/reporting']">Reporting</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right hidden-xs">
                 <li><button (click)="signOut()" class="btn btn-primary sign-out">Log Out</button></li>
