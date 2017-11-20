@@ -7,11 +7,8 @@
                     <tr>
                         <th>Name</th>
                         <th>Orders (30d)</th>
-                        <th>Order total (30d)</th>
-                        <th>Orders (all)</th>
-                        <th>Order total (all)</th>
-                        <th>Current vouchers</th>
-                        <th>Used vouchers</th>
+                        <th>Orders (all-time)</th>
+                        <th>Vouchers</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -19,12 +16,9 @@
                     <ng-container *ngFor="let customer of customers">
                         <tr class="customer-summary">
                             <td class="name">{{ getNames(customer)[0] }}</td>
-                            <td class="orders-30d">{{ getOrdersCount30d(customer) }}</td>
-                            <td class="order-total-30d">£{{ getOrderTotal30d(customer) | number:'1.2-2' }}</td>
-                            <td class="orders-all">{{ getOrdersCountAll(customer) }}</td>
-                            <td class="order-total-all">£{{ getOrderTotalAll(customer) | number:'1.2-2' }}</td>
-                            <td class="current-vouchers">{{ getCurrentVouchers(customer) }}</td>
-                            <td class="used-vouchers">{{ getUsedVouchers(customer) }}</td>
+                            <td class="orders-30d">{{ getOrdersCount30d(customer) }} (£{{ getOrderTotal30d(customer) | number:'1.2-2' }})</td>
+                            <td class="orders-all">{{ getOrdersCountAll(customer) }} (£{{ getOrderTotalAll(customer) | number:'1.2-2' }})</td>
+                            <td class="current-vouchers">{{ getCurrentVouchers(customer) }} current / {{ getExpiredVouchers(customer) }} expired / {{ getUsedVouchers(customer) }} used</td>
                             <td class="actions">
                                 <button class="btn btn-info toggle-expanded" (click)="toggleDetails(customer)">{{ isShowDetails(customer) ? 'Hide' : 'Show' }} Details</button>
                                 <button class="btn btn-info toggle-expanded" (click)="toggleVouchers(customer)">{{ isShowVouchers(customer) ? 'Hide' : 'Show' }} Vouchers</button>
@@ -60,6 +54,7 @@
                                             <th>Voucher code</th>
                                             <th>Amount</th>
                                             <th>Date issued</th>
+                                            <th>Expiry date</th>
                                             <th>Date used</th>
                                         </tr>
                                     </thead>
@@ -68,6 +63,7 @@
                                             <td>{{voucher.code}}</td>
                                             <td>{{voucher.amount}}</td>
                                             <td>{{getDateIssued(voucher)}}</td>
+                                            <td>{{getExpiryDate(voucher)}}</td>
                                             <td>{{getDateUsed(voucher)}}</td>
                                         </tr>
                                     </tbody>

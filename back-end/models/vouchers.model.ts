@@ -6,7 +6,8 @@ export default model<PersistedVoucher>('vouchers', new Schema({
     email: String,
     amount: Number,
     dateIssued: Date,
-    dateUsed: Date
+    dateUsed: Date,
+    expiryDate: Date
 }));
 
 export type PersistedVoucher = Voucher & Document;

@@ -39,4 +39,5 @@ interface Voucher {
     amount: number;
     dateIssued: Date;
     dateUsed: Date;
+    expiryDate: Date;
 }

@@ -134,7 +134,11 @@ export class CustomersComponent {
     }
 
     getCurrentVouchers(customer: Customer) {
-        return customer.vouchers.filter(x => x.dateUsed === null).length;
+        return customer.vouchers.filter(x => x.dateUsed === null && (new Date() < new Date(x.expiryDate))).length;
+    }
+
+    getExpiredVouchers(customer: Customer) {
+        return customer.vouchers.filter(x => x.dateUsed === null && (new Date() > new Date(x.expiryDate))).length;
     }
 
     getUsedVouchers(customer: Customer) {
@@ -151,11 +155,21 @@ export class CustomersComponent {
     }
 
     getDateIssued(voucher: Voucher) {
-        return moment(voucher.dateIssued).format('dddd Do MMM, HH:mm');
+        return moment(voucher.dateIssued).format('dddd Do MMM [at] HH:mm');
+    }
+
+    getExpiryDate(voucher: Voucher) {
+        return moment(voucher.expiryDate).format('dddd Do MMM [at] HH:mm');
     }
 
     getDateUsed(voucher: Voucher) {
-        return voucher.dateUsed ? moment(voucher.dateUsed).format('dddd Do MMM, HH:mm') : "Not yet used";
+        if (voucher.dateUsed) {
+            return moment(voucher.dateUsed).format('dddd Do MMM [at] HH:mm');
+        }
+        if (new Date() > new Date(voucher.expiryDate)) {
+            return "Expired";
+        }
+        return "Not yet used";
     }
 }
 

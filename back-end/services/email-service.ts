@@ -18,7 +18,17 @@ export async function sendOrderConfirmedEmail(order: Order, readyInMinutes: numb
 
 export async function sendVoucherCode(voucher: Voucher) {
     let subject = `£${voucher.amount} off your next order at Godfather Pizza Wood Oven`;
-    let html = await renderEjsTemplate(__dirname + "/voucher-code.ejs", { voucher });
+    let expiresIn = moment(voucher.expiryDate).fromNow();
+    let expiresOn = moment(voucher.expiryDate).format('dddd Do MMM [at] HH:mm');
+    let html = await renderEjsTemplate(__dirname + "/voucher-code.ejs", { voucher, expiresIn, expiresOn });
+    await sendEmail(voucher.email, subject, html);
+}
+
+export async function sendVoucherReminder(voucher: Voucher) {
+    let subject = `Your £${voucher.amount} voucher expires soon`;
+    let expiresIn = moment(voucher.expiryDate).fromNow();
+    let expiresOn = moment(voucher.expiryDate).format('dddd Do MMM [at] HH:mm');
+    let html = await renderEjsTemplate(__dirname + "/voucher-reminder.ejs", { voucher, expiresIn, expiresOn });
     await sendEmail(voucher.email, subject, html);
 }
 

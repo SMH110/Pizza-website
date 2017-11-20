@@ -4,6 +4,7 @@ import Order from '../models/orders.model';
 import Voucher from '../models/vouchers.model';
 import { errorHandler, IRequest, IResponse } from './router-utils';
 import { sendOrderConfirmedEmail, sendVoucherCode } from '../services/email-service';
+import * as moment from 'moment';
 
 const router = Router();
 
@@ -48,6 +49,7 @@ router.post('/vouchers', ensureLoggedIn, errorHandler(async (req: IRequest<Creat
         amount: req.body.amount,
         dateIssued: new Date(),
         dateUsed: null,
+        expiryDate: moment(new Date()).add(14, 'days').toDate(),
         code: require('crypto').randomBytes(6).toString('hex')
     } as Voucher;
     await new Voucher(voucher).save();

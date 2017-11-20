@@ -10,6 +10,9 @@ router.get('/:id', errorHandler(async (req: IRequest<void>, res: IResponse<Vouch
         if (!voucher) {
             return res.sendStatus(404);
         }
+        if (new Date() > voucher.expiryDate) {
+            return res.sendStatus(404);
+        }
         res.json(voucher);
     } catch (e) {
         return res.sendStatus(404);
