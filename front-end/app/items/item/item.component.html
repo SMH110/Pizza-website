@@ -12,7 +12,7 @@
                 <option *ngFor='let version of versions' value="{{version}}">{{version}}</option>
             </select>
             <h4 class="price">£{{ getPrice() | number:'1.2-2' }}</h4>
-            <button (click)='addToBasket()' class="btn btn-primary btn-success">Add to Basket</button>
+            <button (click)='addToBasket()' class="btn btn-success">Add to Basket</button>
         </div>
     </div>
 </div>
