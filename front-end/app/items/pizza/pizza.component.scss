@@ -1,0 +1,78 @@
+.jumbotron {
+    margin-bottom: 16px;
+    overflow: hidden;
+    padding: 0;
+    position: relative;
+    width: 100%;
+
+    .btn {
+        width: 200px;
+    }
+
+    .content {
+        padding: 40px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .heading {
+        text-shadow: 0 0 5px #ffffff;
+    }
+
+    .heading,
+    .subheading {
+        color: #ffffff;
+        text-shadow: 0 0 10px #000000, 0 0 5px #000000, 0 0 2px #000000;
+    }
+
+    img {
+        border-radius: 4px;
+        position: absolute;
+    }
+}
+
+.thumbnail img {
+    max-height: 160px;
+}
+
+select {
+    margin-bottom: 15px;
+}
+
+.form-control {
+    display: inline-block;
+    margin-right: 10px;
+    width: 50%;
+}
+@media (min-width: 1200px) {
+    .jumbotron {
+        min-height: 354px;
+    }
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+    .jumbotron {
+        .content {
+            padding-top: 30px;
+        }
+    }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+    .jumbotron {
+        .content {
+            padding-bottom: 14px;
+            padding-top: 10px;
+        }
+
+        .heading {
+            font-size: 48px;
+        }
+    }
+}
+@media (max-width: 767px) {
+    // TODO - Mobile styling
+    .jumbotron {
+        img {
+            position: static;
+        }
+    }
+}

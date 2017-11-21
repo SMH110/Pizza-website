@@ -3,20 +3,7 @@ import Catalogue from '../../../../shared/static-data/catalogue';
 
 @Component({
     templateUrl: `./pizza.component.html`,
-    styles: [`
-   .thumbnail img {
-    max-height: 160px;
-}
-select {
-    margin-bottom: 15px;
-}
-
-.form-control{
-    width:50%;
-    display: inline-block;
-    margin-right:10px;
-}
-`]
+    styleUrls: [`./pizza.component.scss`]
 })
 export class PizzaComponent {
     pizzas: Item[];

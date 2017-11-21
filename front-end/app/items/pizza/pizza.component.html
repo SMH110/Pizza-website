@@ -1,4 +1,19 @@
-<jumbotron jumbotronImage="/images/pizzas-jumbotron.jpg"></jumbotron>
+<div class="container">
+    <div class="alert alert-warning visible-xs-block">
+        <h4>Loyalty Scheme</h4>
+        <p>Regular customers now get an additional 10% off. <a class="alert-link" [routerLink]="['/special-offers']">Click here to find out more</a>.</p>
+    </div>
+    <div class="jumbotron hidden-xs">
+        <img src="/images/pizzas-jumbotron.jpg" class="img-responsive">
+        <div class="content hidden-xs">
+            <h1 class="heading">Loyalty scheme</h1>
+            <p class="subheading">Regular customers now get an additional 10% off</p>
+            <p>
+                <a class="btn btn-success btn-lg" [routerLink]="['/special-offers']">Find out more</a>
+            </p>
+        </div>
+    </div>
+</div>
 <div class="container products">
     <item *ngFor='let pizza of pizzas' [item]="pizza"></item>
 </div>
