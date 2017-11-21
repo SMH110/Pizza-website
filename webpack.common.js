@@ -10,8 +10,12 @@ module.exports = {
         polyfills: './front-end/polyfills.ts',
         vendor: './front-end/vendor.ts',
         app: './front-end/main.ts',
-        analytics: './front-end/analytics.js',
         styles: './front-end/styles.ts'
+    },
+    output: {
+        path: root('dist'),
+        filename: '[name].[chunkhash].js',
+        chunkFilename: '[id].[chunkhash].chunk.js'
     },
     resolve: {
         modules: [
@@ -44,7 +48,8 @@ module.exports = {
         new webpack.EnvironmentPlugin({
             'ENV': 'development',
             'IS_TEST_ENVIRONMENT': 'FALSE'
-        })
+        }),
+        new ExtractTextPlugin('[name].[chunkhash].css')
     ],
     module: {
         rules: [

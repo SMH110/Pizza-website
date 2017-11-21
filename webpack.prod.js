@@ -8,13 +8,9 @@ const root = require('./webpack-helpers');
 
 module.exports = webpackMerge(commonConfig, {
     devtool: 'source-map',
-
-    output: {
-        path: root('dist'),
-        filename: '[name].[chunkhash].js',
-        chunkFilename: '[id].[chunkhash].chunk.js'
+    entry: {
+        analytics: './front-end/analytics.js'
     },
-
     plugins: [
         new webpack.NoEmitOnErrorsPlugin(),
         new webpack.optimize.UglifyJsPlugin({ // https://github.com/angular/angular/issues/10618
@@ -23,7 +19,6 @@ module.exports = webpackMerge(commonConfig, {
             },
             comments: false
         }),
-        new ExtractTextPlugin('[name].[chunkhash].css'),
         new webpack.LoaderOptionsPlugin({
             htmlLoader: {
                 minimize: false // workaround for ng2
