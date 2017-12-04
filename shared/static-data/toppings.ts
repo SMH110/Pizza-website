@@ -30,8 +30,8 @@ const toppings: Topping[] = [
     { type: 'Meat', name: 'Parma Ham' },
     { type: 'Meat', name: 'Bacon' },
     { type: 'Meat', name: 'Chicken' },
-    { type: 'Meat', name: 'Italian Salami' },
-    { type: 'Meat', name: 'Italian Pepperoni' },
+    { type: 'Meat', name: 'Salami' },
+    { type: 'Meat', name: 'Pepperoni' },
     { type: 'Meat', name: 'Tandoori Chicken' },
     { type: 'Meat', name: 'Meat Balls' },
 

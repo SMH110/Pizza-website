@@ -267,7 +267,7 @@ const catalogue: Item[] = [
     },
     {
         name: 'Bufalina',
-        description: 'Mozzarella, Tomato Sauce, Italian Buffalo Mozzarella, Cherry Tomatoes, Roasted Aubergines',
+        description: 'Mozzarella, Tomato Sauce, Buffalo Mozzarella, Cherry Tomatoes, Roasted Aubergines',
         imageName: 'images/pizza/bufalina.jpg',
         price: { 'Medium': 10.99, 'Large': 12.99, 'Extra Large': 14.99 },
         tags: ['pizza', 'vegetarian']
@@ -400,7 +400,7 @@ const catalogue: Item[] = [
     },
     {
         name: 'Tutto Le Carni',
-        description: 'Mozzarella, Tomato Sauce, Chicken, Italian Salami, Italian Ham, Black Olives',
+        description: 'Mozzarella, Tomato Sauce, Chicken, Salami, Ham, Black Olives',
         imageName: 'images/pizza/tutto-le-carni.jpg',
         price: { 'Medium': 10.99, 'Large': 12.99, 'Extra Large': 14.99 },
         tags: ['pizza']
@@ -471,7 +471,7 @@ const catalogue: Item[] = [
     {
         name: 'Calzone Meat',
         price: { 'Medium': 10.99, 'Large': 12.99, 'Extra Large': 14.99 },
-        description: 'Tomato sauce, mozzarella, Italian ham, beef, pepperoni & salami',
+        description: 'Tomato sauce, mozzarella, ham, beef, pepperoni & salami',
         imageName: 'images/calzone/calzone.jpg',
         tags: ['calzone']
     },
