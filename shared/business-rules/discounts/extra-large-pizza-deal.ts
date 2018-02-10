@@ -4,7 +4,7 @@ import { MARGHERITA } from "../../static-data/catalogue";
 
 export const _extraLargePizzaSideAndCanDeal: DiscountRule = {
     name: 'Any Extra Large pizza, a side and a can of drink for £16.99',
-    description: 'Any Extra Large pizza, a side and a can of drink for £16.99',
+    description: 'Any Extra Large pizza, a side (excluding dips) and a can of drink for £16.99',
     calculate(basket: DiscountCalculationDto) {
         let pizzas = sortByPrice(flatten(getBasePrices(basket.items.filter(x => x.tags.indexOf('pizza') !== -1 && x.version === 'Extra Large' && x.name !== MARGHERITA))));
         let sides = sortByPrice(flatten(basket.items.filter(x => x.tags.indexOf('side') !== -1 && x.name !== 'Dips')));

@@ -3,12 +3,12 @@ import { flatten, getBasePrices, sortByPrice, sum } from './helpers';
 import { MARGHERITA } from "../../static-data/catalogue";
 
 export const _xLargeDeal: DiscountRule = {
-    name: 'Any Extra Large pizza for £11.99',
-    description: 'Any Extra Large pizza for £11.99',
+    name: 'Any Extra Large pizza for £12.99',
+    description: 'Any Extra Large pizza for £12.99',
     calculate(basket: DiscountCalculationDto) {
         let pizzas = sortByPrice(flatten(getBasePrices(basket.items.filter(x => x.tags.indexOf('pizza') !== -1 && x.version === 'Extra Large' && x.name !== MARGHERITA))));
         let timesToApply = pizzas.length;
-        return sum(pizzas.slice(0, timesToApply)) - (timesToApply * 11.99);
+        return sum(pizzas.slice(0, timesToApply)) - (timesToApply * 12.99);
     }
 }
 
