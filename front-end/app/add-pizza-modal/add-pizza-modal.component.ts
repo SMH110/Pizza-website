@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { BaseModalComponent } from '../base-modal.component';
 import Toppings, { PizzaToppingPrices } from '../../../shared/static-data/toppings';
 import calculatePrice from '../../../shared/business-rules/pizza-pricing-rule';
+import { pizzaBases } from '../../../shared/static-data/pizza-bases';
 
 @Component({
     templateUrl: `./add-pizza-modal.component.html`,
@@ -12,7 +13,8 @@ export class AddPizzaModalComponent extends BaseModalComponent<AddPizzaModalDto,
     availableToppings: Topping[] = Toppings;
     selectedToppings: SelectedTopping[] = [];
     toppingToAdd: Topping = Toppings[0];
-    isBBQBaseSelected = false;
+    availableBases: PizzaBase[] = pizzaBases;
+    selectedBase: PizzaBase = null;
 
     addSelectedTopping() {
         let existingTopping = this.selectedToppings.find(x => x.name === this.toppingToAdd.name);
@@ -58,14 +60,10 @@ export class AddPizzaModalComponent extends BaseModalComponent<AddPizzaModalDto,
         return this.data.item.name !== "BBQ Pizza";
     }
 
-    getBaseName() {
-        return this.data.item.name === 'Garlic Meat Lover' ? 'Garlic sauce' : 'Tomato sauce';
-    }
-
     private getSelectedOptions(): string[] {
         let options = [];
-        if (this.isBBQBaseSelected) {
-            options.push('BBQ base');
+        if (this.selectedBase !== null) {
+            options.push(this.selectedBase.name);
         }
         for (let topping of this.selectedToppings) {
             let amountToAdd = topping.quantity;

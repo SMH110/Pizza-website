@@ -11,6 +11,12 @@ interface Topping {
     name: string;
 }
 
+interface PizzaBase {
+    name: string;
+    displayName: string;
+    price: number;
+}
+
 interface PlaceOrderRequest {
     buyer: Buyer;
     deliveryAddress: Address;

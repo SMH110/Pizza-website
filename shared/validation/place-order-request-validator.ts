@@ -3,6 +3,7 @@ import Toppings from '../static-data/toppings';
 import Catalogue from '../static-data/catalogue';
 import { isDeliveryAddressRequired } from '../business-rules/delivery-address-required-rule';
 import { isBillingAddressRequired } from '../business-rules/billing-address-required-rule';
+import { pizzaBases } from '../static-data/pizza-bases';
 
 const PHONE_REGEX = /^(((\+44\s?\d{4}|\(?0\d{4}\)?)\s?\d{3}\s?\d{3})|((\+44\s?\d{3}|\(?0\d{3}\)?)\s?\d{3}\s?\d{4})|((\+44\s?\d{2}|\(?0\d{2}\)?)\s?\d{4}\s?\d{4}))(\s?\#(\d{4}|\d{3}))?$/;
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -69,17 +70,18 @@ function validatePizzaOptions(orderItem: OrderItemValidationObject): string[] {
     let errors = [];
     if (orderItem.options.length < 1) return;
 
-    const toppings = orderItem.options.filter(option => option !== "BBQ base");
+    const toppings = orderItem.options.filter(option => pizzaBases.find(x => x.name === option) === undefined);
     for (let option of toppings) {
         if (Toppings.find(topping => topping.name === option) === undefined) {
             errors.push(`${option} is not a valid option for pizzas`);
         }
     }
-    if (orderItem.name === "BBQ Pizza" && orderItem.options.indexOf("BBQ base") !== -1) {
-        errors.push(`BBQ base cannot be added to BBQ Pizza`);
+    const bases = orderItem.options.filter(option => pizzaBases.find(x => x.name === option) !== undefined)
+    if (orderItem.name === "BBQ Pizza" && bases.length > 0) {
+        errors.push(`A custom pizza sauce cannot be added to the BBQ Pizza`);
     }
-    if (orderItem.name !== "BBQ Pizza" && orderItem.options.indexOf("BBQ base") !== orderItem.options.lastIndexOf("BBQ base")) {
-        errors.push(`BBQ base cannot be added more than once with ${orderItem.name}`);
+    if (orderItem.name !== "BBQ Pizza" && bases.length > 1) {
+        errors.push(`You cannot select multiple custom pizza sauces on ${orderItem.name}`);
     }
 
     return errors;

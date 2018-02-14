@@ -5,8 +5,8 @@
     <modal-body *ngIf="data">
         <h4>Choose your base</h4>
         <div class="base-selection" *ngIf="isShowBaseOptions()">
-            <button class="btn btn-default" [ngClass]="{ 'btn-success': !isBBQBaseSelected }" (click)="isBBQBaseSelected = false">{{ getBaseName() }}</button>
-            <button class="btn btn-default" [ngClass]="{ 'btn-success': isBBQBaseSelected }" (click)="isBBQBaseSelected = true">BBQ sauce (£2 extra)</button>
+            <button class="btn btn-default" [ngClass]="{ 'btn-success': selectedBase === null }" (click)="selectedBase = null">Tomato sauce</button>
+            <button *ngFor="let base of availableBases" class="btn btn-default" [ngClass]="{ 'btn-success': selectedBase === base }" (click)="selectBase = base">{{ base.displayName }} (£{{ base.price }} extra)</button>
         </div>
 
         <h4>Change existing toppings</h4>
