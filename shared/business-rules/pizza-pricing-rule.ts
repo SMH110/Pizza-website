@@ -10,7 +10,7 @@ export default function (item: BasketItem) {
         price += toppings.length * PizzaToppingPrices[item.version];
     }
     if (item.options.indexOf("BBQ base") !== -1) {
-        price += 2;
+        price += 1;
     }
     return price;
 }
