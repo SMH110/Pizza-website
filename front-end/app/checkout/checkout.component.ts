@@ -96,10 +96,6 @@ export class CheckoutComponent {
         return this.basket.deliveryMethod !== null;
     }
 
-    isDisplayPaymentSurchargeMessage(): boolean {
-        return this.basket.paymentMethod === 'Credit / Debit Card';
-    }
-
     isAddressDisplayed(): boolean {
         return this.basket.paymentMethod !== null && isDeliveryAddressRequired(this.basket);
     }
@@ -109,7 +105,7 @@ export class CheckoutComponent {
     }
 
     getTotalPrice(): number {
-        return this.basket.getTotalPayable() + (this.basket.paymentMethod === 'Credit / Debit Card' ? 0.50 : 0)
+        return this.basket.getTotalPayable();
     }
 
     getOrderButtonText(): string {

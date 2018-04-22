@@ -16,8 +16,6 @@ export default class BarclaysEPDQ implements PaymentGateway {
     constructor(private baseReturnAddress: string) { }
 
     public async createPaymentRedirect(order: PersistedOrder): Promise<PaymentRedirectDetails> {
-        await addCardFeeToOrder(order);
-
         let redirectParameters = getPaymentRedirectParameters(order, this.baseReturnAddress);
         let redirectUrl = `${GATEWAY_ADDRESS}?${stringifyQS(redirectParameters)}`;
         console.log(`Barclays ePDQ redirect URL: ${redirectUrl}`);
@@ -27,24 +25,6 @@ export default class BarclaysEPDQ implements PaymentGateway {
             isFullPageRedirect: true
         };
     }
-}
-
-async function addCardFeeToOrder(order: PersistedOrder) {
-    console.log(`Barclays ePDQ adding fee to order: ${order._id}`);
-    order.orderItems.push({
-        name: 'Credit / Debit card fee',
-        quantity: 1,
-        version: null,
-        description: null,
-        imageName: null,
-        price: 0.5,
-        tags: [],
-        options: []
-    });
-    order.totalPayment = Math.round((order.totalPayment + 0.5) * 100) / 100;
-    order.total = Math.round((order.total + 0.5) * 100) / 100;
-    await order.save();
-    console.log(`Barclays ePDQ successfully added card fee to order: ${order._id}`);
 }
 
 export function initialiseBarclaysEPDQEndpoints(application: Application) {

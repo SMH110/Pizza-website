@@ -48,7 +48,6 @@
                     <button class="btn btn-default" [ngClass]="{ 'btn-success': basket.paymentMethod === method }" *ngFor="let method of paymentMethods"
                         (click)="selectPaymentMethod(method)">{{method}}</button>
                 </div>
-                <p class="text-danger" *ngIf="isDisplayPaymentSurchargeMessage()">A 50p surcharge applies to Credit / Debit card payments</p>
             </div>
 
             <div class="address-section" *ngIf="isAddressDisplayed()">
@@ -123,7 +122,7 @@
         </form>
         <div class="actions">
             <button class="btn btn-success pull-right" (click)="order()" *ngIf="isOrderButtonDisplayed()">{{ getOrderButtonText() }}</button>
-            <h4 class="total">Total: £{{getTotalPrice() | number:"1.2-2"}}</h4><span class="text-danger" *ngIf="isDisplayPaymentSurchargeMessage()">(50p Credit / Debit card surchage included)</span>
+            <h4 class="total">Total: £{{getTotalPrice() | number:"1.2-2"}}</h4>
         </div>
     </div>
     <div class="spinner" *ngIf="isShowSpinner">

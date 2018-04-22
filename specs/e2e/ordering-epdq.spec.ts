@@ -75,9 +75,6 @@ describe("EPDQ e2e test", () => {
         expect(await orderItems[0].name.getText()).to.equal('Spinaci - Extra Large');
         expect(await orderItems[0].quantity.getText()).to.equal('1');
         expect(await orderItems[0].price.getText()).to.equal('£14.99');
-        expect(await orderItems[1].name.getText()).to.equal('Credit / Debit card fee');
-        expect(await orderItems[1].quantity.getText()).to.equal('1');
-        expect(await orderItems[1].price.getText()).to.equal('£0.50');
 
         await orderSummary.toggleExpanded();
         expect(await orderDetails.isPresent()).to.be.false;
