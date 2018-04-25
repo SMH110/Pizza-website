@@ -5,6 +5,7 @@ import Order, { PersistedOrder } from '../models/orders.model';
 import { PaymentGateway } from './interfaces';
 import { sendOrderPlacedEmail } from '../services/email-service'
 import { updateVoucherIfNecessary } from "../services/basket-service";
+import { storeError } from '../services/error-service';
 
 export const IsBarclaysEPDQEnabled = process.env.BARCLAYS_EPDQ_ENABLED === "TRUE";
 
@@ -76,6 +77,7 @@ export function initialiseBarclaysEPDQEndpoints(application: Application) {
                 throw new Error(`Barclays ePDQ payment not accepted. Transaction status ${status} for ${JSON.stringify(req.query, null, 4)}`);
             }
         } catch (error) {
+            storeError(error);
             console.error('Error in /barclays-epdq/feedback', error);
             return res.redirect('/order/failure');
         }

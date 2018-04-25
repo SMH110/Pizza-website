@@ -5,6 +5,7 @@ import { PaymentGateway } from './interfaces';
 import { sendOrderPlacedEmail } from '../services/email-service'
 import { BasketService } from '../../shared/services/basket-service';
 import { updateVoucherIfNecessary } from "../services/basket-service";
+import { storeError } from '../services/error-service';
 export const IsPayPalEnabled = process.env.PAYPAL_ENABLED === "TRUE";
 const PAYPAL_ENVIRONMENT_NAME = process.env.IS_PAYPAL_SANDBOX === "TRUE" ? "api.sandbox.paypal.com" : "api.paypal.com";
 
@@ -96,6 +97,7 @@ export function initialisePayPalEndpoints(application: Application) {
             sendOrderPlacedEmail(order);
 
         } catch (error) {
+            storeError(error);
             console.error('Error in /paypal/execute', error);
             return res.redirect('/order/failure');
         }

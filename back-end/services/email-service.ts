@@ -2,6 +2,7 @@ import { renderFile } from "ejs";
 import { createTransport } from "nodemailer";
 import { BasketService } from '../../shared/services/basket-service';
 import * as moment from 'moment';
+import { storeError } from "./error-service";
 
 const STORE_EMAIL_ADDRESS = process.env.SMTP_EMAIL;
 
@@ -63,6 +64,7 @@ async function sendEmail(recipientEmail: string, subject: string, html: string) 
         await transporter.sendMail({ from: `'Godfather Pizza' <${STORE_EMAIL_ADDRESS}>`, to: recipientEmail, subject, html });
         console.log(`Successfully sent email ${subject} to ${recipientEmail}`);
     } catch (error) {
+        storeError(error);
         console.error(`Error sending email ${subject} to ${recipientEmail}`, error);
     }
 }

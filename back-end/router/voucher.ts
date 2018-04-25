@@ -14,7 +14,7 @@ router.get('/:id', errorHandler(async (req: IRequest<void>, res: IResponse<Vouch
             return res.sendStatus(404);
         }
         res.json(voucher);
-    } catch (e) {
+    } catch {
         return res.sendStatus(404);
     }
 }));

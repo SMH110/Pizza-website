@@ -18,7 +18,7 @@ router.post('/place-order', errorHandler(async (req: IRequest<PlaceOrderRequest>
     if (req.body.voucherCode) {
         try {
             await basketService.setVoucherCode(req.body.voucherCode);
-        } catch (e) {
+        } catch {
             return res.status(400).json(["The voucher code you entered is not valid"]);
         }
     }

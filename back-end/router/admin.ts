@@ -5,6 +5,7 @@ import Voucher from '../models/vouchers.model';
 import { errorHandler, IRequest, IResponse } from './router-utils';
 import { sendOrderConfirmedEmail, sendVoucherCode } from '../services/email-service';
 import * as moment from 'moment';
+import { clearErrors, storeError } from '../services/error-service';
 
 const router = Router();
 
@@ -89,10 +90,16 @@ router.post('/vouchers', ensureLoggedIn, ensureSuperAdmin, errorHandler(async (r
 router.get('/sign-out', errorHandler(async (req, res) => {
     req.session.destroy(error => {
         if (error) {
+            storeError(error);
             console.error('Error destroying session');
             console.error(error);
         }
     });
+    res.sendStatus(200);
+}));
+
+router.get('/clear-errors', ensureLoggedIn, ensureSuperAdmin, errorHandler(async (_req: IRequest<void>, res: IResponse<void>) => {
+    clearErrors();
     res.sendStatus(200);
 }));
 
