@@ -59,12 +59,29 @@ const transporter = createTransport({
     }
 });
 
+const FAILED_EMAILS: FailedEmail[] = [];
+
 async function sendEmail(recipientEmail: string, subject: string, html: string) {
     try {
         await transporter.sendMail({ from: `'Godfather Pizza' <${STORE_EMAIL_ADDRESS}>`, to: recipientEmail, subject, html });
         console.log(`Successfully sent email ${subject} to ${recipientEmail}`);
     } catch (error) {
+        FAILED_EMAILS.push({ recipientEmail, subject, html });
         storeError(error);
         console.error(`Error sending email ${subject} to ${recipientEmail}`, error);
     }
+}
+
+export async function resendFailedEmails() {
+    let emails = FAILED_EMAILS.splice(0, FAILED_EMAILS.length);
+    for (let email of emails) {
+        await sendEmail(email.recipientEmail, email.subject, email.html);
+        await new Promise(r => setTimeout(r, 5000));
+    }
+}
+
+interface FailedEmail {
+    recipientEmail: string;
+    subject: string;
+    html: string;
 }

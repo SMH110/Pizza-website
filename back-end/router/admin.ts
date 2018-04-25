@@ -3,7 +3,7 @@ import * as session from 'express-session';
 import Order from '../models/orders.model';
 import Voucher from '../models/vouchers.model';
 import { errorHandler, IRequest, IResponse } from './router-utils';
-import { sendOrderConfirmedEmail, sendVoucherCode } from '../services/email-service';
+import { sendOrderConfirmedEmail, sendVoucherCode, resendFailedEmails } from '../services/email-service';
 import * as moment from 'moment';
 import { clearErrors, storeError } from '../services/error-service';
 
@@ -100,6 +100,12 @@ router.get('/sign-out', errorHandler(async (req, res) => {
 
 router.get('/clear-errors', ensureLoggedIn, ensureSuperAdmin, errorHandler(async (_req: IRequest<void>, res: IResponse<void>) => {
     clearErrors();
+    res.sendStatus(200);
+}));
+
+router.get('/resend-emails', ensureLoggedIn, ensureSuperAdmin, errorHandler(async (_req: IRequest<void>, res: IResponse<void>) => {
+    // Not awaiting because there's no harm in a fire and forget here
+    resendFailedEmails();
     res.sendStatus(200);
 }));
 
