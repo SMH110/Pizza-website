@@ -16,7 +16,7 @@
                 <tbody>
                     <ng-container *ngFor="let order of ordersToShow(); trackBy: trackByOrderId">
                         <tr class="order-summary" [id]="order._id">
-                            <td class="status"><span [style.color]='order.status==="Outstanding" ? "#ED7118" : order.status==="Awaiting Payment" ? "#FF0000" : "#0EA603" '>{{order.status}}</span></td>
+                            <td class="status"><span class="order-status-{{order.status}}">{{order.status}}</span></td>
                             <td class="date">{{ getOrderDate(order) }}</td>
                             <td class="name">{{order.buyer.firstName}} {{order.buyer.lastName}}</td>
                             <td class="address">

@@ -70,7 +70,10 @@ export function initialiseBarclaysEPDQEndpoints(application: Application) {
                 console.log(`Payment accepted for order. Order ${feedback.ORDERID} updated.`);
                 res.redirect('/order/success');
                 sendOrderPlacedEmail(order);
-
+            } else if (status === 'REFUNDED') {
+                order.status = 'Refunded';
+                await order.save();
+                console.log(`Refund complete for order. Order ${feedback.ORDERID} updated.`);
             } else {
                 await order.save();
                 console.log(`Payment NOT accepted for order. Order ${feedback.ORDERID} updated.`);
@@ -171,6 +174,7 @@ const TRANSACTION_STATUS: { [statusCode: string]: string } = {
     '2': 'DECLINED',
     '4': 'STORED',
     '5': 'AUTHORISED',
+    '8': 'REFUNDED',
     '9': 'ACCEPTED',
     '41': 'PENDING',
     '51': 'PENDING',

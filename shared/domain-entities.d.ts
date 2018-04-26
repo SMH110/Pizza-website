@@ -19,7 +19,7 @@ interface Order {
     totalPayment: number;
     note: string | null;
     // TODO - specify other statuses here
-    status: "Awaiting Payment" | "Outstanding" | "Complete";
+    status: "Awaiting Payment" | "Outstanding" | "Complete" | "Refunded";
 }
 
 interface OrderLineItem {

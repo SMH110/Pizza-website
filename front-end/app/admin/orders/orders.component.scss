@@ -20,3 +20,15 @@
 .table-bordered.orders > thead > tr > th {
     border-bottom: 2px solid #333;
 }
+
+.order-status-Outstanding {
+    color: #ED7118;
+}
+
+.order-status-Complete {
+    color: #0EA603;
+}
+
+.order-status-Refunded {
+    color: purple;
+}
