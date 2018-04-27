@@ -53,11 +53,11 @@
                                         </tr>
                                         <tr *ngIf="order.discount">
                                             <th colspan="2">{{order.discount.name}}</th>
-                                            <td class="discount">£{{order.discount.amount | number:'1.2-2'}}</td>
+                                            <td class="discount">-£{{order.discount.amount | number:'1.2-2'}}</td>
                                         </tr>
                                         <tr *ngIf="order.voucher">
                                             <th colspan="2">Voucher - {{order.voucher.code}}</th>
-                                            <td class="discount">£{{order.voucher.amount | number:'1.2-2'}}</td>
+                                            <td class="discount">-£{{order.voucher.amount | number:'1.2-2'}}</td>
                                         </tr>
                                         <tr>
                                             <th colspan="2">Total payment</th>
