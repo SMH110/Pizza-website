@@ -64,12 +64,13 @@ export function initialiseBarclaysEPDQEndpoints(application: Application) {
 
             let status = TRANSACTION_STATUS[feedback.STATUS];
             if (status === 'ACCEPTED') {
-                order.status = 'Outstanding';
-                await order.save();
-                await updateVoucherIfNecessary(order);
-                console.log(`Payment accepted for order. Order ${feedback.ORDERID} updated.`);
-                res.redirect('/order/success');
-                sendOrderPlacedEmail(order);
+                if (order.status === "Awaiting Payment") {
+                    order.status = 'Outstanding';
+                    await order.save();
+                    await updateVoucherIfNecessary(order);
+                    console.log(`Payment accepted for order. Order ${feedback.ORDERID} updated.`);
+                    sendOrderPlacedEmail(order);
+                }
             } else if (status === 'REFUNDED') {
                 order.status = 'Refunded';
                 await order.save();
@@ -79,6 +80,7 @@ export function initialiseBarclaysEPDQEndpoints(application: Application) {
                 console.log(`Payment NOT accepted for order. Order ${feedback.ORDERID} updated.`);
                 throw new Error(`Barclays ePDQ payment not accepted. Transaction status ${status} for ${JSON.stringify(req.query, null, 4)}`);
             }
+            res.redirect('/order/success');
         } catch (error) {
             storeError(error);
             console.error('Error in /barclays-epdq/feedback', error);
