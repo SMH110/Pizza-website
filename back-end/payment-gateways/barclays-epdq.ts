@@ -75,6 +75,9 @@ export function initialiseBarclaysEPDQEndpoints(application: Application) {
                 order.status = 'Refunded';
                 await order.save();
                 console.log(`Refund complete for order. Order ${feedback.ORDERID} updated.`);
+            } else if (status === 'CANCELLED') {
+                console.log(`Transaction status ${status} for ${JSON.stringify(req.query, null, 4)}`);
+                return res.redirect('/order/failure');
             } else {
                 await order.save();
                 console.log(`Payment NOT accepted for order. Order ${feedback.ORDERID} updated.`);
