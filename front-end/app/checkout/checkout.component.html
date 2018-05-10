@@ -41,10 +41,13 @@
 
             <div *ngIf="isPaymentMethodDisplayed()">
                 <h3>Payment method</h3>
-                <div *ngIf="paymentMethods.length < 1">
+                <div *ngIf="paymentMethods.length === 0">
                     <div class="loop"></div>
                 </div>
-                <div class="payment-methods">
+                <div class="alert alert-info" *ngIf="paymentMethods.length === 1">
+                    <p>We are currently unable to accept card payments. Sorry for any inconvenience caused.</p>
+                </div>
+                <div class="payment-methods" *ngIf="paymentMethods.length > 0">
                     <button class="btn btn-default" [ngClass]="{ 'btn-success': basket.paymentMethod === method }" *ngFor="let method of paymentMethods"
                         (click)="selectPaymentMethod(method)">{{method}}</button>
                 </div>
