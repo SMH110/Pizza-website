@@ -19,7 +19,7 @@ export async function sendOrderConfirmedEmail(order: Order, voucher: Voucher, re
 }
 
 export async function sendVoucherCode(voucher: Voucher) {
-    let subject = `£${voucher.amount} off your next order at Godfather Pizza Wood Oven`;
+    let subject = `£${voucher.amount} off your next order at Godfather Pizza`;
     let expiresIn = moment(voucher.expiryDate).fromNow();
     let expiresOn = moment(voucher.expiryDate).format('dddd Do MMM [at] HH:mm');
     let html = await renderEjsTemplate(__dirname + "/voucher-code.ejs", { voucher, expiresIn, expiresOn });
