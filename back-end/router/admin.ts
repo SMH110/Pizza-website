@@ -39,7 +39,7 @@ router.get('/current-user', ensureLoggedIn, errorHandler(async (req: IRequest<vo
 }));
 
 router.get('/get-recent-orders', ensureLoggedIn, errorHandler(async (_req, res: IResponse<Order[]>) => {
-    res.json((await Order.find()).filter(x => moment().diff(moment(x.date), 'days') < 14));
+    res.json((await Order.find()).filter(x => moment().diff(moment(x.date), 'days') < 1));
 }));
 
 router.get('/get-orders', ensureLoggedIn, ensureSuperAdmin, errorHandler(async (_req, res: IResponse<Order[]>) => {
