@@ -9,7 +9,7 @@ export function isPostcodeWithinDeliveryArea(postcode: string): boolean {
 }
 
 function getOutcodeFromPostcode(postcode: string) {
-    postcode = postcode.toUpperCase().replace(/\s/, '');
+    postcode = postcode.toUpperCase().replace(/\s/g, '');
     if (postcode.length >= 5) {
         return postcode.substr(0, postcode.length - 3);
     }

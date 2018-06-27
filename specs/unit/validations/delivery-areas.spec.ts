@@ -11,11 +11,9 @@ describe('Delivery Area Validator', function () {
 
     it('Given a valid full postcode (with or without space, variable casing) that is not within the delivery areas, should return false', () => {
         expect(isPostcodeWithinDeliveryArea('Aa71 2SP')).to.be.equal(false);
-        expect(isPostcodeWithinDeliveryArea('sE25 6Cr')).to.be.equal(false);
         expect(isPostcodeWithinDeliveryArea('sw11 9jl')).to.be.equal(false);
         expect(isPostcodeWithinDeliveryArea('SE6 5AA')).to.be.equal(false);
         expect(isPostcodeWithinDeliveryArea('Aa712SP')).to.be.equal(false);
-        expect(isPostcodeWithinDeliveryArea('sE256Cr')).to.be.equal(false);
         expect(isPostcodeWithinDeliveryArea('sw119jl')).to.be.equal(false);
         expect(isPostcodeWithinDeliveryArea('SE65AA')).to.be.equal(false);
 
@@ -108,17 +106,23 @@ describe('Delivery Area Validator', function () {
 
     it('Given a valid outcode (variable casing) that is not within the delivery areas, should return false', () => {
         expect(isPostcodeWithinDeliveryArea('Aa71')).to.be.equal(false)
-        expect(isPostcodeWithinDeliveryArea('sE25')).to.be.equal(false)
         expect(isPostcodeWithinDeliveryArea('sw11')).to.be.equal(false)
         expect(isPostcodeWithinDeliveryArea('SE6')).to.be.equal(false)
         expect(isPostcodeWithinDeliveryArea('Aa71')).to.be.equal(false)
-        expect(isPostcodeWithinDeliveryArea('sE25')).to.be.equal(false)
         expect(isPostcodeWithinDeliveryArea('sw11')).to.be.equal(false)
         expect(isPostcodeWithinDeliveryArea('SE6')).to.be.equal(false)
         expect(isPostcodeWithinDeliveryArea('SE1')).to.be.equal(false)
         expect(isPostcodeWithinDeliveryArea('SW1')).to.be.equal(false)
         expect(isPostcodeWithinDeliveryArea('SW20')).to.be.equal(false)
     });
+
+    it('Given a valid postcode with extra spaces that is within the delivery areas, should return true', () => {
+        // Uppercase
+        expect(isPostcodeWithinDeliveryArea('SE19 1DZ ')).to.be.equal(true);
+        expect(isPostcodeWithinDeliveryArea(' SE19 1DZ')).to.be.equal(true);
+        expect(isPostcodeWithinDeliveryArea(' SE19 1DZ ')).to.be.equal(true);
+    });
+
 
     it('Given a valid outcode (variable casing) that is within the delivery areas, should return true', () => {
         // Uppercase
