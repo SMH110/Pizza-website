@@ -111,11 +111,20 @@ function getOrderItems(order: Order) {
         currency: "GBP",
         quantity: item.quantity
     } as PayPalLineItem));
-    let discount = order.discount as any;
+    let discount = order.discount;
     if (discount && discount.name) {
         items.push({
             name: order.discount.name,
             price: normalise(order.discount.amount * -1),
+            currency: "GBP",
+            quantity: 1
+        });
+    }
+    let voucher = order.voucher;
+    if (voucher && voucher.code) {
+        items.push({
+            name: `Voucher - ${order.voucher.code}`,
+            price: normalise(order.voucher.amount * -1),
             currency: "GBP",
             quantity: 1
         });
