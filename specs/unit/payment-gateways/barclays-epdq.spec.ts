@@ -11,6 +11,6 @@ describe('Barclays EPDQ', () => {
             billingAddress: {},
             totalPayment: 18.08
         } as any);
-        expect(paymentRedirectDetails.url).to.contain('AMOUNT=1858&CURRENCY=GBP');
+        expect(paymentRedirectDetails.url).to.contain('AMOUNT=1808&CURRENCY=GBP');
     });
 });
