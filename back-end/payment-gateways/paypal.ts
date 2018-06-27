@@ -107,7 +107,7 @@ export function initialisePayPalEndpoints(application: Application) {
 function getOrderItems(order: Order) {
     let items = order.orderItems.map(item => ({
         name: BasketService.getDescription(item),
-        price: item.price,
+        price: normalise(item.price),
         currency: "GBP",
         quantity: item.quantity
     } as PayPalLineItem));
@@ -115,12 +115,16 @@ function getOrderItems(order: Order) {
     if (discount && discount.name) {
         items.push({
             name: order.discount.name,
-            price: order.discount.amount * -1,
+            price: normalise(order.discount.amount * -1),
             currency: "GBP",
             quantity: 1
         });
     }
     return items;
+}
+
+function normalise(value: number): number {
+    return Math.round(value * 100) / 100
 }
 
 interface PayPalLineItem {
