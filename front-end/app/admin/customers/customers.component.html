@@ -61,7 +61,7 @@
                                     <tbody>
                                         <tr *ngFor="let voucher of customer.vouchers">
                                             <td>{{voucher.code}}</td>
-                                            <td>{{voucher.amount}}</td>
+                                            <td>£{{voucher.amount | number:'1.2-2'}}</td>
                                             <td>{{getDateIssued(voucher)}}</td>
                                             <td>{{getExpiryDate(voucher)}}</td>
                                             <td>{{getDateUsed(voucher)}}</td>
