@@ -52,6 +52,8 @@ export default model<PersistedOrder>('orders', new Schema({
     },
     totalPayment: Number,
     status: String
-}));
+}, {
+        usePushEach: true
+    }));
 
 export type PersistedOrder = Order & Document;

@@ -8,6 +8,8 @@ export default model<PersistedVoucher>('vouchers', new Schema({
     dateIssued: Date,
     dateUsed: Date,
     expiryDate: Date
-}));
+}, {
+        usePushEach: true
+    }));
 
 export type PersistedVoucher = Voucher & Document;
