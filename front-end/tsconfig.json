@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "composite": true,
+    "declaration": true,
     "target": "es5",
     "module": "es2015",
     "moduleResolution": "node",
@@ -13,9 +15,8 @@
     "noUnusedParameters": true,
     "noEmit": true,
     "importHelpers": true,
-    "noStrictGenericChecks": true,
-    "typeRoots": ["node_modules/@types"]
+    "noStrictGenericChecks": true
   },
-  "include": ["**/*.ts", "../shared/**/*.ts"],
+  "references": [{ "path": "../shared" }],
   "exclude": ["node_modules"]
 }

@@ -5,13 +5,10 @@
   "scripts": {
     "heroku-prebuild": "cd back-end && npm install && cd ../front-end && npm install && cd ..",
     "heroku-postbuild": "npm run package",
-    "unit": "mocha --compilers ts:ts-node/register specs/unit/**/*.spec.ts",
-    "integration": "mocha --compilers ts:ts-node/register specs/integration/**/*.spec.ts",
-    "e2e": "webdriver-manager update && ts-node node_modules/protractor/bin/protractor specs/e2e/protractor.conf.ts",
-    "test": "npm run unit && npm run integration",
+    "test": "cd test && npm install && npm test && cd ..",
     "watch": "webpack --config webpack.dev.js --watch",
     "package": "webpack --config webpack.prod.js",
-    "start": "ts-node --project back-end/compile.json back-end/app.ts",
+    "start": "ts-node --project back-end/tsconfig.json back-end/app.ts",
     "fmt": "prettier --write {back-end,front-end,shared,specs}/**/*.{ts,scss,json} *.{ts,scss,json,js}"
   },
   "dependencies": {

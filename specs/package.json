@@ -1,0 +1,19 @@
+{
+  "scripts": {
+    "unit": "mocha --compilers ts:ts-node/register unit/**/*.spec.ts",
+    "integration": "mocha --compilers ts:ts-node/register integration/**/*.spec.ts",
+    "e2e": "webdriver-manager update && ts-node node_modules/protractor/bin/protractor e2e/protractor.conf.ts",
+    "test": "npm run unit && npm run integration"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/chai": "^4.0.4",
+    "@types/mocha": "^2.2.42",
+    "@types/selenium-webdriver": "^3.0.6",
+    "chai": "^4.1.2",
+    "mocha": "^3.5.0",
+    "prettier": "^1.13.7",
+    "protractor": "^5.1.2",
+    "xunit-file": "^1.0.0"
+  }
+}

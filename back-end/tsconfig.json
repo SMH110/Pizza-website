@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "composite": true,
+    "declaration": true,
     "target": "es6",
     "module": "commonjs",
     "moduleResolution": "node",
@@ -10,6 +12,6 @@
     "noUnusedParameters": true,
     "noEmit": true
   },
-  "include": ["**/*.ts", "../shared/**/*.ts"],
+  "references": [{ "path": "../shared" }],
   "exclude": ["node_modules"]
 }

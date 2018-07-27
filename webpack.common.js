@@ -58,7 +58,7 @@ module.exports = {
         loaders: [
           {
             loader: "awesome-typescript-loader",
-            options: { configFileName: root("front-end", "compile.json") }
+            options: { configFileName: root("front-end", "tsconfig.json") }
           }
         ]
       },
