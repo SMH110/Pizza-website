@@ -1,65 +1,65 @@
 h4 {
-    margin-top: 30px;
+  margin-top: 30px;
 
-    &:first-child {
-        margin-top: 0;
-    }
+  &:first-child {
+    margin-top: 0;
+  }
 }
 
 .base-selection,
 .topping-selection {
-    display: flex;
+  display: flex;
 
-    .btn {
-        flex: 1 0 auto;
+  .btn {
+    flex: 1 0 auto;
 
-        &:first-child {
-            margin-right: 10px;
-        }
-
-        &:last-child {
-            margin-left: 10px;
-        }
+    &:first-child {
+      margin-right: 10px;
     }
+
+    &:last-child {
+      margin-left: 10px;
+    }
+  }
 }
 
 .table {
-    .quantity {
-        text-align: center;
-        width: 180px;
-    }
+  .quantity {
+    text-align: center;
+    width: 180px;
+  }
 
-    .quantity > span {
-        display: inline-block;
-        width: 30px;
-    }
+  .quantity > span {
+    display: inline-block;
+    width: 30px;
+  }
 
-    .remove {
-        width: 1%;
-    }
+  .remove {
+    width: 1%;
+  }
 }
 @media (max-width: 767px) {
-    .base-selection,
-    .topping-selection {
-        display: block;
+  .base-selection,
+  .topping-selection {
+    display: block;
 
-        .btn {
-            width: 100%;
+    .btn {
+      width: 100%;
 
-            &:first-child {
-                margin-right: 0;
-            }
+      &:first-child {
+        margin-right: 0;
+      }
 
-            &:last-child {
-                margin-left: 0;
-                margin-top: 10px;
-            }
-        }
+      &:last-child {
+        margin-left: 0;
+        margin-top: 10px;
+      }
     }
+  }
 
-    .table {
-        .btn-sm {
-            padding: 5px 8px;
-        }
+  .table {
+    .btn-sm {
+      padding: 5px 8px;
     }
+  }
 }

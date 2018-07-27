@@ -1,56 +1,56 @@
 .navbar-default {
-    background-color: #282423;
+  background-color: #282423;
 }
 
 .navbar-default .navbar-nav > li > a {
-    color: #fff;
+  color: #fff;
 }
 
 .navbar-default .navbar-nav > li > a:hover {
-    background-color: #eeeeee;
-    color: #000000;
+  background-color: #eeeeee;
+  color: #000000;
 }
 
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:focus,
 .navbar-default .navbar-nav > .active > a:hover {
-    background-color: #eeeeee;
-    color: #000000;
+  background-color: #eeeeee;
+  color: #000000;
 }
 
 .logo {
-    color: #666;
-    padding-bottom: 20px;
-    padding-top: 10px;
+  color: #666;
+  padding-bottom: 20px;
+  padding-top: 10px;
 }
 
 .logo img {
-    margin-left: auto;
-    margin-right: auto;
-    width: 330px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 330px;
 }
 
 .sign-out {
-    font-weight: bold;
+  font-weight: bold;
 }
 @media (min-width: 768px) {
-    .navbar-collapse {
-        padding-left: 0;
-        padding-right: 0;
-    }
+  .navbar-collapse {
+    padding-left: 0;
+    padding-right: 0;
+  }
 
-    .navbar-nav > li > a {
-        border-radius: 2px 2px 0 0;
-        padding-bottom: 10.5px;
-        padding-top: 13.5px;
-    }
+  .navbar-nav > li > a {
+    border-radius: 2px 2px 0 0;
+    padding-bottom: 10.5px;
+    padding-top: 13.5px;
+  }
 
-    .navbar-right {
-        margin-right: 0;
-    }
+  .navbar-right {
+    margin-right: 0;
+  }
 }
 @media (max-width: 767px) {
-    .mobile-menu-toggle {
-        padding: 12px 10px;
-    }
+  .mobile-menu-toggle {
+    padding: 12px 10px;
+  }
 }

@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 @Component({
-    templateUrl: `./terms-and-conditions.component.html`,
+  templateUrl: `./terms-and-conditions.component.html`
 })
-export class TermsAndConditionsComponent {
-}
+export class TermsAndConditionsComponent {}

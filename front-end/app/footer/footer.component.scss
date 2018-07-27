@@ -1,33 +1,33 @@
 .footer {
-    background-color: #ffffff;
-    border-color: #dbdbdb;
-    border-top: 1px solid;
-    margin-top: 50px;
-    padding-bottom: 30px;
-    width: 100%;
+  background-color: #ffffff;
+  border-color: #dbdbdb;
+  border-top: 1px solid;
+  margin-top: 50px;
+  padding-bottom: 30px;
+  width: 100%;
 }
 
 .footer .nav > li > a:focus,
 .footer .nav > li > a:hover {
-    background-color: #ffffff;
+  background-color: #ffffff;
 }
 
 .footer a,
 .footer a:focus,
 .footer a:hover {
-    color: #000000;
-    text-decoration: underline;
+  color: #000000;
+  text-decoration: underline;
 
-    &.phone-number-link {
-        text-decoration: none;
+  &.phone-number-link {
+    text-decoration: none;
 
-        .phone-number {
-            text-decoration: underline;
-        }
+    .phone-number {
+      text-decoration: underline;
     }
+  }
 }
 @media (min-width: 768px) {
-    li:first-child a {
-        padding-left: 0;
-    }
+  li:first-child a {
+    padding-left: 0;
+  }
 }

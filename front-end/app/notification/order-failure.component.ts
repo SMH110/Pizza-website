@@ -1,13 +1,13 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 
 @Component({
-    templateUrl: `./order-failure.component.html`,
-    styles: [`
-        .center-text{
-            text-align: center;
-        }
-    `]
-
+  templateUrl: `./order-failure.component.html`,
+  styles: [
+    `
+      .center-text {
+        text-align: center;
+      }
+    `
+  ]
 })
-export class OrderFailureComponent {
-}
+export class OrderFailureComponent {}

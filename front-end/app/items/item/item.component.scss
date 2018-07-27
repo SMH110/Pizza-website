@@ -1,108 +1,108 @@
 :host {
+  display: flex;
+  padding-left: 8px;
+  padding-right: 8px;
+  vertical-align: top;
+  width: 50%;
+
+  .thumbnail {
     display: flex;
-    padding-left: 8px;
-    padding-right: 8px;
-    vertical-align: top;
-    width: 50%;
+    margin-bottom: 16px;
+    padding: 20px;
+    position: relative;
+    width: 100%;
 
-    .thumbnail {
+    .details {
+      display: flex;
+      flex-direction: column;
+      width: 50%;
+
+      .actions {
         display: flex;
-        margin-bottom: 16px;
-        padding: 20px;
-        position: relative;
-        width: 100%;
+        flex-wrap: wrap;
 
-        .details {
-            display: flex;
-            flex-direction: column;
-            width: 50%;
-
-            .actions {
-                display: flex;
-                flex-wrap: wrap;
-
-                .btn-success {
-                    width: 60%;
-                }
-
-                .price {
-                    display: block;
-                    font-size: 18px;
-                    width: 40%;
-                }
-
-                select {
-                    margin-bottom: 10px;
-                }
-            }
-
-            .description {
-                flex: 1 0 auto;
-            }
-
-            h3 {
-                margin-top: 0;
-            }
+        .btn-success {
+          width: 60%;
         }
 
-        .product-image {
-            width: 50%;
-
-            img {
-                border-radius: 4px;
-                padding-right: 20px;
-            }
+        .price {
+          display: block;
+          font-size: 18px;
+          width: 40%;
         }
+
+        select {
+          margin-bottom: 10px;
+        }
+      }
+
+      .description {
+        flex: 1 0 auto;
+      }
+
+      h3 {
+        margin-top: 0;
+      }
     }
+
+    .product-image {
+      width: 50%;
+
+      img {
+        border-radius: 4px;
+        padding-right: 20px;
+      }
+    }
+  }
 }
 @media (max-width: 767px) {
-    :host {
-        width: 100%;
+  :host {
+    width: 100%;
 
-        .thumbnail {
-            display: block;
+    .thumbnail {
+      display: block;
 
-            .details {
-                width: auto;
-            }
+      .details {
+        width: auto;
+      }
 
-            .product-image {
-                margin: 0 auto 20px;
-                width: 200px;
+      .product-image {
+        margin: 0 auto 20px;
+        width: 200px;
 
-                img {
-                    padding-right: 0;
-                }
-            }
+        img {
+          padding-right: 0;
         }
+      }
     }
+  }
 }
 @media (min-width: 768px) and (max-width: 991px) {
-    :host {
-        .thumbnail {
-            display: block;
-            position: relative;
+  :host {
+    .thumbnail {
+      display: block;
+      position: relative;
 
-            .details {
-                width: auto;
-                padding-bottom: 90px;
+      .details {
+        width: auto;
+        padding-bottom: 90px;
 
-                .actions {
-                    bottom: 20px;
-                    padding-right: 40px;
-                    position: absolute;
-                    width: 100%;
-                }
-            }
-
-            .product-image {
-                margin: 0 auto 20px;
-                width: 200px;
-
-                img {
-                    padding-right: 0;
-                }
-            }
+        .actions {
+          bottom: 20px;
+          padding-right: 40px;
+          position: absolute;
+          width: 100%;
         }
+      }
+
+      .product-image {
+        margin: 0 auto 20px;
+        width: 200px;
+
+        img {
+          padding-right: 0;
+        }
+      }
     }
+  }
 }

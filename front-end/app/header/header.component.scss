@@ -1,69 +1,69 @@
 .navbar-default {
-    background-color: #282423;
+  background-color: #282423;
 }
 
 .navbar-default .navbar-nav > li > a {
-    color: #fff;
+  color: #fff;
 }
 
 .navbar-default .navbar-nav > li > a:hover {
-    background-color: #eeeeee;
-    color: #000000;
+  background-color: #eeeeee;
+  color: #000000;
 }
 
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:focus,
 .navbar-default .navbar-nav > .active > a:hover {
-    background-color: #eeeeee;
-    color: #000000;
+  background-color: #eeeeee;
+  color: #000000;
 }
 
 .logo {
-    color: #666;
-    padding-bottom: 20px;
-    padding-top: 10px;
+  color: #666;
+  padding-bottom: 20px;
+  padding-top: 10px;
 }
 
 .logo img {
-    margin-left: auto;
-    margin-right: auto;
-    width: 330px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 330px;
 }
 @media (min-width: 768px) {
-    .navbar-collapse {
-        padding-left: 0;
-        padding-right: 0;
-    }
+  .navbar-collapse {
+    padding-left: 0;
+    padding-right: 0;
+  }
 
-    .navbar-nav > li > a {
-        border-radius: 2px 2px 0 0;
-        padding-bottom: 10.5px;
-        padding-top: 13.5px;
-    }
+  .navbar-nav > li > a {
+    border-radius: 2px 2px 0 0;
+    padding-bottom: 10.5px;
+    padding-top: 13.5px;
+  }
 
-    .navbar-right {
-        margin-right: 0;
-    }
+  .navbar-right {
+    margin-right: 0;
+  }
 }
 @media (max-width: 767px) {
-    .mobile-basket-button {
-        float: left;
-        margin-left: 15px;
-        margin-top: 15px;
-    }
+  .mobile-basket-button {
+    float: left;
+    margin-left: 15px;
+    margin-top: 15px;
+  }
 
-    .mobile-menu-toggle {
-        padding: 12px 10px;
-    }
+  .mobile-menu-toggle {
+    padding: 12px 10px;
+  }
 }
 
 .basket-link a {
-    background-color: #22b24c;
-    text-align: center;
-    width: 160px;
+  background-color: #22b24c;
+  text-align: center;
+  width: 160px;
 
-    &:hover {
-        background-color: #1a873a;
-        border-color: #187f36;
-    }
+  &:hover {
+    background-color: #1a873a;
+    border-color: #187f36;
+  }
 }

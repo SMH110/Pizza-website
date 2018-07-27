@@ -1,144 +1,145 @@
 .table {
-    .price {
-        text-align: right;
-        width: 90px;
-    }
+  .price {
+    text-align: right;
+    width: 90px;
+  }
 
-    .price-label {
-        text-align: right;
-    }
+  .price-label {
+    text-align: right;
+  }
 
-    .quantity {
-        text-align: center;
-        width: 180px;
-    }
+  .quantity {
+    text-align: center;
+    width: 180px;
+  }
 
-    .quantity > span {
-        display: inline-block;
-        width: 25px;
-    }
+  .quantity > span {
+    display: inline-block;
+    width: 25px;
+  }
 
-    .remove {
-        width: 1%;
-    }
+  .remove {
+    width: 1%;
+  }
 }
 
 .next {
-    padding-left: 35px;
-    padding-right: 35px;
+  padding-left: 35px;
+  padding-right: 35px;
 }
 @media (max-width: 767px) {
-    .discount-code {
-        .action {
-            button {
-                width: 100%;
-            }
-        }
+  .discount-code {
+    .action {
+      button {
+        width: 100%;
+      }
+    }
+  }
+
+  .item-row {
+    &::after {
+      clear: both;
+      content: " ";
+      display: table;
     }
 
-    .item-row {
-        &::after {
-            clear: both;
-            content: " ";
-            display: table;
-        }
-
-        .item {
-            padding-bottom: 0;
-        }
-
-        .price {
-            float: left;
-            margin-left: 20px;
-            padding-right: 0;
-            padding-top: 11px;
-            text-align: left;
-            width: 80px;
-
-            &::before {
-                content: "Total";
-                display: block;
-                font-size: 11px;
-                font-weight: bold;
-                margin-bottom: 5px;
-            }
-        }
-
-        .quantity {
-            float: left;
-            text-align: left;
-            width: 120px;
-
-            &::before {
-                content: "Quantity";
-                display: block;
-                font-size: 11px;
-                font-weight: bold;
-                margin-bottom: 5px;
-            }
-
-            span {
-                text-align: center;
-            }
-        }
-
-        .remove {
-            float: right;
-            padding-left: 0;
-            padding-right: 8px;
-            text-align: right;
-            width: 60px;
-
-            &::before {
-                content: "Remove";
-                display: block;
-                font-size: 11px;
-                font-weight: bold;
-                margin-bottom: 5px;
-            }
-        }
+    .item {
+      padding-bottom: 0;
     }
 
-    .table > tbody > tr > td,
-    .table > tbody > tr > th,
-    .table > tfoot > tr > td,
-    .table > tfoot > tr > th,
-    .table > thead > tr > td,
-    .table > thead > tr > th {
-        border-top: none;
-    }
+    .price {
+      float: left;
+      margin-left: 20px;
+      padding-right: 0;
+      padding-top: 11px;
+      text-align: left;
+      width: 80px;
 
-    .item-row, .total-row {
-        border-top: 1px solid #dddddd;
-    }
-
-    .total-row {
-        position: relative;
-
-        .price {
-            position: absolute;
-            right: 0;
-            top: 0;
-            width: 100px;
-        }
-
-        .price-label {
-            display: block;
-            padding-right: 100px;
-        }
-
-        .remove {
-            display: none;
-        }
-    }
-
-    td,
-    th,
-    tr {
+      &::before {
+        content: "Total";
         display: block;
+        font-size: 11px;
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
     }
 
-    thead {
-        display: none;
+    .quantity {
+      float: left;
+      text-align: left;
+      width: 120px;
+
+      &::before {
+        content: "Quantity";
+        display: block;
+        font-size: 11px;
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+
+      span {
+        text-align: center;
+      }
     }
+
+    .remove {
+      float: right;
+      padding-left: 0;
+      padding-right: 8px;
+      text-align: right;
+      width: 60px;
+
+      &::before {
+        content: "Remove";
+        display: block;
+        font-size: 11px;
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+    }
+  }
+
+  .table > tbody > tr > td,
+  .table > tbody > tr > th,
+  .table > tfoot > tr > td,
+  .table > tfoot > tr > th,
+  .table > thead > tr > td,
+  .table > thead > tr > th {
+    border-top: none;
+  }
+
+  .item-row,
+  .total-row {
+    border-top: 1px solid #dddddd;
+  }
+
+  .total-row {
+    position: relative;
+
+    .price {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 100px;
+    }
+
+    .price-label {
+      display: block;
+      padding-right: 100px;
+    }
+
+    .remove {
+      display: none;
+    }
+  }
+
+  td,
+  th,
+  tr {
+    display: block;
+  }
+
+  thead {
+    display: none;
+  }
 }

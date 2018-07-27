@@ -1,61 +1,61 @@
 .required::after {
-    color: red;
-    content: '*';
+  color: red;
+  content: "*";
 }
 
 .delivery-methods,
 .payment-methods {
-    display: flex;
+  display: flex;
 
-    button {
-        flex: 1 0 auto;
-        margin-left: 10px;
-        margin-right: 10px;
+  button {
+    flex: 1 0 auto;
+    margin-left: 10px;
+    margin-right: 10px;
 
-        &:first-child {
-            margin-left: 0;
-        }
-
-        &:last-child {
-            margin-right: 0;
-        }
+    &:first-child {
+      margin-left: 0;
     }
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
 }
 
 .total {
-    display: inline-block;
-    margin-right: 10px;
+  display: inline-block;
+  margin-right: 10px;
 }
 
 .actions {
-    margin-top: 15px;
+  margin-top: 15px;
 }
 
 .loop {
-    animation: spin 1.1s linear infinite;
-    border: 4px solid #282423;
-    border-radius: 100%;
-    border-top-color: #eee;
-    height: 50px;
-    margin: 30px auto;
-    width: 50px;
+  animation: spin 1.1s linear infinite;
+  border: 4px solid #282423;
+  border-radius: 100%;
+  border-top-color: #eee;
+  height: 50px;
+  margin: 30px auto;
+  width: 50px;
 }
 @keyframes spin {
-    from {
-        transform: rotate(0deg);
-    }
+  from {
+    transform: rotate(0deg);
+  }
 
-    to {
-        transform: rotate(360deg);
-    }
+  to {
+    transform: rotate(360deg);
+  }
 }
 @media (max-width: 767px) {
-    .payment-methods {
-        display: block;
+  .payment-methods {
+    display: block;
 
-        button {
-            margin: 0 0 10px;
-            width: 100%;
-        }
+    button {
+      margin: 0 0 10px;
+      width: 100%;
     }
+  }
 }

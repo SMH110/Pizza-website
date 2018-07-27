@@ -1,4 +1,3 @@
-describe('Placeholder', () => {
-    it('Should pass', () => {
-    });
+describe("Placeholder", () => {
+  it("Should pass", () => {});
 });

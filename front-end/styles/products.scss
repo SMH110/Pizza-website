@@ -1,11 +1,11 @@
 .products.container {
-    padding-left: 7px;
-    padding-right: 7px;
-    display: flex;
-    flex-wrap: wrap;
+  padding-left: 7px;
+  padding-right: 7px;
+  display: flex;
+  flex-wrap: wrap;
 
-    &::before,
-    &::after {
-        content: none;
-    }
+  &::before,
+  &::after {
+    content: none;
+  }
 }
