@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { BaseModalComponent } from '../base-modal.component';
 import Toppings, { PizzaToppingPrices } from '../../../shared/static-data/toppings';
 import calculatePrice from '../../../shared/business-rules/pizza-pricing-rule';
+import { Topping, Item } from '../../../shared/dtos';
 
 @Component({
     templateUrl: `./add-pizza-modal.component.html`,

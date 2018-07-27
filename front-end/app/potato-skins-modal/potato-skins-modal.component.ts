@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { BaseModalComponent } from '../base-modal.component';
 import Toppings from '../../../shared/static-data/toppings';
 import calculatePrice from '../../../shared/business-rules/potato-skins-pricing-rule';
+import { Topping, Item } from '../../../shared/dtos';
 
 @Component({
     templateUrl: "./potato-skins-modal.component.html",

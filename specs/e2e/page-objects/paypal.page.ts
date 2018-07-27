@@ -26,7 +26,7 @@ class PayPalPageObject {
         await whenNotPresent(by.id('spinner'));
         await new Promise(r => setTimeout(r, 500));
         await whenNotPresent(by.id('spinner'));
-        await whenClickable(by.buttonText('Continue'), payNow => payNow.click());
+        await whenClickable(by.buttonText('Continue') as any, payNow => payNow.click());
         console.log('Successfully paid using the new PayPal UI');
     }
 

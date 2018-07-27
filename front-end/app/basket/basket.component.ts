@@ -5,6 +5,7 @@ import { ModalService } from '../service/modal.service';
 import { ClearBasketModalComponent } from '../clear-basket-modal/clear-basket-modal.component';
 import { ErrorService } from "../service/error.service";
 import { NotificationService } from "../service/notification.service";
+import { OrderLineItem } from '../../../shared/domain-entities';
 
 @Component({
     templateUrl: `./basket.component.html`,

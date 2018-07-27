@@ -1,11 +1,13 @@
 import * as rp from 'request-promise';
 import { Application } from 'express';
-import Order, { PersistedOrder } from '../models/orders.model';
+import OrderModel, { PersistedOrder } from '../models/orders.model';
 import { PaymentGateway } from './interfaces';
 import { sendOrderPlacedEmail } from '../services/email-service'
 import { BasketService } from '../../shared/services/basket-service';
 import { updateVoucherIfNecessary } from "../services/basket-service";
 import { storeError } from '../services/error-service';
+import { PaymentRedirectDetails } from '../../shared/dtos';
+import { Order } from '../../shared/domain-entities';
 export const IsPayPalEnabled = process.env.PAYPAL_ENABLED === "TRUE";
 const PAYPAL_ENVIRONMENT_NAME = process.env.IS_PAYPAL_SANDBOX === "TRUE" ? "api.sandbox.paypal.com" : "api.paypal.com";
 
@@ -84,7 +86,7 @@ export function initialisePayPalEndpoints(application: Application) {
                 throw new Error(`Payment ${paymentId} for ${payerId} was NOT approved`);
             }
             console.log(`Payment ${paymentId} for ${payerId} approved. Updating order...`);
-            let order = await Order.findOne({ paymentId: paymentId });
+            let order = await OrderModel.findOne({ paymentId: paymentId });
             if (!order) {
                 throw new Error(`PayPal Gateway could not find order with paymentId: ${paymentId}`);
             }

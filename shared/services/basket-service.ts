@@ -1,6 +1,8 @@
 import catalog from '../static-data/catalogue';
 import { getPricingRule } from '../business-rules/pricing-rule-factory';
 import { discounts } from '../business-rules/discounts/discounts';
+import { OrderLineItem, Voucher } from '../domain-entities';
+import { DeliveryMethod, PaymentMethod, BasketItem, Discount } from '../dtos';
 export abstract class BasketService {
     items: OrderLineItem[] = [];
     deliveryMethod: DeliveryMethod = null;

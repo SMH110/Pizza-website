@@ -1,4 +1,5 @@
 import { Document, Schema, model } from 'mongoose';
+import { Order } from '../../shared/domain-entities';
 
 // TODO: Why are we using mongoose? What value do we get from maintaining these schemas?
 export default model<PersistedOrder>('orders', new Schema({

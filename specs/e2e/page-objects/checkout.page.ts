@@ -1,5 +1,6 @@
 import { by, element } from "protractor";
 import { whenVisible } from "../protractor-utils";
+import { Buyer, DeliveryMethod, PaymentMethod, Address } from "../../../shared/dtos";
 
 class CheckoutPageObject {
     async enterPersonalDetails(details: Buyer) {

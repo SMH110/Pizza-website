@@ -1,4 +1,6 @@
 import genericPricingRule from '../generic-pricing-rule';
+import { OrderLineItem } from '../../domain-entities';
+import { Tag } from '../../dtos';
 
 export function sum(array: { price: number }[]) {
     return array.reduce((total, item) => total += item.price, 0);

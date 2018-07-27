@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import Catalogue from '../../../../shared/static-data/catalogue';
+import { Item } from '../../../../shared/dtos';
 
 @Component({
     templateUrl: `./salads.component.html`,

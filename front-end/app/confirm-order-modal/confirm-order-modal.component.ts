@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { BaseModalComponent } from '../base-modal.component';
+import { DeliveryMethod } from '../../../shared/dtos';
 
 @Component({
     templateUrl: './confirm-order-modal.component.html'

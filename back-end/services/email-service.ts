@@ -3,6 +3,7 @@ import { createTransport } from "nodemailer";
 import { BasketService } from '../../shared/services/basket-service';
 import * as moment from 'moment';
 import { storeError } from "./error-service";
+import { Order, Voucher } from "../../shared/domain-entities";
 
 const STORE_EMAIL_ADDRESS = process.env.SMTP_EMAIL;
 

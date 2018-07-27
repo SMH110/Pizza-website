@@ -101,7 +101,7 @@ class OrderDetailsObject {
     async getOrderItems() {
         console.log('Getting Order Details order items');
         let orderItems = await element.all(by.css(`#details_${this.orderId} .order-item`));
-        return orderItems.map(x => new OrderItemObject(x));
+        return (orderItems as ElementFinder[]).map(x => new OrderItemObject(x));
     }
 }
 

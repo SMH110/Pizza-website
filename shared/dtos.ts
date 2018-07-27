@@ -1,4 +1,4 @@
-interface Item {
+export interface Item {
     name: string;
     imageName: string;
     description: string;
@@ -6,12 +6,12 @@ interface Item {
     price: { [version: string]: number } | number;
 }
 
-interface Topping {
+export interface Topping {
     type: ToppingCategory;
     name: string;
 }
 
-interface PlaceOrderRequest {
+export interface PlaceOrderRequest {
     buyer: Buyer;
     deliveryAddress: Address;
     billingAddress: Address;
@@ -23,57 +23,57 @@ interface PlaceOrderRequest {
     voucherCode: string;
 }
 
-interface BasketItem {
+export interface BasketItem {
     name: string;
     quantity: number;
     version: string;
     options: string[];
 }
 
-interface Buyer {
+export interface Buyer {
     firstName: string;
     lastName: string;
     email: string;
     phone: string;
 }
 
-interface Address {
+export interface Address {
     line1: string;
     line2?: string;
     town: string;
     postcode: string;
 }
 
-interface MarkAsCompleteRequest {
+export interface MarkAsCompleteRequest {
     orderId: string;
     readyInMinutes: number;
 }
 
-interface AuthRequest {
+export interface AuthRequest {
     username: string;
     password: string;
 }
 
-interface PaymentRedirectDetails {
+export interface PaymentRedirectDetails {
     url: string;
     isFullPageRedirect: boolean;
 }
 
-interface Discount {
+export interface Discount {
     name: string;
     amount: number;
 }
 
-interface CreateVoucherRequest {
+export interface CreateVoucherRequest {
     email: string;
     amount: number;
 }
 
-interface CurrentUser {
+export interface CurrentUser {
     type: "SuperAdmin" | "Admin";
 }
 
-type DeliveryMethod = 'Collection' | 'Delivery';
-type PaymentMethod = 'PayPal' | 'Credit / Debit Card' | 'Cash';
-type Tag = 'salad' | 'dessert' | 'ice cream' | 'drink' | 'pizza' | 'calzone' | 'pasta' | 'side' | 'hot' | 'vegetarian' | 'bottle' | 'can';
-type ToppingCategory = 'Cheese' | 'Vegetable' | 'Meat' | 'Seafood' | 'Other';
+export type DeliveryMethod = 'Collection' | 'Delivery';
+export type PaymentMethod = 'PayPal' | 'Credit / Debit Card' | 'Cash';
+export type Tag = 'salad' | 'dessert' | 'ice cream' | 'drink' | 'pizza' | 'calzone' | 'pasta' | 'side' | 'hot' | 'vegetarian' | 'bottle' | 'can';
+export type ToppingCategory = 'Cheese' | 'Vegetable' | 'Meat' | 'Seafood' | 'Other';

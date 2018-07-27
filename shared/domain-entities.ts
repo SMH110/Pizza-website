@@ -1,7 +1,9 @@
+import { Buyer, Discount, DeliveryMethod, PaymentMethod, Tag, Address } from "./dtos";
+
 // TODO - The types in this file should not be global.
 // They will move over to the back-end when we start using DTOs for the Admin side.
 
-interface Order {
+export interface Order {
     buyer: Buyer;
     deliveryAddress: Address;
     billingAddress: Address;
@@ -22,7 +24,7 @@ interface Order {
     status: "Awaiting Payment" | "Outstanding" | "Complete" | "Refunded";
 }
 
-interface OrderLineItem {
+export interface OrderLineItem {
     name: string;
     quantity: number;
     price: number;
@@ -33,7 +35,7 @@ interface OrderLineItem {
     options: string[];
 }
 
-interface Voucher {
+export interface Voucher {
     code: string;
     email: string;
     amount: number;

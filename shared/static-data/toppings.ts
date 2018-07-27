@@ -1,3 +1,5 @@
+import { Topping } from "../dtos";
+
 const toppings: Topping[] = [
     { type: 'Cheese', name: 'Gorgonzola' },
     { type: 'Cheese', name: 'Goat\'s Cheese' },

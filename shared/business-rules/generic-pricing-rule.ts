@@ -1,4 +1,5 @@
 import catalog from '../static-data/catalogue';
+import { BasketItem } from '../dtos';
 
 export default function (item: BasketItem) {
     let catalogItem = catalog.find(x => x.name === item.name);

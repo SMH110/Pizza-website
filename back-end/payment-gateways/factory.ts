@@ -3,6 +3,7 @@ import PayPal, { IsPayPalEnabled } from './paypal';
 import BarclaysEPDQ, { IsBarclaysEPDQEnabled } from './barclays-epdq';
 import { PaymentGateway } from './interfaces';
 import Cash from './cash';
+import { PlaceOrderRequest, PaymentMethod } from '../../shared/dtos';
 
 export function getPaymentGateway(req: IRequest<PlaceOrderRequest>): PaymentGateway {
     let baseReturnAddress = req.protocol + '://' + req.get('host');

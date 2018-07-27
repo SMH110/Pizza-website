@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Address, Buyer } from '../../../shared/dtos';
 
 const STORAGE_KEY = "userDetails";
 @Injectable()

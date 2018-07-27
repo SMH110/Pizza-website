@@ -1,3 +1,5 @@
+import { Item } from "../dtos";
+
 export const MARGHERITA = 'Margherita';
 
 const catalogue: Item[] = [

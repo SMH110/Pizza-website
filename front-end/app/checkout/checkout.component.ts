@@ -8,6 +8,7 @@ import { validateOrderRequest } from '../../../shared/validation/place-order-req
 import { isDeliveryAddressRequired } from '../../../shared/business-rules/delivery-address-required-rule';
 import { isBillingAddressRequired } from '../../../shared/business-rules/billing-address-required-rule';
 import { UserDetailsService } from '../service/user-details.service';
+import { PaymentMethod, DeliveryMethod } from '../../../shared/dtos';
 
 @Component({
     templateUrl: `./checkout.component.html`,

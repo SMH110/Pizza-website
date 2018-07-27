@@ -1,11 +1,13 @@
 import { Router } from 'express';
 import * as session from 'express-session';
-import Order from '../models/orders.model';
-import Voucher from '../models/vouchers.model';
+import OrderModel from '../models/orders.model';
+import VoucherModel from '../models/vouchers.model';
 import { errorHandler, IRequest, IResponse } from './router-utils';
 import { sendOrderConfirmedEmail, sendVoucherCode, resendFailedEmails } from '../services/email-service';
 import * as moment from 'moment';
 import { clearErrors, storeError } from '../services/error-service';
+import { AuthRequest, CurrentUser, MarkAsCompleteRequest, CreateVoucherRequest } from '../../shared/dtos';
+import { Order, Voucher } from '../../shared/domain-entities';
 
 const router = Router();
 
@@ -39,15 +41,15 @@ router.get('/current-user', ensureLoggedIn, errorHandler(async (req: IRequest<vo
 }));
 
 router.get('/get-recent-orders', ensureLoggedIn, errorHandler(async (_req, res: IResponse<Order[]>) => {
-    res.json((await Order.find()).filter(x => moment().diff(moment(x.date), 'days') < 1));
+    res.json((await OrderModel.find()).filter(x => moment().diff(moment(x.date), 'days') < 1));
 }));
 
 router.get('/get-orders', ensureLoggedIn, ensureSuperAdmin, errorHandler(async (_req, res: IResponse<Order[]>) => {
-    return res.json(await Order.find());
+    return res.json(await OrderModel.find());
 }));
 
 router.post('/confirm-order', ensureLoggedIn, errorHandler(async (req: IRequest<MarkAsCompleteRequest>, res) => {
-    let order = await Order.findById(req.body.orderId);
+    let order = await OrderModel.findById(req.body.orderId);
     // Create and save voucher
     let voucher = {
         email: order.buyer.email,
@@ -57,7 +59,7 @@ router.post('/confirm-order', ensureLoggedIn, errorHandler(async (req: IRequest<
         expiryDate: moment(new Date()).add(28, 'days').toDate(),
         code: require('crypto').randomBytes(6).toString('hex')
     } as Voucher;
-    await new Voucher(voucher).save();
+    await new VoucherModel(voucher).save();
 
     // Wait for the order confirmed email to be sent
     await sendOrderConfirmedEmail(order, voucher, req.body.readyInMinutes);
@@ -70,7 +72,7 @@ router.post('/confirm-order', ensureLoggedIn, errorHandler(async (req: IRequest<
 }));
 
 router.get('/vouchers', ensureLoggedIn, ensureSuperAdmin, errorHandler(async (_req, res: IResponse<Voucher[]>) => {
-    res.json(await Voucher.find())
+    res.json(await VoucherModel.find())
 }));
 
 router.post('/vouchers', ensureLoggedIn, ensureSuperAdmin, errorHandler(async (req: IRequest<CreateVoucherRequest>, res: IResponse<void>) => {
@@ -82,7 +84,7 @@ router.post('/vouchers', ensureLoggedIn, ensureSuperAdmin, errorHandler(async (r
         expiryDate: moment(new Date()).add(14, 'days').toDate(),
         code: require('crypto').randomBytes(6).toString('hex')
     } as Voucher;
-    await new Voucher(voucher).save();
+    await new VoucherModel(voucher).save();
     await sendVoucherCode(voucher);
     res.sendStatus(200);
 }));

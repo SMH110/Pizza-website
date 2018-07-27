@@ -2,6 +2,7 @@ import { Router } from 'express';
 const router = Router();
 import { errorHandler, IRequest, IResponse } from './router-utils';
 import { BasketService } from "../services/basket-service";
+import { Voucher } from '../../shared/domain-entities';
 
 router.get('/:id', errorHandler(async (req: IRequest<void>, res: IResponse<Voucher>) => {
     let basketService = new BasketService();

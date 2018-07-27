@@ -2,6 +2,7 @@ import { PaymentGateway } from './interfaces';
 import { PersistedOrder } from '../models/orders.model';
 import { sendOrderPlacedEmail } from "../services/email-service";
 import { updateVoucherIfNecessary } from "../services/basket-service";
+import { PaymentRedirectDetails } from '../../shared/dtos';
 
 export default class Cash implements PaymentGateway {
 

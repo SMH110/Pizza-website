@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import { validateOrderRequest } from '../../../shared/validation/place-order-request-validator';
 import { createValidOrders, createValidOrder, PAYMENT_METHODS } from './order-helpers';
+import { DeliveryMethod, PaymentMethod } from '../../../shared/dtos';
 
 describe('Minimum Order Values', () => {
     it('When the total amount spent on pizza is less than 10 - Should return the expected results', () => {

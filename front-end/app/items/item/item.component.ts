@@ -5,6 +5,7 @@ import { NotificationService } from '../../service/notification.service';
 import { ModalService } from '../../service/modal.service';
 import { AddPizzaModalComponent } from '../../add-pizza-modal/add-pizza-modal.component';
 import { PotatoSkinsModalComponent } from '../../potato-skins-modal/potato-skins-modal.component';
+import { Item } from '../../../../shared/dtos';
 
 @Component({
     selector: 'item',

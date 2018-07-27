@@ -1,10 +1,11 @@
-import Voucher, { PersistedVoucher } from '../models/vouchers.model';
+import VoucherModel, { PersistedVoucher } from '../models/vouchers.model';
 import { PersistedOrder } from "../models/orders.model";
 import { BasketService as SharedBasketService } from '../../shared/services/basket-service';
+import { Voucher } from '../../shared/domain-entities';
 
 export class BasketService extends SharedBasketService {
     async getVoucher(code: string): Promise<PersistedVoucher> {
-        let voucher = await Voucher.findOne({ code, dateUsed: null } as Voucher);
+        let voucher = await VoucherModel.findOne({ code, dateUsed: null } as Voucher);
         if (!voucher) {
             throw new Error("Voucher code not valid");
         }

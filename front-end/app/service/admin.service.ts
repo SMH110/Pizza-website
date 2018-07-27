@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
+import { CurrentUser, AuthRequest, MarkAsCompleteRequest, CreateVoucherRequest } from '../../../shared/dtos';
+import { Order, Voucher } from '../../../shared/domain-entities';
 
 @Injectable()
 export class AdminService {

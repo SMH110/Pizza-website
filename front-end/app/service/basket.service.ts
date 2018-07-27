@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BasketService as SharedBasketService } from '../../../shared/services/basket-service';
 import { Http } from "@angular/http";
+import { DeliveryMethod, PaymentMethod, BasketItem } from '../../../shared/dtos';
+import { Voucher, OrderLineItem } from '../../../shared/domain-entities';
 
 const STORAGE_KEY = 'basket';
 

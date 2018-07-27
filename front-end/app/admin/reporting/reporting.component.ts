@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AdminService } from "../../service/admin.service";
 import { ErrorService } from '../../service/error.service';
 import * as moment from 'moment';
+import { Order } from '../../../../shared/domain-entities';
 
 @Component({
     templateUrl: './reporting.component.html',

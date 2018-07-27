@@ -1,4 +1,5 @@
 import { Injectable, EventEmitter } from '@angular/core';
+import { Item } from '../../../shared/dtos';
 
 @Injectable()
 export class NotificationService {

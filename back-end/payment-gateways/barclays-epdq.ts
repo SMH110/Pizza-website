@@ -6,6 +6,7 @@ import { PaymentGateway } from './interfaces';
 import { sendOrderPlacedEmail } from '../services/email-service'
 import { updateVoucherIfNecessary } from "../services/basket-service";
 import { storeError } from '../services/error-service';
+import { PaymentRedirectDetails } from '../../shared/dtos';
 
 export const IsBarclaysEPDQEnabled = process.env.BARCLAYS_EPDQ_ENABLED === "TRUE";
 

@@ -1,12 +1,14 @@
 import { Router } from 'express';
 const router = Router();
-import Order, { PersistedOrder } from '../models/orders.model';
+import OrderModel, { PersistedOrder } from '../models/orders.model';
 import { errorHandler, IRequest, IResponse } from './router-utils';
 import { getPaymentGateway, getAvailablePaymentMethods } from '../payment-gateways/factory';
 import { validateOrderRequest } from '../../shared/validation/place-order-request-validator';
 import { isDeliveryAddressRequired } from '../../shared/business-rules/delivery-address-required-rule';
 import { isBillingAddressRequired } from '../../shared/business-rules/billing-address-required-rule';
 import { BasketService } from "../services/basket-service";
+import { PlaceOrderRequest, PaymentRedirectDetails } from '../../shared/dtos';
+import { Order } from '../../shared/domain-entities';
 
 router.post('/place-order', errorHandler(async (req: IRequest<PlaceOrderRequest>, res: IResponse<PaymentRedirectDetails>) => {
     console.log('Received order - constructing order')
@@ -55,7 +57,7 @@ router.post('/place-order', errorHandler(async (req: IRequest<PlaceOrderRequest>
     }
 
     console.log(`Order passed validation. Saving order`, JSON.stringify(order, null, 4));
-    let persistedOrder: PersistedOrder = await new Order(order).save() as any;
+    let persistedOrder: PersistedOrder = await new OrderModel(order).save() as any;
     console.log(`Saved order ${persistedOrder._id}`);
 
     console.log(`Creating payment redirect for order ${persistedOrder._id}`);

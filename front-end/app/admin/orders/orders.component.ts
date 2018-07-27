@@ -7,6 +7,8 @@ import { BasketService } from '../../service/basket.service';
 import * as moment from 'moment';
 import { ConfirmOrderModalComponent } from '../../confirm-order-modal/confirm-order-modal.component';
 import { ModalService } from '../../service/modal.service';
+import { Order } from '../../../../shared/domain-entities';
+import { BasketItem, Address } from '../../../../shared/dtos';
 
 @Component({
     templateUrl: './orders.component.html',

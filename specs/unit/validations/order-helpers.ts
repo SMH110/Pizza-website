@@ -2,6 +2,7 @@ import { PlaceOrderRequestValidationObject, OrderItemValidationObject } from '..
 import Catalogue from '../../../shared/static-data/catalogue';
 import { isDeliveryAddressRequired } from '../../../shared/business-rules/delivery-address-required-rule';
 import { isBillingAddressRequired } from '../../../shared/business-rules/billing-address-required-rule';
+import { PaymentMethod, DeliveryMethod, Buyer, Address } from '../../../shared/dtos';
 
 export const PAYMENT_METHODS: PaymentMethod[] = ['PayPal', 'Credit / Debit Card', 'Cash'];
 const DELIVERY_METHODS: DeliveryMethod[] = ['Collection', 'Delivery'];
