@@ -1,3 +1,5 @@
+console.log("app.ts - Top of file");
+
 import "./config/dev.config";
 import "./startup/initialise-mongoose";
 
@@ -18,6 +20,8 @@ import payment from "./router/payment";
 const app = express();
 const nocache = require("nocache");
 
+console.log("app.ts - Requires/imports done");
+
 // Static Files
 app.use((_req, res, next) => {
   res.setHeader("Cache-Control", "public, max-age=31557600");
@@ -28,6 +32,7 @@ app.use((_req, res, next) => {
 app.use(bodyParser.json());
 
 // Register Routes
+console.log("app.ts - Registering routes");
 app.use("/api/order", nocache(), order);
 app.use("/api/voucher", nocache(), voucher);
 app.use("/api/admin", nocache(), admin);
@@ -36,10 +41,12 @@ app.use("/health", nocache(), health);
 app.use(nocache(), clientSide);
 
 // Register Payment Gateways
+console.log("app.ts - Registering payment gateways");
 initialisePayPalEndpoints(app);
 initialiseBarclaysEPDQEndpoints(app);
 
 const port = process.env.PORT;
+console.log(`app.ts - Starting up server on port ${port}`);
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
