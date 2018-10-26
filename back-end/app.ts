@@ -45,8 +45,8 @@ console.log("app.ts - Registering payment gateways");
 initialisePayPalEndpoints(app);
 initialiseBarclaysEPDQEndpoints(app);
 
-const port = process.env.PORT;
+const port = +process.env.PORT;
 console.log(`app.ts - Starting up server on port ${port}`);
-app.listen(port, () => {
+app.listen(port, "0.0.0.0", () => {
   console.log(`Listening on port ${port}`);
 });
