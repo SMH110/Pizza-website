@@ -189,28 +189,28 @@ const catalogue: Item[] = [
   },
   {
     name: "Bottle of Coca Cola",
-    description: "1.5 litre",
+    description: "",
     price: 2.2,
     imageName: "images/drink/coca-cola-bottle.jpg",
     tags: ["drink", "bottle"]
   },
   {
     name: "Bottle of Diet Coke",
-    description: "1.5 litre",
+    description: "",
     price: 2.2,
     imageName: "images/drink/diet-coke-bottle.jpg",
     tags: ["drink", "bottle"]
   },
   {
     name: "Bottle of Fanta",
-    description: "1.5 litre",
+    description: "",
     price: 2.2,
     imageName: "images/drink/fanta-bottle.jpg",
     tags: ["drink", "bottle"]
   },
   {
     name: "Bottle of 7UP",
-    description: "1.5 litre",
+    description: "",
     price: 2.2,
     imageName: "images/drink/7up-bottle.jpg",
     tags: ["drink", "bottle"]
