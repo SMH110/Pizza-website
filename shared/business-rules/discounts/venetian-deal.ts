@@ -11,17 +11,17 @@ export const venetianDealExtraLarge: DiscountRule = {
 
 export const venetianDealLarge: DiscountRule = {
   name: "Venetian Deal - Large",
-  description: "Any 2 x Large Pizzas for £16.99",
+  description: "Any 2 x Large Pizzas for £17.99",
   calculate(basket: DiscountCalculationDto) {
-    return calculate(basket, "Large", 16.99);
+    return calculate(basket, "Large", 17.99);
   }
 };
 
 export const venetianDealMedium: DiscountRule = {
   name: "Venetian Deal - Medium",
-  description: "Any 2 x Medium Pizzas for £14.99",
+  description: "Any 2 x Medium Pizzas for £15.99",
   calculate(basket: DiscountCalculationDto) {
-    return calculate(basket, "Medium", 14.99);
+    return calculate(basket, "Medium", 15.99);
   }
 };
 

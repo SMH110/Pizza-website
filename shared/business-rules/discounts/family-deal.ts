@@ -3,25 +3,25 @@ import { flatten, getBasePrices, sortByPrice, sum } from "./helpers";
 
 export const familyDealExtraLarge: DiscountRule = {
   name: "Family Deal - Extra Large",
-  description: "Any 3 x Extra Large pizzas for £25.99",
+  description: "Any 3 x Extra Large pizzas for £26.99",
   calculate(basket: DiscountCalculationDto) {
-    return calculate(basket, "Extra Large", 25.99);
+    return calculate(basket, "Extra Large", 26.99);
   }
 };
 
 export const familyDealLarge: DiscountRule = {
   name: "Family Deal - Large",
-  description: "Any 3 x Large pizzas for £23.99",
+  description: "Any 3 x Large pizzas for £24.99",
   calculate(basket: DiscountCalculationDto) {
-    return calculate(basket, "Large", 23.99);
+    return calculate(basket, "Large", 24.99);
   }
 };
 
 export const familyDealMedium: DiscountRule = {
   name: "Family Deal - Medium",
-  description: "Any 3 x Medium pizzas for £20.99",
+  description: "Any 3 x Medium pizzas for £21.99",
   calculate(basket: DiscountCalculationDto) {
-    return calculate(basket, "Medium", 20.99);
+    return calculate(basket, "Medium", 21.99);
   }
 };
 
