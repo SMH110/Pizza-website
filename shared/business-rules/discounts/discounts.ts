@@ -1,6 +1,6 @@
 import { DiscountRule } from "./interfaces";
 import { _2ExtraLargePizzas } from "./2-extra-large-pizzas-deal-nov-18";
-import { _20PercentOff } from "./20-percent-off-discount-nov-18";
+import { _20PercentOff } from "./20-percent-off-discount";
 import {
   familyDealExtraLarge,
   familyDealLarge,
