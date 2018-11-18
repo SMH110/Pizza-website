@@ -135,6 +135,7 @@ export class CheckoutComponent {
   getOrderButtonText(): string {
     if (
       this.basket.paymentMethod === "Cash" ||
+      this.basket.paymentMethod === "Credit / Debit card (in person)" ||
       this.basket.paymentMethod === null
     ) {
       return "Place order";

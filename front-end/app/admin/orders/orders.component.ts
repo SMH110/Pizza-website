@@ -119,7 +119,9 @@ export class OrdersComponent implements OnInit {
 
   isShowCustomerAddress(order: OrderViewModel) {
     return (
-      order.deliveryMethod === "Collection" && order.paymentMethod === "Cash"
+      order.deliveryMethod === "Collection" &&
+      (order.paymentMethod === "Cash" ||
+        order.paymentMethod === "Credit / Debit card (in person)")
     );
   }
 

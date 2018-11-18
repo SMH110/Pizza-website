@@ -74,7 +74,7 @@ export interface CurrentUser {
 }
 
 export type DeliveryMethod = "Collection" | "Delivery";
-export type PaymentMethod = "PayPal" | "Credit / Debit Card" | "Cash";
+export type PaymentMethod = "PayPal" | "Credit / Debit Card" | "Cash" | "Credit / Debit card (in person)";
 export type Tag =
   | "salad"
   | "dessert"

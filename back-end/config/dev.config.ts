@@ -31,6 +31,9 @@ if (!process.env.PORT) {
   process.env.BARCLAYS_EPDQ_SHA_OUT =
     "LwvcFTOBcyZacvXBDrwFFNgBSIhDfpHYj2TC01uzG4sDbtF2pNSqJPzRkJKuTEfD";
 
+  // Physical card terminal
+  process.env.CREDIT_DEBIT_CARD_IN_PERSON_ENABLED = "TRUE";
+
   // Outlook
   process.env.SMTP_EMAIL = "pizza-delivery-website-test@outlook.com";
   process.env.SMTP_PASSWORD = "^yO*#A30$4(x01H";
