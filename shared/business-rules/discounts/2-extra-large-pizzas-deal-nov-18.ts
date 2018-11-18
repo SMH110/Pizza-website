@@ -26,7 +26,7 @@ export const _2ExtraLargePizzas: DiscountRule = {
     return (
       sum(pizzas.slice(0, timesToApply * 2)) +
       sum(sides.slice(0, timesToApply * 1)) -
-      timesToApply * 16.99
+      timesToApply * 23.99
     );
   }
 };
