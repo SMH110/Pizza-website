@@ -3,7 +3,7 @@ import { flatten, getBasePrices, sortByPrice, sum } from "./helpers";
 
 export const _anyPizza_9_99: DiscountRule = {
   name: "Any pizza any size for £9.99",
-  description: "Any pizza any size for £9.99",
+  description: "Any pizza any size for £9.99. Does not apply on New Year's day.",
   calculate(basket: DiscountCalculationDto) {
     const now = Date.now();
     if (
