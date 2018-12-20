@@ -10,7 +10,7 @@ export class BasketService extends SharedBasketService {
       dateUsed: null
     } as Voucher);
     if (!voucher) {
-      throw new Error("Voucher code not valid");
+      throw new Error(this.voucherInvalidMessage);
     }
     return voucher;
   }

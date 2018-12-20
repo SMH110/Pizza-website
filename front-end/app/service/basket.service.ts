@@ -25,11 +25,15 @@ export class BasketService extends SharedBasketService {
   private _discountCode: string = null;
   private _voucherCode: string = null;
 
-  getVoucher(code: string) {
-    return this.http
-      .get(`/api/voucher/${code}`)
-      .toPromise()
-      .then(x => x.json() as Voucher);
+  async getVoucher(code: string) {
+    try {
+      return await this.http
+        .get(`/api/voucher/${code}`)
+        .toPromise()
+        .then(x => x.json() as Voucher);
+    } catch (e) {
+      throw new Error(this.voucherInvalidMessage);
+    }
   }
 
   get orderNotes() {

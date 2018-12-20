@@ -11,6 +11,7 @@ export abstract class BasketService {
   voucherCode: string = null;
   voucher: Voucher = null;
   orderNotes: string = null;
+  readonly voucherInvalidMessage = "The voucher code you have entered is invalid";
 
   constructor() {}
 
@@ -95,6 +96,9 @@ export abstract class BasketService {
       return;
     }
     try {
+      if (this.getTotalPayable() < 20) {
+        throw new Error("Vouchers can only be used on orders over £20");
+      }
       this.voucher = await this.getVoucher(code);
       this.voucherCode = code;
     } catch (e) {

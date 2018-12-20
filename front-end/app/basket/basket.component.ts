@@ -100,9 +100,7 @@ export class BasketComponent {
       await this.basket.setVoucherCode(this.voucherCode.trim() || null);
       this.notificationService.voucherSuccessfullyApplied.emit();
     } catch (e) {
-      this.errorService.displayErrors([
-        "The voucher code you have entered is not valid."
-      ]);
+      this.errorService.displayErrors([e.message]);
     }
   }
 

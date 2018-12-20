@@ -26,18 +26,20 @@ router.post(
       basketService.paymentMethod = req.body.paymentMethod;
       basketService.discountCode = req.body.discountCode;
 
-      if (req.body.voucherCode) {
-        try {
-          await basketService.setVoucherCode(req.body.voucherCode);
-        } catch {
-          return res
-            .status(400)
-            .json(["The voucher code you entered is not valid"]);
-        }
-      }
-
+      console.log("Adding items to basket");
       for (let item of req.body.orderItems) {
         basketService.addToBasket(item);
+      }
+
+      if (req.body.voucherCode) {
+        console.log("Applying voucher code");
+        try {
+          await basketService.setVoucherCode(req.body.voucherCode);
+        } catch (e) {
+          return res
+            .status(400)
+            .json([e.message]);
+        }
       }
 
       let order: Order = {
