@@ -268,4 +268,22 @@ describe("Shop Opening Times validation", () => {
       ]);
     }
   });
+
+  it("The shop is closed on Christmas Eve 2018", () => {
+    for (let order of createValidOrders()) {
+      order.date = new Date(2018, 11, 24, 12, 0, 0);
+      expect(validateOrderRequest(order, PAYMENT_METHODS)).to.deep.equal([
+        "Sorry, the shop is now closed."
+      ]);
+    }
+  });
+
+  it("The shop is closed on Christmas Day 2018", () => {
+    for (let order of createValidOrders()) {
+      order.date = new Date(2018, 11, 25, 15, 30, 0);
+      expect(validateOrderRequest(order, PAYMENT_METHODS)).to.deep.equal([
+        "Sorry, the shop is now closed."
+      ]);
+    }
+  });
 });

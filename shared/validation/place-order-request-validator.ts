@@ -224,7 +224,15 @@ function isNullOrWhitespace(input: string) {
   return !input || input.replace(/\s/g, "").length < 1;
 }
 
-const openingTimeExceptions: OpeningTimeException[] = [
+const specificClosings: OpeningTimeException[] = [
+  {
+    openingTime: new Date(2018, 11, 24, 4, 30, 0),
+    closingTime: new Date(2018, 11, 26, 0, 30, 0),
+    reason: "Christmas Eve/Day Closure"
+  }
+];
+
+const specificOpenings: OpeningTimeException[] = [
   {
     openingTime: new Date(2017, 4, 29, 12, 0, 0),
     closingTime: new Date(2017, 4, 30, 3, 0, 0),
@@ -290,9 +298,15 @@ function isShopOpen(date: Date): boolean {
     return true;
   }
 
-  for (let exception of openingTimeExceptions) {
+  for (let exception of specificOpenings) {
     if (date >= exception.openingTime && date < exception.closingTime) {
       return true;
+    }
+  }
+
+  for (let exception of specificClosings) {
+    if (date >= exception.openingTime && date < exception.closingTime) {
+      return false;
     }
   }
 
