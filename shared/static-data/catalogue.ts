@@ -6,10 +6,10 @@ const catalogue: Item[] = [
   {
     name: "Tuna Salad",
     price: {
-      "No dressing": 4.99,
-      "Balsamic vinegar & extra virgin olive oil": 4.99,
-      "Caesar dressing": 4.99,
-      "Both dressings": 4.99
+      "No dressing": 5.99,
+      "Balsamic vinegar & extra virgin olive oil": 5.99,
+      "Caesar dressing": 5.99,
+      "Both dressings": 5.99
     },
     description: "Tomatoes, mixed leaves, tuna, anchovies and red onion",
     imageName: "images/salad/tuna-salad.jpg",
@@ -18,10 +18,10 @@ const catalogue: Item[] = [
   {
     name: "Chicken Caesar Salad",
     price: {
-      "No dressing": 4.99,
-      "Balsamic vinegar & extra virgin olive oil": 4.99,
-      "Caesar dressing": 4.99,
-      "Both dressings": 4.99
+      "No dressing": 5.99,
+      "Balsamic vinegar & extra virgin olive oil": 5.99,
+      "Caesar dressing": 5.99,
+      "Both dressings": 5.99
     },
     description: "Chicken, lettuce, parmesan cheese and croutons",
     imageName: "images/salad/chicken-caesar-salad.jpg",
@@ -30,10 +30,10 @@ const catalogue: Item[] = [
   {
     name: "Greek Salad",
     price: {
-      "No dressing": 4.99,
-      "Balsamic vinegar & extra virgin olive oil": 4.99,
-      "Caesar dressing": 4.99,
-      "Both dressings": 4.99
+      "No dressing": 5.99,
+      "Balsamic vinegar & extra virgin olive oil": 5.99,
+      "Caesar dressing": 5.99,
+      "Both dressings": 5.99
     },
     description: "Feta cheese, olives, tomatoes, cucumber and mixed leaves",
     imageName: "images/salad/greek-salad.jpg",
@@ -42,10 +42,10 @@ const catalogue: Item[] = [
   {
     name: "Mixed Salad",
     price: {
-      "No dressing": 4.99,
-      "Balsamic vinegar & extra virgin olive oil": 4.99,
-      "Caesar dressing": 4.99,
-      "Both dressings": 4.99
+      "No dressing": 5.99,
+      "Balsamic vinegar & extra virgin olive oil": 5.99,
+      "Caesar dressing": 5.99,
+      "Both dressings": 5.99
     },
     description: "Mixed leaves, tomatoes, cucumber and red onions",
     imageName: "images/salad/mixed-salad.jpg",
@@ -54,10 +54,10 @@ const catalogue: Item[] = [
   {
     name: "Rocket Salad",
     price: {
-      "No dressing": 4.49,
-      "Balsamic vinegar & extra virgin olive oil": 4.49,
-      "Caesar dressing": 4.49,
-      "Both dressings": 4.49
+      "No dressing": 4.99,
+      "Balsamic vinegar & extra virgin olive oil": 4.99,
+      "Caesar dressing": 4.99,
+      "Both dressings": 4.99
     },
     description: "Rocket leaves with shaved parmesan and cherry tomatoes",
     imageName: "images/salad/rocket-salad.jpg",
@@ -66,10 +66,10 @@ const catalogue: Item[] = [
   {
     name: "Nicoise Salad",
     price: {
-      "No dressing": 4.99,
-      "Balsamic vinegar & extra virgin olive oil": 4.99,
-      "Caesar dressing": 4.99,
-      "Both dressings": 4.99
+      "No dressing": 5.99,
+      "Balsamic vinegar & extra virgin olive oil": 5.99,
+      "Caesar dressing": 5.99,
+      "Both dressings": 5.99
     },
     description:
       "Tuna, anchovies, egg, olive, capers, tomatoes and mixed leaves",
@@ -79,10 +79,10 @@ const catalogue: Item[] = [
   {
     name: "Tricolore Salad",
     price: {
-      "No dressing": 4.99,
-      "Balsamic vinegar & extra virgin olive oil": 4.99,
-      "Caesar dressing": 4.99,
-      "Both dressings": 4.99
+      "No dressing": 5.99,
+      "Balsamic vinegar & extra virgin olive oil": 5.99,
+      "Caesar dressing": 5.99,
+      "Both dressings": 5.99
     },
     description:
       "Buffalo mozzarella, fresh tomatoes, fresh basil and mixed leaves",
@@ -226,7 +226,7 @@ const catalogue: Item[] = [
     name: MARGHERITA,
     description: "Mozzarella & Tomato Sauce",
     imageName: "images/pizza/margherita.jpg",
-    price: { Medium: 7.5, Large: 8.5, "Extra Large": 10.0 },
+    price: { Medium: 7.99, Large: 8.99, "Extra Large": 10.99 },
     tags: ["pizza", "vegetarian"]
   },
   {
@@ -234,7 +234,7 @@ const catalogue: Item[] = [
     description:
       "Mozzarella, Tomato Sauce, Gorgonzola Cheese, Parmesan Cheese, Ricotta Cheese",
     imageName: "images/pizza/tutto-formaggi.jpg",
-    price: { Medium: 9.99, Large: 11.99, "Extra Large": 13.99 },
+    price: { Medium: 10.99, Large: 12.99, "Extra Large": 14.99 },
     tags: ["pizza", "vegetarian"]
   },
   {
@@ -242,7 +242,7 @@ const catalogue: Item[] = [
     description:
       "Mozzarella, Tomato Sauce, Spinach, Feta Cheese, Black Olives, Oregano, Garlic",
     imageName: "images/pizza/spinaci.jpg",
-    price: { Medium: 9.99, Large: 11.99, "Extra Large": 13.99 },
+    price: { Medium: 10.99, Large: 12.99, "Extra Large": 14.99 },
     tags: ["pizza", "vegetarian"]
   },
   {
@@ -250,7 +250,7 @@ const catalogue: Item[] = [
     description:
       "Mozzarella, Tomato Sauce, Spinach, Mushroom, Soft Egg, Parmesan Cheese, Garlic",
     imageName: "images/pizza/florentina.jpg",
-    price: { Medium: 9.99, Large: 11.99, "Extra Large": 13.99 },
+    price: { Medium: 10.99, Large: 12.99, "Extra Large": 14.99 },
     tags: ["pizza", "vegetarian"]
   },
   {
@@ -258,7 +258,7 @@ const catalogue: Item[] = [
     description:
       "Mozzarella, Tomato Sauce, Roasted Courgette, Roasted Aubergines, Mixed Peppers, Fresh Basil",
     imageName: "images/pizza/ortolana.jpg",
-    price: { Medium: 9.99, Large: 11.99, "Extra Large": 13.99 },
+    price: { Medium: 10.99, Large: 12.99, "Extra Large": 14.99 },
     tags: ["pizza", "vegetarian"]
   },
   {
@@ -266,7 +266,7 @@ const catalogue: Item[] = [
     description:
       "Mozzarella, Tomato Sauce, Buffalo Mozzarella, Cherry Tomatoes, Roasted Aubergines",
     imageName: "images/pizza/bufalina.jpg",
-    price: { Medium: 9.99, Large: 11.99, "Extra Large": 13.99 },
+    price: { Medium: 10.99, Large: 12.99, "Extra Large": 14.99 },
     tags: ["pizza", "vegetarian"]
   },
   {
@@ -274,7 +274,7 @@ const catalogue: Item[] = [
     description:
       "Mozzarella, Tomato Sauce, Roasted Onions, Roasted Mushroom, Roasted Mixed Peppers, Sweetcorn, Black Olives",
     imageName: "images/pizza/vegetarian.jpg",
-    price: { Medium: 9.99, Large: 11.99, "Extra Large": 13.99 },
+    price: { Medium: 10.99, Large: 12.99, "Extra Large": 14.99 },
     tags: ["pizza", "vegetarian"]
   },
   {
@@ -282,7 +282,7 @@ const catalogue: Item[] = [
     description:
       "Mozzarella, Tomato Sauce, Roasted Mushroom, Roasted Onions, Roasted Mixed Peppers, Jalapeno Peppers, Green Chillies",
     imageName: "images/pizza/vegetarian-piccante.jpg",
-    price: { Medium: 9.99, Large: 11.99, "Extra Large": 13.99 },
+    price: { Medium: 10.99, Large: 12.99, "Extra Large": 14.99 },
     tags: ["pizza", "vegetarian"]
   },
   {
@@ -297,7 +297,7 @@ const catalogue: Item[] = [
     description:
       "Mozzarella, Tomato Sauce, Mixed Peppers, Roasted Courgette, Roasted Aubergines, Roasted Mushroom, Onions",
     imageName: "images/pizza/ortolana.jpg", // TODO - add Primavera photo
-    price: { Medium: 9.99, Large: 11.99, "Extra Large": 13.99 },
+    price: { Medium: 10.99, Large: 12.99, "Extra Large": 14.99 },
     tags: ["pizza", "vegetarian"]
   },
   {
@@ -305,7 +305,7 @@ const catalogue: Item[] = [
     description:
       "Mozzarella, Tomato Sauce, Pepperoni, Roasted Mixed Pepper, Roasted Onions, Jalepeno Pepper, Chopped Tomatoes",
     imageName: "images/pizza/americana.jpg",
-    price: { Medium: 9.99, Large: 11.99, "Extra Large": 13.99 },
+    price: { Medium: 10.99, Large: 12.99, "Extra Large": 14.99 },
     tags: ["pizza", "hot"]
   },
   {
@@ -313,21 +313,21 @@ const catalogue: Item[] = [
     description:
       "Mozzarella, Tomato Sauce, Parma Ham, Rocket Salad, Parmesan Cheese",
     imageName: "images/pizza/parma.jpg",
-    price: { Medium: 9.99, Large: 11.99, "Extra Large": 13.99 },
+    price: { Medium: 10.99, Large: 12.99, "Extra Large": 14.99 },
     tags: ["pizza"]
   },
   {
     name: "Classica",
     description: "Mozzarella, Tomato Sauce, Ham, Roasted Mushroom",
     imageName: "images/pizza/classica.jpg",
-    price: { Medium: 9.99, Large: 11.99, "Extra Large": 13.99 },
+    price: { Medium: 10.99, Large: 12.99, "Extra Large": 14.99 },
     tags: ["pizza"]
   },
   {
     name: "Hawaiian",
     description: "Mozzarella, Tomato Sauce, Ham & Pineapple",
     imageName: "images/pizza/hawaiian.jpg",
-    price: { Medium: 9.99, Large: 11.49, "Extra Large": 12.99 },
+    price: { Medium: 10.99, Large: 12.49, "Extra Large": 14.99 },
     tags: ["pizza"]
   },
   {
@@ -335,7 +335,7 @@ const catalogue: Item[] = [
     description:
       "Mozzarella, Tomato Sauce, Chicken, Roasted Mushrooms, Cherry Tomatoes, Black Olives",
     imageName: "images/pizza/caprino.jpg",
-    price: { Medium: 9.99, Large: 11.99, "Extra Large": 13.99 },
+    price: { Medium: 10.99, Large: 12.99, "Extra Large": 14.99 },
     tags: ["pizza"]
   },
   {
@@ -343,7 +343,7 @@ const catalogue: Item[] = [
     description:
       "Mozzarella, Tomato Sauce, Salami, Ham, Artichokes & Boiled Egg",
     imageName: "images/pizza/capricciosa.jpg",
-    price: { Medium: 9.99, Large: 11.99, "Extra Large": 13.99 },
+    price: { Medium: 10.99, Large: 12.99, "Extra Large": 14.99 },
     tags: ["pizza"]
   },
   {
@@ -351,14 +351,14 @@ const catalogue: Item[] = [
     description:
       "Mozzarella, Tomato Sauce, Pepperoni, Roasted Mushrooms, Roasted Mixed Peppers, Black Olives",
     imageName: "images/pizza/pepperoni-deluxe.jpg",
-    price: { Medium: 9.99, Large: 11.99, "Extra Large": 13.99 },
+    price: { Medium: 10.99, Large: 12.99, "Extra Large": 14.99 },
     tags: ["pizza"]
   },
   {
     name: "Pepperoni Plus",
     description: "Double mozzarella, Tomato Sauce and Double Pepperoni",
     imageName: "images/pizza/pepperoni-plus.jpg",
-    price: { Medium: 9.99, Large: 11.99, "Extra Large": 13.99 },
+    price: { Medium: 10.99, Large: 12.99, "Extra Large": 14.99 },
     tags: ["pizza"]
   },
   {
@@ -366,7 +366,7 @@ const catalogue: Item[] = [
     description:
       "Mozzarella, Tomato Sauce, Pepperoni, Spicy Beef, Roasted Mixed Peppers & Green Chillies",
     imageName: "images/pizza/mexicana.jpg",
-    price: { Medium: 9.99, Large: 11.99, "Extra Large": 13.99 },
+    price: { Medium: 10.99, Large: 12.99, "Extra Large": 14.99 },
     tags: ["pizza", "hot"]
   },
   {
@@ -374,7 +374,7 @@ const catalogue: Item[] = [
     description:
       "Mozzarella, Tomato Sauce, Pepperoni, Roasted Mixed Peppers, Green Chillies, Roasted Onions",
     imageName: "images/pizza/regina.jpg",
-    price: { Medium: 9.99, Large: 11.99, "Extra Large": 13.99 },
+    price: { Medium: 10.99, Large: 12.99, "Extra Large": 14.99 },
     tags: ["pizza", "hot"]
   },
   {
@@ -382,7 +382,7 @@ const catalogue: Item[] = [
     description:
       "Mozzarella, Tomato Sauce, Pepperoni, Ham, Spicy Beef, Meat balls",
     imageName: "images/pizza/meat-feast.jpg",
-    price: { Medium: 9.99, Large: 11.99, "Extra Large": 13.99 },
+    price: { Medium: 10.99, Large: 12.99, "Extra Large": 14.99 },
     tags: ["pizza"]
   },
   {
@@ -390,7 +390,7 @@ const catalogue: Item[] = [
     description:
       "BBQ Sauce, Mozzarella Cheese, Spring Onions, Chicken, Bacon, Chopped Tomatoes",
     imageName: "images/pizza/bbq-pizza.jpg",
-    price: { Medium: 9.99, Large: 11.99, "Extra Large": 13.99 },
+    price: { Medium: 10.99, Large: 12.99, "Extra Large": 14.99 },
     tags: ["pizza"]
   },
   {
@@ -398,7 +398,7 @@ const catalogue: Item[] = [
     description:
       "Mozzarella, Tomato Sauce, Anchovies, Capers, Black Olives, Chopped Tomatoes",
     imageName: "images/pizza/napolitana.jpg",
-    price: { Medium: 9.99, Large: 11.99, "Extra Large": 13.99 },
+    price: { Medium: 10.99, Large: 12.99, "Extra Large": 14.99 },
     tags: ["pizza"]
   },
   {
@@ -406,14 +406,14 @@ const catalogue: Item[] = [
     description:
       "Mozzarella, Tomato Sauce, Tuna, Prawns, Anchovies, Chopped Tomatoes",
     imageName: "images/pizza/torino.jpg",
-    price: { Medium: 9.99, Large: 11.99, "Extra Large": 13.99 },
+    price: { Medium: 10.99, Large: 12.99, "Extra Large": 14.99 },
     tags: ["pizza"]
   },
   {
     name: "Tutto Le Carni",
     description: "Mozzarella, Tomato Sauce, Chicken, Salami, Ham, Black Olives",
     imageName: "images/pizza/tutto-le-carni.jpg",
-    price: { Medium: 9.99, Large: 11.99, "Extra Large": 13.99 },
+    price: { Medium: 10.99, Large: 12.99, "Extra Large": 14.99 },
     tags: ["pizza"]
   },
   {
@@ -421,14 +421,14 @@ const catalogue: Item[] = [
     description:
       "Mozzarella, Tomato Sauce, Chicken, Pepperoni, Ham, Roasted Mushroom",
     imageName: "images/pizza/sofia.jpg",
-    price: { Medium: 9.99, Large: 11.99, "Extra Large": 13.99 },
+    price: { Medium: 10.99, Large: 12.99, "Extra Large": 14.99 },
     tags: ["pizza"]
   },
   {
     name: "Garlic Meat Lover",
     description: "Mozzarella, Garlic Sauce, Pepperoni, Beef, Ham, Bacon",
     imageName: "images/pizza/garlic-meat-lover.jpg",
-    price: { Medium: 9.99, Large: 11.99, "Extra Large": 13.99 },
+    price: { Medium: 10.99, Large: 12.99, "Extra Large": 14.99 },
     tags: ["pizza"]
   },
   {
@@ -436,7 +436,7 @@ const catalogue: Item[] = [
     description:
       "Mozzarella, Tomato Sauce, Pepperoni, Ham, Beef, Salami, Mushroom, Mixed Peppers",
     imageName: "images/pizza/godfather-special.jpg",
-    price: { Medium: 9.99, Large: 12.99, "Extra Large": 14.99 },
+    price: { Medium: 10.99, Large: 12.99, "Extra Large": 14.99 },
     tags: ["pizza"]
   },
   {
@@ -452,7 +452,7 @@ const catalogue: Item[] = [
     description:
       "Mozzarella, Tomato Sauce, Tandoori chicken, Roasted Green Chillies, Roasted Mushrooms and Mixed Peppers",
     imageName: "images/pizza/indiana.jpg",
-    price: { Medium: 9.99, Large: 11.99, "Extra Large": 13.99 },
+    price: { Medium: 10.99, Large: 12.99, "Extra Large": 14.99 },
     tags: ["pizza", "hot"]
   },
   {
@@ -460,12 +460,12 @@ const catalogue: Item[] = [
     description:
       "Mozzarella, Tomato Sauce, Sun-dried Tomato, Olives, Mushroom, Sweetcorn, Red Onion, Chilli",
     imageName: "images/pizza/inferno.jpg",
-    price: { Medium: 9.99, Large: 11.99, "Extra Large": 13.99 },
+    price: { Medium: 10.99, Large: 12.99, "Extra Large": 14.99 },
     tags: ["pizza", "hot", "vegetarian"]
   },
   {
     name: "Calzone Vegetariano",
-    price: { Medium: 9.99, Large: 11.99, "Extra Large": 13.99 },
+    price: { Medium: 10.99, Large: 12.99, "Extra Large": 14.99 },
     description:
       "Tomato sauce, mozzarella, roasted aubergine, roasted mushrooms, roasted green peppers, roasted courgettes & onions",
     imageName: "images/calzone/calzone.jpg",
@@ -473,14 +473,14 @@ const catalogue: Item[] = [
   },
   {
     name: "Calzone Meat",
-    price: { Medium: 9.99, Large: 11.99, "Extra Large": 13.99 },
+    price: { Medium: 10.99, Large: 12.99, "Extra Large": 14.99 },
     description: "Tomato sauce, mozzarella, ham, beef, pepperoni & salami",
     imageName: "images/calzone/calzone.jpg",
     tags: ["calzone"]
   },
   {
     name: "Calzone Misto",
-    price: { Medium: 9.99, Large: 11.99, "Extra Large": 13.99 },
+    price: { Medium: 10.99, Large: 12.99, "Extra Large": 14.99 },
     description: "Mozzarella, tomato, beef, garlic, chilli and meat balls",
     imageName: "images/calzone/calzone.jpg",
     tags: ["calzone"]

@@ -15,11 +15,12 @@ import {
   venetianDealLarge,
   venetianDealMedium
 } from "./venetian-deal";
-import { _anyPizza_9_99 } from "./temporary-deals";
+import { anyPizza_9_99, anyXLPizza_12_99 } from "./temporary-deals";
 
 export const discounts: DiscountRule[] = [
   _20PercentOff,
-  _anyPizza_9_99,
+  anyPizza_9_99,
+  anyXLPizza_12_99,
   _2ExtraLargePizzas,
   godfatherSpecialMealDealExtraLarge,
   godfatherSpecialMealDealLarge,
