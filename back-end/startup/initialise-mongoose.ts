@@ -9,7 +9,10 @@ import { storeError } from "../services/error-service";
       console.log("Connecting to MongoDb");
       await mongoose.connect(
         process.env.CONNECTION_STRING,
-        { useMongoClient: true }
+        {
+          useMongoClient: true,
+          reconnectTries: Number.MAX_SAFE_INTEGER
+        }
       );
       console.log("Connected to MongoDb");
       break;
