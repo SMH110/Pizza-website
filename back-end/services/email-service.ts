@@ -4,6 +4,7 @@ import { BasketService } from "../../shared/services/basket-service";
 import * as moment from "moment";
 import { storeError } from "./error-service";
 import { Order, Voucher } from "../../shared/domain-entities";
+import { FailedEmailModel } from "../models/failed-emails.model";
 
 const STORE_EMAIL_ADDRESS = process.env.SMTP_EMAIL;
 
@@ -100,8 +101,6 @@ const transporter = createTransport({
   }
 });
 
-const FAILED_EMAILS: FailedEmail[] = [];
-
 async function sendEmail(
   recipientEmail: string,
   subject: string,
@@ -116,22 +115,17 @@ async function sendEmail(
     });
     console.log(`Successfully sent email ${subject} to ${recipientEmail}`);
   } catch (error) {
-    FAILED_EMAILS.push({ recipientEmail, subject, html });
+    await new FailedEmailModel({ recipientEmail, subject, html }).save();
     storeError(error);
     console.error(`Error sending email ${subject} to ${recipientEmail}`, error);
   }
 }
 
 export async function resendFailedEmails() {
-  let emails = FAILED_EMAILS.splice(0, FAILED_EMAILS.length);
+  let emails = await FailedEmailModel.find();
   for (let email of emails) {
     await sendEmail(email.recipientEmail, email.subject, email.html);
+    await email.remove();
     await new Promise(r => setTimeout(r, 5000));
   }
-}
-
-interface FailedEmail {
-  recipientEmail: string;
-  subject: string;
-  html: string;
 }
