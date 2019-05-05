@@ -224,66 +224,102 @@ function isNullOrWhitespace(input: string) {
   return !input || input.replace(/\s/g, "").length < 1;
 }
 
-const specificClosings: OpeningTimeException[] = [
-  {
-    openingTime: new Date(2018, 11, 24, 4, 30, 0),
-    closingTime: new Date(2018, 11, 26, 0, 30, 0),
-    reason: "Christmas Eve/Day Closure"
-  }
-];
-
 const specificOpenings: OpeningTimeException[] = [
   {
-    openingTime: new Date(2017, 4, 29, 12, 0, 0),
-    closingTime: new Date(2017, 4, 30, 3, 0, 0),
-    reason: "Spring bank holiday"
+    openingTime: new Date(2019, 0, 1, 12, 0, 0),
+    closingTime: new Date(2019, 0, 2, 3, 0, 0),
+    reason: "New Year's Day",
+    isOpen: true
   },
   {
-    openingTime: new Date(2017, 7, 28, 12, 0, 0),
-    closingTime: new Date(2017, 7, 29, 3, 0, 0),
-    reason: "Summer bank holiday"
-  },
-  // No Christmas Day
-  {
-    openingTime: new Date(2017, 11, 26, 12, 0, 0),
-    closingTime: new Date(2017, 11, 27, 3, 0, 0),
-    reason: "Boxing Day"
+    openingTime: new Date(2019, 3, 19, 12, 0, 0),
+    closingTime: new Date(2019, 3, 20, 3, 0, 0),
+    reason: "Good Friday",
+    isOpen: true
   },
   {
-    openingTime: new Date(2018, 0, 1, 12, 0, 0),
-    closingTime: new Date(2018, 0, 2, 3, 0, 0),
-    reason: "New Year's Day"
+    openingTime: new Date(2019, 3, 22, 12, 0, 0),
+    closingTime: new Date(2019, 3, 23, 3, 0, 0),
+    reason: "Easter Monday",
+    isOpen: true
   },
   {
-    openingTime: new Date(2018, 2, 30, 12, 0, 0),
-    closingTime: new Date(2018, 2, 31, 3, 0, 0),
-    reason: "Good Friday"
+    openingTime: new Date(2019, 4, 6, 12, 0, 0),
+    closingTime: new Date(2019, 4, 7, 3, 0, 0),
+    reason: "Early May bank holiday",
+    isOpen: true
   },
   {
-    openingTime: new Date(2018, 3, 2, 12, 0, 0),
-    closingTime: new Date(2018, 3, 3, 3, 0, 0),
-    reason: "Easter Monday"
+    openingTime: new Date(2019, 4, 27, 12, 0, 0),
+    closingTime: new Date(2019, 4, 28, 3, 0, 0),
+    reason: "Spring bank holiday",
+    isOpen: true
   },
   {
-    openingTime: new Date(2018, 4, 7, 12, 0, 0),
-    closingTime: new Date(2018, 4, 8, 3, 0, 0),
-    reason: "Early May bank holiday"
+    openingTime: new Date(2019, 7, 26, 12, 0, 0),
+    closingTime: new Date(2019, 7, 27, 3, 0, 0),
+    reason: "Summer bank holiday",
+    isOpen: true
   },
   {
-    openingTime: new Date(2018, 4, 28, 12, 0, 0),
-    closingTime: new Date(2018, 4, 29, 3, 0, 0),
-    reason: "Spring bank holiday"
+    openingTime: new Date(2019, 11, 24, 4, 30, 0),
+    closingTime: new Date(2019, 11, 26, 0, 30, 0),
+    reason: "Christmas Eve/Day Closure",
+    isOpen: false
   },
   {
-    openingTime: new Date(2018, 7, 27, 12, 0, 0),
-    closingTime: new Date(2017, 7, 28, 3, 0, 0),
-    reason: "Summer bank holiday"
+    openingTime: new Date(2019, 11, 26, 12, 0, 0),
+    closingTime: new Date(2019, 11, 27, 3, 0, 0),
+    reason: "Boxing Day",
+    isOpen: true
   },
-  // No Christmas Day
   {
-    openingTime: new Date(2018, 11, 26, 12, 0, 0),
-    closingTime: new Date(2017, 11, 27, 3, 0, 0),
-    reason: "Boxing Day"
+    openingTime: new Date(2020, 0, 1, 12, 0, 0),
+    closingTime: new Date(2020, 0, 2, 3, 0, 0),
+    reason: "New Year's Day",
+    isOpen: true
+  },
+  {
+    openingTime: new Date(2020, 3, 10, 12, 0, 0),
+    closingTime: new Date(2020, 3, 11, 3, 0, 0),
+    reason: "Good Friday",
+    isOpen: true
+  },
+  {
+    openingTime: new Date(2020, 3, 13, 12, 0, 0),
+    closingTime: new Date(2020, 3, 14, 3, 0, 0),
+    reason: "Easter Monday",
+    isOpen: true
+  },
+  {
+    openingTime: new Date(2020, 4, 4, 12, 0, 0),
+    closingTime: new Date(2020, 4, 5, 3, 0, 0),
+    reason: "Early May bank holiday",
+    isOpen: true
+  },
+  {
+    openingTime: new Date(2020, 4, 25, 12, 0, 0),
+    closingTime: new Date(2020, 4, 26, 3, 0, 0),
+    reason: "Spring bank holiday",
+    isOpen: true
+  },
+  {
+    openingTime: new Date(2020, 7, 31, 12, 0, 0),
+    closingTime: new Date(2020, 8, 1, 3, 0, 0),
+    reason: "Summer bank holiday",
+    isOpen: true
+  },
+  {
+    openingTime: new Date(2020, 11, 24, 4, 30, 0),
+    closingTime: new Date(2020, 11, 26, 0, 30, 0),
+    reason: "Christmas Eve/Day Closure",
+    isOpen: false
+  },
+  {
+    openingTime: new Date(2020, 11, 28, 12, 0, 0),
+    closingTime: new Date(2020, 11, 29, 3, 0, 0),
+    reason: "Boxing Day",
+    isOpen: true
   }
 ];
 
@@ -291,6 +327,7 @@ interface OpeningTimeException {
   openingTime: Date;
   closingTime: Date;
   reason: string;
+  isOpen: boolean;
 }
 
 function isShopOpen(date: Date): boolean {
@@ -300,13 +337,7 @@ function isShopOpen(date: Date): boolean {
 
   for (let exception of specificOpenings) {
     if (date >= exception.openingTime && date < exception.closingTime) {
-      return true;
-    }
-  }
-
-  for (let exception of specificClosings) {
-    if (date >= exception.openingTime && date < exception.closingTime) {
-      return false;
+      return exception.isOpen;
     }
   }
 
