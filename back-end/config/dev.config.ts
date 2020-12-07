@@ -8,7 +8,7 @@ if (!process.env.PORT) {
     "apbseMS8rs3YBvP4TmR6ZANqo/1PumjYxvupWK5qgBWCcziG3scu3iXrYPdGt624Hqij+eHtjYO4UsyS8boB/cey0q+u3oaG3B2n5PnZSuw9IZQ2BR5d4E4DtSwakXVMT2mT3cPTfGH2LTEWbp8ZhtRNvYBJ9S4ShQkPlj0Zzzu5TIusRxagIILGUF2XwkuBgsYR34umb6x+kVpLH92sTjz0VSe7IhgGYoR0K8d7eNLh6kNp5N3IK1y7W3xTCn+w24wBeRX2fTzuvurmX16Jb4wRLrOjyZ3SXROTMYyWAAVjh+5V9u4Xk2SY1wKsSa1bVBwu7n4ct9yoxicueSYUKw==";
 
   process.env.CONNECTION_STRING =
-    "mongodb://GodfatherDev:GodfatherDev123@ds127948.mlab.com:27948/pizza-delivery";
+    "mongodb+srv://godfather-pizza-qa:QPXX6x540zuy2h47p8Ze6lEAK2b1M7YX@qa.qewmz.mongodb.net/qa?retryReads=true&retryWrites=true&w=majority";
   process.env.ADMIN_USERNAME = "admin";
   process.env.ADMIN_PASSWORD = "test";
   process.env.SUPER_ADMIN_USERNAME = "superadmin";
