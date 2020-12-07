@@ -7,11 +7,12 @@ import { storeError } from "../services/error-service";
   while (true) {
     try {
       console.log("Connecting to MongoDb");
+      console.log(process.env.CONNECTION_STRING);
       await mongoose.connect(
         process.env.CONNECTION_STRING,
         {
-          useMongoClient: true,
-          reconnectTries: Number.MAX_SAFE_INTEGER
+          useNewUrlParser: true,
+          useUnifiedTopology: true
         }
       );
       console.log("Connected to MongoDb");

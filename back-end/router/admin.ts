@@ -22,6 +22,9 @@ const router = Router();
 
 // Session
 const MINUTE = 60 * 1000;
+const HOUR = 60 * MINUTE;
+const DAY = 24 * HOUR;
+const YEAR = 365 * DAY;
 router.use(
   session({
     secret: process.env.PASSPORT_SECRET,
@@ -88,9 +91,9 @@ router.get(
   ensureLoggedIn,
   errorHandler(async (_req, res: IResponse<Order[]>) => {
     res.json(
-      (await OrderModel.find()).filter(
-        x => moment().diff(moment(x.date), "days") < 1
-      )
+      await OrderModel.find({
+        date: { $gte: new Date(Date.now() - DAY) }
+      })
     );
   })
 );
@@ -100,7 +103,11 @@ router.get(
   ensureLoggedIn,
   ensureSuperAdmin,
   errorHandler(async (_req, res: IResponse<Order[]>) => {
-    return res.json(await OrderModel.find());
+    return res.json(
+      await OrderModel.find({
+        date: { $gte: new Date(Date.now() - YEAR) }
+      })
+    );
   })
 );
 
