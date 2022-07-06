@@ -19,7 +19,7 @@
     "bootstrap": "^3.3.7",
     "core-js": "^2.5.1",
     "jquery": "^3.3.1",
-    "moment": "^2.18.1",
+    "moment": "^2.29.4",
     "ng2-bs3-modal": "^0.10.4",
     "reflect-metadata": "^0.1.10",
     "rxjs": "^5.4.3",
